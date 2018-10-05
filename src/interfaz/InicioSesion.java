@@ -49,21 +49,21 @@ public class InicioSesion extends JFrame {
 		GridBagConstraints gbc_lblLaLlamitaInicio = new GridBagConstraints();
 		gbc_lblLaLlamitaInicio.gridheight = 2;
 		gbc_lblLaLlamitaInicio.gridwidth = 4;
-		gbc_lblLaLlamitaInicio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLaLlamitaInicio.insets = new Insets(5, 5, 5, 5);
 		gbc_lblLaLlamitaInicio.gridx = 0;
 		gbc_lblLaLlamitaInicio.gridy = 0;
 		getContentPane().add(lblLaLlamitaInicio, gbc_lblLaLlamitaInicio);
 		
 		JLabel lblNmeroDeLegajo = new JLabel("N\u00FAmero de Legajo");
 		GridBagConstraints gbc_lblNmeroDeLegajo = new GridBagConstraints();
-		gbc_lblNmeroDeLegajo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNmeroDeLegajo.insets = new Insets(5, 5, 5, 5);
 		gbc_lblNmeroDeLegajo.gridx = 1;
 		gbc_lblNmeroDeLegajo.gridy = 3;
 		getContentPane().add(lblNmeroDeLegajo, gbc_lblNmeroDeLegajo);
 		
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.insets = new Insets(5, 5, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 3;
 		gbc_textField.gridy = 3;
@@ -72,14 +72,14 @@ public class InicioSesion extends JFrame {
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
 		GridBagConstraints gbc_lblContrasea = new GridBagConstraints();
-		gbc_lblContrasea.insets = new Insets(0, 0, 5, 5);
+		gbc_lblContrasea.insets = new Insets(5, 5, 5, 5);
 		gbc_lblContrasea.gridx = 1;
 		gbc_lblContrasea.gridy = 4;
 		getContentPane().add(lblContrasea, gbc_lblContrasea);
 		
 		passwordField = new JPasswordField();
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
-		gbc_passwordField.insets = new Insets(0, 0, 5, 0);
+		gbc_passwordField.insets = new Insets(5, 5, 5, 5);
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_passwordField.gridx = 3;
 		gbc_passwordField.gridy = 4;
@@ -87,7 +87,7 @@ public class InicioSesion extends JFrame {
 		
 		JButton btnIngresar = new JButton("Ingresar");
 		GridBagConstraints gbc_btnIngresar = new GridBagConstraints();
-		gbc_btnIngresar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnIngresar.insets = new Insets(5, 5, 5, 5);
 		gbc_btnIngresar.gridx = 1;
 		gbc_btnIngresar.gridy = 6;
 		getContentPane().add(btnIngresar, gbc_btnIngresar);
@@ -97,5 +97,8 @@ public class InicioSesion extends JFrame {
 		gbc_btnCancelar.gridx = 3;
 		gbc_btnCancelar.gridy = 6;
 		getContentPane().add(btnCancelar, gbc_btnCancelar);
+		
+		pack();
+		setLocationRelativeTo(null);
 	}
 }
