@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Insets;
 
-import com.sun.scenario.effect.impl.state.GaussianRenderState;
 
 
 public class PanelBarraUsuario extends JPanel{

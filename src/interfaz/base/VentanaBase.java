@@ -47,7 +47,7 @@ public class VentanaBase extends JFrame {
 		this.restriccionesPanel.weighty = 2;
 		this.restriccionesPanel.weightx = 2;
 //		otroPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		this.subPanel.setBackground(new Color(0, 0, 255));
+		this.subPanel.setBackground(new Color(163,255,140));
 		panel.add(this.subPanel, restriccionesPanel);
 		
 		this.setContentPane(panel);
@@ -57,6 +57,8 @@ public class VentanaBase extends JFrame {
 	public void cambiarPanel(JPanel nuevoPanel) {
 		this.subPanel = nuevoPanel;
 		panel.add(this.subPanel, restriccionesPanel);
+		panel.repaint();
+		this.repaint();
 	}
 
 	
