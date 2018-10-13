@@ -64,8 +64,7 @@ public class VentanaBase extends JFrame {
 //		System.out.println(nuevoPanel.toString());
 		panel.add(nuevoPanel, "nuevoPanel");
 		cartas.show(panel, "nuevoPanel");
-		System.out.println("Termino cambiarPanel");
-		
+		this.pack();
 	}
 
 	

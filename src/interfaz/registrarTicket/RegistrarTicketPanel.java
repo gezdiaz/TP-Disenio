@@ -1,6 +1,8 @@
 package interfaz.registrarTicket;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,16 +14,21 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.management.remote.SubjectDelegationPermission;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import interfaz.base.VentanaBase;
+
 public class RegistrarTicketPanel extends JPanel {
 
+	VentanaBase ventana;
 	Boolean legajoValido;
 	JButton btnAceptar, btnCancelar;
 	JTextField txtNumTicket, txtNumLegajo, txtFechaAp, txtHoraAp;
@@ -31,8 +38,8 @@ public class RegistrarTicketPanel extends JPanel {
 						   Si el legajo no es válido, "Legajo inválido" en rojo
 						   Si el legajo es válido, "Nombre y apellido" en verde*/
 	
-	public RegistrarTicketPanel() {
-		
+	public RegistrarTicketPanel(VentanaBase ventana) {
+		this.ventana = ventana;
 		GridBagConstraints cons = new GridBagConstraints();	
 		SimpleDateFormat formatoDia = new SimpleDateFormat("dd/MM/yyyy");
 		SimpleDateFormat formatoHora = new SimpleDateFormat("kk:mm");	
@@ -64,14 +71,16 @@ public class RegistrarTicketPanel extends JPanel {
 		txtDescripcion.setWrapStyleWord(true);
 		JScrollPane descripcionScroll = new JScrollPane(txtDescripcion);
 		
-		infoEmpleado = new JLabel("Ingrese Legajo");
-//		infoEmpleado.setSize(120, infoEmpleado.getHeight());
-		System.out.println("Cuando recien se crea el panel: "+infoEmpleado.getWidth());
+		infoEmpleado = new JLabel("Ingrese un legajo");
+		infoEmpleado.setPreferredSize(new Dimension(180, infoEmpleado.getFont().getSize()+4));
+//		infoEmpleado.setToolTipText("Nombre del empleado");
+//		infoEmpleado.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
 		
 		listClasificacion = new JComboBox<>();
+		listClasificacion.addItem("Seleccione una clasificación");
 		//TODO meter las clasificaciones en la lista
 		for(int i=1; i<5; i++) {
 			listClasificacion.addItem("Clasificacion "+i);
@@ -253,6 +262,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.insets = insetsIzquierda;
 		cons.anchor = GridBagConstraints.WEST;
 		cons.fill = GridBagConstraints.NONE;
+		cons.weightx = 2;
 		add(infoEmpleado, cons);
 		
 		labelAux = new JLabel("dd/mm/aaaa");
@@ -270,10 +280,32 @@ public class RegistrarTicketPanel extends JPanel {
 	}
 	private void apretoCancelar() {
 		// TODO Accion del boton cancelar de Registrar Ticket"
+		ventana.cambiarPanel(new JPanel()); //deberia volver a la pantalla de mesa de ayuda
 		
 	}
 	private void apretoAceptar() {
 		// TODO Accion del boton Aceptar de Registrar Ticket.
+		
+		if(legajoValido) {
+			if(txtDescripcion.getText().trim().isEmpty()) {
+				//mostrar Error
+				System.out.println("Debe ingresar una descripción");
+			}else {
+				if(listClasificacion.getSelectedItem().toString().equals("Seleccione una clasificación")) {
+					//mostrar error
+					System.out.println("Debe seleccionar una clasificación");
+				}else {
+					System.out.println("Todo correcto");
+					JPanel p = new JPanel(new BorderLayout());
+					p.add(new JLabel("siguiente pantalla"), BorderLayout.CENTER);
+					ventana.cambiarPanel(p);
+				}
+			}
+		}else {
+			//mostrar Error
+			System.out.println("Debe ingresar un legajo válido");
+		}
+		
 		
 	}
 	
@@ -287,29 +319,23 @@ public class RegistrarTicketPanel extends JPanel {
 			legajoValido = false;
 			infoEmpleado.setText("Ingrese un Legajo");
 			infoEmpleado.setForeground(Color.black);
-//			infoEmpleado.setSize(120, infoEmpleado.getHeight());
 		}else {
 			try {
 				numLegajo = Integer.parseInt(legajoIngresado);
 			}catch(NumberFormatException e) {
 				//No ingresó un número
-				System.out.println("Entro al catch");
 				legajoValido = false;
 				infoEmpleado.setText("Legajo inválido");
 				infoEmpleado.setForeground(Color.red);
-//				infoEmpleado.setSize(120, infoEmpleado.getHeight());
-				System.out.println("Despues de validar: "+infoEmpleado.getWidth());
 				return;
 			}
 			//TODO Buscar el empleado en el sistema de personal
 			//if(SistemaPersonal.getEmpleado(numLegajo){
-			System.out.println("Despues del catch");
 			legajoValido = true;
-			infoEmpleado.setText("Nombre y apellido");
+			infoEmpleado.setText("José María Díaz de la Peña");
 			infoEmpleado.setForeground(Color.blue);
-//			infoEmpleado.setSize(120, infoEmpleado.getHeight());
+			ventana.pack();
 		}
-		System.out.println("Despues de validar: "+infoEmpleado.getWidth());
 		
 	}
 }
