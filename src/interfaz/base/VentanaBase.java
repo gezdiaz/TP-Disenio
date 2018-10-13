@@ -1,5 +1,7 @@
 package interfaz.base;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GraphicsConfiguration;
@@ -22,43 +24,48 @@ public class VentanaBase extends JFrame {
 	PanelBarraUsuario barraUsuario;
 	JPanel subPanel;
 	JPanel panel;
-	GridBagConstraints restriccionesPanel;
-	
+	CardLayout cartas;
+//	GridBagConstraints restriccionesPanel;
+
 
 	public VentanaBase(String title, String nombreUsuario, JPanel subPanel){
 		super(title);
-		GridBagConstraints cons = new GridBagConstraints();
-		this.restriccionesPanel = new GridBagConstraints();
+//		this.restriccionesPanel = new GridBagConstraints();
 		this.subPanel = subPanel;
-		panel = new JPanel();
+		this.cartas = new CardLayout();
+		JPanel contentPane = new JPanel(new BorderLayout());
+		panel = new JPanel(cartas);
 		barraUsuario = new PanelBarraUsuario(nombreUsuario);
-		panel.setLayout(new GridBagLayout());
 		
 		
-		cons.gridx=0;
-		cons.gridy=0;	
-		cons.fill=GridBagConstraints.HORIZONTAL;
-		barraUsuario.setBorder(BorderFactory.createLineBorder(Color.black));
-		panel.add(barraUsuario, cons);
+		panel.add(this.subPanel, "Inicio");
+		cartas.show(panel, "Inicio");
 		
-		this.restriccionesPanel.gridx=0;
-		this.restriccionesPanel.gridy=1;
-		this.restriccionesPanel.fill=GridBagConstraints.BOTH;
-		this.restriccionesPanel.weighty = 2;
-		this.restriccionesPanel.weightx = 2;
-//		otroPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		this.subPanel.setBackground(new Color(163,255,140));
-		panel.add(this.subPanel, restriccionesPanel);
+		contentPane.add(barraUsuario, BorderLayout.NORTH);
+		contentPane.add(panel, BorderLayout.CENTER);
+//		this.restriccionesPanel.gridx=0;
+//		this.restriccionesPanel.gridy=1;
+//		this.restriccionesPanel.fill=GridBagConstraints.BOTH;
+//		this.restriccionesPanel.weighty = 2;
+//		this.restriccionesPanel.weightx = 2;
+////		otroPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+//		this.subPanel.setBackground(new Color(163,255,140));
 		
-		this.setContentPane(panel);
+		
+		this.setContentPane(contentPane);
 		
 	}
 
 	public void cambiarPanel(JPanel nuevoPanel) {
 		this.subPanel = nuevoPanel;
-		panel.add(this.subPanel, restriccionesPanel);
-		panel.repaint();
-		this.repaint();
+//		panel.add(this.subPanel, restriccionesPanel);
+//		panel.repaint();
+//		this.repaint();
+//		System.out.println(nuevoPanel.toString());
+		panel.add(nuevoPanel, "nuevoPanel");
+		cartas.show(panel, "nuevoPanel");
+		System.out.println("Termino cambiarPanel");
+		
 	}
 
 	
