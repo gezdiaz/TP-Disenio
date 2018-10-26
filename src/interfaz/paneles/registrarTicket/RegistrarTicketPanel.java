@@ -1,4 +1,4 @@
-package interfaz.registrarTicket;
+package interfaz.paneles.registrarTicket;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,10 +19,13 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.plaf.OptionPaneUI;
 
 import interfaz.base.VentanaBase;
 
@@ -289,21 +292,24 @@ public class RegistrarTicketPanel extends JPanel {
 		if(legajoValido) {
 			if(txtDescripcion.getText().trim().isEmpty()) {
 				//mostrar Error
-				System.out.println("Debe ingresar una descripción");
+				JOptionPane.showConfirmDialog(ventana, "Debe ingresar una descripción", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+//				System.out.println("Debe ingresar una descripción");
 			}else {
 				if(listClasificacion.getSelectedItem().toString().equals("Seleccione una clasificación")) {
 					//mostrar error
-					System.out.println("Debe seleccionar una clasificación");
+					JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una clasificación", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+//					System.out.println("Debe seleccionar una clasificación");
 				}else {
 					System.out.println("Todo correcto");
-					JPanel p = new JPanel(new BorderLayout());
-					p.add(new JLabel("siguiente pantalla"), BorderLayout.CENTER);
+					JPanel p = new RegistrarTicket2Panel(ventana);
+//					p.add(new JLabel("siguiente pantalla"), BorderLayout.CENTER);
 					ventana.cambiarPanel(p);
 				}
 			}
 		}else {
 			//mostrar Error
-			System.out.println("Debe ingresar un legajo válido");
+			JOptionPane.showConfirmDialog(ventana, "Debe ingresar un legajo válido", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+//			System.out.println("Debe ingresar un legajo válido");
 		}
 		
 		

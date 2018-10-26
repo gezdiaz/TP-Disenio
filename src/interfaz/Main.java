@@ -7,14 +7,19 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import interfaz.base.VentanaBase;
-import interfaz.paneles.PanelPrueba;
-import interfaz.registrarTicket.RegistrarTicketPanel;
+import interfaz.paneles.registrarTicket.RegistrarTicketPanel;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
 		VentanaBase ventana = new VentanaBase("titulo", "Gaston", new JPanel());
+
+		//Esto es para que muestre los mensajes de error con el color correcto
+		 UIManager.put("OptionPane.background", new Color(163,255,140));
+		 UIManager.put("Panel.background", new Color(163,255,140));
+		 
+		 
 //		JPanel p = new PanelPrueba();
 //		p.setBackground(new Color(255, 0, 0));
 //		UIManager.put("ToolTip.background", Color.WHITE);
