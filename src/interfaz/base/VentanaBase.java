@@ -9,6 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -67,7 +69,13 @@ public class VentanaBase extends JFrame {
 		this.pack();
 	}
 
-	
+//	@Override
+//	public Image getIconImage() {
+//	   Image retValue = Toolkit.getDefaultToolkit().
+//	         getImage(ClassLoader.getSystemResource("icono.png"));
+//	   System.out.println("Lo hace");
+//	   return retValue;
+//	}
 	
 	
 	

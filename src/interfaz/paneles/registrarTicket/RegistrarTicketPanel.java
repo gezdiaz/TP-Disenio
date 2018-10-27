@@ -300,7 +300,8 @@ public class RegistrarTicketPanel extends JPanel {
 					JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una clasificación", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 //					System.out.println("Debe seleccionar una clasificación");
 				}else {
-					System.out.println("Todo correcto");
+//					System.out.println("Todo correcto");
+					//TODO Pasar el ticketDTO a RegistrarTicket2Panel
 					JPanel p = new RegistrarTicket2Panel(ventana);
 //					p.add(new JLabel("siguiente pantalla"), BorderLayout.CENTER);
 					ventana.cambiarPanel(p);
