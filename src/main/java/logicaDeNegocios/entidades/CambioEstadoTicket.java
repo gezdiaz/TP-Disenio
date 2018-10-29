@@ -2,6 +2,8 @@ package logicaDeNegocios.entidades;
 
 import java.time.LocalDateTime;
 
+import logicaDeNegocios.enumeraciones.EstadoTicket;
+
 public class CambioEstadoTicket {
 	
 	private LocalDateTime fechaHoraCambio; //cambiar nombre en diagrama de clases
