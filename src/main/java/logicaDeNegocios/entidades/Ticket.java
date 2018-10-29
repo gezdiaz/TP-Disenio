@@ -1,4 +1,6 @@
 package logicaDeNegocios.entidades;
+
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Ticket {
@@ -12,6 +14,34 @@ public class Ticket {
 	private Stack<Reclasificacion> historialReclasificacion = new Stack<Reclasificacion>();
 	private List<Intervencion> intervenciones = new ArrayList<Intervencion>();
 	
+	public Stack<CambioEstadoTicket> getHistorialCambioEstadoTicket() {
+		return historialCambioEstadoTicket;
+	}
+
+	public void setHistorialCambioEstadoTicket(Stack<CambioEstadoTicket> historialCambioEstadoTicket) {
+		this.historialCambioEstadoTicket = historialCambioEstadoTicket;
+	}
+
+	public Stack<Reclasificacion> getHistorialReclasificacion() {
+		return historialReclasificacion;
+	}
+
+	public void setHistorialReclasificacion(Stack<Reclasificacion> historialReclasificacion) {
+		this.historialReclasificacion = historialReclasificacion;
+	}
+
+	public List<Intervencion> getIntervenciones() {
+		return intervenciones;
+	}
+
+	public void setIntervenciones(List<Intervencion> intervenciones) {
+		this.intervenciones = intervenciones;
+	}
+
+	public void setFechaHoraApertura(LocalDateTime fechaHoraApertura) {
+		this.fechaHoraApertura = fechaHoraApertura;
+	}
+
 	public Integer getNumTIcket() {
 		return numTIcket;
 	}
