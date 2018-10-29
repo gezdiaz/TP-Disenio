@@ -1,6 +1,5 @@
 package interfaz.paneles.registrarTicket;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,23 +8,19 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
-import javax.management.remote.SubjectDelegationPermission;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.plaf.OptionPaneUI;
 
 import interfaz.base.VentanaBase;
 
@@ -44,9 +39,9 @@ public class RegistrarTicketPanel extends JPanel {
 	public RegistrarTicketPanel(VentanaBase ventana) {
 		this.ventana = ventana;
 		GridBagConstraints cons = new GridBagConstraints();	
-		SimpleDateFormat formatoDia = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat formatoHora = new SimpleDateFormat("kk:mm");	
-		Date hoy = (new GregorianCalendar()).getTime();
+		DateTimeFormatter formatoDia = DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.getDefault());
+		DateTimeFormatter formatoHora = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);	
+		LocalDateTime hoy = LocalDateTime.now();
 		Insets insetsDerecha = new Insets(5,20,5,5), insetsMedio = new Insets(5,5,5,5),
 				insetsIzquierda = new Insets(5, 5, 5, 30);
 		
@@ -60,11 +55,11 @@ public class RegistrarTicketPanel extends JPanel {
 		txtNumTicket.setEditable(false);
 		
 		txtFechaAp = new JTextField(15);
-		txtFechaAp.setText(formatoDia.format(hoy));
+		txtFechaAp.setText(hoy.format(formatoDia));
 		txtFechaAp.setEditable(false);
 		
 		txtHoraAp = new JTextField(15);
-		txtHoraAp.setText(formatoHora.format(hoy));
+		txtHoraAp.setText(hoy.format(formatoHora));
 		txtHoraAp.setEditable(false);
 		
 		txtNumLegajo = new JTextField(15);
