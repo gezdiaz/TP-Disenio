@@ -11,7 +11,22 @@ public class Intervencion {
 	private GrupoResolucion grupoResolucion;
 	private Stack<CambioEstadoIntervencion> historialCambioEstadoIntervencion = new Stack<CambioEstadoIntervencion>();
 	
-	
+
+	public Intervencion() {
+
+	}
+		
+	public Intervencion(String observaciones, LocalDateTime fechaHoraASignacion, Ticket ticket,
+			GrupoResolucion grupoResolucion, Stack<CambioEstadoIntervencion> historialCambioEstadoIntervencion) {
+		this.observaciones = observaciones;
+		this.fechaHoraASignacion = fechaHoraASignacion;
+		this.ticket = ticket;
+		this.grupoResolucion = grupoResolucion;
+		this.historialCambioEstadoIntervencion = historialCambioEstadoIntervencion;
+	}
+
+
+
 	public Stack<CambioEstadoIntervencion> getHistorialCambioEstadoIntervencion() {
 		return historialCambioEstadoIntervencion;
 	}
@@ -59,11 +74,6 @@ public class Intervencion {
 
 	public void setGrupoResolucion(GrupoResolucion grupoResolucion) {
 		this.grupoResolucion = grupoResolucion;
-	}
-
-
-	public Intervencion() {
-		// TODO Auto-generated constructor stub
 	}
 
 }

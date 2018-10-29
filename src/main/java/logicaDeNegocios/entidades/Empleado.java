@@ -6,6 +6,18 @@ public class Empleado {
 	private String apellido;
 	private Integer numLegajo;
 
+
+	public Empleado() {
+		
+	}	
+	
+	public Empleado(String nombre, String apellido, Integer numLegajo) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.numLegajo = numLegajo;
+	}
+
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -30,8 +42,5 @@ public class Empleado {
 		this.numLegajo = numLegajo;
 	}
 
-	public Empleado() {
-		// TODO Auto-generated constructor stub
-	}
 
 }

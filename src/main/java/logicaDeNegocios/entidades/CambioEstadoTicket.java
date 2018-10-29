@@ -14,6 +14,24 @@ public class CambioEstadoTicket {
 	private String observaciones;
 	
 
+
+	public CambioEstadoTicket() {
+
+	}
+		
+	public CambioEstadoTicket(LocalDateTime fechaHoraCambio, EstadoTicket estadoAnterior, EstadoTicket estadoNuevo,
+			Ticket ticket, Usuario responsableCambio, String observaciones) {
+		super();
+		this.fechaHoraCambio = fechaHoraCambio;
+		this.estadoAnterior = estadoAnterior;
+		this.estadoNuevo = estadoNuevo;
+		this.ticket = ticket;
+		this.responsableCambio = responsableCambio;
+		this.observaciones = observaciones;
+	}
+
+
+	
 	public LocalDateTime getFechaHoraCambio() {
 		return fechaHoraCambio;
 	}
@@ -73,9 +91,5 @@ public class CambioEstadoTicket {
 		this.observaciones = observaciones;
 	}
 
-
-	public CambioEstadoTicket() {
-		// TODO Auto-generated constructor stub
-	}
 
 }

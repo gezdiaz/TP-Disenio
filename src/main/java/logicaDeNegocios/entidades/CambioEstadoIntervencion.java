@@ -13,6 +13,27 @@ public class CambioEstadoIntervencion {
 	private Usuario responsableCambio;
 	private String observaciones;
 	
+	
+
+	public CambioEstadoIntervencion() {
+
+	}
+	
+	public CambioEstadoIntervencion(LocalDateTime fechaHoraCambio, EstadoIntervencion estadoAnterior,
+			EstadoIntervencion estadoNuevo, Intervencion intervencion, Usuario responsableCambio,
+			String observaciones) {
+		super();
+		this.fechaHoraCambio = fechaHoraCambio;
+		this.estadoAnterior = estadoAnterior;
+		this.estadoNuevo = estadoNuevo;
+		this.intervencion = intervencion;
+		this.responsableCambio = responsableCambio;
+		this.observaciones = observaciones;
+	}
+
+
+
+
 	public LocalDateTime getFechaHoraCambio() {
 		return fechaHoraCambio;
 	}
@@ -61,8 +82,5 @@ public class CambioEstadoIntervencion {
 		this.observaciones = observaciones;
 	}
 
-	public CambioEstadoIntervencion() {
-		// TODO Auto-generated constructor stub
-	}
 
 }

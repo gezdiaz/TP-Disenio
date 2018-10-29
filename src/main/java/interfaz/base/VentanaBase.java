@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -53,7 +54,10 @@ public class VentanaBase extends JFrame {
 ////		otroPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 //		this.subPanel.setBackground(new Color(163,255,140));
 		
+		 ImageIcon img = new ImageIcon("icono.png");
+		 setIconImage(img.getImage());
 		
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setContentPane(contentPane);
 		
 	}

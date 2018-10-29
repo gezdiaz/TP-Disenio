@@ -10,10 +10,31 @@ public class Ticket {
 	private Clasificacion clasificacion;
 	private LocalDateTime fechaHoraApertura;
 	private String descripcion;
-	private Stack<CambioEstadoTicket> historialCambioEstadoTicket = new Stack<CambioEstadoTicket>();
-	private Stack<Reclasificacion> historialReclasificacion = new Stack<Reclasificacion>();
-	private List<Intervencion> intervenciones = new ArrayList<Intervencion>();
+	private Stack<CambioEstadoTicket> historialCambioEstadoTicket;
+	private Stack<Reclasificacion> historialReclasificacion;
+	private List<Intervencion> intervenciones;
 	
+	
+	public Ticket() {//Constructor
+		this.historialCambioEstadoTicket = new Stack<CambioEstadoTicket>();
+		this.historialReclasificacion = new Stack<Reclasificacion>();
+		this.intervenciones = new Stack<Intervencion>();
+	}
+	
+	public Ticket(Integer numTIcket, Empleado solicitante, Clasificacion clasificacion, LocalDateTime fechaHoraApertura,
+			String descripcion) {
+		this.numTIcket = numTIcket;
+		this.solicitante = solicitante;
+		this.clasificacion = clasificacion;
+		this.fechaHoraApertura = fechaHoraApertura;
+		this.descripcion = descripcion;
+		this.historialCambioEstadoTicket = new Stack<CambioEstadoTicket>();
+		this.historialReclasificacion = new Stack<Reclasificacion>();
+		this.intervenciones = new Stack<Intervencion>();
+	}
+
+
+
 	public Stack<CambioEstadoTicket> getHistorialCambioEstadoTicket() {
 		return historialCambioEstadoTicket;
 	}
@@ -66,12 +87,8 @@ public class Ticket {
 		this.clasificacion = clasificacion;
 	}
 
-	public Date getFechaHoraApertura() {
+	public LocalDateTime getFechaHoraApertura() {
 		return fechaHoraApertura;
-	}
-
-	public void setFechaHoraApertura(Date fechaHoraApertura) {
-		this.fechaHoraApertura = fechaHoraApertura;
 	}
 
 	public String getDescripcion() {
@@ -80,10 +97,6 @@ public class Ticket {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public Ticket() {//Constructor
-		// TODO Auto-generated constructor stub
 	}
 
 }

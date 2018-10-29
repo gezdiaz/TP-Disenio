@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import interfaz.base.VentanaBase;
+import interfaz.principal.MenuMesaAyudaPanel;
 
 public class RegistrarTicketPanel extends JPanel {
 
@@ -37,15 +38,17 @@ public class RegistrarTicketPanel extends JPanel {
 						   Si el legajo es válido, "Nombre y apellido" en verde*/
 	
 	public RegistrarTicketPanel(VentanaBase ventana) {
-		this.ventana = ventana;
+		this();
+		setVentana(ventana);
+	}
+	
+	public RegistrarTicketPanel() {
 		GridBagConstraints cons = new GridBagConstraints();	
 		DateTimeFormatter formatoDia = DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.getDefault());
 		DateTimeFormatter formatoHora = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);	
 		LocalDateTime hoy = LocalDateTime.now();
 		Insets insetsDerecha = new Insets(5,20,5,5), insetsMedio = new Insets(5,5,5,5),
 				insetsIzquierda = new Insets(5, 5, 5, 30);
-		
-		
 		
 		
 		legajoValido = false;
@@ -273,12 +276,16 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		add(labelAux, cons);
 		
-		System.out.println("Creo el panel");
 		
 	}
+	
+	public void setVentana(VentanaBase ventana) {
+		this.ventana = ventana;
+	}
+	
 	private void apretoCancelar() {
 		// TODO Accion del boton cancelar de Registrar Ticket"
-		ventana.cambiarPanel(new JPanel()); //deberia volver a la pantalla de mesa de ayuda
+		ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana)); //deberia volver a la pantalla de mesa de ayuda
 		
 	}
 	private void apretoAceptar() {
