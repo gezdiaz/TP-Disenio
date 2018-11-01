@@ -37,7 +37,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 		
 		this.btnConsultarTicket = new JButton("Consultar Tickets");
 		
-		this.btnCerrarSesion = new JButton("Cerrar Sesión");
+		this.btnCerrarSesion = new JButton("Cerrar SesiÃ³n");
 		
 		labelAux = new JLabel("Mesa de ayuda");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
@@ -87,7 +87,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.insets = new Insets(25, 5, 10, 30);
 		btnCerrarSesion.addActionListener(a -> {
-			System.out.println("Cierra sesión");
+			System.out.println("Cierra sesiÃ³n");
 			ventana.dispose();
 		});
 		add(btnCerrarSesion, cons);

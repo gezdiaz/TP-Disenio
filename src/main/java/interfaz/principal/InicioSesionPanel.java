@@ -32,11 +32,11 @@ public class InicioSesionPanel extends JPanel {
 		
 		txtClave = new JTextField();
 		
-		iniciarSesion = new JButton("Inicicar sesi�n");
+		iniciarSesion = new JButton("Inicicar sesión");
 		
 		salir = new JButton("Salir");
 		
-		labelAux = new JLabel("Iniciar seción");
+		labelAux = new JLabel("Iniciar sesión");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
 		cons.gridx = 0;
 		cons.gridy = 0;
@@ -113,7 +113,7 @@ public class InicioSesionPanel extends JPanel {
 		
 		if (!txtUsuario.getText().trim().isEmpty() || !txtClave.getText().trim().isEmpty()) {
 			//TODO buscar en el gestor de usuarios el usuario y verificar la clave.
-			String titulo = "Titulo";
+			String titulo = "Título";
 			/*if(usuario.getGrupo().getNombre()=="Mesa de ayuda"){
 			 * 		titulo = "Mesa de ayuda";
 			 * }else{

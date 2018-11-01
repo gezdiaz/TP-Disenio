@@ -34,8 +34,8 @@ public class RegistrarTicketPanel extends JPanel {
 	JComboBox</*Clasificacion*/String> listClasificacion; //TODO Cambiar String por clasificacion cuando esa clase exista
 	JTextArea txtDescripcion;
 	JLabel infoEmpleado; /*Si no ingreso legajo, "Ingrese legajo" en negro
-						   Si el legajo no es v·lido, "Legajo inv·lido" en rojo
-						   Si el legajo es v·lido, "Nombre y apellido" en verde*/
+						   Si el legajo no es v√°lido, "Legajo inv√°lido" en rojo
+						   Si el legajo es v√°lido, "Nombre y apellido" en verde*/
 	
 	public RegistrarTicketPanel(VentanaBase ventana) {
 		this();
@@ -81,10 +81,10 @@ public class RegistrarTicketPanel extends JPanel {
 		btnCancelar = new JButton("Cancelar");
 		
 		listClasificacion = new JComboBox<>();
-		listClasificacion.addItem("Seleccione una clasificaciÛn");
+		listClasificacion.addItem("Seleccione una clasificaci√≥n");
 		//TODO meter las clasificaciones en la lista
 		for(int i=1; i<5; i++) {
-			listClasificacion.addItem("Clasificacion "+i);
+			listClasificacion.addItem("Clasificaci√≥n "+i);
 		}
 		
 		JLabel labelAux;
@@ -103,7 +103,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 		
-		labelAux = new JLabel("N˙mero de ticket");
+		labelAux = new JLabel("N√∫mero de ticket");
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
@@ -112,7 +112,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 		
-		labelAux = new JLabel("N˙mero Legajo*");
+		labelAux = new JLabel("N√∫mero Legajo*");
 		cons.gridx = 0;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -121,7 +121,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 		
-		labelAux = new JLabel("ClasificaciÛn de ticket*");
+		labelAux = new JLabel("Clasificaci√≥n de ticket*");
 		cons.gridx = 0;
 		cons.gridy = 3;
 		cons.gridheight = 1;
@@ -130,7 +130,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 		
-		labelAux = new JLabel("DescripciÛn*");
+		labelAux = new JLabel("Descripci√≥n*");
 		cons.gridx = 0;
 		cons.gridy = 4;
 		cons.gridheight = 1;
@@ -294,13 +294,13 @@ public class RegistrarTicketPanel extends JPanel {
 		if(legajoValido) {
 			if(txtDescripcion.getText().trim().isEmpty()) {
 				//mostrar Error
-				JOptionPane.showConfirmDialog(ventana, "Debe ingresar una descripciÛn", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-//				System.out.println("Debe ingresar una descripciÛn");
+				JOptionPane.showConfirmDialog(ventana, "Debe ingresar una descripci√≥n", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+//				System.out.println("Debe ingresar una descripci√≥n");
 			}else {
-				if(listClasificacion.getSelectedItem().toString().equals("Seleccione una clasificaciÛn")) {
+				if(listClasificacion.getSelectedItem().toString().equals("Seleccione una clasificaci√≥n")) {
 					//mostrar error
-					JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una clasificaciÛn", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-//					System.out.println("Debe seleccionar una clasificaciÛn");
+					JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una clasificaci√≥n", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+//					System.out.println("Debe seleccionar una clasificaci√≥n");
 				}else {
 //					System.out.println("Todo correcto");
 					//TODO Pasar el ticketDTO a RegistrarTicket2Panel
@@ -311,8 +311,8 @@ public class RegistrarTicketPanel extends JPanel {
 			}
 		}else {
 			//mostrar Error
-			JOptionPane.showConfirmDialog(ventana, "Debe ingresar un legajo v·lido", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-//			System.out.println("Debe ingresar un legajo v·lido");
+			JOptionPane.showConfirmDialog(ventana, "Debe ingresar un legajo v√°lido", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+//			System.out.println("Debe ingresar un legajo v√°lido");
 		}
 		
 		
@@ -332,16 +332,16 @@ public class RegistrarTicketPanel extends JPanel {
 			try {
 				numLegajo = Integer.parseInt(legajoIngresado);
 			}catch(NumberFormatException e) {
-				//No ingresÛ un n˙mero
+				//No ingres√≥ un n√∫mero
 				legajoValido = false;
-				infoEmpleado.setText("Legajo inv·lido");
+				infoEmpleado.setText("Legajo inv√°lido");
 				infoEmpleado.setForeground(Color.red);
 				return;
 			}
 			//TODO Buscar el empleado en el sistema de personal
 			//if(SistemaPersonal.getEmpleado(numLegajo){
 			legajoValido = true;
-			infoEmpleado.setText("JosÈ MarÌa DÌaz de la PeÒa");
+			infoEmpleado.setText("Jos√© Mar√≠a D√≠az de la Pe√±a");
 			infoEmpleado.setForeground(Color.blue);
 			ventana.pack();
 		}

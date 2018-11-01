@@ -25,7 +25,7 @@ public class RegistrarTicket2Panel extends JPanel {
 	//TicketDTO ticketDTO
 
 	public RegistrarTicket2Panel(VentanaBase ventana/*, TicketDTO ticketDTO*/) {
-		//TODO Debería recibir también un ticketDTO
+		//TODO DeberÃ­a recibir tambiÃ©n un ticketDTO
 		GridBagConstraints cons = new GridBagConstraints();
 		Insets arIzq = new Insets(25, 25, 5, 5), izq = new Insets(10, 50, 10, 5),
 				arDer = new Insets(25, 5, 5, 25), der = new Insets(10, 5, 10, 25);
@@ -68,7 +68,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.anchor = GridBagConstraints.NORTHWEST;
 		add(labelAux, cons);
 		
-		labelAux = new JLabel("Acción");
+		labelAux = new JLabel("AcciÃ³n");
 		cons.gridx = 0;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -78,7 +78,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		add(labelAux, cons);
 		
 		//Muestra el numero de ticket
-		labelAux = new JLabel("Nº Ticket: "+"123456"/*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("NÂ° Ticket: "+"123456"/*ticketDTO.getNumTicket()*/);
 		cons.gridx = 1;
 		cons.gridy = 0;
 		cons.gridheight = 1;
@@ -103,7 +103,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		add(scroll, cons);
 		
 		//Lista desplegabel con los grupos:
-		//TODO Debería pedri al gestor los grupos que pueden resolver la clasificación del ticket.
+		//TODO DeberÃ­a pedri al gestor los grupos que pueden resolver la clasificaciÃ³n del ticket.
 		accionList.addItem("Cerrar ticet");
 		accionList.addItem("Grupo 1");
 		accionList.addItem("Grupo 2");
@@ -168,7 +168,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		if(obserbacionesTxt.getText().trim().isEmpty()) {
 			JOptionPane.showConfirmDialog(ventana, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}else {
-			//TODO Hacer la acción seleccionada, cerrar o derivar ticket del CU1
+			//TODO Hacer la acciÃ³n seleccionada, cerrar o derivar ticket del CU1
 			ventana.cambiarPanel(new JPanel());
 		}
 	}
