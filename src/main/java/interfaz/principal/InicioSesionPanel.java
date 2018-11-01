@@ -32,11 +32,11 @@ public class InicioSesionPanel extends JPanel {
 		
 		txtClave = new JTextField();
 		
-		iniciarSesion = new JButton("Inicicar sesión");
+		iniciarSesion = new JButton("Inicicar sesiï¿½n");
 		
 		salir = new JButton("Salir");
 		
-		labelAux = new JLabel("Iniciar seción");
+		labelAux = new JLabel("Iniciar seciÃ³n");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
 		cons.gridx = 0;
 		cons.gridy = 0;
@@ -117,7 +117,7 @@ public class InicioSesionPanel extends JPanel {
 			/*if(usuario.getGrupo().getNombre()=="Mesa de ayuda"){
 			 * 		titulo = "Mesa de ayuda";
 			 * }else{
-			 * 		titulo = "Grupo resolución" //Puese ser gerencia también
+			 * 		titulo = "Grupo resoluciï¿½n" //Puese ser gerencia tambiï¿½n
 			 * }
 			 * 
 			 * */
