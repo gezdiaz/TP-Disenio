@@ -10,13 +10,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import interfaz.base.VentanaBase;
 
 public class InicioSesionPanel extends JPanel {
 
-	JTextField txtUsuario, txtClave;
+	JTextField txtUsuario;
+	JPasswordField txtClave;
 	JButton iniciarSesion, salir;
 	JFrame ventana;
 	
@@ -29,7 +31,7 @@ public class InicioSesionPanel extends JPanel {
 		
 		txtUsuario = new JTextField();
 		
-		txtClave = new JTextField();
+		txtClave = new JPasswordField();
 		
 		iniciarSesion = new JButton("Inicicar sesión");
 		
@@ -120,7 +122,7 @@ public class InicioSesionPanel extends JPanel {
 			 * }
 			 * */
 			MenuMesaAyudaPanel mmap = new MenuMesaAyudaPanel();
-			VentanaBase base = new VentanaBase(titulo, "Nombre Usuario", mmap);
+			VentanaBase base = new VentanaBase(titulo, txtUsuario.getText().trim(), mmap);
 			mmap.setVentana(base);
 			base.pack();
 			base.setLocationRelativeTo(null);

@@ -64,6 +64,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.gridwidth = 1;
 		cons.anchor = GridBagConstraints.SOUTH;
 		cons.insets = new Insets(50, 5, 20, 30);
+		cons.fill = GridBagConstraints.HORIZONTAL;
 		btnRegistrarTicket.addActionListener(a -> {
 			ventana.cambiarPanel(new RegistrarTicketPanel(ventana));
 		});
@@ -75,6 +76,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.gridwidth = 1;
 		cons.anchor = GridBagConstraints.NORTH;
 		cons.insets = new Insets(20, 5, 10, 30);
+		cons.fill = GridBagConstraints.NONE;
 		btnConsultarTicket.addActionListener(a -> {
 			ventana.cambiarPanel(new JPanel());//TODO crear el panel Consultar ticket
 		});
@@ -87,7 +89,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.insets = new Insets(25, 5, 10, 30);
 		btnCerrarSesion.addActionListener(a -> {
-			System.out.println("Cierra sesión");
+//			System.out.println("Cierra sesión");
 			ventana.dispose();
 		});
 		add(btnCerrarSesion, cons);
