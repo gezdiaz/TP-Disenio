@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import interfaz.base.VentanaBase;
-import interfaz.paneles.registrarTicket.RegistrarTicketPanel;
 
 public class InicioSesionPanel extends JPanel {
 
@@ -119,7 +118,6 @@ public class InicioSesionPanel extends JPanel {
 			 * }else{
 			 * 		titulo = "Grupo resoluci�n" //Puese ser gerencia tambi�n
 			 * }
-			 * 
 			 * */
 			MenuMesaAyudaPanel mmap = new MenuMesaAyudaPanel();
 			VentanaBase base = new VentanaBase(titulo, "Nombre Usuario", mmap);
