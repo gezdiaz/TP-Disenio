@@ -26,6 +26,14 @@ public class Clasificacion {
 	@Column(name = "fechaCreacion")
 	private LocalDate fechaCreacion;
 	
+	@ManyToOne
+	@JoinColumn(name = "idReclaViejo")
+	private Reclasificacion reclasificacionVieja;
+	
+	@ManyToOne
+	@JoinColumn(name = "idReclaNuevo")
+	private Reclasificacion reclasificacionNueva;
+	
 	@ManyToMany()//Areglar no se como se hacen las manyToMany
 	private List<GrupoResolucion> gruposDeResolucion;
 	

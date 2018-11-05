@@ -27,7 +27,8 @@ public class Ticket {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
 	private Stack<CambioEstadoTicket> historialCambioEstadoTicket;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
+	@ManyToOne
+	@JoinColumn(name = "idRecla")
 	private Stack<Reclasificacion> historialReclasificacion;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
