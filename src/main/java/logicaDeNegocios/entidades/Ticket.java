@@ -2,20 +2,39 @@ package logicaDeNegocios.entidades;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Ticket")
 
 public class Ticket {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "numTicket")
 	private Integer numTIcket;
+	
+	@ManyToOne
+	@JoinColumn(name = "numLegajo")
 	private Empleado solicitante;
-	private Clasificacion clasificacion;
+	
+	@Column(name = "fechaHoraApertura")
 	private LocalDateTime fechaHoraApertura;
+	
+	@Column(name = "descripcion")
 	private String descripcion;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
 	private Stack<CambioEstadoTicket> historialCambioEstadoTicket;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
 	private Stack<Reclasificacion> historialReclasificacion;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
 	private List<Intervencion> intervenciones;
 	
 	
-	public Ticket() {//Constructor
+	public Ticket() {
 		this.historialCambioEstadoTicket = new Stack<CambioEstadoTicket>();
 		this.historialReclasificacion = new Stack<Reclasificacion>();
 		this.intervenciones = new Stack<Intervencion>();
@@ -25,7 +44,6 @@ public class Ticket {
 			String descripcion) {
 		this.numTIcket = numTIcket;
 		this.solicitante = solicitante;
-		this.clasificacion = clasificacion;
 		this.fechaHoraApertura = fechaHoraApertura;
 		this.descripcion = descripcion;
 		this.historialCambioEstadoTicket = new Stack<CambioEstadoTicket>();
@@ -77,14 +95,6 @@ public class Ticket {
 
 	public void setSolicitante(Empleado solicitante) {
 		this.solicitante = solicitante;
-	}
-
-	public Clasificacion getClasificacion() {
-		return clasificacion;
-	}
-
-	public void setClasificacion(Clasificacion clasificacion) {
-		this.clasificacion = clasificacion;
 	}
 
 	public LocalDateTime getFechaHoraApertura() {
