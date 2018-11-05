@@ -20,14 +20,76 @@ public class Reclasificacion {
 	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 	
-	@OneToMany(fetch = FetchType.LAZY)//no se mapear esto * Arreglar
+	@OneToMany(fetch = FetchType.LAZY)
 	private Clasificacion clasificacionAnterior;
 	
-	@OneToMany(fetch = FetchType.LAZY)//no se mapear esto * Arreglar
+	@OneToMany(fetch = FetchType.LAZY)
 	private Clasificacion clasificacionNueva;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialReclasificacion")
 	private Ticket ticket;
+	
+	public Reclasificacion() {
+		
+	}
+	
+	public Reclasificacion(Clasificacion anterior, Clasificacion nueva, Usuario usuario) {
+		
+		this.clasificacionAnterior = anterior;
+		this.clasificacionNueva = nueva;
+		this.usuario = usuario;
+		
+	}
+
+	public Integer getIdRecla() {
+		return idRecla;
+	}
+
+	public void setIdRecla(Integer idRecla) {
+		this.idRecla = idRecla;
+	}
+
+	public LocalDateTime getFechaReclasificacion() {
+		return fechaReclasificacion;
+	}
+
+	public void setFechaReclasificacion(LocalDateTime fechaReclasificacion) {
+		this.fechaReclasificacion = fechaReclasificacion;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Clasificacion getClasificacionAnterior() {
+		return clasificacionAnterior;
+	}
+
+	public void setClasificacionAnterior(Clasificacion clasificacionAnterior) {
+		this.clasificacionAnterior = clasificacionAnterior;
+	}
+
+	public Clasificacion getClasificacionNueva() {
+		return clasificacionNueva;
+	}
+
+	public void setClasificacionNueva(Clasificacion clasificacionNueva) {
+		this.clasificacionNueva = clasificacionNueva;
+	}
+
+	public Ticket getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
+	
+	
 	
 	
 }
