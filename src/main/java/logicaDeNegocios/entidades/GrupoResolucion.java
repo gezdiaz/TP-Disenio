@@ -79,12 +79,12 @@ public class GrupoResolucion {
 	public void setClasificaciones(List<Clasificacion> clasificaciones) {
 		this.clasificaciones = clasificaciones;
 	}
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "GrupoResolucion [codigo=" + codigo + ", nombre=" + nombre + ", intervenciones=" + intervenciones
+				+ ", clasificaciones=" + clasificaciones + "]";
+	}	
 	
 	
 }
