@@ -34,7 +34,7 @@ public class Clasificacion {
 	@JoinColumn(name = "idReclaNuevo")
 	private Reclasificacion reclasificacionNueva;
 	
-	@ManyToMany()//Areglar no se como se hacen las manyToMany
+	@ManyToMany(mappedBy = "clasificaciones")
 	private List<GrupoResolucion> gruposDeResolucion;
 	
 	
