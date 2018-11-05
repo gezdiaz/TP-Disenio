@@ -52,7 +52,11 @@ public class Usuario {
 	public void setGrupoResolucion(GrupoResolucion grupoResolucion) {
 		this.grupoResolucion = grupoResolucion;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Usuario [nombreUsuario=" + nombreUsuario + ", clave=" + clave + ", grupoResolucion=" + grupoResolucion
+				+ "]";
+	}
 
 }

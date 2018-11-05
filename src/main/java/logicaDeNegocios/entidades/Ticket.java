@@ -26,9 +26,10 @@ public class Ticket {
 	
 	@OneToMany(mappedBy = "ticket")
 	private List<CambioEstadoTicket> historialCambioEstadoTicket;
-	
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
-//	private List<Reclasificacion> historialReclasificacion;
+
+	@OneToMany
+	@JoinColumn(name = "idRecla")
+	private List<Reclasificacion> historialReclasificacion;
 	
 	@OneToMany(mappedBy = "ticket")
 	private List<Intervencion> intervenciones;

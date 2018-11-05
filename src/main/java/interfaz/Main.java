@@ -52,11 +52,15 @@ public class Main {
 		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
 		 EntityManager manager = emf.createEntityManager();
 		 GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo", new ArrayList<Usuario>());
-		 Usuario usr = new Usuario("usr", "1234", grupo);
+		 Usuario usr = new Usuario("usr", "1234", grupo), u2;
 		 manager.getTransaction().begin();
 		 manager.persist(grupo);
 		 manager.persist(usr);
 		 manager.getTransaction().commit();
+		 manager.getTransaction().begin();
+		 u2 = manager.find(Usuario.class, "usr");
+		 manager.getTransaction().commit();
+		 System.out.println(u2.toString());
 		 
 	}
 

@@ -26,7 +26,7 @@ public class Clasificacion {
 	@Column(name = "fechaCreacion")
 	private LocalDate fechaCreacion;
 	
-	@ManyToMany()//Areglar no se como se hacen las manyToMany
+	@ManyToMany(mappedBy = "clasificaciones")
 	private List<GrupoResolucion> gruposDeResolucion;
 	
 	
