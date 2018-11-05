@@ -61,6 +61,7 @@ public class Main {
 		 u2 = manager.find(Usuario.class, "usr");
 		 manager.getTransaction().commit();
 		 System.out.println(u2.toString());
+		 manager.close();
 		 
 	}
 
