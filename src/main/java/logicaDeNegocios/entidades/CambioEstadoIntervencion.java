@@ -4,13 +4,37 @@ import java.time.LocalDateTime;
 
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="CambioEstadoIntervencion")
 public class CambioEstadoIntervencion {
 	
+	@Id
+	@Column(name="IdCambioInt")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idCambioInt;
+
+	@Column(name="FechaHoraCambio")
 	private LocalDateTime fechaHoraCambio; //cambiar nombre en diagrama de clases
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="EstadoAnterior")
 	private EstadoIntervencion estadoAnterior;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="EstadoNuevo")
 	private EstadoIntervencion estadoNuevo;
+	
+	@ManyToOne
+	@JoinColumn(name="Intervencion")
 	private Intervencion intervencion;
+	
+	@ManyToOne
+	@JoinColumn(name="ResponsableCambio")
 	private Usuario responsableCambio;
+	
+	@Column(name="Observaciones", length=255, nullable = false)
 	private String observaciones;
 	
 	
@@ -32,7 +56,13 @@ public class CambioEstadoIntervencion {
 	}
 
 
+	public int getIdCambioInt() {
+		return idCambioInt;
+	}
 
+	public void setIdCambioInt(int idCambioInt) {
+		this.idCambioInt = idCambioInt;
+	}
 
 	public LocalDateTime getFechaHoraCambio() {
 		return fechaHoraCambio;

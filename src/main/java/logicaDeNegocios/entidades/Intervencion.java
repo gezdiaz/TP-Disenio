@@ -3,12 +3,32 @@ package logicaDeNegocios.entidades;
 import java.time.LocalDateTime;
 import java.util.Stack;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Intervencion")
 public class Intervencion {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "IdInt")
+	private int idInt;
+
+	@Column(name="Observaciones", length=255, nullable=false)
 	private String observaciones;
+	
+	@Column(name="FechaHoraAsignacion")
 	private LocalDateTime fechaHoraASignacion;
+
+	@ManyToOne
+	@JoinColumn(name="NumTicket")
 	private Ticket ticket;
+	
+	@ManyToOne
+	@JoinColumn(name="idGR")
 	private GrupoResolucion grupoResolucion;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "intervencion")
 	private Stack<CambioEstadoIntervencion> historialCambioEstadoIntervencion = new Stack<CambioEstadoIntervencion>();
 	
 
@@ -25,7 +45,13 @@ public class Intervencion {
 		this.historialCambioEstadoIntervencion = historialCambioEstadoIntervencion;
 	}
 
+	public int getIdInt() {
+		return idInt;
+	}
 
+	public void setIdInt(int idInt) {
+		this.idInt = idInt;
+	}
 
 	public Stack<CambioEstadoIntervencion> getHistorialCambioEstadoIntervencion() {
 		return historialCambioEstadoIntervencion;

@@ -1,9 +1,21 @@
 package logicaDeNegocios.entidades;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="Usuario")
 public class Usuario {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="NombreUsusario", length=30)
 	private String nombreUsuario;
+	
+	@Column(name="Clave", length=20, nullable=false)
 	private String clave;
+	
+	@ManyToOne
+	@JoinColumn(name="GrupoResolucion")
 	private GrupoResolucion grupoResolucion;
 
 	
