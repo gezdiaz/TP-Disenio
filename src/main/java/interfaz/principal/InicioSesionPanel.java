@@ -112,7 +112,7 @@ public class InicioSesionPanel extends JPanel {
 
 	private void iniciarSesion() {
 		
-		if (!txtUsuario.getText().trim().isEmpty() || !txtClave.getText().trim().isEmpty()) {
+		if (!txtUsuario.getText().trim().isEmpty() || !txtClave.getPassword().toString().trim().isEmpty()) {
 			//TODO buscar en el gestor de usuarios el usuario y verificar la clave.
 			String titulo = "Título";
 			/*if(usuario.getGrupo().getNombre()=="Mesa de ayuda"){
