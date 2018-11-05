@@ -9,17 +9,16 @@ import javax.persistence.*;
 public class GrupoResolucion {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idGR")
+	@Column(name = "idGR", length = 50)
 	private String codigo;
 	
 	@Column(name = "nombre",nullable = false,length = 50)
 	private String nombre;
 	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "grupoResolucion")
+	@OneToMany(mappedBy = "grupoResolucion")
 	private List<Usuario> usuarios;
 	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "grupoResolucion")
+	@OneToMany(mappedBy = "grupoResolucion")
 	private List<Intervencion> intervenciones;
 	
 	@ManyToMany()

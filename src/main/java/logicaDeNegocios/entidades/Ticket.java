@@ -24,20 +24,18 @@ public class Ticket {
 	@Column(name = "descripcion")
 	private String descripcion;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
-	private Stack<CambioEstadoTicket> historialCambioEstadoTicket;
+	@OneToMany(mappedBy = "ticket")
+	private List<CambioEstadoTicket> historialCambioEstadoTicket;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
-	private Stack<Reclasificacion> historialReclasificacion;
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
+//	private List<Reclasificacion> historialReclasificacion;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ticket")
+	@OneToMany(mappedBy = "ticket")
 	private List<Intervencion> intervenciones;
 	
 	
 	public Ticket() {
-		this.historialCambioEstadoTicket = new Stack<CambioEstadoTicket>();
-		this.historialReclasificacion = new Stack<Reclasificacion>();
-		this.intervenciones = new Stack<Intervencion>();
+		
 	}
 	
 	public Ticket(Integer numTIcket, Empleado solicitante, Clasificacion clasificacion, LocalDateTime fechaHoraApertura,
@@ -47,13 +45,13 @@ public class Ticket {
 		this.fechaHoraApertura = fechaHoraApertura;
 		this.descripcion = descripcion;
 		this.historialCambioEstadoTicket = new Stack<CambioEstadoTicket>();
-		this.historialReclasificacion = new Stack<Reclasificacion>();
+//		this.historialReclasificacion = new Stack<Reclasificacion>();
 		this.intervenciones = new Stack<Intervencion>();
 	}
 
 
 
-	public Stack<CambioEstadoTicket> getHistorialCambioEstadoTicket() {
+	public List<CambioEstadoTicket> getHistorialCambioEstadoTicket() {
 		return historialCambioEstadoTicket;
 	}
 
@@ -61,13 +59,13 @@ public class Ticket {
 		this.historialCambioEstadoTicket = historialCambioEstadoTicket;
 	}
 
-	public Stack<Reclasificacion> getHistorialReclasificacion() {
-		return historialReclasificacion;
-	}
-
-	public void setHistorialReclasificacion(Stack<Reclasificacion> historialReclasificacion) {
-		this.historialReclasificacion = historialReclasificacion;
-	}
+//	public List<Reclasificacion> getHistorialReclasificacion() {
+//		return historialReclasificacion;
+//	}
+//
+//	public void setHistorialReclasificacion(Stack<Reclasificacion> historialReclasificacion) {
+//		this.historialReclasificacion = historialReclasificacion;
+//	}
 
 	public List<Intervencion> getIntervenciones() {
 		return intervenciones;

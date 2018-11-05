@@ -1,7 +1,11 @@
 package interfaz;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +16,8 @@ import interfaz.paneles.registrarTicket.RegistrarTicket2Panel;
 import interfaz.paneles.registrarTicket.RegistrarTicketPanel;
 import interfaz.principal.InicioSesionPanel;
 import interfaz.principal.MenuMesaAyudaPanel;
+import logicaDeNegocios.entidades.GrupoResolucion;
+import logicaDeNegocios.entidades.Usuario;
 
 public class Main {
 
@@ -41,6 +47,16 @@ public class Main {
 		 ventana.pack();
 		 ventana.setLocationRelativeTo(null);
 		 ventana.setVisible(true);
+		 
+		 
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
+		 EntityManager manager = emf.createEntityManager();
+		 GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo", new ArrayList<Usuario>());
+		 Usuario usr = new Usuario("usr", "1234", grupo);
+		 manager.getTransaction().begin();
+		 manager.persist(grupo);
+		 manager.persist(usr);
+		 manager.getTransaction().commit();
 		 
 	}
 

@@ -1,6 +1,7 @@
 package logicaDeNegocios.entidades;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Stack;
 
 import javax.persistence.*;
@@ -28,8 +29,8 @@ public class Intervencion {
 	@JoinColumn(name="idGR")
 	private GrupoResolucion grupoResolucion;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy = "intervencion")
-	private Stack<CambioEstadoIntervencion> historialCambioEstadoIntervencion = new Stack<CambioEstadoIntervencion>();
+	@OneToMany(mappedBy = "intervencion")
+	private List<CambioEstadoIntervencion> historialCambioEstadoIntervencion;
 	
 
 	public Intervencion() {
@@ -53,12 +54,12 @@ public class Intervencion {
 		this.idInt = idInt;
 	}
 
-	public Stack<CambioEstadoIntervencion> getHistorialCambioEstadoIntervencion() {
+	public List<CambioEstadoIntervencion> getHistorialCambioEstadoIntervencion() {
 		return historialCambioEstadoIntervencion;
 	}
 
 
-	public void setHistorialCambioEstadoIntervencion(Stack<CambioEstadoIntervencion> historialCambioEstadoIntervencion) {
+	public void setHistorialCambioEstadoIntervencion(List<CambioEstadoIntervencion> historialCambioEstadoIntervencion) {
 		this.historialCambioEstadoIntervencion = historialCambioEstadoIntervencion;
 	}
 

@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class Usuario {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="NombreUsusario", length=30)
 	private String nombreUsuario;
 	
