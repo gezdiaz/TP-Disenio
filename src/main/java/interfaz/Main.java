@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -49,19 +50,23 @@ public class Main {
 		 ventana.setVisible(true);
 		 
 		 
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
-		 EntityManager manager = emf.createEntityManager();
-		 GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo", new ArrayList<Usuario>());
-		 Usuario usr = new Usuario("usr", "1234", grupo), u2;
-		 manager.getTransaction().begin();
-		 manager.persist(grupo);
-		 manager.persist(usr);
-		 manager.getTransaction().commit();
-		 manager.getTransaction().begin();
-		 u2 = manager.find(Usuario.class, "usr");
-		 manager.getTransaction().commit();
-		 System.out.println(u2.toString());
-		 manager.close();
+		 try {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
+			 EntityManager manager = emf.createEntityManager();
+			 GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo", new ArrayList<Usuario>());
+			 Usuario usr = new Usuario("usr", "1234", grupo), u2;
+			 manager.getTransaction().begin();
+			 manager.persist(grupo);
+			 manager.persist(usr);
+			 manager.getTransaction().commit();
+			 manager.getTransaction().begin();
+			 u2 = manager.find(Usuario.class, "usr");
+			 manager.getTransaction().commit();
+			 System.out.println(u2.toString());
+			 manager.close();
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(ventana, "No se pudo establecer coneccion con la base de datos", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+		}
 		 
 	}
 
