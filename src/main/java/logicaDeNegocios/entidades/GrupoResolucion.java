@@ -23,7 +23,7 @@ public class GrupoResolucion {
 	
 	@ManyToMany()
 	@JoinTable(name = "Capacitado_Para", 
-	        joinColumns = { @JoinColumn(name = "idFR") }, 
+	        joinColumns = { @JoinColumn(name = "idGR") }, 
 	        inverseJoinColumns = { @JoinColumn(name = "clave")}
 	)
 	private List<Clasificacion> clasificaciones;
