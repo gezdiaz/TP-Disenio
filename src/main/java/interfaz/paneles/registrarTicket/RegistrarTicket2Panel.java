@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 
 public class RegistrarTicket2Panel extends JPanel {
@@ -24,7 +25,7 @@ public class RegistrarTicket2Panel extends JPanel {
 	VentanaBase ventana;
 	//TicketDTO ticketDTO
 
-	public RegistrarTicket2Panel(VentanaBase ventana/*, TicketDTO ticketDTO*/) {
+	public RegistrarTicket2Panel(VentanaBase ventana, TicketDTO ticketDTO) {
 		//TODO Debería recibir también un ticketDTO
 		GridBagConstraints cons = new GridBagConstraints();
 		Insets arIzq = new Insets(25, 25, 5, 5), izq = new Insets(10, 50, 10, 5),
