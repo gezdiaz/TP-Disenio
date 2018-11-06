@@ -7,26 +7,26 @@ import java.util.Stack;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Intervencion")
+@Table(name = "INTERVENCION")
 public class Intervencion {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IdInt")
+	@Column(name = "ID_INT")
 	private int idInt;
 
-	@Column(name="Observaciones", length=255, nullable=false)
+	@Column(name="OBSERVACIONES", length=255, nullable=false)
 	private String observaciones;
 	
-	@Column(name="FechaHoraAsignacion")
+	@Column(name="FECHA_HORA_ASIGNACION")
 	private LocalDateTime fechaHoraASignacion;
 
 	@ManyToOne
-	@JoinColumn(name="NumTicket")
+	@JoinColumn(name="NUM_TICKET")
 	private Ticket ticket;
 	
 	@ManyToOne
-	@JoinColumn(name="idGR")
+	@JoinColumn(name="ID_GR")
 	private GrupoResolucion grupoResolucion;
 	
 	@OneToMany(mappedBy = "intervencion")

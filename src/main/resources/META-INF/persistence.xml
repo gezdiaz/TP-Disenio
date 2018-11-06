@@ -18,17 +18,14 @@
 			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://190.114.206.177/tutifruti49/public?serverTimezone=UTC" />
 			<property name="javax.persistence.jdbc.user" value="tf49_user" />
 			<property name="javax.persistence.jdbc.password" value="tpdsg1" />
-
-
+			
 
 			<!-- Para mySQL -->
 
-			<!-- <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" 
-				/> -->
-			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/test?serverTimezone=UTC" 
-				/> -->
-			<!-- <property name="javax.persistence.jdbc.user" value="root" /> -->
-			<!-- <property name="javax.persistence.jdbc.password" value="root" /> -->
+<!-- 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" /> -->
+<!-- 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/test?serverTimezone=UTC"	/> -->
+<!-- 			<property name="javax.persistence.jdbc.user" value="root" /> -->
+<!-- 			<property name="javax.persistence.jdbc.password" value="root" /> -->
 
 			<!-- Para H2 -->
 			<!-- <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" 
@@ -42,12 +39,12 @@
 			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" 
 				/> -->
 			<!-- Para MySQL 5.x -->
-			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/> -->
+<!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/> -->
 
+			<!-- Para PostgreSQL -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 
-			<!-- property name="hibernate.hbm2ddl.auto" value="update" / -->
 		</properties>
 	</persistence-unit>
 

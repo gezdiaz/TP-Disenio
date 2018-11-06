@@ -4,20 +4,20 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Reclasificacion")
+@Table(name = "RECLASIFICACION")
 
 public class Reclasificacion {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idRecla")
+	@Column(name = "ID_RECLA")
 	private Integer idRecla;	
 	
-	@Column(name = "fechaReclasificcacion")
+	@Column(name = "FECHA_RECLASIFICACION")
 	private LocalDateTime fechaReclasificacion;
 	
 	@ManyToOne
-	@JoinColumn(name = "usuario")
+	@JoinColumn(name = "USUARIO")
 	private Usuario usuario;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -5,23 +5,23 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Ticket")
+@Table(name = "TICKET")
 
 public class Ticket {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "numTicket")
+	@Column(name = "NUM_TICKET")
 	private Integer numTIcket;
 	
 	@ManyToOne
-	@JoinColumn(name = "numLegajo")
+	@JoinColumn(name = "NUM_LEGAJO")
 	private Empleado solicitante;
 	
-	@Column(name = "fechaHoraApertura")
+	@Column(name = "FECHA_HORA_APERTURA")
 	private LocalDateTime fechaHoraApertura;
 	
-	@Column(name = "descripcion",nullable = false, length = 255)
+	@Column(name = "DESCRIPCION",nullable = false, length = 255)
 	private String descripcion;
 	
 	@OneToMany(mappedBy = "ticket")
