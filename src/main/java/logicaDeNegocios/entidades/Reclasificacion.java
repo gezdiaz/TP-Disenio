@@ -20,13 +20,17 @@ public class Reclasificacion {
 	@JoinColumn(name = "USUARIO")
 	private Usuario usuario;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	@JoinColumn(name = "CLAVE_ANTERIOR")
 	private Clasificacion clasificacionAnterior;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@ManyToOne
+	@JoinColumn(name = "CLAVE_NUEVA")
 	private Clasificacion clasificacionNueva;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	@JoinColumn(name = "NUM_TICKET")
 	private Ticket ticket;
 	
 	public Reclasificacion() {

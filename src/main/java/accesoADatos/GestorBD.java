@@ -1,6 +1,7 @@
 package accesoADatos;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public abstract class GestorBD {
 	
 	@PersistenceUnit(name = "persistencia")
 	private static EntityManagerFactory emf;
+	
+	private static Query consulta;
 	
 	
 	public static Boolean guardarTicket(Ticket ticket) {
@@ -77,10 +80,30 @@ public abstract class GestorBD {
 		
 	}
 	
-	/*public static List<Ticket> buscarTickets(Integer numTicket,Integer numLeg,String nombreClasificacion,EstadoTicket estadoActual, LocalDate fechaApertura, LocalDate fechaUltimoCambio,GrupoResolucion ultGrupo){
+	public static List<Ticket> buscarTickets(Integer numTicket,Integer numLeg,String nombreClasificacion,EstadoTicket estadoActual, LocalDateTime fechaApertura, LocalDateTime fechaUltimoCambio,GrupoResolucion ultGrupo){
+		
+		consulta = manager.createQuery("SELECT *"
+									 + "FROM TICKET t, RECLASIFICACION r, CAMBIO_ESTADO_TICKET cet,CLASIFICACION c"
+									 + "WHERE t.NUM_TICKET = ?1"
+									 + "AND   t.NUM_LEGAJO = ?2"
+									 + "AND   t.FECHA_HORA_APERTURA = ?3"
+									 + "AND   t.NUM_TICKET = r.NUM_TICKET"
+									 + "AND   r.CLAVE_NUEVA = c.CLAVE"
+									 + "AND   c.NOMBRE = ?4"
+									 + "AND   t.NUM_TICKET = cet.NUM_TICKET"
+									 + "AND   cet.ESTADO_NUEVO = ?5"
+									 + "AND   cet.FECHA_HORA_CAMBIO = ?6");
+		consulta.setParameter(1, numTicket);
+		consulta.setParameter(2, numLeg);
+		consulta.setParameter(3, fechaApertura);
+		consulta.setParameter(4, nombreClasificacion);
+		consulta.setParameter(5, estadoActual);
+		consulta.setParameter(6, fechaUltimoCambio);
+		
+		return null;
 	
 		
-	}*/
+	}
 	
 	
 	
