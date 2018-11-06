@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import interfaz.base.VentanaBase;
+import logicaDeNegocios.gestores.GestorUsuarios;
 
 public class InicioSesionPanel extends JPanel {
 
@@ -119,9 +120,10 @@ public class InicioSesionPanel extends JPanel {
 			/*if(usuario.getGrupo().getNombre()=="Mesa de ayuda"){
 			 * 		titulo = "Mesa de ayuda";
 			 * }else{
-			 * 		titulo = "Grupo resoluci�n" //Puese ser gerencia tambi�n
+			 * 		titulo = "Grupo resolución" //Puese ser gerencia tambi�n
 			 * }
 			 * */
+			GestorUsuarios.iniciarSesion(txtUsuario.getText(), txtClave.getPassword().toString());
 			MenuMesaAyudaPanel mmap = new MenuMesaAyudaPanel();
 			VentanaBase base = new VentanaBase(titulo, txtUsuario.getText().trim(), mmap);
 			mmap.setVentana(base);

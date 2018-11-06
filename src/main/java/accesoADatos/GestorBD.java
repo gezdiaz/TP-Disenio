@@ -79,6 +79,11 @@ public abstract class GestorBD {
 		}
 		
 	}
+
+	public static Clasificacion buscarClasificacion(String clasificacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	public static List<Ticket> buscarTickets(Integer numTicket,Integer numLeg,String nombreClasificacion,EstadoTicket estadoActual, LocalDateTime fechaApertura, LocalDateTime fechaUltimoCambio,GrupoResolucion ultGrupo){
 		

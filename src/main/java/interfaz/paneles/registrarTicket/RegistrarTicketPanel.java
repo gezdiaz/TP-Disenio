@@ -22,8 +22,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
+import logicaDeNegocios.gestores.GestorTickets;
 
 public class RegistrarTicketPanel extends JPanel {
 
@@ -36,6 +38,8 @@ public class RegistrarTicketPanel extends JPanel {
 	JLabel infoEmpleado; /*Si no ingreso legajo, "Ingrese legajo" en negro
 						   Si el legajo no es válido, "Legajo inválido" en rojo
 						   Si el legajo es válido, "Nombre y apellido" en verde*/
+	TicketDTO ticketDTO;
+	LocalDateTime fecha;
 	
 	public RegistrarTicketPanel(VentanaBase ventana) {
 		this();
@@ -46,7 +50,7 @@ public class RegistrarTicketPanel extends JPanel {
 		GridBagConstraints cons = new GridBagConstraints();	
 		DateTimeFormatter formatoDia = DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.getDefault());
 		DateTimeFormatter formatoHora = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);	
-		LocalDateTime hoy = LocalDateTime.now();
+		fecha = LocalDateTime.now();
 		Insets insetsDerecha = new Insets(5,20,5,5), insetsMedio = new Insets(5,5,5,5),
 				insetsIzquierda = new Insets(5, 5, 5, 30);
 		
@@ -54,15 +58,16 @@ public class RegistrarTicketPanel extends JPanel {
 		legajoValido = false;
 		
 		txtNumTicket = new JTextField(15);
-		txtNumTicket.setText("000000001"); //TODO Buscar el siguiente numero de ticket con el gestor
+		ticketDTO = GestorTickets.getNuevoTicket();
+		txtNumTicket.setText(ticketDTO.getNumTicket().toString()); //TODO Buscar el siguiente numero de ticket con el gestor
 		txtNumTicket.setEditable(false);
 		
 		txtFechaAp = new JTextField(15);
-		txtFechaAp.setText(hoy.format(formatoDia));
+		txtFechaAp.setText(fecha.format(formatoDia));
 		txtFechaAp.setEditable(false);
 		
 		txtHoraAp = new JTextField(15);
-		txtHoraAp.setText(hoy.format(formatoHora));
+		txtHoraAp.setText(fecha.format(formatoHora));
 		txtHoraAp.setEditable(false);
 		
 		txtNumLegajo = new JTextField(15);
@@ -74,8 +79,6 @@ public class RegistrarTicketPanel extends JPanel {
 		
 		infoEmpleado = new JLabel("Ingrese un legajo");
 		infoEmpleado.setPreferredSize(new Dimension(180, infoEmpleado.getFont().getSize()+4));
-//		infoEmpleado.setToolTipText("Nombre del empleado");
-//		infoEmpleado.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
@@ -284,7 +287,8 @@ public class RegistrarTicketPanel extends JPanel {
 	}
 	
 	private void apretoCancelar() {
-		// TODO Accion del boton cancelar de Registrar Ticket"
+		// TODO Accion del boton cancelar de Registrar Ticket
+		
 		ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana)); //deberia volver a la pantalla de mesa de ayuda
 		
 	}
@@ -304,9 +308,22 @@ public class RegistrarTicketPanel extends JPanel {
 				}else {
 //					System.out.println("Todo correcto");
 					//TODO Pasar el ticketDTO a RegistrarTicket2Panel
-					JPanel p = new RegistrarTicket2Panel(ventana);
-//					p.add(new JLabel("siguiente pantalla"), BorderLayout.CENTER);
+					
+					ticketDTO.setNumLegajo(Long.parseLong((txtNumLegajo.getText())));
+					ticketDTO.setClasificacion(listClasificacion.getSelectedItem().toString());
+					ticketDTO.setDescripcion(txtDescripcion.getText().trim());
+					ticketDTO.setFechaHoraApertura(fecha);
+					
+					if(GestorTickets.registrarTicket(ticketDTO)) {
+						JOptionPane.showConfirmDialog(ventana, "El ticket se ha registrado correctamente", "Registro exitoso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					}else {
+						JOptionPane.showConfirmDialog(ventana, "Se produjo un error al registrar el ticket", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					JPanel p = new RegistrarTicket2Panel(ventana, ticketDTO);
 					ventana.cambiarPanel(p);
+					
 				}
 			}
 		}else {

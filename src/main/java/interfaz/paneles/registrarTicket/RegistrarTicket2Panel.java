@@ -14,7 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import dto.TicketDTO;
 import interfaz.base.VentanaBase;
+import interfaz.principal.MenuMesaAyudaPanel;
+import dto.*;
 
 public class RegistrarTicket2Panel extends JPanel {
 	
@@ -22,9 +25,9 @@ public class RegistrarTicket2Panel extends JPanel {
 	JButton aceptar, cancelar;
 	JComboBox<String> accionList;
 	VentanaBase ventana;
-	//TicketDTO ticketDTO
+	TicketDTO ticketDTO;
 
-	public RegistrarTicket2Panel(VentanaBase ventana/*, TicketDTO ticketDTO*/) {
+	public RegistrarTicket2Panel(VentanaBase ventana, TicketDTO ticketDTO) {
 		//TODO Debería recibir también un ticketDTO
 		GridBagConstraints cons = new GridBagConstraints();
 		Insets arIzq = new Insets(25, 25, 5, 5), izq = new Insets(10, 50, 10, 5),
@@ -38,7 +41,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		//inicializa las variables globales
 		this.ventana = ventana;
 		
-		//this.ticketDTO = ticketDTO
+		this.ticketDTO = ticketDTO;
 		
 		obserbacionesTxt = new JTextArea();
 		
@@ -78,7 +81,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		add(labelAux, cons);
 		
 		//Muestra el numero de ticket
-		labelAux = new JLabel("N° Ticket: "+"123456"/*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("N° Ticket: "+/*"123456"*/ticketDTO.getNumTicket());
 		cons.gridx = 1;
 		cons.gridy = 0;
 		cons.gridheight = 1;
@@ -104,11 +107,15 @@ public class RegistrarTicket2Panel extends JPanel {
 		
 		//Lista desplegabel con los grupos:
 		//TODO Debería pedri al gestor los grupos que pueden resolver la clasificación del ticket.
+		//List<GrupoResolucion>listaGR = GestorBD.getGrupos(ticketDTO.getClasificacion());
 		accionList.addItem("Cerrar ticet");
-		accionList.addItem("Grupo 1");
+		/*accionList.addItem("Grupo 1");
 		accionList.addItem("Grupo 2");
 		accionList.addItem("Grupo 3");
-		accionList.addItem("Grupo 4");
+		accionList.addItem("Grupo 4");*/
+		/*for(GrupoResolucion gr : listaGR){
+		  	accionList.addItem(gr.getNombre());
+		  }*/
 		accionList.setSelectedItem("Cerrar ticket");
 		cons.gridx = 1;
 		cons.gridy = 2;
@@ -163,13 +170,21 @@ public class RegistrarTicket2Panel extends JPanel {
 	}
 	private void apretoCancelar() {
 		//TODO Boton cancelar en la segunda pantalla de registrar ticket
+		//GestorTickets.borrarTicket(ticketDTO);
+		ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 	}
 	private void apretoAceptar() {
 		if(obserbacionesTxt.getText().trim().isEmpty()) {
 			JOptionPane.showConfirmDialog(ventana, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}else {
 			//TODO Hacer la acción seleccionada, cerrar o derivar ticket del CU1
-			ventana.cambiarPanel(new JPanel());
+			if(accionList.getSelectedItem()=="Cerrar ticket") {
+				//GestorTickets.cerrarTicket(ticketDTO);
+			}
+			else {
+				//GestorTickets.derivarTicket(ticketDTO,accionList.getSelectedItem());
+			}
+			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 		}
 	}
 

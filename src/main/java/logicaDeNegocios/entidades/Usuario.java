@@ -63,4 +63,10 @@ public class Usuario {
 				+ "]";
 	}
 
+	public GrupoResolucion getGrupo() {
+		
+		return grupoResolucion;
+		
+	}
+
 }

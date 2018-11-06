@@ -1,10 +1,13 @@
 package logicaDeNegocios.entidades;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 import javax.persistence.*;
+
+import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 
 @Entity
 @Table(name = "INTERVENCION")
@@ -38,12 +41,12 @@ public class Intervencion {
 	}
 		
 	public Intervencion(String observaciones, LocalDateTime fechaHoraASignacion, Ticket ticket,
-			GrupoResolucion grupoResolucion, Stack<CambioEstadoIntervencion> historialCambioEstadoIntervencion) {
+			GrupoResolucion grupoResolucion) {
 		this.observaciones = observaciones;
 		this.fechaHoraASignacion = fechaHoraASignacion;
 		this.ticket = ticket;
 		this.grupoResolucion = grupoResolucion;
-		this.historialCambioEstadoIntervencion = historialCambioEstadoIntervencion;
+		this.historialCambioEstadoIntervencion = new ArrayList<CambioEstadoIntervencion>();
 	}
 
 	public int getIdInt() {
@@ -101,6 +104,26 @@ public class Intervencion {
 
 	public void setGrupoResolucion(GrupoResolucion grupoResolucion) {
 		this.grupoResolucion = grupoResolucion;
+	}
+
+	public void actualizarEstado(CambioEstadoIntervencion cambioEstadoIntervencion) {
+
+		historialCambioEstadoIntervencion.add(cambioEstadoIntervencion);
+		
+	}
+
+	public EstadoIntervencion estadoActual() {
+		CambioEstadoIntervencion ultimoCambio = historialCambioEstadoIntervencion.get(0);
+		EstadoIntervencion actual = ultimoCambio.getEstadoNuevo();
+		
+		for(CambioEstadoIntervencion c: historialCambioEstadoIntervencion) {
+			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
+				ultimoCambio = c;
+				actual = c.getEstadoNuevo();
+			}
+		}
+		
+		return actual;
 	}
 
 }

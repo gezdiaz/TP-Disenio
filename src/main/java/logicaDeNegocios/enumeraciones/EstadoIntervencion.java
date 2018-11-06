@@ -5,5 +5,6 @@ public enum EstadoIntervencion {
 	Incorrecto,
 	ParcialmenteTerminado,
 	EnEspera,
-	Trabajando
+	Trabajando, 
+	Asignado
 }

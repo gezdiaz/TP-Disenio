@@ -41,10 +41,10 @@ public class Main {
 //		ventana.setLocationRelativeTo(null);
 //		ventana.setVisible(true);
 		
-		 try {
+//		 try {
 				 EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
 				 EntityManager manager = emf.createEntityManager();
-				 GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo", new ArrayList<Usuario>());
+				 GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo");
 				 Usuario usr = new Usuario("usr", "1234", grupo), u2;
 				 manager.getTransaction().begin();
 				 manager.persist(grupo);
@@ -55,9 +55,9 @@ public class Main {
 				 manager.getTransaction().commit();
 				 System.out.println(u2.toString());
 				 manager.close();
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-			}
+//			} catch (Exception e) {
+//				JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+//			}
 		 
 		 
 		 JFrame ventana = new JFrame("Sistema de Mesa de ayuda");
