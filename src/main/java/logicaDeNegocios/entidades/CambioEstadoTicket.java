@@ -16,7 +16,7 @@ public class CambioEstadoTicket {
 	private int idCambioTick;
 
 	@Column(name="FechaHoraCambio")
-	private LocalDateTime fechaHoraCambio; //cambiar nombre en diagrama de clases
+	private LocalDateTime fechaHoraCambio;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="EstadoAnterior")

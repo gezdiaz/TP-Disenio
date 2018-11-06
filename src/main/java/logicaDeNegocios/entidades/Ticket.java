@@ -21,7 +21,7 @@ public class Ticket {
 	@Column(name = "fechaHoraApertura")
 	private LocalDateTime fechaHoraApertura;
 	
-	@Column(name = "descripcion")
+	@Column(name = "descripcion",nullable = false, length = 255)
 	private String descripcion;
 	
 	@OneToMany(mappedBy = "ticket")

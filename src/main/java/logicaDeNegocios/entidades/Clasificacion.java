@@ -14,10 +14,10 @@ public class Clasificacion {
 	@Column(name = "codigo")
 	private Integer codigo;
 	
-	@Column(name = "nombre",nullable = false,length = 30)
+	@Column(name = "nombre",nullable = false,length = 255)
 	private String nombre;
 	
-	@Column(name = "descripcion")
+	@Column(name = "descripcion",nullable = false, length = 255)
 	private String descripcion;
 	
 	@Column(name = "activa")

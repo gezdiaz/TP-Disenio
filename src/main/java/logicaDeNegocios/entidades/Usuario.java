@@ -10,7 +10,7 @@ public class Usuario {
 	@Column(name="NombreUsusario", length=30)
 	private String nombreUsuario;
 	
-	@Column(name="Clave", length=20, nullable=false)
+	@Column(name="Clave", nullable = false, length=20)
 	private String clave;
 	
 	@OneToOne

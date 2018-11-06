@@ -6,17 +6,17 @@ import javax.persistence.*;
 @Table(name="Empleado")
 public class Empleado {
 	
-	@Column(name="Nombre", length=30, nullable=false)
-	private String nombre;
-	
-	@Column(name="Apellido", length=30, nullable=false)
-	private String apellido;
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="NumLegajo")
 	private Integer numLegajo;
-
+	
+	@Column(name="Nombre", length=50, nullable=false)
+	private String nombre;
+	
+	@Column(name="Apellido", length=50, nullable=false)
+	private String apellido;
+	
 
 	public Empleado() {
 		
