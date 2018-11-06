@@ -81,14 +81,14 @@ public class Reclasificacion {
 		this.clasificacionNueva = clasificacionNueva;
 	}
 
-//	public Ticket getTicket() {
-//		return ticket;
-//	}
-//
-//	public void setTicket(Ticket ticket) {
-//		this.ticket = ticket;
-//	}
-//	
+	public Ticket getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
+	}
+	
 	
 	
 	

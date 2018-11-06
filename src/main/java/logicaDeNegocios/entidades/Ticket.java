@@ -45,7 +45,7 @@ public class Ticket {
 		this.fechaHoraApertura = fechaHoraApertura;
 		this.descripcion = descripcion;
 		this.historialCambioEstadoTicket = new Stack<CambioEstadoTicket>();
-//		this.historialReclasificacion = new Stack<Reclasificacion>();
+		this.historialReclasificacion = new Stack<Reclasificacion>();
 		this.intervenciones = new Stack<Intervencion>();
 	}
 
@@ -59,13 +59,13 @@ public class Ticket {
 		this.historialCambioEstadoTicket = historialCambioEstadoTicket;
 	}
 
-//	public List<Reclasificacion> getHistorialReclasificacion() {
-//		return historialReclasificacion;
-//	}
-//
-//	public void setHistorialReclasificacion(Stack<Reclasificacion> historialReclasificacion) {
-//		this.historialReclasificacion = historialReclasificacion;
-//	}
+	public List<Reclasificacion> getHistorialReclasificacion() {
+		return historialReclasificacion;
+	}
+
+	public void setHistorialReclasificacion(Stack<Reclasificacion> historialReclasificacion) {
+		this.historialReclasificacion = historialReclasificacion;
+	}
 
 	public List<Intervencion> getIntervenciones() {
 		return intervenciones;
