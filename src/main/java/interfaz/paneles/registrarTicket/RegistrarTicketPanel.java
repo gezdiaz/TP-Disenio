@@ -318,6 +318,7 @@ public class RegistrarTicketPanel extends JPanel {
 						JOptionPane.showConfirmDialog(ventana, "El ticket se ha registrado correctamente", "Registro exitoso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					}else {
 						JOptionPane.showConfirmDialog(ventana, "Se produjo un error al registrar el ticket", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						return;
 					}
 					
 					JPanel p = new RegistrarTicket2Panel(ventana, ticketDTO);

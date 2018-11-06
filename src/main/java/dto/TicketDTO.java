@@ -11,6 +11,9 @@ public class TicketDTO {
 	LocalDateTime fechaHoraApertura;
 	
 	
+	public TicketDTO(Long num) {
+		numTicket = num;
+	}
 	public Long getNumTicket() {
 		return numTicket;
 	}

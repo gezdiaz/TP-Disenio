@@ -32,12 +32,11 @@ public class GrupoResolucion {
 
 	}
 	
-	public GrupoResolucion(String codigo,String nombre,ArrayList<Usuario> usuarios) {
+	public GrupoResolucion(String codigo,String nombre) {
 		
 		this.codigo = codigo;
 		this.nombre = nombre;
-		this.usuarios = usuarios;
-		
+		this.usuarios = new ArrayList<Usuario>();
 	}
 
 	public String getCodigo() {
@@ -80,6 +79,10 @@ public class GrupoResolucion {
 		this.clasificaciones = clasificaciones;
 	}
 
+	public void agregarUsuario(Usuario usuario) {
+		this.usuarios.add(usuario);
+	}
+	
 	@Override
 	public String toString() {
 		return "GrupoResolucion [codigo=" + codigo + ", nombre=" + nombre + ", intervenciones=" + intervenciones

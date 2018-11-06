@@ -12,7 +12,7 @@ public class Ticket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUM_TICKET")
-	private Integer numTIcket;
+	private Long numTIcket;
 	
 	@ManyToOne
 	@JoinColumn(name = "NUM_LEGAJO")
@@ -38,7 +38,7 @@ public class Ticket {
 		
 	}
 	
-	public Ticket(Integer numTIcket, Empleado solicitante, Clasificacion clasificacion, LocalDateTime fechaHoraApertura,
+	public Ticket(Long numTIcket, Empleado solicitante, LocalDateTime fechaHoraApertura,
 			String descripcion) {
 		this.numTIcket = numTIcket;
 		this.solicitante = solicitante;
@@ -79,11 +79,11 @@ public class Ticket {
 		this.fechaHoraApertura = fechaHoraApertura;
 	}
 
-	public Integer getNumTIcket() {
+	public Long getNumTIcket() {
 		return numTIcket;
 	}
 
-	public void setNumTIcket(Integer numTIcket) {
+	public void setNumTIcket(Long numTIcket) {
 		this.numTIcket = numTIcket;
 	}
 
@@ -105,6 +105,24 @@ public class Ticket {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public void acutalizarEstado(CambioEstadoTicket cambioEstado) {
+		
+		historialCambioEstadoTicket.add(cambioEstado);
+		
+	}
+
+	public void cambiarClasificacion(Reclasificacion reclasificacion) {
+		
+		historialReclasificacion.add(reclasificacion);
+		
+	}
+
+	public void agregarIntervencion(Intervencion intervencion) {
+
+		intervenciones.add(intervencion);
+		
 	}
 
 }
