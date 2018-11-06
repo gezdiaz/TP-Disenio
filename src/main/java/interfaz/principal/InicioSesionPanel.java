@@ -104,6 +104,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		salir.addActionListener(a -> {
 			ventana.dispose();
+			System.exit(0);
 		});
 		add(salir, cons);
 		
