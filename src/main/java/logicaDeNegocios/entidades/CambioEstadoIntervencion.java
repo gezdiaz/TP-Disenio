@@ -7,34 +7,34 @@ import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import javax.persistence.*;
 
 @Entity
-@Table(name="CambioEstadoIntervencion")
+@Table(name="CAMBIO_ESTADO_INTERVENCION")
 public class CambioEstadoIntervencion {
 	
 	@Id
-	@Column(name="IdCambioInt")
+	@Column(name="ID_CAMBIO_INT")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCambioInt;
 
-	@Column(name="FechaHoraCambio")
+	@Column(name="FECHA_HORA_CAMBIO")
 	private LocalDateTime fechaHoraCambio; //cambiar nombre en diagrama de clases
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="EstadoAnterior")
+	@Column(name="ESTADO_ANTERIOR")
 	private EstadoIntervencion estadoAnterior;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="EstadoNuevo")
+	@Column(name="ESTADO_NUEVO")
 	private EstadoIntervencion estadoNuevo;
 	
 	@ManyToOne
-	@JoinColumn(name="Intervencion")
+	@JoinColumn(name="INTERVENCION")
 	private Intervencion intervencion;
 	
 	@ManyToOne
-	@JoinColumn(name="ResponsableCambio")
+	@JoinColumn(name="RESPONSABLE_CAMBIO")
 	private Usuario responsableCambio;
 	
-	@Column(name="Observaciones", length=255, nullable = false)
+	@Column(name="OBSERVACIONES", length=255, nullable = false)
 	private String observaciones;
 	
 	

@@ -4,15 +4,15 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Grupo_de_Resolucion")
+@Table(name = "GRUPO_DE_RESOLUCION")
 
 public class GrupoResolucion {
 
 	@Id
-	@Column(name = "idGR", length = 50)
+	@Column(name = "ID_GR", length = 50)
 	private String codigo;
 	
-	@Column(name = "nombre",nullable = false,length = 50)
+	@Column(name = "NOMBRE",nullable = false,length = 50)
 	private String nombre;
 	
 	@OneToMany(mappedBy = "grupoResolucion")
@@ -22,7 +22,7 @@ public class GrupoResolucion {
 	private List<Intervencion> intervenciones;
 	
 	@ManyToMany()
-	@JoinTable(name = "Capacitado_Para", 
+	@JoinTable(name = "CAPACITADO_PARA", 
 	        joinColumns = { @JoinColumn(name = "idGR") }, 
 	        inverseJoinColumns = { @JoinColumn(name = "clave")}
 	)

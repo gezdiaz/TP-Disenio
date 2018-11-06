@@ -3,18 +3,18 @@ package logicaDeNegocios.entidades;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Empleado")
+@Table(name="EMPLEADO")
 public class Empleado {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="NumLegajo")
+	@Column(name="NUM_LEGAJO")
 	private Integer numLegajo;
 	
-	@Column(name="Nombre", length=50, nullable=false)
+	@Column(name="NOMBRE", length=50, nullable=false)
 	private String nombre;
 	
-	@Column(name="Apellido", length=50, nullable=false)
+	@Column(name="APELLIDO", length=50, nullable=false)
 	private String apellido;
 	
 

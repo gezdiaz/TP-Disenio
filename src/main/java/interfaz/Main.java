@@ -42,7 +42,7 @@ public class Main {
 //		ventana.setVisible(true);
 		
 		 try {
-				EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
+				 EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
 				 EntityManager manager = emf.createEntityManager();
 				 GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo", new ArrayList<Usuario>());
 				 Usuario usr = new Usuario("usr", "1234", grupo), u2;
