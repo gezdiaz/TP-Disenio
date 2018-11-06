@@ -27,8 +27,7 @@ public class Ticket {
 	@OneToMany(mappedBy = "ticket")
 	private List<CambioEstadoTicket> historialCambioEstadoTicket;
 
-	@OneToMany
-	@JoinColumn(name = "idRecla")
+	@OneToMany(mappedBy = "ticket")
 	private List<Reclasificacion> historialReclasificacion;
 	
 	@OneToMany(mappedBy = "ticket")

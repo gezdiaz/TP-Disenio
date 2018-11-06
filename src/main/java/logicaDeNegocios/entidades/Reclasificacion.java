@@ -26,8 +26,8 @@ public class Reclasificacion {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Clasificacion clasificacionNueva;
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	private Ticket ticket;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Ticket ticket;
 	
 	public Reclasificacion() {
 		

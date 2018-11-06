@@ -13,6 +13,10 @@ public class Usuario {
 	@Column(name="Clave", length=20, nullable=false)
 	private String clave;
 	
+	@OneToOne
+	@JoinColumn(name = "numLegajo")
+	Empleado empleado;
+	
 	@ManyToOne
 	@JoinColumn(name="GrupoResolucion")
 	private GrupoResolucion grupoResolucion;
