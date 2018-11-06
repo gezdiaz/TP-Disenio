@@ -3,22 +3,22 @@ package logicaDeNegocios.entidades;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Usuario")
+@Table(name="USUARIO")
 public class Usuario {
 	
 	@Id
-	@Column(name="NombreUsusario", length=30)
+	@Column(name="NOMBRE_USUSARIO", length=30)
 	private String nombreUsuario;
 	
-	@Column(name="Clave", nullable = false, length=20)
+	@Column(name="CLAVE", nullable = false, length=20)
 	private String clave;
 	
 	@OneToOne
-	@JoinColumn(name = "numLegajo")
+	@JoinColumn(name = "NUM_LEGAJO")
 	Empleado empleado;
 	
 	@ManyToOne
-	@JoinColumn(name="GrupoResolucion")
+	@JoinColumn(name="ID_GR")
 	private GrupoResolucion grupoResolucion;
 
 	

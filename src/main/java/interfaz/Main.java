@@ -56,12 +56,12 @@ public class Main {
 				 System.out.println(u2.toString());
 				 manager.close();
 			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 		 
 		 
 		 JFrame ventana = new JFrame("Sistema de Mesa de ayuda");
-		 ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		 ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 ventana.setContentPane(new InicioSesionPanel(ventana));
 		 ventana.setIconImage(img.getImage());		 		 
 		 ventana.pack();
