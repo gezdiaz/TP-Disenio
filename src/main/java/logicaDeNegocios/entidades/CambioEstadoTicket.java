@@ -7,34 +7,34 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 import javax.persistence.*;
 
 @Entity
-@Table(name="CambioEstadoTicket")
+@Table(name="CAMBIO_ESTADO_TICKET")
 public class CambioEstadoTicket {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="IdCambioTick")
+	@Column(name="ID_CAMBIO_TICK")
 	private int idCambioTick;
 
-	@Column(name="FechaHoraCambio")
+	@Column(name="FECHA_HORA_CAMBIO")
 	private LocalDateTime fechaHoraCambio;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="EstadoAnterior")
+	@Column(name="ESTADO_ANTERIOR")
 	private EstadoTicket estadoAnterior;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="EstadoNuevo")
+	@Column(name="ESTADO_NUEVO")
 	private EstadoTicket estadoNuevo;
 	
 	@ManyToOne
-	@JoinColumn(name="NumTicket")
+	@JoinColumn(name="NUM_TICKET")
 	private Ticket ticket;
 	
 	@ManyToOne
-	@JoinColumn(name="ResponsableCambio")
+	@JoinColumn(name="RESPONSABLE_CAMBIO")
 	private Usuario responsableCambio;
 	
-	@Column(name="Observaciones", length=255, nullable=false)
+	@Column(name="OBSERVACIONES", length=255, nullable=false)
 	private String observaciones;
 	
 

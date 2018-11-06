@@ -5,28 +5,28 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Clasificacion")
+@Table(name = "CLASIFICACION")
 
 public class Clasificacion {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "codigo")
+	@Column(name = "CODIGO")
 	private Integer codigo;
 	
-	@Column(name = "nombre",nullable = false,length = 255)
+	@Column(name = "NOMBRE",nullable = false,length = 255)
 	private String nombre;
 	
-	@Column(name = "descripcion",nullable = false, length = 255)
+	@Column(name = "DESCRIPCION",nullable = false, length = 255)
 	private String descripcion;
 	
-	@Column(name = "activa")
+	@Column(name = "ACTIVA")
 	private Boolean activa;
 	
-	@Column(name = "fechaCreacion")
+	@Column(name = "FECHA_CREACION")
 	private LocalDate fechaCreacion;
 	
-	@ManyToMany(mappedBy = "clasificaciones")
+	@ManyToMany(mappedBy = "CLASIFICACIONES")
 	private List<GrupoResolucion> gruposDeResolucion;
 	
 	
