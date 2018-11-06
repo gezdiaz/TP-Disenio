@@ -13,7 +13,7 @@ import logicaDeNegocios.entidades.Ticket;
 import logicaDeNegocios.entidades.Usuario;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 
-public class GestorTickets {
+public abstract class GestorTickets {
 
 	public static TicketDTO getNuevoTicket() {
 		// TODO Metodo que crea un nuevo ticket
