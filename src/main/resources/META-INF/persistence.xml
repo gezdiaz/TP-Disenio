@@ -17,7 +17,7 @@
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://190.114.206.177/tutifruti49/public?serverTimezone=UTC" />
 			<property name="javax.persistence.jdbc.user" value="tf49_user" />
-			<property name="javax.persistence.jdbc.password" value="tf135" />
+			<property name="javax.persistence.jdbc.password" value="tpdsg1" />
 
 
 
