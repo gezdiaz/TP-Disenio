@@ -109,6 +109,17 @@ public abstract class GestorBD {
 	
 		
 	}
+
+	public static Ticket buscarTicketPorId(Long numTicket) {
+		
+		Ticket ticket;
+		
+		manager.getTransaction().begin();
+		ticket = manager.find(Ticket.class, numTicket);
+		manager.getTransaction().commit();
+		
+		return ticket;
+	}
 	
 	
 	

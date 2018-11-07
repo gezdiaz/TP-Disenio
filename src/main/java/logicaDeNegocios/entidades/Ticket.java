@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.*;
 
+import logicaDeNegocios.enumeraciones.EstadoIntervencion;
+import logicaDeNegocios.enumeraciones.EstadoTicket;
+
 @Entity
 @Table(name = "TICKET")
 
@@ -123,6 +126,33 @@ public class Ticket {
 
 		intervenciones.add(intervencion);
 		
+	}
+
+	public EstadoTicket estadoActual() {
+		CambioEstadoTicket ultimoCambio = historialCambioEstadoTicket.get(0);
+		EstadoTicket actual = ultimoCambio.getEstadoNuevo();
+		
+		for(CambioEstadoTicket c: historialCambioEstadoTicket) {
+			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
+				ultimoCambio = c;
+				actual = c.getEstadoNuevo();
+			}
+		}
+		
+		return actual;
+	}
+
+	public Intervencion ultimaIntervencion() {
+		
+		Intervencion ultima = this.intervenciones.get(0);
+		
+		for(Intervencion i : intervenciones) {
+			if(i.getFechaHoraASignacion().compareTo(ultima.getFechaHoraASignacion())>0) {
+				ultima = i;
+			}
+		}
+		
+		return ultima;
 	}
 
 }

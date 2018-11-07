@@ -52,5 +52,21 @@ public abstract class GestorTickets {
 //		}
 		return true;
 	}
+	
+	public static boolean cerrarTicketMesaAyuda(TicketDTO ticketDTO, String observaciones) {
+		
+		Ticket ticket = GestorBD.buscarTicketPorId(ticketDTO.getNumTicket());
+		
+		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Cerrado, ticket, GestorUsuarios.usuarioActual(), observaciones);
+		
+		ticket.acutalizarEstado(nuevoEstado);
+		
+		/*if(!GestorIntervenciones.terminarIntervencion(ticket, observaciones) && !GestorBD.guardarTicket(ticket)) {
+			return false;
+		}*/
+		
+		
+		return true;
+	}
 
 }
