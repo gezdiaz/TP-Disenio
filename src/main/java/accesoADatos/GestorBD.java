@@ -112,12 +112,13 @@ public abstract class GestorBD {
 	}
 
 	public static Ticket buscarTicketPorId(Long numTicket) {
-		
+		EntityManager manager = emf.createEntityManager();
 		Ticket ticket;
 		
 		manager.getTransaction().begin();
 		ticket = manager.find(Ticket.class, numTicket);
 		manager.getTransaction().commit();
+		manager.close();
 		
 		return ticket;
 	}
