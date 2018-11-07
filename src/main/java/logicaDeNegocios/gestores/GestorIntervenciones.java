@@ -24,9 +24,9 @@ public abstract class GestorIntervenciones {
 
 		intervencion.actualizarEstado(cambioEstado2);
 		
-//		if (!GestorBD.guardarIntervencion(intervencion)) {
-//			return null;
-//		}
+		if (!(GestorBD.guardarIntervencion(intervencion)>0)) {
+			return null;
+		}
 		
 		return intervencion;
 	}

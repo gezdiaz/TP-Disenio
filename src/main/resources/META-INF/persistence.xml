@@ -31,12 +31,12 @@
 <!-- 			<property name="javax.persistence.jdbc.password" value="root" /> -->
 
 			<!-- Para H2 -->
-			<!-- <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" 
-				/> -->
-			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" 
-				/> -->
-			<!-- <property name="javax.persistence.jdbc.user" value="sa" /> -->
-			<!-- <property name="javax.persistence.jdbc.password" value="" /> -->
+<!-- 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"  -->
+<!-- 				/> -->
+<!-- 			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"  -->
+<!-- 				/> -->
+<!-- 			<property name="javax.persistence.jdbc.user" value="sa" /> -->
+<!-- 			<property name="javax.persistence.jdbc.password" value="" /> -->
 			<!-- Esto es propio de Hibernate -->
 			<!-- Para H2 (base de datos en memoria) -->
 			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" 

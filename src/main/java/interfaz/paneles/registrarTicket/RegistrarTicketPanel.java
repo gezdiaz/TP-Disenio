@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
@@ -59,6 +60,7 @@ public class RegistrarTicketPanel extends JPanel {
 		
 		txtNumTicket = new JTextField(15);
 		ticketDTO = GestorTickets.getNuevoTicket();
+		GestorTickets.guardarTicket(ticketDTO);
 		txtNumTicket.setText(ticketDTO.getNumTicket().toString()); //TODO Buscar el siguiente numero de ticket con el gestor
 		txtNumTicket.setEditable(false);
 		

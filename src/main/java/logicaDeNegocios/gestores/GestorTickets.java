@@ -20,7 +20,7 @@ public abstract class GestorTickets {
 		return new TicketDTO(115464L);
 	}
 
-	public static boolean registrarTicket(TicketDTO ticketDTO) {
+	public static Boolean registrarTicket(TicketDTO ticketDTO) {
 		// TODO Auto-generated method stub
 		Clasificacion clasificacion = GestorBD.buscarClasificacion(ticketDTO.getClasificacion());
 		Empleado solicitante = SistemaPersonal.getEmpleado(ticketDTO.getNumLegajo());
@@ -38,18 +38,20 @@ public abstract class GestorTickets {
 		ticket.cambiarClasificacion(reclasificacion);
 		
 		//Crea la intervencion
+		System.out.println("Empiezo a crear la intervencion");
 		Intervencion intervencion = GestorIntervenciones.crearIntervencion(ticket, usuario, ""); //observaciones vacías, en la segunda pnatalla las cambia.
-		
+		System.out.println("Termino de crear la intervencion");
 		if(intervencion == null) {
+			System.out.println("Intervencion nula");
 			return false;
 		}
 		
 		ticket.agregarIntervencion(intervencion);
 		
 		//Guarda en la base de datos		
-//		if(!GestorBD.guardarTicket(ticket)) {
-//			return false;
-//		}
+		if(!GestorBD.guardarTicket(ticket)) {
+			return false;
+		}
 		return true;
 	}
 	
@@ -78,6 +80,18 @@ public abstract class GestorTickets {
 		}*/
 		
 		return 1;
+	}
+
+	public static void guardarTicket(TicketDTO ticketDTO) {
+		
+		Ticket ticket = new Ticket();
+		ticket.setNumTIcket(ticketDTO.getNumTicket());
+		ticket.setDescripcion("");
+		
+		if(!GestorBD.guardarTicket(ticket)) {
+			System.out.println("No se guarda el ticket de mierda");
+		}
+		
 	}
 
 }

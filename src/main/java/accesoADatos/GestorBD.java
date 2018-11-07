@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import logicaDeNegocios.entidades.Clasificacion;
+import logicaDeNegocios.entidades.Empleado;
 import logicaDeNegocios.entidades.GrupoResolucion;
 import logicaDeNegocios.entidades.Intervencion;
 import logicaDeNegocios.entidades.Ticket;
@@ -28,17 +29,20 @@ public abstract class GestorBD {
 	
 	public static Boolean guardarTicket(Ticket ticket) {
 		
+		System.out.println("Entro a guardar TIcket");
+		
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			manager.persist(ticket);
+			manager.merge(ticket);
+//			manager.persist(ticket);
 			manager.getTransaction().commit();
 			manager.close();
-			
+			System.out.println("Salgo de guardar TIcket");
 			return true;
 			
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			return false;
 			
 		}
@@ -57,7 +61,7 @@ public abstract class GestorBD {
 			return 1;
 			
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			return 0;
 			
 		}
@@ -89,7 +93,7 @@ public abstract class GestorBD {
 	}
 	
 	public static List<Ticket> buscarTickets(Integer numTicket,Integer numLeg,String nombreClasificacion,EstadoTicket estadoActual, LocalDateTime fechaApertura, LocalDateTime fechaUltimoCambio,GrupoResolucion ultGrupo){
-		EntityManager manager = emf.createEntityManager();
+		/*EntityManager manager = emf.createEntityManager();
 		consulta = manager.createQuery("SELECT *"
 									 + "FROM TICKET t, RECLASIFICACION r, CAMBIO_ESTADO_TICKET cet,CLASIFICACION c"
 									 + "WHERE t.NUM_TICKET = ?1"
@@ -106,7 +110,7 @@ public abstract class GestorBD {
 		consulta.setParameter(3, fechaApertura);
 		consulta.setParameter(4, nombreClasificacion);
 		consulta.setParameter(5, estadoActual);
-		consulta.setParameter(6, fechaUltimoCambio);
+		consulta.setParameter(6, fechaUltimoCambio);*/
 		
 		return null;
 	
@@ -133,6 +137,34 @@ public abstract class GestorBD {
 		}
 	}
 	
+	public static Empleado buscarEmpleado(Integer numLegajo) {
+		
+		try {
+			EntityManager manager = emf.createEntityManager();
+			Empleado empleado = null;
+
+			manager.getTransaction().begin();
+			empleado = manager.find(Empleado.class, numLegajo);
+			manager.getTransaction().commit();
+			manager.close();
+			
+
+			if(empleado == null) {
+				//no encontró el empleado
+				empleado = new Empleado();
+				empleado.setNumLegajo(-1);//num de legajo -1 para indicar un error
+				}
+			
+			return empleado;
+		} catch (Exception e) {
+			System.out.println("Exepcion en buscar usuario: ");
+			System.out.println();
+			e.printStackTrace();
+			
+			return null;			
+		}
+		
+	}
 
 	public static Usuario buscarUsuario(String nombreUsuario) {
 		
