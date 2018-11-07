@@ -26,8 +26,6 @@ public abstract class GestorUsuarios {
 			if (usuario.getNombreUsuario().isEmpty()) {
 				return -1;
 			} else {
-				System.out.println("Clave ingresada = "+clave);
-				System.out.println("Clave de la BD = "+usuario.getClave());
 				if (usuario.getClave().equals(clave)) {
 					usuarioActual = usuario;
 					return 1;

@@ -18,10 +18,13 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 public abstract class GestorBD {
 	
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
+	private static EntityManagerFactory emf;
 	
 	private static Query consulta;
 	
+	public static void setEmf(EntityManagerFactory factory) {
+		emf = factory;
+	}
 	
 	public static Boolean guardarTicket(Ticket ticket) {
 		

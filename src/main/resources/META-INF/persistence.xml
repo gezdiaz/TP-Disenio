@@ -15,9 +15,12 @@
 
 			<!-- Para PosgreSQL -->
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://190.114.206.177/tutifruti49/public?serverTimezone=UTC" />
-			<property name="javax.persistence.jdbc.user" value="tf49_user" />
-			<property name="javax.persistence.jdbc.password" value="tpdsg1" />
+<!-- 			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://190.114.206.177/tutifruti49/public?serverTimezone=UTC" /> -->
+<!-- 			<property name="javax.persistence.jdbc.user" value="tf49_user" /> -->
+<!-- 			<property name="javax.persistence.jdbc.password" value="tpdsg1" /> -->
+			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://echo.db.elephantsql.com/czxiiqef" />
+			<property name="javax.persistence.jdbc.user" value="czxiiqef" />
+			<property name="javax.persistence.jdbc.password" value="4MnbSKTJWKbtW9Y_GWP9EE9ieVEYHoRF" />
 			
 
 			<!-- Para mySQL -->
