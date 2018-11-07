@@ -109,7 +109,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		//Lista desplegabel con los grupos:
 		//TODO Debería pedri al gestor los grupos que pueden resolver la clasificación del ticket.
 		//List<GrupoResolucion>listaGR = GestorBD.getGrupos(ticketDTO.getClasificacion());
-		accionList.addItem("Cerrar ticet");
+		accionList.addItem("Cerrar ticket");
 		/*accionList.addItem("Grupo 1");
 		accionList.addItem("Grupo 2");
 		accionList.addItem("Grupo 3");
@@ -201,6 +201,7 @@ public class RegistrarTicket2Panel extends JPanel {
 			}
 			else {
 				//GestorTickets.derivarTicket(ticketDTO,accionList.getSelectedItem());
+				JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			}
 			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 		}
