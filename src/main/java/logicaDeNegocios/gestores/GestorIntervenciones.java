@@ -3,6 +3,7 @@ package logicaDeNegocios.gestores;
 import java.time.LocalDateTime;
 
 import accesoADatos.GestorBD;
+import dto.TicketDTO;
 import logicaDeNegocios.entidades.CambioEstadoIntervencion;
 import logicaDeNegocios.entidades.GrupoResolucion;
 import logicaDeNegocios.entidades.Intervencion;
@@ -28,6 +29,23 @@ public abstract class GestorIntervenciones {
 //		}
 		
 		return intervencion;
+	}
+
+	public static boolean terminarIntervencion(Ticket ticket, String observaciones) {
+		
+		Intervencion ultima = ticket.ultimaIntervencion();
+		
+		ultima.setObservaciones(observaciones);
+		
+		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), ultima.estadoActual(), EstadoIntervencion.Terminado, ultima, GestorUsuarios.usuarioActual(), observaciones);
+		
+		ultima.actualizarEstado(cambioEstado);
+		
+		/*if(!GestorBD.guardarIntervencion(ultima)) {
+			return false;
+		}*/
+		
+		return true;
 	}
 
 }
