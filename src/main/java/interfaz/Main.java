@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import accesoADatos.GestorBD;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.registrarTicket.RegistrarTicket2Panel;
 import interfaz.paneles.registrarTicket.RegistrarTicketPanel;
@@ -42,7 +43,8 @@ public class Main {
 //		ventana.setVisible(true);
 		
 //		 try {
-//				 EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
+				 EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
+				 GestorBD.setEmf(emf);
 //				 EntityManager manager = emf.createEntityManager();
 //				 GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo");
 //				 Usuario usr = new Usuario("usr", "1234", grupo), u2;

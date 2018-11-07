@@ -18,24 +18,30 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 public abstract class GestorBD {
 	
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
+	private static EntityManagerFactory emf;
 	
 	private static Query consulta;
 	
+	public static void setEmf(EntityManagerFactory factory) {
+		emf = factory;
+	}
 	
 	public static Boolean guardarTicket(Ticket ticket) {
+		
+		System.out.println("Entro a guardar TIcket");
 		
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			manager.persist(ticket);
+			manager.merge(ticket);
+//			manager.persist(ticket);
 			manager.getTransaction().commit();
 			manager.close();
-			
+			System.out.println("Salgo de guardar TIcket");
 			return true;
 			
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			return false;
 			
 		}
@@ -54,7 +60,7 @@ public abstract class GestorBD {
 			return 1;
 			
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			return 0;
 			
 		}
