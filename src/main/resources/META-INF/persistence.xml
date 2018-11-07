@@ -18,7 +18,7 @@
 <!-- 			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://190.114.206.177/tutifruti49/public?serverTimezone=UTC" /> -->
 <!-- 			<property name="javax.persistence.jdbc.user" value="tf49_user" /> -->
 <!-- 			<property name="javax.persistence.jdbc.password" value="tpdsg1" /> -->
-			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://echo.db.elephantsql.com/czxiiqef" />
+			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://echo.db.elephantsql.com:5432/czxiiqef" />
 			<property name="javax.persistence.jdbc.user" value="czxiiqef" />
 			<property name="javax.persistence.jdbc.password" value="4MnbSKTJWKbtW9Y_GWP9EE9ieVEYHoRF" />
 			
@@ -46,7 +46,7 @@
 
 			<!-- Para PostgreSQL -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 
 		</properties>
 	</persistence-unit>

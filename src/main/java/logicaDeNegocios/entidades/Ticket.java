@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.*;
 
+import dto.TicketDTO;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 
@@ -153,6 +154,29 @@ public class Ticket {
 		}
 		
 		return ultima;
+	}
+
+	public Clasificacion ultimaCalsificacion() {
+		Reclasificacion ultima = historialReclasificacion.get(0);
+		
+		for(Reclasificacion rc : historialReclasificacion) {
+			if(rc.getFechaReclasificacion().compareTo(ultima.getFechaReclasificacion())>0) {
+				ultima = rc;
+			}
+		}
+		return ultima.getClasificacionNueva();
+	}
+	
+	
+	public TicketDTO getDTO() {
+		TicketDTO dto = new TicketDTO(numTIcket);
+		
+		dto.setClasificacion(ultimaCalsificacion().getNombre());
+		dto.setDescripcion(descripcion);
+		dto.setFechaHoraApertura(fechaHoraApertura);
+		dto.setNumLegajo(solicitante.getNumLegajo());
+		
+		return dto;
 	}
 
 }

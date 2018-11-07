@@ -54,7 +54,7 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			manager.persist(intervencion);
+			manager.merge(intervencion);
 			manager.getTransaction().commit();
 			manager.close();
 			
@@ -152,7 +152,7 @@ public abstract class GestorBD {
 			if(empleado == null) {
 				//no encontró el empleado
 				empleado = new Empleado();
-				empleado.setNumLegajo(-1);//num de legajo -1 para indicar un error
+				empleado.setNumLegajo(-1L);//num de legajo -1 para indicar un error
 				}
 			
 			return empleado;

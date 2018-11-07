@@ -9,7 +9,7 @@ public class Empleado {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="NUM_LEGAJO")
-	private Integer numLegajo;
+	private Long numLegajo;
 	
 	@Column(name="NOMBRE", length=50, nullable=false)
 	private String nombre;
@@ -22,7 +22,7 @@ public class Empleado {
 		
 	}	
 	
-	public Empleado(String nombre, String apellido, Integer numLegajo) {
+	public Empleado(String nombre, String apellido, Long numLegajo) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.numLegajo = numLegajo;
@@ -45,11 +45,11 @@ public class Empleado {
 		this.apellido = apellido;
 	}
 
-	public Integer getNumLegajo() {
+	public Long getNumLegajo() {
 		return numLegajo;
 	}
 
-	public void setNumLegajo(Integer numLegajo) {
+	public void setNumLegajo(Long numLegajo) {
 		this.numLegajo = numLegajo;
 	}
 
