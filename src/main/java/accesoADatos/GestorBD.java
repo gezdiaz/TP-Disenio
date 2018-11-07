@@ -11,14 +11,12 @@ import logicaDeNegocios.entidades.Clasificacion;
 import logicaDeNegocios.entidades.GrupoResolucion;
 import logicaDeNegocios.entidades.Intervencion;
 import logicaDeNegocios.entidades.Ticket;
+import logicaDeNegocios.entidades.Usuario;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 
 
 public abstract class GestorBD {
-	
-	@PersistenceContext(unitName = "persistencia")
-	private static EntityManager manager;
 	
 	@PersistenceUnit(name = "persistencia")
 	private static EntityManagerFactory emf;
@@ -29,6 +27,7 @@ public abstract class GestorBD {
 	public static Boolean guardarTicket(Ticket ticket) {
 		
 		try {
+			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
 			manager.persist(ticket);
 			manager.getTransaction().commit();
@@ -45,8 +44,9 @@ public abstract class GestorBD {
 	}
 	
 	public static Boolean guardarIntervencion(Intervencion intervencion) {
-		
+
 		try {
+			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
 			manager.persist(intervencion);
 			manager.getTransaction().commit();
@@ -65,6 +65,7 @@ public abstract class GestorBD {
 	public static Boolean guardarClasificacion(Clasificacion clasificacion) {
 		
 		try {
+			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
 			manager.persist(clasificacion);
 			manager.getTransaction().commit();
@@ -86,7 +87,7 @@ public abstract class GestorBD {
 	}
 	
 	public static List<Ticket> buscarTickets(Integer numTicket,Integer numLeg,String nombreClasificacion,EstadoTicket estadoActual, LocalDateTime fechaApertura, LocalDateTime fechaUltimoCambio,GrupoResolucion ultGrupo){
-		
+		EntityManager manager = emf.createEntityManager();
 		consulta = manager.createQuery("SELECT *"
 									 + "FROM TICKET t, RECLASIFICACION r, CAMBIO_ESTADO_TICKET cet,CLASIFICACION c"
 									 + "WHERE t.NUM_TICKET = ?1"
@@ -110,6 +111,17 @@ public abstract class GestorBD {
 		
 	}
 	
-	
+	public Usuario buscarUsuario(String nombreUsuario) {
+		EntityManager manager = emf.createEntityManager();
+		Usuario usuario;
+		
+		manager.getTransaction().begin();
+		usuario = manager.find(Usuario.class, nombreUsuario);
+		manager.getTransaction().commit();
+		manager.close();
+		
+		
+		return usuario;
+	}
 	
 }
