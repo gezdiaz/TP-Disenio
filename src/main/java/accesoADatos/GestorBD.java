@@ -18,8 +18,7 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 public abstract class GestorBD {
 	
-	@PersistenceUnit(name = "persistencia")
-	private static EntityManagerFactory emf;
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
 	
 	private static Query consulta;
 	
@@ -123,17 +122,35 @@ public abstract class GestorBD {
 		return ticket;
 	}
 	
-	public Usuario buscarUsuario(String nombreUsuario) {
-		EntityManager manager = emf.createEntityManager();
-		Usuario usuario;
+	public static Usuario buscarUsuario(String nombreUsuario) {
 		
-		manager.getTransaction().begin();
-		usuario = manager.find(Usuario.class, nombreUsuario);
-		manager.getTransaction().commit();
-		manager.close();
+		if(emf == null) {
+			System.out.println("EL EMF ES NULL!!!");
+		}
 		
+		try {
+			EntityManager manager = emf.createEntityManager();
+			Usuario usuario = null;
+			manager.getTransaction().begin();
+			usuario = manager.find(Usuario.class, nombreUsuario);
+			manager.getTransaction().commit();
+			manager.close();
+			
+			if(usuario == null) {
+				//no encontró el usuario
+				usuario = new Usuario();
+				usuario.setNombreUsuario("");
+			}
+			
+			return usuario;
+		} catch (Exception e) {
+			System.out.println("Exepcion en buscar usuario: ");
+			System.out.println();
+			e.printStackTrace();
+			
+			return null;			
+		}
 		
-		return usuario;
 	}
 	
 }

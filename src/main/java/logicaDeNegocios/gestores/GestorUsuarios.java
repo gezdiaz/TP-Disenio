@@ -1,5 +1,6 @@
 package logicaDeNegocios.gestores;
 
+import accesoADatos.GestorBD;
 import logicaDeNegocios.entidades.GrupoResolucion;
 import logicaDeNegocios.entidades.Usuario;
 
@@ -11,13 +12,31 @@ public abstract class GestorUsuarios {
 		return usuarioActual;
 	}
 	
-	public static void iniciarSesion(String nombreUsuario, String clave) {
+	public static Integer iniciarSesion(String nombreUsuario, String clave) {
 		
 		//TODO Buscar usuario enla base de datos
-		GrupoResolucion grupo = new GrupoResolucion("MSA", "Mesa de Ayuda");
-		Usuario usuario = new Usuario(nombreUsuario, clave, grupo);
-		grupo.agregarUsuario(usuario);
-		usuarioActual = usuario;
+		Usuario usuario = GestorBD.buscarUsuario(nombreUsuario);
+		
+		
+		
+		if (usuario == null) {
+			return -2;
+						
+		}else {
+			if (usuario.getNombreUsuario().isEmpty()) {
+				return -1;
+			} else {
+				System.out.println("Clave ingresada = "+clave);
+				System.out.println("Clave de la BD = "+usuario.getClave());
+				if (usuario.getClave().equals(clave)) {
+					usuarioActual = usuario;
+					return 1;
+				} else {
+					return 0;
+				}
+			} 
+		}
+		
 	}
 }
 		
