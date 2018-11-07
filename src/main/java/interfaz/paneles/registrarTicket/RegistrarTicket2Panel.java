@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
+import logicaDeNegocios.gestores.GestorTickets;
 import dto.*;
 
 public class RegistrarTicket2Panel extends JPanel {
@@ -108,7 +109,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		//Lista desplegabel con los grupos:
 		//TODO Debería pedri al gestor los grupos que pueden resolver la clasificación del ticket.
 		//List<GrupoResolucion>listaGR = GestorBD.getGrupos(ticketDTO.getClasificacion());
-		accionList.addItem("Cerrar ticet");
+		accionList.addItem("Cerrar ticket");
 		/*accionList.addItem("Grupo 1");
 		accionList.addItem("Grupo 2");
 		accionList.addItem("Grupo 3");
@@ -179,10 +180,28 @@ public class RegistrarTicket2Panel extends JPanel {
 		}else {
 			//TODO Hacer la acción seleccionada, cerrar o derivar ticket del CU1
 			if(accionList.getSelectedItem()=="Cerrar ticket") {
-				//GestorTickets.cerrarTicket(ticketDTO);
+				switch(GestorTickets.cerrarTicketMesaAyuda(ticketDTO, obserbacionesTxt.getText())) {
+				case -2:{
+					JOptionPane.showConfirmDialog(ventana, "No se ha podido registrar el ticket en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				case -1:{
+					JOptionPane.showConfirmDialog(ventana, "Error conectándose a la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				case 0:{
+					JOptionPane.showConfirmDialog(ventana, "Ticket no encontrado en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				case 1:{JOptionPane.showConfirmDialog(ventana, "El ticket ha sido cerrado exitosamente", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				default:{}
+				}
 			}
 			else {
 				//GestorTickets.derivarTicket(ticketDTO,accionList.getSelectedItem());
+				JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			}
 			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 		}

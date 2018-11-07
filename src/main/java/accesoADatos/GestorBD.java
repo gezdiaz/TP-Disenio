@@ -42,7 +42,7 @@ public abstract class GestorBD {
 		
 	}
 	
-	public static Boolean guardarIntervencion(Intervencion intervencion) {
+	public static Integer guardarIntervencion(Intervencion intervencion) {
 
 		try {
 			EntityManager manager = emf.createEntityManager();
@@ -51,17 +51,17 @@ public abstract class GestorBD {
 			manager.getTransaction().commit();
 			manager.close();
 			
-			return true;
+			return 1;
 			
 		} catch (Exception e) {
 
-			return false;
+			return 0;
 			
 		}
 		
 	}
 	
-	public static Boolean guardarClasificacion(Clasificacion clasificacion) {
+	public static Integer guardarClasificacion(Clasificacion clasificacion) {
 		
 		try {
 			EntityManager manager = emf.createEntityManager();
@@ -70,11 +70,11 @@ public abstract class GestorBD {
 			manager.getTransaction().commit();
 			manager.close();
 			
-			return true;
+			return 1;
 			
 		} catch (Exception e) {
 
-			return false;
+			return 0;
 			
 		}
 		
@@ -111,17 +111,26 @@ public abstract class GestorBD {
 	}
 
 	public static Ticket buscarTicketPorId(Long numTicket) {
-		EntityManager manager = emf.createEntityManager();
-		Ticket ticket;
 		
-		manager.getTransaction().begin();
-		ticket = manager.find(Ticket.class, numTicket);
-		manager.getTransaction().commit();
-		manager.close();
-		
-		return ticket;
+		try {
+			EntityManager manager = emf.createEntityManager();
+			Ticket ticket;
+			
+			manager.getTransaction().begin();
+			ticket = manager.find(Ticket.class, numTicket);
+			manager.getTransaction().commit();
+			manager.close();
+			
+			return ticket;
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+			return null;
+		}
 	}
 	
+
 	public static Usuario buscarUsuario(String nombreUsuario) {
 		
 		if(emf == null) {
@@ -131,11 +140,13 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			Usuario usuario = null;
+
 			manager.getTransaction().begin();
 			usuario = manager.find(Usuario.class, nombreUsuario);
 			manager.getTransaction().commit();
 			manager.close();
 			
+
 			if(usuario == null) {
 				//no encontró el usuario
 				usuario = new Usuario();
@@ -151,6 +162,7 @@ public abstract class GestorBD {
 			return null;			
 		}
 		
+
 	}
 	
 }

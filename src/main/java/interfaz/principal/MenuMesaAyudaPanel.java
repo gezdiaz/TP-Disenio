@@ -8,6 +8,7 @@ import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import interfaz.base.VentanaBase;
@@ -78,7 +79,8 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.insets = new Insets(20, 5, 10, 30);
 		cons.fill = GridBagConstraints.NONE;
 		btnConsultarTicket.addActionListener(a -> {
-			ventana.cambiarPanel(new JPanel());//TODO crear el panel Consultar ticket
+			//ventana.cambiarPanel(new JPanel());//TODO crear el panel Consultar ticket
+			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		});
 		add(btnConsultarTicket, cons);
 		
