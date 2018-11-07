@@ -53,20 +53,31 @@ public abstract class GestorTickets {
 		return true;
 	}
 	
-	public static boolean cerrarTicketMesaAyuda(TicketDTO ticketDTO, String observaciones) {
+	public static Integer cerrarTicketMesaAyuda(TicketDTO ticketDTO, String observaciones) {
 		
-		Ticket ticket = GestorBD.buscarTicketPorId(ticketDTO.getNumTicket());
+		Ticket ticket = new Ticket();
+		
+		ticket.setNumTIcket(-1L);
+		
+		ticket = GestorBD.buscarTicketPorId(ticketDTO.getNumTicket());
+		//no encontro el ticket
+		if(ticket == null ) {
+			return 0;
+		}
+		//no se concecto a la base de datos
+		if(ticket.getNumTIcket()==-1) {
+			return -1;
+		}
 		
 		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Cerrado, ticket, GestorUsuarios.usuarioActual(), observaciones);
 		
 		ticket.acutalizarEstado(nuevoEstado);
-		
-		/*if(!GestorIntervenciones.terminarIntervencion(ticket, observaciones) && !GestorBD.guardarTicket(ticket)) {
-			return false;
+		//no se pudo guardar en base de datos
+		/*if(!GestorIntervenciones.terminarIntervencion(ticket, observaciones)>0 || !GestorBD.guardarTicket(ticket)>0) {
+			return -2;
 		}*/
 		
-		
-		return true;
+		return 1;
 	}
 
 }

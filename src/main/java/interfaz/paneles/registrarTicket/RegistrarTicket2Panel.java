@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
+import logicaDeNegocios.gestores.GestorTickets;
 import dto.*;
 
 public class RegistrarTicket2Panel extends JPanel {
@@ -179,7 +180,24 @@ public class RegistrarTicket2Panel extends JPanel {
 		}else {
 			//TODO Hacer la acción seleccionada, cerrar o derivar ticket del CU1
 			if(accionList.getSelectedItem()=="Cerrar ticket") {
-				//GestorTickets.cerrarTicket(ticketDTO);
+				switch(GestorTickets.cerrarTicketMesaAyuda(ticketDTO, obserbacionesTxt.getText())) {
+				case -2:{
+					JOptionPane.showConfirmDialog(ventana, "No se ha podido registrar el ticket en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				case -1:{
+					JOptionPane.showConfirmDialog(ventana, "Error conectándose a la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				case 0:{
+					JOptionPane.showConfirmDialog(ventana, "Ticket no encontrado en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				case 1:{JOptionPane.showConfirmDialog(ventana, "El ticket ha sido cerrado exitosamente", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				default:{}
+				}
 			}
 			else {
 				//GestorTickets.derivarTicket(ticketDTO,accionList.getSelectedItem());
