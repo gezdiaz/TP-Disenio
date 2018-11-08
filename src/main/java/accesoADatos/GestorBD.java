@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import logicaDeNegocios.entidades.CambioEstadoTicket;
 import logicaDeNegocios.entidades.Clasificacion;
 import logicaDeNegocios.entidades.Empleado;
 import logicaDeNegocios.entidades.GrupoResolucion;
@@ -232,6 +233,28 @@ public static Boolean guardarTicket(Ticket ticket) {
 		}
 		
 
+	}
+
+	public static Boolean guardarCambioEstadoTIcket(CambioEstadoTicket cambioEstado) {
+		//System.out.println("Entro a guardar TIcket");
+		
+		try {
+			EntityManager manager = emf.createEntityManager();
+			manager.getTransaction().begin();
+			manager.persist(cambioEstado);
+			manager.merge(cambioEstado);
+			//System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
+//			manager.persist(ticket);
+			manager.getTransaction().commit();
+			manager.close();
+			//System.out.println("Salgo de guardar TIcket");
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+			
+		}
 	}
 	
 }
