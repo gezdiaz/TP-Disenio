@@ -35,6 +35,7 @@ public abstract class GestorBD {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
 			manager.merge(ticket);
+			System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
 //			manager.persist(ticket);
 			manager.getTransaction().commit();
 			manager.close();

@@ -18,6 +18,7 @@ public abstract class GestorTickets {
 	public static TicketDTO getNuevoTicket() {
 		// TODO Metodo que crea un nuevo ticket
 		Ticket t = new Ticket();
+		t.setDescripcion("");
 		if(GestorBD.guardarTicket(t)) {
 			return t.getDTO();
 		}else {

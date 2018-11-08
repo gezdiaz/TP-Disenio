@@ -15,12 +15,12 @@
 
 			<!-- Para PosgreSQL -->
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-<!-- 			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://190.114.206.177/tutifruti49/public?serverTimezone=UTC" /> -->
-<!-- 			<property name="javax.persistence.jdbc.user" value="tf49_user" /> -->
-<!-- 			<property name="javax.persistence.jdbc.password" value="tpdsg1" /> -->
-			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://echo.db.elephantsql.com:5432/czxiiqef" />
-			<property name="javax.persistence.jdbc.user" value="czxiiqef" />
-			<property name="javax.persistence.jdbc.password" value="4MnbSKTJWKbtW9Y_GWP9EE9ieVEYHoRF" />
+			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://190.114.206.177/tutifruti49/public?serverTimezone=UTC" />
+			<property name="javax.persistence.jdbc.user" value="tf49_user" />
+			<property name="javax.persistence.jdbc.password" value="tpdsg1" />
+<!-- 			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://elmer.db.elephantsql.com:5432/clyvfpdy" /> -->
+<!-- 			<property name="javax.persistence.jdbc.user" value="clyvfpdy" /> -->
+<!-- 			<property name="javax.persistence.jdbc.password" value="EsKRogIgwbiR1oHZJauXQ1pNAUP15CgV" /> -->
 			
 
 			<!-- Para mySQL -->

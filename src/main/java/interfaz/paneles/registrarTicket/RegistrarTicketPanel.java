@@ -61,6 +61,9 @@ public class RegistrarTicketPanel extends JPanel {
 		txtNumTicket = new JTextField(15);
 		ticketDTO = GestorTickets.getNuevoTicket();
 		GestorTickets.guardarTicket(ticketDTO);
+		System.out.println("ticket dto: "+ticketDTO);
+		System.out.println("numTicektDto: "+ticketDTO.getNumTicket());
+		System.out.println("txtnumticket: "+txtNumTicket);
 		txtNumTicket.setText(ticketDTO.getNumTicket().toString()); //TODO Buscar el siguiente numero de ticket con el gestor
 		txtNumTicket.setEditable(false);
 		

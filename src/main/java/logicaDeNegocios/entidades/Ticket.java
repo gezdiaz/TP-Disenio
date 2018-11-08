@@ -39,7 +39,9 @@ public class Ticket {
 	
 	
 	public Ticket() {
-		
+		this.historialCambioEstadoTicket = new ArrayList<CambioEstadoTicket>();
+		this.historialReclasificacion = new ArrayList<Reclasificacion>();
+		this.intervenciones = new ArrayList<Intervencion>();
 	}
 	
 	public Ticket(Long numTIcket, Empleado solicitante, LocalDateTime fechaHoraApertura,
@@ -48,9 +50,9 @@ public class Ticket {
 		this.solicitante = solicitante;
 		this.fechaHoraApertura = fechaHoraApertura;
 		this.descripcion = descripcion;
-		this.historialCambioEstadoTicket = new Stack<CambioEstadoTicket>();
-		this.historialReclasificacion = new Stack<Reclasificacion>();
-		this.intervenciones = new Stack<Intervencion>();
+		this.historialCambioEstadoTicket = new ArrayList<CambioEstadoTicket>();
+		this.historialReclasificacion = new ArrayList<Reclasificacion>();
+		this.intervenciones = new ArrayList<Intervencion>();
 	}
 
 
@@ -157,6 +159,7 @@ public class Ticket {
 	}
 
 	public Clasificacion ultimaCalsificacion() {
+		System.out.println("Historial recla: "+historialReclasificacion);
 		Reclasificacion ultima = historialReclasificacion.get(0);
 		
 		for(Reclasificacion rc : historialReclasificacion) {
@@ -171,11 +174,14 @@ public class Ticket {
 	public TicketDTO getDTO() {
 		TicketDTO dto = new TicketDTO(numTIcket);
 		
-		dto.setClasificacion(ultimaCalsificacion().getNombre());
 		dto.setDescripcion(descripcion);
 		dto.setFechaHoraApertura(fechaHoraApertura);
-		dto.setNumLegajo(solicitante.getNumLegajo());
-		
+		if (!historialReclasificacion.isEmpty()) {
+			dto.setClasificacion(ultimaCalsificacion().getNombre());
+		}
+		if(solicitante != null) {
+			dto.setNumLegajo(solicitante.getNumLegajo());
+		}
 		return dto;
 	}
 
