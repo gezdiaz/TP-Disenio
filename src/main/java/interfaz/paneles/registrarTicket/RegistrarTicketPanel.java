@@ -11,6 +11,7 @@ import java.awt.event.FocusListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.List;
 import java.util.Locale;
 
 import javax.swing.JButton;
@@ -91,9 +92,13 @@ public class RegistrarTicketPanel extends JPanel {
 		listClasificacion = new JComboBox<>();
 		listClasificacion.addItem("Seleccione una clasificación");
 		//TODO meter las clasificaciones en la lista
-		for(int i=1; i<5; i++) {
-			listClasificacion.addItem("Clasificación "+i);
+		List<String> nombresClas = GestorBD.getListClasificaciones();
+		for(String n: nombresClas) {
+			listClasificacion.addItem(n);
 		}
+//		for(int i=1; i<5; i++) {
+//			listClasificacion.addItem("Clasificación "+i);
+//		}
 
 		JLabel labelAux;
 
@@ -293,7 +298,7 @@ public class RegistrarTicketPanel extends JPanel {
 
 	private void apretoCancelar() {
 		// TODO Accion del boton cancelar de Registrar Ticket
-
+		GestorTickets.eliminarTicket(ticketDTO);
 		ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana)); //deberia volver a la pantalla de mesa de ayuda
 
 	}

@@ -28,13 +28,13 @@ public class Ticket {
 	@Column(name = "DESCRIPCION",nullable = false, length = 255)
 	private String descripcion;
 	
-	@OneToMany(mappedBy = "ticket", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
 	private List<CambioEstadoTicket> historialCambioEstadoTicket;
 
-	@OneToMany(mappedBy = "ticket")
+	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
 	private List<Reclasificacion> historialReclasificacion;
 	
-	@OneToMany(mappedBy = "ticket")
+	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
 	private List<Intervencion> intervenciones;
 	
 
@@ -134,28 +134,28 @@ public class Ticket {
 	}
 
 	public EstadoTicket estadoActual() {
-		CambioEstadoTicket ultimoCambio = historialCambioEstadoTicket.get(0);
+		CambioEstadoTicket ultimoCambio = historialCambioEstadoTicket.get(historialCambioEstadoTicket.size()-1);
 		EstadoTicket actual = ultimoCambio.getEstadoNuevo();
 		
-		for(CambioEstadoTicket c: historialCambioEstadoTicket) {
-			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
-				ultimoCambio = c;
-				actual = c.getEstadoNuevo();
-			}
-		}
+//		for(CambioEstadoTicket c: historialCambioEstadoTicket) {
+//			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
+//				ultimoCambio = c;
+//				actual = c.getEstadoNuevo();
+//			}
+//		}
 		
 		return actual;
 	}
 
 	public Intervencion ultimaIntervencion() {
 		
-		Intervencion ultima = this.intervenciones.get(0);
+		Intervencion ultima = this.intervenciones.get(intervenciones.size()-1);
 		
-		for(Intervencion i : intervenciones) {
-			if(i.getFechaHoraASignacion().compareTo(ultima.getFechaHoraASignacion())>0) {
-				ultima = i;
-			}
-		}
+//		for(Intervencion i : intervenciones) {
+//			if(i.getFechaHoraASignacion().compareTo(ultima.getFechaHoraASignacion())>0) {
+//				ultima = i;
+//			}
+//		}
 		
 		return ultima;
 	}

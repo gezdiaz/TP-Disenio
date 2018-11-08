@@ -171,7 +171,7 @@ public class RegistrarTicket2Panel extends JPanel {
 	}
 	private void apretoCancelar() {
 		//TODO Boton cancelar en la segunda pantalla de registrar ticket
-		//GestorTickets.borrarTicket(ticketDTO);
+		GestorTickets.eliminarTicket(ticketDTO);
 		ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 	}
 	private void apretoAceptar() {

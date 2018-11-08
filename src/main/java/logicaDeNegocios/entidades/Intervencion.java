@@ -32,7 +32,7 @@ public class Intervencion {
 	@JoinColumn(name="ID_GR")
 	private GrupoResolucion grupoResolucion;
 	
-	@OneToMany(mappedBy = "intervencion", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "intervencion", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	private List<CambioEstadoIntervencion> historialCambioEstadoIntervencion;
 	
 
@@ -113,15 +113,15 @@ public class Intervencion {
 	}
 
 	public EstadoIntervencion estadoActual() {
-		CambioEstadoIntervencion ultimoCambio = historialCambioEstadoIntervencion.get(0);
+		CambioEstadoIntervencion ultimoCambio = historialCambioEstadoIntervencion.get(historialCambioEstadoIntervencion.size()-1);
 		EstadoIntervencion actual = ultimoCambio.getEstadoNuevo();
-		
-		for(CambioEstadoIntervencion c: historialCambioEstadoIntervencion) {
-			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
-				ultimoCambio = c;
-				actual = c.getEstadoNuevo();
-			}
-		}
+//		
+//		for(CambioEstadoIntervencion c: historialCambioEstadoIntervencion) {
+//			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
+//				ultimoCambio = c;
+//				actual = c.getEstadoNuevo();
+//			}
+//		}
 		
 		return actual;
 	}
