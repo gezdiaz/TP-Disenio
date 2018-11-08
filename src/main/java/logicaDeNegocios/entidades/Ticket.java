@@ -28,7 +28,7 @@ public class Ticket {
 	@Column(name = "DESCRIPCION",nullable = false, length = 255)
 	private String descripcion;
 	
-	@OneToMany(mappedBy = "ticket", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "ticket", fetch=FetchType.LAZY)
 	private List<CambioEstadoTicket> historialCambioEstadoTicket;
 
 	@OneToMany(mappedBy = "ticket")
@@ -37,7 +37,7 @@ public class Ticket {
 	@OneToMany(mappedBy = "ticket")
 	private List<Intervencion> intervenciones;
 	
-	
+
 	public Ticket() {
 		this.historialCambioEstadoTicket = new ArrayList<CambioEstadoTicket>();
 		this.historialReclasificacion = new ArrayList<Reclasificacion>();

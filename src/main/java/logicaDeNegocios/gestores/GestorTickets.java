@@ -37,7 +37,11 @@ public abstract class GestorTickets {
 		
 		//Cambia el estado a Abierto
 		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), null, EstadoTicket.Abierto, ticket , usuario, ticketDTO.getDescripcion());
-	
+		
+		if(!GestorBD.guardarCambioEstadoTIcket(cambioEstado)) {
+			return false;
+		}
+		
 		ticket.acutalizarEstado(cambioEstado);
 		
 		//Setea la clasificacion
@@ -80,6 +84,10 @@ public abstract class GestorTickets {
 		}
 		
 		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Cerrado, ticket, GestorUsuarios.usuarioActual(), observaciones);
+		
+		if(!GestorBD.guardarCambioEstadoTIcket(nuevoEstado)) {
+			return 0;
+		}
 		
 		ticket.acutalizarEstado(nuevoEstado);
 		//no se pudo guardar en base de datos
