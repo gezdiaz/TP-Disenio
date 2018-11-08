@@ -52,11 +52,15 @@ public abstract class GestorIntervenciones {
 		
 		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), ultima.estadoActual(), EstadoIntervencion.Terminado, ultima, GestorUsuarios.usuarioActual(), observaciones);
 		
+		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado)) {
+			return false;
+		}
+		
 		ultima.actualizarEstado(cambioEstado);
 		
-		/*if(!GestorBD.guardarIntervencion(ultima)) {
+		if(!GestorBD.actualizarIntervencion(ultima)) {
 			return false;
-		}*/
+		}
 		
 		return true;
 	}

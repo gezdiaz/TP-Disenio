@@ -87,6 +87,10 @@ public abstract class GestorTickets {
 			return -1;
 		}
 		
+		if(!GestorIntervenciones.terminarIntervencion(ticket, observaciones)) {
+			return 0;
+		}
+		
 		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Cerrado, ticket, GestorUsuarios.usuarioActual(), observaciones);
 		
 		if(!GestorBD.guardarCambioEstadoTIcket(nuevoEstado)) {

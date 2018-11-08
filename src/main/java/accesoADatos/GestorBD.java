@@ -21,62 +21,62 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 
 public abstract class GestorBD {
-	
+
 	private static EntityManagerFactory emf;
-	
+
 	private static Query consulta;
-	
+
 	public static void setEmf(EntityManagerFactory factory) {
 		emf = factory;
 	}
-	
-public static Boolean guardarTicket(Ticket ticket) {
-		
+
+	public static Boolean guardarTicket(Ticket ticket) {
+
 		System.out.println("Entro a guardar TIcket");
-		
+
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
 			manager.persist(ticket);
 			manager.merge(ticket);
 			System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
-//			manager.persist(ticket);
+			//			manager.persist(ticket);
 			manager.getTransaction().commit();
 			manager.close();
 			System.out.println("Salgo de guardar TIcket");
 			return true;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-			
+
 		}
-		
+
 	}
 
-public static Boolean actualizarTicket(Ticket ticket) {
-	
-	System.out.println("Entro a guardar cambio de ticket");
-	
-	try {
-		EntityManager manager = emf.createEntityManager();
-		manager.getTransaction().begin();
-		ticket = manager.merge(ticket);
-		manager.persist(ticket);
-		manager.getTransaction().commit();
-		manager.close();
-		System.out.println("Salgo de guardar ticket");
-		return true;
-		
-	} catch (Exception e) {
-		e.printStackTrace();
-		return false;
-		
-	}
-	
-}
+	public static Boolean actualizarTicket(Ticket ticket) {
 
-	
+		System.out.println("Entro a guardar cambio de ticket");
+
+		try {
+			EntityManager manager = emf.createEntityManager();
+			manager.getTransaction().begin();
+			ticket = manager.merge(ticket);
+			manager.persist(ticket);
+			manager.getTransaction().commit();
+			manager.close();
+			System.out.println("Salgo de guardar ticket");
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+
+		}
+
+	}
+
+
 	public static Integer guardarIntervencion(Intervencion intervencion) {
 
 		try {
@@ -86,41 +86,41 @@ public static Boolean actualizarTicket(Ticket ticket) {
 			manager.merge(intervencion);
 			manager.getTransaction().commit();
 			manager.close();
-			
+
 			return 1;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
-			
+
 		}
-		
+
 	}
-	
+
 	public static Integer guardarClasificacion(Clasificacion clasificacion) {
-		
+
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
 			manager.persist(clasificacion);
 			manager.getTransaction().commit();
 			manager.close();
-			
+
 			return 1;
-			
+
 		} catch (Exception e) {
 
 			return 0;
-			
+
 		}
-		
+
 	}
 
 	public static Clasificacion buscarClasificacion(String clasificacion) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public static List<Ticket> buscarTickets(Integer numTicket,Integer numLeg,String nombreClasificacion,EstadoTicket estadoActual, LocalDateTime fechaApertura, LocalDateTime fechaUltimoCambio,GrupoResolucion ultGrupo){
 		/*EntityManager manager = emf.createEntityManager();
 		consulta = manager.createQuery("SELECT *"
@@ -140,18 +140,18 @@ public static Boolean actualizarTicket(Ticket ticket) {
 		consulta.setParameter(4, nombreClasificacion);
 		consulta.setParameter(5, estadoActual);
 		consulta.setParameter(6, fechaUltimoCambio);*/
-		
+
 		return null;
-	
-		
+
+
 	}
 
 	public static Ticket buscarTicketPorId(Long numTicket) {
-		
+
 		try {
 			EntityManager manager = emf.createEntityManager();
 			Ticket ticket;
-			
+
 			manager.getTransaction().begin();
 			ticket = manager.find(Ticket.class, numTicket);
 			manager.getTransaction().commit();
@@ -159,22 +159,22 @@ public static Boolean actualizarTicket(Ticket ticket) {
 			ticket.getHistorialReclasificacion().size();
 			ticket.getIntervenciones().size();
 			manager.close();
-			
+
 			/*if(ticket==null) {
 				System.out.println("Ticket es null");
 			}*/
-			
+
 			return ticket;
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
-			
+
 			return null;
 		}
 	}
-	
+
 	public static Empleado buscarEmpleado(Integer numLegajo) {
-		
+
 		try {
 			EntityManager manager = emf.createEntityManager();
 			Empleado empleado = null;
@@ -183,31 +183,31 @@ public static Boolean actualizarTicket(Ticket ticket) {
 			empleado = manager.find(Empleado.class, numLegajo);
 			manager.getTransaction().commit();
 			manager.close();
-			
+
 
 			if(empleado == null) {
 				//no encontró el empleado
 				empleado = new Empleado();
 				empleado.setNumLegajo(-1L);//num de legajo -1 para indicar un error
-				}
-			
+			}
+
 			return empleado;
 		} catch (Exception e) {
 			System.out.println("Exepcion en buscar usuario: ");
 			System.out.println();
 			e.printStackTrace();
-			
+
 			return null;			
 		}
-		
+
 	}
 
 	public static Usuario buscarUsuario(String nombreUsuario) {
-		
+
 		if(emf == null) {
 			System.out.println("EL EMF ES NULL!!!");
 		}
-		
+
 		try {
 			EntityManager manager = emf.createEntityManager();
 			Usuario usuario = null;
@@ -216,92 +216,110 @@ public static Boolean actualizarTicket(Ticket ticket) {
 			usuario = manager.find(Usuario.class, nombreUsuario);
 			manager.getTransaction().commit();
 			manager.close();
-			
+
 
 			if(usuario == null) {
 				//no encontró el usuario
 				usuario = new Usuario();
 				usuario.setNombreUsuario("");
 			}
-			
+
 			return usuario;
 		} catch (Exception e) {
 			System.out.println("Exepcion en buscar usuario: ");
 			System.out.println();
 			e.printStackTrace();
-			
+
 			return null;			
 		}
-		
+
 
 	}
 
 	public static Boolean guardarCambioEstadoTIcket(CambioEstadoTicket cambioEstado) {
 		//System.out.println("Entro a guardar TIcket");
-		
+
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
 			manager.persist(cambioEstado);
 			manager.merge(cambioEstado);
 			//System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
-//			manager.persist(ticket);
+			//			manager.persist(ticket);
 			manager.getTransaction().commit();
 			manager.close();
 			//System.out.println("Salgo de guardar TIcket");
 			return true;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-			
+
 		}
 	}
-	
 
 
-public static Boolean guardarCambioEstadoIntervencion(CambioEstadoIntervencion cambioEstado) {
-	//System.out.println("Entro a guardar TIcket");
-	
-	try {
-		EntityManager manager = emf.createEntityManager();
-		manager.getTransaction().begin();
-		manager.persist(cambioEstado);
-		manager.merge(cambioEstado);
-		//System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
-//		manager.persist(ticket);
-		manager.getTransaction().commit();
-		manager.close();
-		//System.out.println("Salgo de guardar TIcket");
-		return true;
-		
-	} catch (Exception e) {
-		e.printStackTrace();
-		return false;
-		
+
+	public static Boolean guardarCambioEstadoIntervencion(CambioEstadoIntervencion cambioEstado) {
+		//System.out.println("Entro a guardar TIcket");
+
+		try {
+			EntityManager manager = emf.createEntityManager();
+			manager.getTransaction().begin();
+			manager.persist(cambioEstado);
+			manager.merge(cambioEstado);
+			//System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
+			//		manager.persist(ticket);
+			manager.getTransaction().commit();
+			manager.close();
+			//System.out.println("Salgo de guardar TIcket");
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+
+		}
 	}
-}
 
-public static Boolean guardarReclasificacion(Reclasificacion reclasificacion) {
-	//System.out.println("Entro a guardar TIcket");
-	
-	try {
-		EntityManager manager = emf.createEntityManager();
-		manager.getTransaction().begin();
-		manager.persist(reclasificacion);
-		manager.merge(reclasificacion);
-		//System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
-//		manager.persist(ticket);
-		manager.getTransaction().commit();
-		manager.close();
-		//System.out.println("Salgo de guardar TIcket");
-		return true;
-		
-	} catch (Exception e) {
-		e.printStackTrace();
-		return false;
-		
+	public static Boolean guardarReclasificacion(Reclasificacion reclasificacion) {
+		//System.out.println("Entro a guardar TIcket");
+
+		try {
+			EntityManager manager = emf.createEntityManager();
+			manager.getTransaction().begin();
+			manager.persist(reclasificacion);
+			manager.merge(reclasificacion);
+			//System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
+			//		manager.persist(ticket);
+			manager.getTransaction().commit();
+			manager.close();
+			//System.out.println("Salgo de guardar TIcket");
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+
+		}
 	}
-}
+
+	public static boolean actualizarIntervencion(Intervencion ultima) {
+		try {
+			EntityManager manager = emf.createEntityManager();
+			manager.getTransaction().begin();
+			ultima = manager.merge(ultima);
+			manager.persist(ultima);
+			manager.getTransaction().commit();
+			manager.close();
+
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+
+		}
+	}
 
 }
