@@ -47,6 +47,10 @@ public abstract class GestorTickets {
 		//Setea la clasificacion
 		Reclasificacion reclasificacion = new Reclasificacion(null, clasificacion, usuario);
 		
+		if(!GestorBD.guardarReclasificacion(reclasificacion)) {
+			return false;
+		}
+		
 		ticket.cambiarClasificacion(reclasificacion);
 		
 		//Crea la intervencion

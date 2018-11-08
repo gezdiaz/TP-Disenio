@@ -15,18 +15,31 @@ public abstract class GestorIntervenciones {
 
 	public static Intervencion crearIntervencion(Ticket ticket, Usuario usuario, String observaciones) {
 		
-		Intervencion intervencion = new Intervencion("", LocalDateTime.now(), ticket, usuario.getGrupo());
-		CambioEstadoIntervencion cambioEstado1 = new CambioEstadoIntervencion(LocalDateTime.now(), null, EstadoIntervencion.Asignado, intervencion, usuario, observaciones);
-		
-		intervencion.actualizarEstado(cambioEstado1);
-		
-		CambioEstadoIntervencion cambioEstado2 = new CambioEstadoIntervencion(LocalDateTime.now(), intervencion.estadoActual(), EstadoIntervencion.Trabajando, intervencion, usuario, observaciones);
-
-		intervencion.actualizarEstado(cambioEstado2);
+		Intervencion intervencion = new Intervencion(observaciones, LocalDateTime.now(), ticket, usuario.getGrupo());
 		
 		if (!(GestorBD.guardarIntervencion(intervencion)>0)) {
 			return null;
 		}
+		
+		CambioEstadoIntervencion cambioEstado1 = new CambioEstadoIntervencion(LocalDateTime.now(), null, EstadoIntervencion.Asignado, intervencion, usuario, observaciones);
+		
+		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado1)) {
+			return null;
+		}
+		
+		intervencion.actualizarEstado(cambioEstado1);
+		
+		CambioEstadoIntervencion cambioEstado2 = new CambioEstadoIntervencion(LocalDateTime.now(), intervencion.estadoActual(), EstadoIntervencion.Trabajando, intervencion, usuario, observaciones);
+		
+		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado2)) {
+			return null;
+		}
+		
+		intervencion.actualizarEstado(cambioEstado2);
+		
+		/*if (!(GestorBD.guardarIntervencion(intervencion)>0)) {
+			return null;
+		}*/
 		
 		return intervencion;
 	}

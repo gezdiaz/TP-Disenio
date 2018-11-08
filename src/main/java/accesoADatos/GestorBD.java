@@ -7,11 +7,13 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import logicaDeNegocios.entidades.CambioEstadoIntervencion;
 import logicaDeNegocios.entidades.CambioEstadoTicket;
 import logicaDeNegocios.entidades.Clasificacion;
 import logicaDeNegocios.entidades.Empleado;
 import logicaDeNegocios.entidades.GrupoResolucion;
 import logicaDeNegocios.entidades.Intervencion;
+import logicaDeNegocios.entidades.Reclasificacion;
 import logicaDeNegocios.entidades.Ticket;
 import logicaDeNegocios.entidades.Usuario;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
@@ -80,6 +82,7 @@ public static Boolean actualizarTicket(Ticket ticket) {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
+			manager.persist(intervencion);
 			manager.merge(intervencion);
 			manager.getTransaction().commit();
 			manager.close();
@@ -255,4 +258,50 @@ public static Boolean actualizarTicket(Ticket ticket) {
 		}
 	}
 	
+
+
+public static Boolean guardarCambioEstadoIntervencion(CambioEstadoIntervencion cambioEstado) {
+	//System.out.println("Entro a guardar TIcket");
+	
+	try {
+		EntityManager manager = emf.createEntityManager();
+		manager.getTransaction().begin();
+		manager.persist(cambioEstado);
+		manager.merge(cambioEstado);
+		//System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
+//		manager.persist(ticket);
+		manager.getTransaction().commit();
+		manager.close();
+		//System.out.println("Salgo de guardar TIcket");
+		return true;
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
+		
+	}
+}
+
+public static Boolean guardarReclasificacion(Reclasificacion reclasificacion) {
+	//System.out.println("Entro a guardar TIcket");
+	
+	try {
+		EntityManager manager = emf.createEntityManager();
+		manager.getTransaction().begin();
+		manager.persist(reclasificacion);
+		manager.merge(reclasificacion);
+		//System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
+//		manager.persist(ticket);
+		manager.getTransaction().commit();
+		manager.close();
+		//System.out.println("Salgo de guardar TIcket");
+		return true;
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
+		
+	}
+}
+
 }
