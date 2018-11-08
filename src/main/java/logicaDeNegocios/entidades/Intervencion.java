@@ -32,7 +32,7 @@ public class Intervencion {
 	@JoinColumn(name="ID_GR")
 	private GrupoResolucion grupoResolucion;
 	
-	@OneToMany(mappedBy = "intervencion")
+	@OneToMany(mappedBy = "intervencion", fetch = FetchType.EAGER)
 	private List<CambioEstadoIntervencion> historialCambioEstadoIntervencion;
 	
 

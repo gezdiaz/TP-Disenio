@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import logicaDeNegocios.entidades.CambioEstadoTicket;
 import logicaDeNegocios.entidades.Clasificacion;
 import logicaDeNegocios.entidades.Empleado;
 import logicaDeNegocios.entidades.GrupoResolucion;
@@ -50,31 +51,28 @@ public static Boolean guardarTicket(Ticket ticket) {
 		}
 		
 	}
+
+public static Boolean actualizarCambioEstadoTicket(CambioEstadoTicket cambioEstadoTicket) {
 	
-	public static Boolean actualizarTicket(Ticket ticket) {
+	System.out.println("Entro a guardar cambio de estado");
+	
+	try {
+		EntityManager manager = emf.createEntityManager();
+		manager.getTransaction().begin();
+		cambioEstadoTicket = manager.merge(cambioEstadoTicket);
+		manager.persist(cambioEstadoTicket);
+		manager.getTransaction().commit();
+		manager.close();
+		System.out.println("Salgo de guardar cambioEstadoTicket");
+		return true;
 		
-		System.out.println("Entro a guardar TIcket");
-		
-		try {
-			EntityManager manager = emf.createEntityManager();
-			manager.getTransaction().begin();
-			ticket=manager.merge(ticket);
-			manager.persist(ticket);
-			//manager.merge(ticket);
-			System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
-//			manager.persist(ticket);
-			manager.getTransaction().commit();
-			manager.close();
-			System.out.println("Salgo de guardar TIcket");
-			return true;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-			
-		}
+	} catch (Exception e) {
+		e.printStackTrace();
+		return false;
 		
 	}
+	
+}
 	
 	public static Integer guardarIntervencion(Intervencion intervencion) {
 
