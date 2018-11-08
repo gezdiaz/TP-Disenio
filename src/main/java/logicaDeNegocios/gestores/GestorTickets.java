@@ -57,7 +57,7 @@ public abstract class GestorTickets {
 		ticket.agregarIntervencion(intervencion);
 		
 		//Guarda en la base de datos		
-		if(!GestorBD.guardarTicket(ticket)) {
+		if(!GestorBD.actualizarTicket(ticket)) {
 			return false;
 		}
 		return true;
@@ -96,7 +96,7 @@ public abstract class GestorTickets {
 		ticket.setNumTIcket(ticketDTO.getNumTicket());
 		ticket.setDescripcion("");
 		
-		if(!GestorBD.guardarTicket(ticket)) {
+		if(!GestorBD.actualizarTicket(ticket)) {
 			System.out.println("No se guarda el ticket de mierda");
 		}
 		

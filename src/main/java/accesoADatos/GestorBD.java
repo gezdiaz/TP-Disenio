@@ -27,14 +27,40 @@ public abstract class GestorBD {
 		emf = factory;
 	}
 	
-	public static Boolean guardarTicket(Ticket ticket) {
+public static Boolean guardarTicket(Ticket ticket) {
 		
 		System.out.println("Entro a guardar TIcket");
 		
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
+			manager.persist(ticket);
 			manager.merge(ticket);
+			System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
+//			manager.persist(ticket);
+			manager.getTransaction().commit();
+			manager.close();
+			System.out.println("Salgo de guardar TIcket");
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+			
+		}
+		
+	}
+	
+	public static Boolean actualizarTicket(Ticket ticket) {
+		
+		System.out.println("Entro a guardar TIcket");
+		
+		try {
+			EntityManager manager = emf.createEntityManager();
+			manager.getTransaction().begin();
+			ticket=manager.merge(ticket);
+			manager.persist(ticket);
+			//manager.merge(ticket);
 			System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
 //			manager.persist(ticket);
 			manager.getTransaction().commit();
@@ -127,7 +153,14 @@ public abstract class GestorBD {
 			manager.getTransaction().begin();
 			ticket = manager.find(Ticket.class, numTicket);
 			manager.getTransaction().commit();
+			ticket.getHistorialCambioEstadoTicket().size();
+			ticket.getHistorialReclasificacion().size();
+			ticket.getIntervenciones().size();
 			manager.close();
+			
+			/*if(ticket==null) {
+				System.out.println("Ticket es null");
+			}*/
 			
 			return ticket;
 		} catch (Exception e) {

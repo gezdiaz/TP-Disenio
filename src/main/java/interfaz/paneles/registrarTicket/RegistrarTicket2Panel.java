@@ -180,7 +180,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		}else {
 			//TODO Hacer la acción seleccionada, cerrar o derivar ticket del CU1
 			if(accionList.getSelectedItem()=="Cerrar ticket") {
-				switch(GestorTickets.cerrarTicketMesaAyuda(ticketDTO, obserbacionesTxt.getText())) {
+				switch(GestorTickets.cerrarTicketMesaAyuda(this.ticketDTO, obserbacionesTxt.getText())) {
 				case -2:{
 					JOptionPane.showConfirmDialog(ventana, "No se ha podido registrar el ticket en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					break;
