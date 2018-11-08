@@ -24,8 +24,8 @@ public abstract class GestorTickets {
 		}else {
 			return null;
 		}
-		
-		
+
+
 	}
 
 	public static Boolean registrarTicket(TicketDTO ticketDTO) {
@@ -34,25 +34,17 @@ public abstract class GestorTickets {
 		Empleado solicitante = SistemaPersonal.getEmpleado(ticketDTO.getNumLegajo());
 		Ticket ticket = new Ticket(ticketDTO.getNumTicket(), solicitante, ticketDTO.getFechaHoraApertura(), ticketDTO.getDescripcion());
 		Usuario usuario = GestorUsuarios.usuarioActual();
-		
+
 		//Cambia el estado a Abierto
 		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), null, EstadoTicket.Abierto, ticket , usuario, ticketDTO.getDescripcion());
-		
-		if(!GestorBD.guardarCambioEstadoTIcket(cambioEstado)) {
-			return false;
-		}
-		
+
 		ticket.acutalizarEstado(cambioEstado);
-		
+
 		//Setea la clasificacion
 		Reclasificacion reclasificacion = new Reclasificacion(null, clasificacion, usuario);
-		
-		if(!GestorBD.guardarReclasificacion(reclasificacion)) {
-			return false;
-		}
-		
+
 		ticket.cambiarClasificacion(reclasificacion);
-		
+
 		//Crea la intervencion
 		System.out.println("Empiezo a crear la intervencion");
 		Intervencion intervencion = GestorIntervenciones.crearIntervencion(ticket, usuario, ""); //observaciones vacías, en la segunda pnatalla las cambia.
@@ -61,22 +53,28 @@ public abstract class GestorTickets {
 			System.out.println("Intervencion nula");
 			return false;
 		}
-		
+
 		ticket.agregarIntervencion(intervencion);
-		
-		//Guarda en la base de datos		
+
+		//Guarda en la base de datos
+		if(!GestorBD.guardarCambioEstadoTIcket(cambioEstado)) {
+			return false;
+		}
+		if(!GestorBD.guardarReclasificacion(reclasificacion)) {
+			return false;
+		}
 		if(!GestorBD.actualizarTicket(ticket)) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	public static Integer cerrarTicketMesaAyuda(TicketDTO ticketDTO, String observaciones) {
-		
+
 		Ticket ticket = new Ticket();
-		
+
 		ticket.setNumTIcket(-1L);
-		
+
 		ticket = GestorBD.buscarTicketPorId(ticketDTO.getNumTicket());
 		//no encontro el ticket
 		if(ticket == null ) {
@@ -86,36 +84,36 @@ public abstract class GestorTickets {
 		if(ticket.getNumTIcket()==-1) {
 			return -1;
 		}
-		
+
 		if(!GestorIntervenciones.terminarIntervencion(ticket, observaciones)) {
 			return 0;
 		}
-		
+
 		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Cerrado, ticket, GestorUsuarios.usuarioActual(), observaciones);
-		
+
 		if(!GestorBD.guardarCambioEstadoTIcket(nuevoEstado)) {
 			return 0;
 		}
-		
+
 		ticket.acutalizarEstado(nuevoEstado);
 		//no se pudo guardar en base de datos
 		/*if(!GestorIntervenciones.terminarIntervencion(ticket, observaciones)>0 || !GestorBD.guardarTicket(ticket)>0) {
 			return -2;
 		}*/
-		
+
 		return 1;
 	}
 
 	public static void guardarTicket(TicketDTO ticketDTO) {
-		
+
 		Ticket ticket = new Ticket();
 		ticket.setNumTIcket(ticketDTO.getNumTicket());
 		ticket.setDescripcion("");
-		
+
 		if(!GestorBD.actualizarTicket(ticket)) {
 			System.out.println("No se guarda el ticket de mierda");
 		}
-		
+
 	}
 
 }

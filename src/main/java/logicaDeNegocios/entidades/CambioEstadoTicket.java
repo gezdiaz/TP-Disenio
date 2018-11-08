@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="CAMBIO_ESTADO_TICKET")
 public class CambioEstadoTicket {
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID_CAMBIO_TICK")
@@ -17,32 +17,32 @@ public class CambioEstadoTicket {
 
 	@Column(name="FECHA_HORA_CAMBIO")
 	private LocalDateTime fechaHoraCambio;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name="ESTADO_ANTERIOR")
 	private EstadoTicket estadoAnterior;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name="ESTADO_NUEVO")
 	private EstadoTicket estadoNuevo;
-	
+
 	@ManyToOne
 	@JoinColumn(name="NUM_TICKET")
 	private Ticket ticket;
-	
+
 	@ManyToOne
 	@JoinColumn(name="RESPONSABLE_CAMBIO")
 	private Usuario responsableCambio;
-	
+
 	@Column(name="OBSERVACIONES", length=255, nullable=false)
 	private String observaciones;
-	
+
 
 
 	public CambioEstadoTicket() {
 
 	}
-		
+
 	public CambioEstadoTicket(LocalDateTime fechaHoraCambio, EstadoTicket estadoAnterior, EstadoTicket estadoNuevo,
 			Ticket ticket, Usuario responsableCambio, String observaciones) {
 		super();
@@ -61,7 +61,7 @@ public class CambioEstadoTicket {
 	public void setIdCambioTick(int idCambioTick) {
 		this.idCambioTick = idCambioTick;
 	}
-	
+
 	public LocalDateTime getFechaHoraCambio() {
 		return fechaHoraCambio;
 	}
