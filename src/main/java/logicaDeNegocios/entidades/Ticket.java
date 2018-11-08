@@ -28,7 +28,7 @@ public class Ticket {
 	@Column(name = "DESCRIPCION",nullable = false, length = 255)
 	private String descripcion;
 	
-	@OneToMany(mappedBy = "ticket")
+	@OneToMany(mappedBy = "ticket", fetch=FetchType.EAGER)
 	private List<CambioEstadoTicket> historialCambioEstadoTicket;
 
 	@OneToMany(mappedBy = "ticket")
@@ -116,19 +116,21 @@ public class Ticket {
 	public void acutalizarEstado(CambioEstadoTicket cambioEstado) {
 		
 		historialCambioEstadoTicket.add(cambioEstado);
+		cambioEstado.setTicket(this);
 		
 	}
 
 	public void cambiarClasificacion(Reclasificacion reclasificacion) {
 		
 		historialReclasificacion.add(reclasificacion);
+		reclasificacion.setTicket(this);
 		
 	}
 
 	public void agregarIntervencion(Intervencion intervencion) {
 
 		intervenciones.add(intervencion);
-		
+		intervencion.setTicket(this);
 	}
 
 	public EstadoTicket estadoActual() {
