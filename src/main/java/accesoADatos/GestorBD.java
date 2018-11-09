@@ -117,8 +117,20 @@ public abstract class GestorBD {
 	}
 
 	public static Clasificacion buscarClasificacion(String clasificacion) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			EntityManager manager = emf.createEntityManager();
+			Clasificacion rta;
+			manager.getTransaction().begin();
+			rta = (Clasificacion) manager.createQuery("Select * from clasificacion c where c.nombre = ?1").setParameter(1, clasificacion).getSingleResult();
+			manager.getTransaction().commit();
+			manager.close();
+			return rta;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 	public static List<Ticket> buscarTickets(Integer numTicket,Integer numLeg,String nombreClasificacion,EstadoTicket estadoActual, LocalDateTime fechaApertura, LocalDateTime fechaUltimoCambio,GrupoResolucion ultGrupo){
