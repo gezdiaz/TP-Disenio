@@ -173,7 +173,7 @@ public abstract class GestorBD {
 		}
 	}
 
-	public static Empleado buscarEmpleado(Integer numLegajo) {
+	public static Empleado buscarEmpleado(Long numLegajo) {
 
 		try {
 			EntityManager manager = emf.createEntityManager();
@@ -185,11 +185,11 @@ public abstract class GestorBD {
 			manager.close();
 
 
-			if(empleado == null) {
+			/*if(empleado == null) {
 				//no encontró el empleado
 				empleado = new Empleado();
 				empleado.setNumLegajo(-1L);//num de legajo -1 para indicar un error
-			}
+			}*/
 
 			return empleado;
 		} catch (Exception e) {

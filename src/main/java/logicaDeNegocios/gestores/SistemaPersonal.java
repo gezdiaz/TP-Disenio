@@ -1,12 +1,15 @@
 package logicaDeNegocios.gestores;
 
+import accesoADatos.GestorBD;
 import logicaDeNegocios.entidades.Empleado;
 
 public abstract class SistemaPersonal {
 
 	public static Empleado getEmpleado(Long numLegajo) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Empleado empleado = GestorBD.buscarEmpleado(numLegajo);		
+		
+		return empleado;
 	}
 
 }

@@ -27,7 +27,9 @@ import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
+import logicaDeNegocios.entidades.Empleado;
 import logicaDeNegocios.gestores.GestorTickets;
+import logicaDeNegocios.gestores.SistemaPersonal;
 
 public class RegistrarTicketPanel extends JPanel {
 
@@ -349,7 +351,7 @@ public class RegistrarTicketPanel extends JPanel {
 	private void validarLegajo() {
 		// TODO Validar legajo en Regitrar Ticket
 		String legajoIngresado = txtNumLegajo.getText();
-		Integer numLegajo;
+		Long numLegajo;
 
 		if(legajoIngresado.trim().isEmpty()) {
 			legajoValido = false;
@@ -357,7 +359,7 @@ public class RegistrarTicketPanel extends JPanel {
 			infoEmpleado.setForeground(Color.black);
 		}else {
 			try {
-				numLegajo = Integer.parseInt(legajoIngresado);
+				numLegajo = Long.parseLong(legajoIngresado);
 			}catch(NumberFormatException e) {
 				//No ingresó un número
 				legajoValido = false;
@@ -366,10 +368,17 @@ public class RegistrarTicketPanel extends JPanel {
 				return;
 			}
 			//TODO Buscar el empleado en el sistema de personal
-			//if(SistemaPersonal.getEmpleado(numLegajo){
-			legajoValido = true;
-			infoEmpleado.setText("José María Díaz de la Peña");
-			infoEmpleado.setForeground(Color.blue);
+			Empleado empleado = SistemaPersonal.getEmpleado(numLegajo);
+			if(empleado!=null){
+				legajoValido = true;
+				infoEmpleado.setText(empleado.getNombre()+" "+empleado.getApellido());
+				infoEmpleado.setForeground(Color.blue);
+			}
+			else {
+				legajoValido = false;
+				infoEmpleado.setText("No existe empleado");
+				infoEmpleado.setForeground(Color.red);
+			}
 			ventana.pack();
 		}
 
