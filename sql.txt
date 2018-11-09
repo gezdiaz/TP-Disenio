@@ -1,0 +1,83 @@
+#prueba.CLASIFICACIONes:
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (1,true,"",'08/11/18',"Cambios de Configuración de Sistema Operativo de PC");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (2,true,"",'08/11/18',"Problemas en el funcionamiento del Sistema Operativo de PC y utilitarios");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (3,true,"",'08/11/18',"Solicitud de instalación de aplicaciones");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (4,true,"",'08/11/18',"Mal funcionamiento de Hardware");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (5,true,"",'08/11/18',"Problemas en la autenticación en los distintos sistemas");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (6,true,"",'08/11/18',"Problemas de acceso a la red local o remota");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (7,true,"",'08/11/18',"Solicitud de usuarios de red");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (8,true,"",'08/11/18',"Solicitud de usuarios para Sistemas informáticos que utiliza la empresa");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (9,true,"",'08/11/18',"Modificación en los perfiles de usuarios");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (10,true,"",'08/11/18',"Solicitud de Cambio de Contraseñas");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (11,true,"",'08/11/18',"Problemas en los Sistemas de la empresa");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (12,true,"",'08/11/18',"Problemas con el correo electrónico");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (13,true,"",'08/11/18',"Solicitud de cuentas de correo electrónico");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (14,true,"",'08/11/18',"Solicitud de nuevos puestos de trabajo");
+
+INSERT INTO prueba.CLASIFICACION (CODIGO, ACTIVA, DESCRIPCION, FECHA_CREACION, NOMBRE)
+VALUES (15,true,"",'08/11/18',"Solicitud soporte en el uso de alguna aplicación o sistema");
+
+#Grupos de resolucion
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("A1","Mesa de Ayuda");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("B1","Unidades de soporte");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("B2","Servicio técnico");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("C1","Administrador de Base de Datos");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("C2","Administrador SUSE Linux");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("C3","Administrador Proxy y correo electrónico");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("C4","Administrador DEBIAN");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("B3","Redes LAN");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("C5","Comunicaciones");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("C6","Desarrollo Sistema Comercial");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("C7","Desarrollo Sistema RRHH");
+
+INSERT INTO prueba.GRUPO_DE_RESOLUCION (ID_GR, NOMBRE)
+VALUES ("C8","Desarrollo Sistema de Reclamos");
+
