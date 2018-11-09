@@ -1,11 +1,13 @@
 package interfaz.paneles.registrarTicket;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.time.LocalDateTime;
@@ -14,14 +16,17 @@ import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
@@ -98,10 +103,38 @@ public class RegistrarTicketPanel extends JPanel {
 		for(String n: nombresClas) {
 			listClasificacion.addItem(n);
 		}
+		
+		listClasificacion.setPrototypeDisplayValue("Seleccione una clasificación     ");
 		//		for(int i=1; i<5; i++) {
 		//			listClasificacion.addItem("Clasificación "+i);
 		//		}
-
+		listClasificacion.setRenderer(new DefaultListCellRenderer() {
+			 
+	         @Override
+	         public Component getListCellRendererComponent(JList list, Object value,
+	                 int index, boolean isSelected, boolean cellHasFocus) {
+	            super.getListCellRendererComponent(list, value, index,
+	                    isSelected, cellHasFocus);
+	            if (index == -1) {
+	               listClasificacion.setToolTipText(value.toString());
+	               return this;
+	            }
+	             
+	            setToolTipText(value.toString());
+	            Rectangle textRect =
+	                    new Rectangle(listClasificacion.getSize().width,
+	                    getPreferredSize().height);
+	            String shortText = SwingUtilities.layoutCompoundLabel(this,
+	                    getFontMetrics(getFont()),
+	                    value.toString(), null,
+	                    getVerticalAlignment(), getHorizontalAlignment(),
+	                    getHorizontalTextPosition(), getVerticalTextPosition(),
+	                    textRect, new Rectangle(), textRect,
+	                    getIconTextGap());
+	            setText(shortText);
+	            return this;
+	         }
+	      });
 		JLabel labelAux;
 
 		setLayout(new GridBagLayout());
@@ -118,12 +151,14 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 
+				
 		labelAux = new JLabel("Número de ticket");
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = insetsDerecha;
+		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 
@@ -282,7 +317,7 @@ public class RegistrarTicketPanel extends JPanel {
 		add(infoEmpleado, cons);
 
 		labelAux = new JLabel("dd/mm/aaaa");
-		cons.gridx = 2;
+		cons.gridx = 1;
 		cons.gridy = 6;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;

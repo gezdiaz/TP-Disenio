@@ -17,9 +17,9 @@ public abstract class GestorIntervenciones {
 
 		Intervencion intervencion = new Intervencion(observaciones, LocalDateTime.now(), ticket, usuario.getGrupo());
 
-		if (!(GestorBD.guardarIntervencion(intervencion)>0)) {
-			return null;
-		}
+//		if (!(GestorBD.guardarIntervencion(intervencion)>0)) {
+//			return null;
+//		}
 
 		CambioEstadoIntervencion cambioEstado1 = new CambioEstadoIntervencion(LocalDateTime.now(), null, EstadoIntervencion.Asignado, intervencion, usuario, observaciones);
 

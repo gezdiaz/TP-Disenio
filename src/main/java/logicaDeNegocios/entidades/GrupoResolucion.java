@@ -23,8 +23,8 @@ public class GrupoResolucion {
 
 	@ManyToMany()
 	@JoinTable(name = "CAPACITADO_PARA", 
-	joinColumns = { @JoinColumn(name = "idGR") }, 
-	inverseJoinColumns = { @JoinColumn(name = "clave")}
+	joinColumns = { @JoinColumn(name = "ID_GR") }, 
+	inverseJoinColumns = { @JoinColumn(name = "CLAVE")}
 			)
 	private List<Clasificacion> clasificaciones;
 
@@ -85,8 +85,7 @@ public class GrupoResolucion {
 
 	@Override
 	public String toString() {
-		return "GrupoResolucion [codigo=" + codigo + ", nombre=" + nombre + ", intervenciones=" + intervenciones
-				+ ", clasificaciones=" + clasificaciones + "]";
+		return "GrupoResolucion [codigo=" + codigo + ", nombre=" + nombre +"]";
 	}	
 
 

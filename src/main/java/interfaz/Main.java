@@ -30,7 +30,6 @@ public class Main {
 		//		Esto es para que muestre los mensajes de error con el color correcto
 		UIManager.put("OptionPane.background", new Color(163,255,140));
 		UIManager.put("Panel.background", new Color(163,255,140));
-		ImageIcon img = new ImageIcon("icono.png");
 		//		JPanel p = new PanelPrueba();
 		//		p.setBackground(new Color(255, 0, 0));
 		//		UIManager.put("ToolTip.background", Color.WHITE);
@@ -42,26 +41,32 @@ public class Main {
 		//		ventana.setLocationRelativeTo(null);
 		//		ventana.setVisible(true);
 
-		//		 try {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
-		GestorBD.setEmf(emf);
-		EntityManager manager = emf.createEntityManager();
-		GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo");
-		Usuario usr = new Usuario("usr", "1234", grupo), u2;
-		manager.getTransaction().begin();
-		manager.persist(grupo);
-		manager.persist(usr);
-		manager.getTransaction().commit();
-		manager.getTransaction().begin();
-		u2 = manager.find(Usuario.class, "usr");
-		manager.getTransaction().commit();
-		System.out.println(u2.toString());
-		manager.close();
-		//			} catch (Exception e) {
-		//				JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-		//			}
+		try {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
+			GestorBD.setEmf(emf);
+			//		EntityManager manager = emf.createEntityManager();
+			//		GrupoResolucion grupo = new GrupoResolucion("A113", "un grupo");
+			//		Usuario usr = new Usuario("usr", "1234", grupo), u2;
+			//		manager.getTransaction().begin();
+			//		manager.persist(grupo);
+			//		manager.persist(usr);
+			//		manager.getTransaction().commit();
+			//		manager.getTransaction().begin();
+			//		u2 = manager.find(Usuario.class, "usr");
+			//		manager.getTransaction().commit();
+			//		System.out.println(u2.toString());
+			//		manager.close();
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
 
+		iniciarSesion();
 
+	}
+
+	public static void iniciarSesion() {
+		ImageIcon img = new ImageIcon("icono.png");
 		JFrame ventana = new JFrame("Sistema de Mesa de ayuda");
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.setContentPane(new InicioSesionPanel(ventana));
@@ -69,10 +74,6 @@ public class Main {
 		ventana.pack();
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
-
-
-
-
 	}
 
 }
