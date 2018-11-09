@@ -9,8 +9,8 @@ public class TicketDTO {
 	Long numLegajo;
 	String descripcion;
 	LocalDateTime fechaHoraApertura;
-	
-	
+
+
 	public TicketDTO(Long num) {
 		numTicket = num;
 	}
@@ -44,6 +44,6 @@ public class TicketDTO {
 	public void setFechaHoraApertura(LocalDateTime fechaHoraApertura) {
 		this.fechaHoraApertura = fechaHoraApertura;
 	}
-	
-		
+
+
 }

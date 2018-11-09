@@ -22,22 +22,22 @@ public class InicioSesionPanel extends JPanel {
 	JPasswordField txtClave;
 	JButton iniciarSesion, salir;
 	JFrame ventana;
-	
+
 	public InicioSesionPanel(JFrame ventana) {
-		
+
 		this.ventana = ventana;
 		GridBagConstraints cons = new GridBagConstraints();
 		setLayout(new GridBagLayout());
 		JLabel labelAux;
-		
+
 		txtUsuario = new JTextField();
-		
+
 		txtClave = new JPasswordField();
-		
+
 		iniciarSesion = new JButton("Inicicar sesión");
-		
+
 		salir = new JButton("Salir");
-		
+
 		labelAux = new JLabel("Iniciar sesión");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
 		cons.gridx = 0;
@@ -47,7 +47,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.insets = new Insets(20, 10, 20, 10);
 		cons.anchor = GridBagConstraints.CENTER;
 		add(labelAux, cons);
-		
+
 		labelAux = new JLabel("Nombre usuario");
 		cons.gridx = 0;
 		cons.gridy = 1;
@@ -56,7 +56,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.insets = new Insets(10, 20, 10, 10);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
-		
+
 		labelAux = new JLabel("Clave");
 		cons.gridx = 0;
 		cons.gridy = 2;
@@ -65,7 +65,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.insets = new Insets(10, 20, 10, 10);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
-		
+
 		cons.gridx = 1;
 		cons.gridy = 1;
 		cons.gridheight = 1;
@@ -74,7 +74,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		add(txtUsuario, cons);
-		
+
 		cons.gridx = 1;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -83,7 +83,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		add(txtClave, cons);
-		
+
 		cons.gridx = 1;
 		cons.gridy = 3;
 		cons.gridheight = 1;
@@ -95,7 +95,7 @@ public class InicioSesionPanel extends JPanel {
 			iniciarSesion();
 		});
 		add(iniciarSesion, cons);
-		
+
 		cons.gridx = 0;
 		cons.gridy = 3;
 		cons.gridheight = 1;
@@ -108,15 +108,15 @@ public class InicioSesionPanel extends JPanel {
 			System.exit(0);
 		});
 		add(salir, cons);
-		
-		
+
+
 	}
 
 	private void iniciarSesion() {
 		String claveStr = new String(txtClave.getPassword());
 
 		if (!txtUsuario.getText().trim().isEmpty() || !claveStr.trim().isEmpty()) {
-			
+
 			//TODO buscar en el gestor de usuarios el usuario y verificar la clave.
 			String titulo = "Título";
 			/*if(usuario.getGrupo().getNombre()=="Mesa de ayuda"){
@@ -126,7 +126,7 @@ public class InicioSesionPanel extends JPanel {
 			 * }
 			 * */
 			Integer res = GestorUsuarios.iniciarSesion(txtUsuario.getText(), claveStr);
-			
+
 			switch(res) {
 			case -2: //Problema con la base de datos 
 				JOptionPane.showConfirmDialog(ventana, "No se pudo establecer conexión con la base de datos", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -146,11 +146,11 @@ public class InicioSesionPanel extends JPanel {
 				base.setVisible(true);
 				ventana.dispose();
 			}
-			
+
 		}else {
 			JOptionPane.showConfirmDialog(ventana, "Debe ingresar un usuario y clave", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
-	
+
+
 }

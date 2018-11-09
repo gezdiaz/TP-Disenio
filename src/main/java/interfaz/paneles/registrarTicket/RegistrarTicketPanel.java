@@ -96,9 +96,9 @@ public class RegistrarTicketPanel extends JPanel {
 		for(String n: nombresClas) {
 			listClasificacion.addItem(n);
 		}
-//		for(int i=1; i<5; i++) {
-//			listClasificacion.addItem("Clasificación "+i);
-//		}
+		//		for(int i=1; i<5; i++) {
+		//			listClasificacion.addItem("Clasificación "+i);
+		//		}
 
 		JLabel labelAux;
 

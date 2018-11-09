@@ -8,34 +8,34 @@ import javax.persistence.*;
 @Table(name = "CLASIFICACION")
 
 public class Clasificacion {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CODIGO")
 	private Integer codigo;
-	
+
 	@Column(name = "NOMBRE",nullable = false,length = 255)
 	private String nombre;
-	
+
 	@Column(name = "DESCRIPCION",nullable = false, length = 255)
 	private String descripcion;
-	
+
 	@Column(name = "ACTIVA")
 	private Boolean activa;
-	
+
 	@Column(name = "FECHA_CREACION")
 	private LocalDate fechaCreacion;
-	
+
 	@ManyToMany(mappedBy = "clasificaciones")
 	private List<GrupoResolucion> gruposDeResolucion;
-	
-	
-	
-	
+
+
+
+
 	public Clasificacion() {
-		
+
 	}
-	
+
 	public Clasificacion(String nombre, String descripcion,ArrayList<GrupoResolucion> gruposDeResolucion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -90,5 +90,5 @@ public class Clasificacion {
 		this.gruposDeResolucion = gruposDeResolucion;
 	}
 
-	
+
 }

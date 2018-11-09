@@ -29,12 +29,12 @@ public abstract class GestorIntervenciones {
 
 		intervencion.actualizarEstado(cambioEstado2);
 
-//		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado1)) {
-//			return null;
-//		}
-//		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado2)) {
-//			return null;
-//		}
+		//		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado1)) {
+		//			return null;
+		//		}
+		//		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado2)) {
+		//			return null;
+		//		}
 		/*if (!(GestorBD.guardarIntervencion(intervencion)>0)) {
 			return null;
 		}*/
@@ -52,12 +52,12 @@ public abstract class GestorIntervenciones {
 
 		ultima.actualizarEstado(cambioEstado);
 
-//		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado)) {
-//			return false;
-//		}
-//		if(!GestorBD.actualizarIntervencion(ultima)) {
-//			return false;
-//		}
+		//		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado)) {
+		//			return false;
+		//		}
+		//		if(!GestorBD.actualizarIntervencion(ultima)) {
+		//			return false;
+		//		}
 
 		return true;
 	}

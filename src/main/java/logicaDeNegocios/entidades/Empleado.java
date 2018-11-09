@@ -5,23 +5,23 @@ import javax.persistence.*;
 @Entity
 @Table(name="EMPLEADO")
 public class Empleado {
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="NUM_LEGAJO")
 	private Long numLegajo;
-	
+
 	@Column(name="NOMBRE", length=50, nullable=false)
 	private String nombre;
-	
+
 	@Column(name="APELLIDO", length=50, nullable=false)
 	private String apellido;
-	
+
 
 	public Empleado() {
-		
+
 	}	
-	
+
 	public Empleado(String nombre, String apellido, Long numLegajo) {
 		this.nombre = nombre;
 		this.apellido = apellido;

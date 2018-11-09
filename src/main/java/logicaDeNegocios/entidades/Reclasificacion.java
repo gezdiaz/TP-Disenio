@@ -7,42 +7,42 @@ import javax.persistence.*;
 @Table(name = "RECLASIFICACION")
 
 public class Reclasificacion {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_RECLA")
 	private Integer idRecla;	
-	
+
 	@Column(name = "FECHA_RECLASIFICACION")
 	private LocalDateTime fechaReclasificacion;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "USUARIO")
 	private Usuario usuario;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "CLAVE_ANTERIOR")
 	private Clasificacion clasificacionAnterior;
-	
-	
+
+
 	@ManyToOne
 	@JoinColumn(name = "CLAVE_NUEVA")
 	private Clasificacion clasificacionNueva;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "NUM_TICKET")
 	private Ticket ticket;
-	
+
 	public Reclasificacion() {
-		
+
 	}
-	
+
 	public Reclasificacion(Clasificacion anterior, Clasificacion nueva, Usuario usuario) {
-		
+
 		this.clasificacionAnterior = anterior;
 		this.clasificacionNueva = nueva;
 		this.usuario = usuario;
-		
+
 	}
 
 	public Integer getIdRecla() {
@@ -92,8 +92,8 @@ public class Reclasificacion {
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
 	}
-	
-	
-	
-	
+
+
+
+
 }

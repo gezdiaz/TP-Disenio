@@ -12,7 +12,7 @@ import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 @Entity
 @Table(name = "INTERVENCION")
 public class Intervencion {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_INT")
@@ -20,26 +20,26 @@ public class Intervencion {
 
 	@Column(name="OBSERVACIONES", length=255, nullable=false)
 	private String observaciones;
-	
+
 	@Column(name="FECHA_HORA_ASIGNACION")
 	private LocalDateTime fechaHoraASignacion;
 
 	@ManyToOne
 	@JoinColumn(name="NUM_TICKET")
 	private Ticket ticket;
-	
+
 	@ManyToOne
 	@JoinColumn(name="ID_GR")
 	private GrupoResolucion grupoResolucion;
-	
+
 	@OneToMany(mappedBy = "intervencion", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	private List<CambioEstadoIntervencion> historialCambioEstadoIntervencion;
-	
+
 
 	public Intervencion() {
 
 	}
-		
+
 	public Intervencion(String observaciones, LocalDateTime fechaHoraASignacion, Ticket ticket,
 			GrupoResolucion grupoResolucion) {
 		this.observaciones = observaciones;
@@ -109,20 +109,20 @@ public class Intervencion {
 	public void actualizarEstado(CambioEstadoIntervencion cambioEstadoIntervencion) {
 
 		historialCambioEstadoIntervencion.add(cambioEstadoIntervencion);
-		
+
 	}
 
 	public EstadoIntervencion estadoActual() {
 		CambioEstadoIntervencion ultimoCambio = historialCambioEstadoIntervencion.get(historialCambioEstadoIntervencion.size()-1);
 		EstadoIntervencion actual = ultimoCambio.getEstadoNuevo();
-//		
-//		for(CambioEstadoIntervencion c: historialCambioEstadoIntervencion) {
-//			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
-//				ultimoCambio = c;
-//				actual = c.getEstadoNuevo();
-//			}
-//		}
-		
+		//		
+		//		for(CambioEstadoIntervencion c: historialCambioEstadoIntervencion) {
+		//			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
+		//				ultimoCambio = c;
+		//				actual = c.getEstadoNuevo();
+		//			}
+		//		}
+
 		return actual;
 	}
 

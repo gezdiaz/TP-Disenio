@@ -15,31 +15,31 @@ import interfaz.base.VentanaBase;
 import interfaz.paneles.registrarTicket.RegistrarTicketPanel;
 
 public class MenuMesaAyudaPanel extends JPanel{
-	
+
 	VentanaBase ventana;
 	JButton btnRegistrarTicket, btnConsultarTicket, btnCerrarSesion;
-	
+
 	public MenuMesaAyudaPanel(VentanaBase ventana) {
 		this();
 		setVentana(ventana);
 	}
-	
+
 	public void setVentana(VentanaBase ventana) {
 		this.ventana = ventana;
 	}
 
 	public MenuMesaAyudaPanel() {
-		
+
 		GridBagConstraints cons = new GridBagConstraints();
 		setLayout(new GridBagLayout());
 		JLabel labelAux;
-		
+
 		this.btnRegistrarTicket = new JButton("Registrar Ticket");
-		
+
 		this.btnConsultarTicket = new JButton("Consultar Tickets");
-		
+
 		this.btnCerrarSesion = new JButton("Cerrar Sesión");
-		
+
 		labelAux = new JLabel("Mesa de ayuda");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
 		cons.gridx = 0;
@@ -49,7 +49,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.anchor = GridBagConstraints.WEST;
 		cons.insets = new Insets(15, 20, 15, 30);
 		add(labelAux, cons);
-		
+
 		labelAux = new JLabel(new ImageIcon("icono.png"));
 		cons.gridx = 0;
 		cons.gridy = 1;
@@ -58,7 +58,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.insets = new Insets(5, 50, 5, 5);
 		add(labelAux, cons);
-		
+
 		cons.gridx = 1;
 		cons.gridy = 1;
 		cons.gridheight = 1;
@@ -70,7 +70,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 			ventana.cambiarPanel(new RegistrarTicketPanel(ventana));
 		});
 		add(btnRegistrarTicket, cons);
-		
+
 		cons.gridx = 1;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -83,7 +83,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		});
 		add(btnConsultarTicket, cons);
-		
+
 		cons.gridx = 0;
 		cons.gridy = 3;
 		cons.gridheight = 1;
@@ -91,12 +91,12 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.insets = new Insets(25, 5, 10, 30);
 		btnCerrarSesion.addActionListener(a -> {
-//			System.out.println("Cierra sesión");
+			//			System.out.println("Cierra sesión");
 			ventana.dispose();
 		});
 		add(btnCerrarSesion, cons);
-		
-		
+
+
 	}
 
 }

@@ -11,12 +11,12 @@ import java.awt.Insets;
 
 
 public class PanelBarraUsuario extends JPanel{
-	
-	
+
+
 	JLabel nombreUsuario;
 	JLabel laLlamita;
-	
-	
+
+
 	public PanelBarraUsuario(String nombreUsuario) {
 		super();
 		this.nombreUsuario = new JLabel(nombreUsuario);
@@ -30,22 +30,22 @@ public class PanelBarraUsuario extends JPanel{
 		this.setLayout(new GridBagLayout());
 		laLlamita.setHorizontalAlignment(JLabel.CENTER);
 		nombreUsuario.setHorizontalAlignment(JLabel.CENTER);
-		
+
 		cons.insets = new Insets(15, 25, 15, 25);
 		cons.gridx=0;
 		cons.gridy=0;
 		cons.fill=GridBagConstraints.HORIZONTAL;
 		cons.anchor=GridBagConstraints.CENTER;
 		this.add(laLlamita, cons);
-		
+
 		cons.gridx = 1;
 		cons.gridy=0;
 		cons.fill=GridBagConstraints.HORIZONTAL;
 		cons.weightx=1;
 		JLabel lab = new JLabel("");
 		this.add(lab, cons);
-		
-		
+
+
 		cons.insets = new Insets(15, 15, 15, 25);
 		cons.gridx=2;
 		cons.gridy=0;
@@ -53,10 +53,10 @@ public class PanelBarraUsuario extends JPanel{
 		cons.weightx=0;
 		cons.weighty=0;
 		this.add(nombreUsuario, cons);
-		
+
 		this.setBackground(new Color(147,245,49));
-		
+
 	}
-	
+
 
 }

@@ -21,7 +21,7 @@ import logicaDeNegocios.gestores.GestorTickets;
 import dto.*;
 
 public class RegistrarTicket2Panel extends JPanel {
-	
+
 	JTextArea obserbacionesTxt;
 	JButton aceptar, cancelar;
 	JComboBox<String> accionList;
@@ -35,23 +35,23 @@ public class RegistrarTicket2Panel extends JPanel {
 				arDer = new Insets(25, 5, 5, 25), der = new Insets(10, 5, 10, 25);
 		JLabel labelAux;
 		JScrollPane scroll;
-		
+
 		//pongo un layout GridBagaLayout
 		setLayout(new GridBagLayout());
-		
+
 		//inicializa las variables globales
 		this.ventana = ventana;
-		
+
 		this.ticketDTO = ticketDTO;
-		
+
 		obserbacionesTxt = new JTextArea();
-		
+
 		aceptar = new JButton("Aceptar");
-		
+
 		cancelar = new JButton("Cancelar");
-		
+
 		accionList = new JComboBox<>();		
-		
+
 		//Agrego todos los componentes al panel
 		labelAux = new JLabel("Registrar ticket");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
@@ -62,7 +62,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.insets = new Insets(15, 25, 25, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
-		
+
 		labelAux = new JLabel("Observaciones*");
 		cons.gridx = 0;
 		cons.gridy = 1;
@@ -71,7 +71,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.insets = izq;
 		cons.anchor = GridBagConstraints.NORTHWEST;
 		add(labelAux, cons);
-		
+
 		labelAux = new JLabel("Acción");
 		cons.gridx = 0;
 		cons.gridy = 2;
@@ -80,7 +80,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.insets = izq;
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
-		
+
 		//Muestra el numero de ticket
 		labelAux = new JLabel("N° Ticket: "+/*"123456"*/ticketDTO.getNumTicket());
 		cons.gridx = 1;
@@ -92,7 +92,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.CENTER;
 		add(labelAux, cons);
-		
+
 		//Campo observaciones con su barra de scroll
 		scroll = new JScrollPane(obserbacionesTxt);
 		obserbacionesTxt.setPreferredSize(new Dimension(200, 70));
@@ -105,7 +105,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.fill = GridBagConstraints.BOTH;
 		cons.anchor = GridBagConstraints.CENTER;
 		add(scroll, cons);
-		
+
 		//Lista desplegabel con los grupos:
 		//TODO Debería pedri al gestor los grupos que pueden resolver la clasificación del ticket.
 		//List<GrupoResolucion>listaGR = GestorBD.getGrupos(ticketDTO.getClasificacion());
@@ -127,7 +127,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.fill = GridBagConstraints.BOTH;
 		cons.anchor = GridBagConstraints.CENTER;
 		add(accionList, cons);
-		
+
 		//botones
 		aceptar.addActionListener(a -> {
 			apretoAceptar();
@@ -141,7 +141,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
 		add(aceptar, cons);
-		
+
 		cancelar.addActionListener(a -> {
 			apretoCancelar();
 		});
@@ -154,7 +154,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.EAST;
 		add(cancelar, cons);
-		
+
 		//*campo obligatorio
 		labelAux = new JLabel("*Campo obligatorio");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 8));
@@ -167,7 +167,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
-		
+
 	}
 	private void apretoCancelar() {
 		//TODO Boton cancelar en la segunda pantalla de registrar ticket
@@ -194,7 +194,7 @@ public class RegistrarTicket2Panel extends JPanel {
 					break;
 				}
 				case 1:{JOptionPane.showConfirmDialog(ventana, "El ticket ha sido cerrado exitosamente", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-					break;
+				break;
 				}
 				default:{}
 				}

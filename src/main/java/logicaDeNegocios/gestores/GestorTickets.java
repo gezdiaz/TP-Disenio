@@ -57,13 +57,13 @@ public abstract class GestorTickets {
 		ticket.agregarIntervencion(intervencion);
 
 		//Guarda en la base de datos
-//		if(!GestorBD.guardarCambioEstadoTIcket(cambioEstado)) {
-//			return false;
-//		}
-//		if(!GestorBD.guardarReclasificacion(reclasificacion)) {
-//			return false;
-//		}
-		
+		//		if(!GestorBD.guardarCambioEstadoTIcket(cambioEstado)) {
+		//			return false;
+		//		}
+		//		if(!GestorBD.guardarReclasificacion(reclasificacion)) {
+		//			return false;
+		//		}
+
 		if(!GestorBD.actualizarTicket(ticket)) {
 			return false;
 		}
@@ -92,9 +92,9 @@ public abstract class GestorTickets {
 
 		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Cerrado, ticket, GestorUsuarios.usuarioActual(), observaciones);
 
-//		if(!GestorBD.guardarCambioEstadoTIcket(nuevoEstado)) {
-//			return 0;
-//		}
+		//		if(!GestorBD.guardarCambioEstadoTIcket(nuevoEstado)) {
+		//			return 0;
+		//		}
 
 		ticket.acutalizarEstado(nuevoEstado);
 		//no se pudo guardar en base de datos
@@ -118,9 +118,9 @@ public abstract class GestorTickets {
 	}
 
 	public static void eliminarTicket(TicketDTO ticketDTO) {
-		
+
 		GestorBD.eliminarTicket(ticketDTO.getNumTicket());
-		
+
 	}
 
 }

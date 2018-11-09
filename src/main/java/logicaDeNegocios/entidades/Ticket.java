@@ -17,33 +17,33 @@ public class Ticket {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUM_TICKET")
 	private Long numTIcket;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "NUM_LEGAJO")
 	private Empleado solicitante;
-	
+
 	@Column(name = "FECHA_HORA_APERTURA")
 	private LocalDateTime fechaHoraApertura;
-	
+
 	@Column(name = "DESCRIPCION",nullable = false, length = 255)
 	private String descripcion;
-	
+
 	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
 	private List<CambioEstadoTicket> historialCambioEstadoTicket;
 
 	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
 	private List<Reclasificacion> historialReclasificacion;
-	
+
 	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
 	private List<Intervencion> intervenciones;
-	
+
 
 	public Ticket() {
 		this.historialCambioEstadoTicket = new ArrayList<CambioEstadoTicket>();
 		this.historialReclasificacion = new ArrayList<Reclasificacion>();
 		this.intervenciones = new ArrayList<Intervencion>();
 	}
-	
+
 	public Ticket(Long numTIcket, Empleado solicitante, LocalDateTime fechaHoraApertura,
 			String descripcion) {
 		this.numTIcket = numTIcket;
@@ -114,17 +114,17 @@ public class Ticket {
 	}
 
 	public void acutalizarEstado(CambioEstadoTicket cambioEstado) {
-		
+
 		historialCambioEstadoTicket.add(cambioEstado);
 		cambioEstado.setTicket(this);
-		
+
 	}
 
 	public void cambiarClasificacion(Reclasificacion reclasificacion) {
-		
+
 		historialReclasificacion.add(reclasificacion);
 		reclasificacion.setTicket(this);
-		
+
 	}
 
 	public void agregarIntervencion(Intervencion intervencion) {
@@ -136,34 +136,34 @@ public class Ticket {
 	public EstadoTicket estadoActual() {
 		CambioEstadoTicket ultimoCambio = historialCambioEstadoTicket.get(historialCambioEstadoTicket.size()-1);
 		EstadoTicket actual = ultimoCambio.getEstadoNuevo();
-		
-//		for(CambioEstadoTicket c: historialCambioEstadoTicket) {
-//			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
-//				ultimoCambio = c;
-//				actual = c.getEstadoNuevo();
-//			}
-//		}
-		
+
+		//		for(CambioEstadoTicket c: historialCambioEstadoTicket) {
+		//			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
+		//				ultimoCambio = c;
+		//				actual = c.getEstadoNuevo();
+		//			}
+		//		}
+
 		return actual;
 	}
 
 	public Intervencion ultimaIntervencion() {
-		
+
 		Intervencion ultima = this.intervenciones.get(intervenciones.size()-1);
-		
-//		for(Intervencion i : intervenciones) {
-//			if(i.getFechaHoraASignacion().compareTo(ultima.getFechaHoraASignacion())>0) {
-//				ultima = i;
-//			}
-//		}
-		
+
+		//		for(Intervencion i : intervenciones) {
+		//			if(i.getFechaHoraASignacion().compareTo(ultima.getFechaHoraASignacion())>0) {
+		//				ultima = i;
+		//			}
+		//		}
+
 		return ultima;
 	}
 
 	public Clasificacion ultimaCalsificacion() {
 		System.out.println("Historial recla: "+historialReclasificacion);
 		Reclasificacion ultima = historialReclasificacion.get(0);
-		
+
 		for(Reclasificacion rc : historialReclasificacion) {
 			if(rc.getFechaReclasificacion().compareTo(ultima.getFechaReclasificacion())>0) {
 				ultima = rc;
@@ -171,11 +171,11 @@ public class Ticket {
 		}
 		return ultima.getClasificacionNueva();
 	}
-	
-	
+
+
 	public TicketDTO getDTO() {
 		TicketDTO dto = new TicketDTO(numTIcket);
-		
+
 		dto.setDescripcion(descripcion);
 		dto.setFechaHoraApertura(fechaHoraApertura);
 		if (!historialReclasificacion.isEmpty()) {
