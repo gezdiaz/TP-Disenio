@@ -85,8 +85,7 @@ public class GrupoResolucion {
 
 	@Override
 	public String toString() {
-		return "GrupoResolucion [codigo=" + codigo + ", nombre=" + nombre + ", intervenciones=" + intervenciones
-				+ ", clasificaciones=" + clasificaciones + "]";
+		return "GrupoResolucion [codigo=" + codigo + ", nombre=" + nombre +"]";
 	}	
 
 

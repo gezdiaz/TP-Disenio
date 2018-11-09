@@ -151,17 +151,9 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 
-		cons.gridx = 0;
-		cons.gridy = 1;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.fill = GridBagConstraints.HORIZONTAL;
-		cons.insets = new Insets(5, 25, 5, 5);
-		cons.anchor = GridBagConstraints.WEST;
-		add(new JLabel(""), cons);
-		
+				
 		labelAux = new JLabel("Número de ticket");
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -171,7 +163,7 @@ public class RegistrarTicketPanel extends JPanel {
 		add(labelAux, cons);
 
 		labelAux = new JLabel("Número Legajo*");
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -180,7 +172,7 @@ public class RegistrarTicketPanel extends JPanel {
 		add(labelAux, cons);
 
 		labelAux = new JLabel("Clasificación de ticket*");
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -189,7 +181,7 @@ public class RegistrarTicketPanel extends JPanel {
 		add(labelAux, cons);
 
 		labelAux = new JLabel("Descripción*");
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 4;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -198,7 +190,7 @@ public class RegistrarTicketPanel extends JPanel {
 		add(labelAux, cons);
 
 		labelAux = new JLabel("Fecha apertura");
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 6;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -206,7 +198,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 
 		labelAux = new JLabel("Hora apertura");
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 7;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -217,7 +209,7 @@ public class RegistrarTicketPanel extends JPanel {
 
 		labelAux = new JLabel("*Campo obligatorio");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 8));
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 8;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -225,7 +217,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 9;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -236,7 +228,7 @@ public class RegistrarTicketPanel extends JPanel {
 		});
 		add(btnAceptar, cons);
 
-		cons.gridx = 2;
+		cons.gridx = 1;
 		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -245,7 +237,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.BOTH;
 		add(txtNumTicket, cons);
 
-		cons.gridx = 2;
+		cons.gridx = 1;
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -266,7 +258,7 @@ public class RegistrarTicketPanel extends JPanel {
 		});
 		add(txtNumLegajo, cons);
 
-		cons.gridx = 2;
+		cons.gridx = 1;
 		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -275,7 +267,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.BOTH;
 		add(listClasificacion, cons);
 
-		cons.gridx = 2;
+		cons.gridx = 1;
 		cons.gridy = 4;
 		cons.gridheight = 2;
 		cons.gridwidth = 2;
@@ -284,7 +276,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.VERTICAL;
 		add(descripcionScroll, cons);
 
-		cons.gridx = 2;
+		cons.gridx = 1;
 		cons.gridy = 6;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -293,7 +285,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.BOTH;
 		add(txtFechaAp, cons);
 
-		cons.gridx = 2;
+		cons.gridx = 1;
 		cons.gridy = 7;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -302,7 +294,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.BOTH;
 		add(txtHoraAp, cons);
 
-		cons.gridx = 2;
+		cons.gridx = 1;
 		cons.gridy = 9;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -314,7 +306,7 @@ public class RegistrarTicketPanel extends JPanel {
 		});
 		add(btnCancelar, cons);
 
-		cons.gridx = 3;
+		cons.gridx = 2;
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -325,7 +317,7 @@ public class RegistrarTicketPanel extends JPanel {
 		add(infoEmpleado, cons);
 
 		labelAux = new JLabel("dd/mm/aaaa");
-		cons.gridx = 2;
+		cons.gridx = 1;
 		cons.gridy = 6;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;

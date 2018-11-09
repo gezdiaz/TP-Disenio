@@ -44,7 +44,7 @@ public abstract class GestorTickets {
 		Reclasificacion reclasificacion = new Reclasificacion(null, clasificacion, usuario);
 
 		ticket.cambiarClasificacion(reclasificacion);
-
+		System.out.println("Clasificacion: "+clasificacion);
 		//Crea la intervencion
 		System.out.println("Empiezo a crear la intervencion");
 		Intervencion intervencion = GestorIntervenciones.crearIntervencion(ticket, usuario, ""); //observaciones vacías, en la segunda pnatalla las cambia.

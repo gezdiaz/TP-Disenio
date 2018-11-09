@@ -122,7 +122,9 @@ public abstract class GestorBD {
 			EntityManager manager = emf.createEntityManager();
 			Clasificacion rta;
 			manager.getTransaction().begin();
-			rta = (Clasificacion) manager.createQuery("Select * from clasificacion c where c.nombre = ?1").setParameter(1, clasificacion).getSingleResult();
+			Query cons = manager.createQuery("from Clasificacion c where c.nombre = ?1");
+			cons.setParameter(1, clasificacion);
+			rta = (Clasificacion) cons.getSingleResult();
 			manager.getTransaction().commit();
 			manager.close();
 			return rta;
@@ -380,6 +382,38 @@ public abstract class GestorBD {
 
 		}
 		
+	}
+
+	public static List<String> getListGruposConClasificacion(String clasificacion) {
+		
+		List<GrupoResolucion> grupos;
+		List<String> nombres = new ArrayList<String>();
+		
+		try {
+			EntityManager manager = emf.createEntityManager();
+			manager.getTransaction().begin();
+			Query cons = manager.createNativeQuery("SELECT g.ID_GR, g.NOMBRE "
+													+ "FROM GRUPO_DE_RESOLUCION g, CLASIFICACION c, CAPACITADO_PARA cp "
+													+ "WHERE g.ID_GR=cp.ID_GR "
+													+ "AND c.CODIGO=cp.CLAVE "
+													+ "AND c.NOMBRE=?1", GrupoResolucion.class);
+			cons.setParameter(1, clasificacion);
+			grupos = (List<GrupoResolucion>)cons.getResultList();
+			System.out.println("Resultado consulta: "+grupos);
+			manager.getTransaction().commit();
+			manager.close();
+
+			for(GrupoResolucion c: grupos) {
+				nombres.add(c.getNombre());
+			}
+			
+			return nombres;
+
+		} catch (Exception e) {
+			
+			return new ArrayList<String>();
+
+		}
 	}
 
 }

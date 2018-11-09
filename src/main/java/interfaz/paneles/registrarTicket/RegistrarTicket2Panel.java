@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
@@ -108,8 +110,12 @@ public class RegistrarTicket2Panel extends JPanel {
 
 		//Lista desplegabel con los grupos:
 		//TODO Debería pedri al gestor los grupos que pueden resolver la clasificación del ticket.
-		//List<GrupoResolucion>listaGR = GestorBD.getGrupos(ticketDTO.getClasificacion());
+		List<String> listaGR = GestorBD.getListGruposConClasificacion(ticketDTO.getClasificacion());
+		System.out.println("Lista Grupos: "+listaGR);
 		accionList.addItem("Cerrar ticket");
+		for(String g: listaGR) {
+			accionList.addItem("Derivar a: "+g);
+		}
 		/*accionList.addItem("Grupo 1");
 		accionList.addItem("Grupo 2");
 		accionList.addItem("Grupo 3");
@@ -194,16 +200,18 @@ public class RegistrarTicket2Panel extends JPanel {
 					break;
 				}
 				case 1:{JOptionPane.showConfirmDialog(ventana, "El ticket ha sido cerrado exitosamente", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 				break;
 				}
 				default:{}
 				}
+				
 			}
 			else {
 				//GestorTickets.derivarTicket(ticketDTO,accionList.getSelectedItem());
 				JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			}
-			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
+			
 		}
 	}
 

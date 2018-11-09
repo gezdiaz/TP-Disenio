@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Usuario {
 	
 	@Id
-	@Column(name="NOMBRE_USUSARIO", length=30)
+	@Column(name="NOMBRE_USUARIO", length=30)
 	private String nombreUsuario;
 	
 	@Column(name="CLAVE", nullable = false, length=20)
