@@ -376,7 +376,7 @@ public class RegistrarTicketPanel extends JPanel {
 			}
 			else {
 				legajoValido = false;
-				infoEmpleado.setText("No existe empleado");
+				infoEmpleado.setText("Legajo inválido");
 				infoEmpleado.setForeground(Color.red);
 			}
 			ventana.pack();
