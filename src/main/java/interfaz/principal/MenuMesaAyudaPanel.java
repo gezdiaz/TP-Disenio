@@ -11,8 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import interfaz.Main;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.registrarTicket.RegistrarTicketPanel;
+import logicaDeNegocios.gestores.GestorUsuarios;
 
 public class MenuMesaAyudaPanel extends JPanel{
 
@@ -91,8 +93,9 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.insets = new Insets(25, 5, 10, 30);
 		btnCerrarSesion.addActionListener(a -> {
-			//			System.out.println("Cierra sesión");
+			GestorUsuarios.cerrarSesion();
 			ventana.dispose();
+			Main.iniciarSesion();
 		});
 		add(btnCerrarSesion, cons);
 

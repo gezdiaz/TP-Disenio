@@ -36,4 +36,10 @@ public abstract class GestorUsuarios {
 		}
 
 	}
+
+	public static void cerrarSesion() {
+		
+		usuarioActual = null;
+		
+	}
 }
