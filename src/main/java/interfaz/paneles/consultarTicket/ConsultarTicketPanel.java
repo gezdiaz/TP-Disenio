@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
+import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.entidades.Ticket;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 
@@ -250,6 +251,8 @@ public class ConsultarTicketPanel extends JPanel {
 //		tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(tablaResultados, cons);
 		
+		
+		
 		cons.gridx = 0;
 		cons.gridy = 6;
 		cons.gridheight = 1;
@@ -258,10 +261,11 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.NONE;
 		cons.weightx = 1;
+		btnVolver.addActionListener(a -> {
+			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
+		});
 		add(btnVolver, cons);
-		
-		System.out.println("Dentro del panel:" + this.getSize());
-		
+				
 	}
 	
 }

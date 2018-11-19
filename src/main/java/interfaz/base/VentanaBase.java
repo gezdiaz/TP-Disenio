@@ -62,24 +62,9 @@ public class VentanaBase extends JFrame {
 
 //		nuevoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		cartas.show(panel, "nuevoPanel");
-		this.pack();		
+		this.setSize(0, 0);
+		this.pack();
 		this.setLocationRelativeTo(null);
-//		System.out.println("En la ventana: " + nuevoPanel.getSize());
-//		System.out.println("Panel completo: "+ panel.getSize());
-//		System.out.println("Tamaño ventana: "+ this.getSize());
-//		System.out.println("Tamaño ventana: "+ this.getSize());
 	}
-
-	//	@Override
-	//	public Image getIconImage() {
-	//	   Image retValue = Toolkit.getDefaultToolkit().
-	//	         getImage(ClassLoader.getSystemResource("icono.png"));
-	//	   System.out.println("Lo hace");
-	//	   return retValue;
-	//	}
-
-
-
-
 
 }
