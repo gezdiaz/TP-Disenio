@@ -59,7 +59,7 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 		labelAux = new JLabel(new ImageIcon("icono.png"));
 		cons.gridx = 0;
 		cons.gridy = 1;
-		cons.gridheight = 2;
+		cons.gridheight = 3;
 		cons.gridwidth = 1;
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.insets = new Insets(5, 50, 5, 5);
@@ -82,7 +82,7 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.anchor = GridBagConstraints.NORTH;
-		cons.insets = new Insets(20, 5, 10, 30);
+		cons.insets = new Insets(20, 5, 20, 30);
 		cons.fill = GridBagConstraints.NONE;
 		btnRegistrarClasificacion.addActionListener(a->{
 			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
