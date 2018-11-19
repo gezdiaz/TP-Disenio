@@ -165,7 +165,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.gridx=5;
 		add(labelAux, cons);
 		
-		
 		cons.gridx = 1;
 		cons.gridy = 1;
 		cons.gridheight = 1;

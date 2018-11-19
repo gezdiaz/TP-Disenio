@@ -1,12 +1,15 @@
 package logicaDeNegocios.gestores;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import logicaDeNegocios.entidades.CambioEstadoTicket;
 import logicaDeNegocios.entidades.Clasificacion;
 import logicaDeNegocios.entidades.Empleado;
+import logicaDeNegocios.entidades.GrupoResolucion;
 import logicaDeNegocios.entidades.Intervencion;
 import logicaDeNegocios.entidades.Reclasificacion;
 import logicaDeNegocios.entidades.Ticket;
@@ -121,6 +124,14 @@ public abstract class GestorTickets {
 
 		GestorBD.eliminarTicket(ticketDTO.getNumTicket());
 
+	}
+	
+	public static List<TicketDTO> consultarTicket(Long numTicket,Long numLeg,String nombreCLasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
+		
+		
+		
+		return null;
+		
 	}
 
 }
