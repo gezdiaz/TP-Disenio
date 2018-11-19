@@ -14,6 +14,9 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
 import dto.TicketDTO;
+import interfaz.base.VentanaBase;
+import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
+import interfaz.paneles.derivarTicket.DerivarTicketPanel;
 import logicaDeNegocios.entidades.Ticket;
 
 public class TablaTicketsPanel extends JPanel {
@@ -22,7 +25,7 @@ public class TablaTicketsPanel extends JPanel {
 	private JTable tabla;
 	private TablaTicketsModelo tableModel;
 	
-	public TablaTicketsPanel(List<TicketDTO> tickets) {
+	public TablaTicketsPanel(List<TicketDTO> tickets, VentanaBase ventana) {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints cons = new GridBagConstraints();
 		JLabel labelAux;
@@ -66,6 +69,12 @@ public class TablaTicketsPanel extends JPanel {
 		cons.weighty = 1;
 		add(btnVer, cons);
 		
+		btnCerrar.addActionListener(a -> {
+			//TODO que envie el ticket seleccionado
+			VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
+			ventana.setVisible(false);
+			ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar, new TicketDTO(123456L), ventana));
+		});
 		cons.gridx = 2;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -74,6 +83,12 @@ public class TablaTicketsPanel extends JPanel {
 		cons.anchor = GridBagConstraints.CENTER;
 		add(btnCerrar, cons);
 		
+		btnDerivar.addActionListener(a ->{
+			//TODO que envie el ticket seleccionado
+			VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
+			ventana.setVisible(false);
+			ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar, new TicketDTO(123456L), ventana));
+		});
 		cons.gridx = 3;
 		cons.gridy = 2;
 		cons.gridheight = 1;

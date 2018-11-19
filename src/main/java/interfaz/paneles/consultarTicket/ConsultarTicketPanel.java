@@ -69,7 +69,7 @@ public class ConsultarTicketPanel extends JPanel {
 		btnBuscar = new JButton("Buscar");
 		btnVolver = new JButton("Vover");
 		
-		tablaResultados = new TablaTicketsPanel(new ArrayList<TicketDTO>());
+		tablaResultados = new TablaTicketsPanel(new ArrayList<TicketDTO>(), ventana);
 		
 		labelAux = new JLabel("Consultar Ticket");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
