@@ -138,7 +138,7 @@ public class InicioSesionPanel extends JPanel {
 				JOptionPane.showConfirmDialog(ventana, "La clave ingresada es incorrecta", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			case 1: //inicio de sesion correcto
-				if(GestorUsuarios.usuarioActual().getGrupo().getNombre()=="Mesa de Ayuda") {
+				if(GestorUsuarios.usuarioActual().getGrupo().getNombre().equals("Mesa de Ayuda")) {
 					MenuMesaAyudaPanel mmap = new MenuMesaAyudaPanel();
 					VentanaBase base = new VentanaBase(titulo, txtUsuario.getText().trim(), mmap);
 					mmap.setVentana(base);
