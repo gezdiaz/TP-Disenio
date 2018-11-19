@@ -392,11 +392,13 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			Query cons = manager.createNativeQuery("SELECT g.ID_GR, g.NOMBRE "
+			String consulta = "SELECT g.ID_GR, g.NOMBRE FROM GRUPO_DE_RESOLUCION g, CLASIFICACION c, CAPACITADO_PARA cp WHERE g.ID_GR=cp.ID_GR AND c.CODIGO=cp.CLAVE AND c.NOMBRE=?1";
+			/*Query cons = manager.createNativeQuery("SELECT g.ID_GR, g.NOMBRE "
 													+ "FROM GRUPO_DE_RESOLUCION g, CLASIFICACION c, CAPACITADO_PARA cp "
 													+ "WHERE g.ID_GR=cp.ID_GR "
 													+ "AND c.CODIGO=cp.CLAVE "
-													+ "AND c.NOMBRE=?1", GrupoResolucion.class);
+													+ "AND c.NOMBRE=?1", GrupoResolucion.class);*/
+			Query cons = manager.createNativeQuery(consulta);
 			cons.setParameter(1, clasificacion);
 			grupos = (List<GrupoResolucion>)cons.getResultList();
 			System.out.println("Resultado consulta: "+grupos);

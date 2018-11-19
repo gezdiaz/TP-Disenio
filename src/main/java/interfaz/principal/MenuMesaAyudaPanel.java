@@ -84,6 +84,7 @@ public class MenuMesaAyudaPanel extends JPanel{
 		btnConsultarTicket.addActionListener(a -> {
 			ventana.cambiarPanel(new ConsultarTicketPanel(ventana));// crear el panel Consultar ticket
 //			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
 		});
 		add(btnConsultarTicket, cons);
 
