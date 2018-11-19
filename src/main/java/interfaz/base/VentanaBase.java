@@ -2,7 +2,9 @@ package interfaz.base;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -57,9 +59,13 @@ public class VentanaBase extends JFrame {
 		//		this.repaint();
 		//		System.out.println(nuevoPanel.toString());
 		panel.add(nuevoPanel, "nuevoPanel");
-		cartas.show(panel, "nuevoPanel");		
-		this.pack();
+
+//		nuevoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		cartas.show(panel, "nuevoPanel");
+		this.pack();		
 		this.setLocationRelativeTo(null);
+		System.out.println("En la ventana: " + nuevoPanel.getSize());
+		System.out.println("Panel completo: "+ panel.getSize());
 	}
 
 	//	@Override

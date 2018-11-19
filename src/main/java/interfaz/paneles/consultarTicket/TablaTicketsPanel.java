@@ -56,6 +56,7 @@ public class TablaTicketsPanel extends JPanel {
 		cons.insets = new Insets(5, 0, 5, 0);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
+		cons.weighty = 2;
 		add(scroll, cons);
 		
 		cons.gridx = 1;
@@ -65,6 +66,7 @@ public class TablaTicketsPanel extends JPanel {
 		cons.insets = new Insets(15, 5, 5, 5);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.NONE;
+		cons.weighty = 1;
 		add(btnVer, cons);
 		
 		btnCerrar.addActionListener(a -> {
