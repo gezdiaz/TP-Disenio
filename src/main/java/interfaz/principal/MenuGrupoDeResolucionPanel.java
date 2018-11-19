@@ -8,6 +8,7 @@ import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import interfaz.Main;
@@ -83,9 +84,8 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 		cons.anchor = GridBagConstraints.NORTH;
 		cons.insets = new Insets(20, 5, 10, 30);
 		cons.fill = GridBagConstraints.NONE;
-		//TODO action listener registrar clasif
 		btnRegistrarClasificacion.addActionListener(a->{
-			
+			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		});
 		add(btnRegistrarClasificacion, cons);
 		
@@ -96,10 +96,9 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 		cons.anchor = GridBagConstraints.NORTH;
 		cons.insets = new Insets(20, 5, 10, 30);
 		cons.fill = GridBagConstraints.NONE;
-		//TODO action listener buscar clasif
-				btnBuscarClasificacion.addActionListener(a->{
-					
-				});
+		btnBuscarClasificacion.addActionListener(a->{
+			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		});
 		add(btnBuscarClasificacion, cons);
 
 		cons.gridx = 0;
