@@ -416,4 +416,29 @@ public abstract class GestorBD {
 		}
 	}
 
+	public static List<String> getListGrupos() {
+		List<GrupoResolucion> grupos;
+		List<String> nombres = new ArrayList<String>();
+		
+		try {
+			EntityManager manager = emf.createEntityManager();
+			manager.getTransaction().begin();
+			Query cons = manager.createQuery("from GrupoResolucion");
+			grupos = cons.getResultList();
+			manager.getTransaction().commit();
+			manager.close();
+
+			for(GrupoResolucion g: grupos) {
+				nombres.add(g.getNombre());
+			}
+			
+			return nombres;
+
+		} catch (Exception e) {
+			
+			return new ArrayList<String>();
+
+		}
+	}
+
 }

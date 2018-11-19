@@ -44,7 +44,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.gridy = 0;
 		cons.gridheight = 1;
 		cons.gridwidth = 2;
-		cons.insets = new Insets(20, 10, 20, 10);
+		cons.insets = new Insets(40, 20, 40, 20);
 		cons.anchor = GridBagConstraints.CENTER;
 		add(labelAux, cons);
 
@@ -53,7 +53,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(10, 20, 10, 10);
+		cons.insets = new Insets(10, 40, 10, 10);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 
@@ -62,7 +62,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(10, 20, 10, 10);
+		cons.insets = new Insets(10, 40, 20, 10);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 
@@ -70,7 +70,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(10, 10, 10, 20);
+		cons.insets = new Insets(10, 10, 10, 40);
 		cons.anchor = GridBagConstraints.WEST;
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		add(txtUsuario, cons);
@@ -79,7 +79,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(10, 10, 10, 20);
+		cons.insets = new Insets(10, 10, 20, 40);
 		cons.anchor = GridBagConstraints.WEST;
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		add(txtClave, cons);
@@ -88,7 +88,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(10, 10, 10, 20);
+		cons.insets = new Insets(10, 10, 20, 40);
 		cons.anchor = GridBagConstraints.EAST;
 		cons.fill = GridBagConstraints.NONE;
 		iniciarSesion.addActionListener(a -> {
@@ -100,7 +100,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(10, 20, 10, 10);
+		cons.insets = new Insets(10, 40, 20, 10);
 		cons.anchor = GridBagConstraints.WEST;
 		cons.fill = GridBagConstraints.NONE;
 		salir.addActionListener(a -> {

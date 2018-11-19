@@ -72,7 +72,7 @@ public class RegistrarTicketPanel extends JPanel {
 		System.out.println("ticket dto: "+ticketDTO);
 		System.out.println("numTicektDto: "+ticketDTO.getNumTicket());
 		System.out.println("txtnumticket: "+txtNumTicket);
-		txtNumTicket.setText(ticketDTO.getNumTicket().toString()); //TODO Buscar el siguiente numero de ticket con el gestor
+		txtNumTicket.setText(ticketDTO.getNumTicket().toString());
 		txtNumTicket.setEditable(false);
 
 		txtFechaAp = new JTextField(15);
@@ -317,7 +317,8 @@ public class RegistrarTicketPanel extends JPanel {
 		add(infoEmpleado, cons);
 
 		labelAux = new JLabel("dd/mm/aaaa");
-		cons.gridx = 1;
+		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
+		cons.gridx = 2;
 		cons.gridy = 6;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
