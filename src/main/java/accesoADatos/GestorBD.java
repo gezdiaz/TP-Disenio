@@ -4,8 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 
 import logicaDeNegocios.entidades.CambioEstadoIntervencion;
 import logicaDeNegocios.entidades.CambioEstadoTicket;
@@ -442,5 +447,83 @@ public abstract class GestorBD {
 
 		}
 	}
+	
+	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
+		
+		EntityManager manager = emf.createEntityManager();
+		EntityManager em = emf.createEntityManager();
+		
+		try {
+			 
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            List<Predicate> lstPredicates = new ArrayList<Predicate>();
+            CriteriaQuery<Ticket> consulta = cb.createQuery(Ticket.class);
+             
+            Root<Ticket> tickets = consulta.from(Ticket.class);
+            
+            
+            if(numTicket != null) {
+                 
+                Predicate p1 = (Predicate) cb.equal(tickets.get("NUM_TICKET"),numTicket.toString());
+                lstPredicates.add(p1);
+            }
+             
+            if(numLeg != null) {
+                 
+            	Join<Ticket, Empleado> datos1 = tickets.join("NUM_LEG");
+	            Predicate p2 = (Predicate) cb.equal(datos1.get("NUM_LEG"),"NUM_LEG");
+	            lstPredicates.add(p2);
+	            Predicate p3 = (Predicate) cb.equal(datos1.get("NUM_LEG"), numLeg.toString());
+	            lstPredicates.add(p3);
+                 
+            }
+            
+            if(nombreClasificacion != null) {
+            	
+            	Join<Reclasificacion,Ticket> datos2 = tickets.join("NUM_TICKET");
+            	Join<Reclasificacion,Clasificacion> datos3 = datos2.join("CLAVE_NUEVA");
+            	Predicate p3 = (Predicate)cb.equal(datos3.get("NOMBRE"), nombreClasificacion);
+            	lstPredicates.add(p3);
+            	
+            }
+            
+            if(fechaApertura != null) {
+            	
+            	Predicate p4 = (Predicate) cb.equal(tickets.get("FECHA_HORA_APERTURA"),fechaApertura.toString());
+            	lstPredicates.add(p4);
+            	
+            }
+            
+            if(fechaUltimoGrupo != null) {
+            	
+            	Join<Intervencion,Ticket> datos4 = tickets.join("NUM_TICKET");
+            	Predicate p5 = (Predicate) cb.equal(datos4.get("FECHA_HORA_ASIGNACION"),fechaUltimoGrupo.toString());
+            	lstPredicates.add(p5);
+            	
+            }
+            
+            if(ultGrupo != null) {
+            	
+            	Join<Intervencion,Ticket> datos5 = tickets.join("NUM_TICKET");
+            	Join<Intervencion,GrupoResolucion> datos6 = tickets.join("ID_GR");
+            	Predicate p6 = (Predicate) cb.equal(datos6.get("NOMBRE"),ultGrupo);
+            	lstPredicates.add(p6);
+            	
+            }
+             
+            consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));
+            
+         
+             
+            return em.createQuery(consulta).getResultList();
+            
+        } catch (Exception e) {
+ 
+            e.printStackTrace();
+		
+		return null;
+		
+        }
 
+	}
 }
