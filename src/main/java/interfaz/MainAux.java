@@ -11,6 +11,7 @@ import javax.swing.UIManager;
 
 import accesoADatos.GestorBD;
 import interfaz.base.VentanaBase;
+import interfaz.paneles.consultarIntervencion.ConsultarIntervencionPanel;
 import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
 
 public class MainAux {
@@ -21,7 +22,7 @@ public class MainAux {
 		UIManager.put("Panel.background", new Color(163,255,140));
 		
 		VentanaBase ventana = new VentanaBase("Auxiliar", "Usuario de prueba", new JPanel());
-		JPanel panel = new ConsultarTicketPanel(ventana);
+		JPanel panel = new ConsultarIntervencionPanel(ventana);
 		
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
