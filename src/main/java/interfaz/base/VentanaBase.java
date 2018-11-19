@@ -46,6 +46,7 @@ public class VentanaBase extends JFrame {
 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setContentPane(contentPane);
+		this.setLocationRelativeTo(null);
 
 	}
 
@@ -56,8 +57,9 @@ public class VentanaBase extends JFrame {
 		//		this.repaint();
 		//		System.out.println(nuevoPanel.toString());
 		panel.add(nuevoPanel, "nuevoPanel");
-		cartas.show(panel, "nuevoPanel");
+		cartas.show(panel, "nuevoPanel");		
 		this.pack();
+		this.setLocationRelativeTo(null);
 	}
 
 	//	@Override
