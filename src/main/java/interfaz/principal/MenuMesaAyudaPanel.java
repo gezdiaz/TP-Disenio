@@ -82,8 +82,9 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.insets = new Insets(20, 5, 10, 30);
 		cons.fill = GridBagConstraints.NONE;
 		btnConsultarTicket.addActionListener(a -> {
-//			ventana.cambiarPanel(new ConsultarTicketPanel(ventana));//TODO crear el panel Consultar ticket
-			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			ventana.cambiarPanel(new ConsultarTicketPanel(ventana));// crear el panel Consultar ticket
+//			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+
 		});
 		add(btnConsultarTicket, cons);
 
