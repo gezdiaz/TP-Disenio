@@ -38,7 +38,7 @@ public class ConsultarTicketPanel extends JPanel {
 		GridBagConstraints cons = new GridBagConstraints();
 		
 		
-		txtNumTicket = new JTextField("        ");
+		txtNumTicket = new JTextField(20);
 //		txtNumTicket.setSize(50, (int) txtNumTicket.getSize().getHeight());
 		
 		listClasificacion = new JComboBox<String>();
@@ -175,7 +175,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(10, 5, 5, 5);
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		cons.anchor = GridBagConstraints.WEST;
-		//cons.fill = GridBagConstraints.BOTH;
 		add(txtNumTicket, cons);
 		
 		cons.gridx = 1;
@@ -185,7 +184,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
-		//cons.fill = GridBagConstraints.NONE;
 		add(listClasificacion, cons);
 		
 		cons.gridx = 1;
@@ -195,7 +193,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		cons.anchor = GridBagConstraints.WEST;
-		//cons.fill = GridBagConstraints.BOTH;
 		add(txtFechaApertura, cons);
 		
 		cons.gridx = 1;
@@ -205,7 +202,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
-		//cons.fill = GridBagConstraints.NONE;
 		add(listUltimoGrupo, cons);
 		
 		cons.gridx = 4;
@@ -215,7 +211,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(10, 5, 5, 5);
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		cons.anchor = GridBagConstraints.WEST;
-		//cons.fill = GridBagConstraints.BOTH;
 		add(txtNumLegajo, cons);
 		
 		cons.gridx = 4;
@@ -225,7 +220,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
-		//cons.fill = GridBagConstraints.NONE;
 		add(listEstadoActual, cons);
 		
 		cons.gridx = 4;
@@ -235,7 +229,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		cons.anchor = GridBagConstraints.WEST;
-		//cons.fill = GridBagConstraints.BOTH;
 		add(txtFechaUltimoCambio, cons);
 		
 		cons.gridx = 3;
@@ -245,7 +238,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.CENTER;
-		//cons.fill = GridBagConstraints.NONE;
 		add(btnBuscar, cons);
 		
 		cons.gridx = 0;
@@ -256,7 +248,7 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
 		cons.weightx = 2;
-		tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//		tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(tablaResultados, cons);
 		
 		cons.gridx = 0;

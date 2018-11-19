@@ -17,7 +17,6 @@ public class TablaTicketsModelo extends AbstractTableModel {
 	
 	
 	
-	
 	public List<TicketDTO> getTickets() {
 		return tickets;
 	}
@@ -38,13 +37,16 @@ public class TablaTicketsModelo extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return tickets.size();
+		return 6;
+//		return tickets.size();
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object valor = null;
-		
+		if(rowIndex >= tickets.size()) {
+			return "";
+		}
 		switch (columnIndex) {
 		case 0:
 			valor = tickets.get(rowIndex).getNumTicket();

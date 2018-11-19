@@ -1,5 +1,6 @@
 package interfaz.paneles.consultarTicket;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -53,6 +54,7 @@ public class TablaTicketsPanel extends JPanel {
 		cons.insets = new Insets(5, 0, 5, 0);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
+		scroll.setPreferredSize(new Dimension(593, 117));
 		cons.weighty = 2;
 		add(scroll, cons);
 		

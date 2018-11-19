@@ -25,3 +25,4 @@ hs_err_pid*
 bin/
 html/
 target/
+src\main\resources\META-INF\persistence.xml
