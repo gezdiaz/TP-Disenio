@@ -163,6 +163,7 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
+		
 		labelAux = new JLabel("dd/mm/aaaa");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
 		cons.gridx=5;

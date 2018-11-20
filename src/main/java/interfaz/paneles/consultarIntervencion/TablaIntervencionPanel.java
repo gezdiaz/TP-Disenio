@@ -22,13 +22,11 @@ import interfaz.paneles.derivarTicket.DerivarTicketPanel;
 
 public class TablaIntervencionPanel extends JTable{
 
-
 	private JButton btnVer, btnCerrar, btnDerivar, btnConfigurarReporte;
 	private JTable tabla;
 	private TablaIntervencionesModelo tableModel;
 	
 	public TablaIntervencionPanel(List<IntervencionDTO> intervenciones, VentanaBase ventana) {
-		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints cons = new GridBagConstraints();
 		JLabel labelAux;
