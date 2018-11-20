@@ -252,8 +252,6 @@ public class ConsultarTicketPanel extends JPanel {
 //		tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(tablaResultados, cons);
 		
-		
-		
 		cons.gridx = 0;
 		cons.gridy = 6;
 		cons.gridheight = 1;
@@ -266,6 +264,8 @@ public class ConsultarTicketPanel extends JPanel {
 			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 		});
 		add(btnVolver, cons);
+		
+		//System.out.println("Dentro del panel:" + this.getSize());
 				
 	}
 	

@@ -40,7 +40,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		JLabel labelAux;
 		GridBagConstraints cons = new GridBagConstraints();
 		
-		tablaResultados = new TablaIntervencionPanel(new ArrayList<IntervencionDTO>(), ventana);
+		tablaResultados = new TablaIntervencionPanel(new ArrayList<IntervencionDTO>(), this.ventana);
 		
 		listEstado = new JComboBox<String>();
 		for(EstadoIntervencion e: EstadoIntervencion.values()) {
@@ -168,7 +168,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
-		cons.weightx = 2;
+		cons.weightx = 4;
 		//tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(tablaResultados, cons);
 		
@@ -186,7 +186,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		});
 		add(btnVolver, cons);
 		
-		System.out.println("Dentro del panel:" + this.getSize());
+		//System.out.println("Dentro del panel:" + this.getSize());
 		
 		
 	/*	
