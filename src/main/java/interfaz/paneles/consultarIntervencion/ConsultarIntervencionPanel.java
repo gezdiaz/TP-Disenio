@@ -158,6 +158,29 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.gridy = 3;
 		add(labelAux, cons);
 		
+		cons.gridx = 0;
+		cons.gridy = 5;
+		cons.gridheight = 1;
+		cons.gridwidth = 6;
+		cons.insets = new Insets(5, 5, 5, 5);
+		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.BOTH;
+		cons.weightx = 2;
+		tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		add(tablaResultados, cons);
+		
+		cons.gridx = 0;
+		cons.gridy = 6;
+		cons.gridheight = 1;
+		cons.gridwidth = 6;
+		cons.insets = new Insets(5, 5, 5, 5);
+		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.NONE;
+		cons.weightx = 1;
+		add(btnVolver, cons);
+		
+		System.out.println("Dentro del panel:" + this.getSize());
+		
 		
 	/*	
 		
