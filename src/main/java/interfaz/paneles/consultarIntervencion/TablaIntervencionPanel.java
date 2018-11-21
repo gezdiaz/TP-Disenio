@@ -22,7 +22,7 @@ import interfaz.paneles.derivarTicket.DerivarTicketPanel;
 
 public class TablaIntervencionPanel extends JTable{
 
-	private JButton btnVer, btnCerrar, btnDerivar, btnConfigurarReporte;
+	private JButton btnModificarEstado, btnModificarComentario;
 	private JTable tabla;
 	private TablaIntervencionesModelo tableModel;
 	
@@ -35,12 +35,10 @@ public class TablaIntervencionPanel extends JTable{
 		tableModel.setIntervenciones(intervenciones);
 		tabla = new JTable(tableModel);
 		
-		btnVer = new JButton("Ver");
-		btnCerrar = new JButton("Cerrar");
-		btnDerivar = new JButton("Derivar");
-		btnConfigurarReporte = new JButton("Configurar reporte");
+		btnModificarEstado = new JButton("Modificar Estado");
+		btnModificarComentario = new JButton("Modificar Comentario");
 		
-		labelAux = new JLabel("Tickets seleccionados");
+		labelAux = new JLabel("Intervenciones seleccionados");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 18));
 		cons.gridx = 0;
 		cons.gridy = 0;
@@ -62,21 +60,17 @@ public class TablaIntervencionPanel extends JTable{
 		cons.weighty = 2;
 		add(scroll, cons);
 		
+		btnModificarEstado.addActionListener(a -> {
+		});
 		cons.gridx = 1;
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(15, 5, 5, 5);
 		cons.anchor = GridBagConstraints.CENTER;
-		cons.fill = GridBagConstraints.NONE;
-		cons.weighty = 1;
-		add(btnVer, cons);
+		add(btnModificarEstado, cons);
 		
-		btnCerrar.addActionListener(a -> {
-
-			VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
-			ventana.setVisible(false);
-			ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar, new TicketDTO(123456L), ventana));
+		btnModificarComentario.addActionListener(a ->{
 		});
 		cons.gridx = 2;
 		cons.gridy = 2;
@@ -84,29 +78,7 @@ public class TablaIntervencionPanel extends JTable{
 		cons.gridwidth = 1;
 		cons.insets = new Insets(15, 5, 5, 5);
 		cons.anchor = GridBagConstraints.CENTER;
-		add(btnCerrar, cons);
-		
-		btnDerivar.addActionListener(a ->{
-
-			VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
-			ventana.setVisible(false);
-			ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar, new TicketDTO(123456L), ventana));
-		});
-		cons.gridx = 3;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.CENTER;
-		add(btnDerivar, cons);
-		
-		cons.gridx = 4;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.CENTER;
-		add(btnConfigurarReporte, cons);
+		add(btnModificarComentario, cons);
 		
 	}
 	

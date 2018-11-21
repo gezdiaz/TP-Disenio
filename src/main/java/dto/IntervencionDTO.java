@@ -21,7 +21,10 @@ public class IntervencionDTO {
 		
 	}
 	
+	public IntervencionDTO(Long id) {
+		this.idIntervencion=id;
 	
+	}
 	public Long getIdIntervencion() {
 		return idIntervencion;
 	}

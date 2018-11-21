@@ -67,8 +67,8 @@ public class ConsultarIntervencionPanel extends JPanel {
 		add(labelAux, cons);
 		
 		labelAux = new JLabel("Fecha desde");
-		cons.gridx = 0;
-		cons.gridy = 2;
+		cons.gridx = 2;
+		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(5, 10, 5, 5);
@@ -76,8 +76,8 @@ public class ConsultarIntervencionPanel extends JPanel {
 		add(labelAux, cons);
 		
 		labelAux = new JLabel("Fecha hasta");
-		cons.gridx = 0;
-		cons.gridy = 3;
+		cons.gridx = 4;
+		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(5, 10, 5, 5);
@@ -86,7 +86,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		
 		labelAux = new JLabel("Número de ticket");
 		cons.gridx = 0;
-		cons.gridy = 4;
+		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(5, 10, 5, 5);
@@ -94,8 +94,8 @@ public class ConsultarIntervencionPanel extends JPanel {
 		add(labelAux, cons);
 		
 		labelAux = new JLabel("Número de legajo");
-		cons.gridx = 0;
-		cons.gridy = 5;
+		cons.gridx = 2;
+		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(5, 10, 20, 5);
@@ -111,8 +111,8 @@ public class ConsultarIntervencionPanel extends JPanel {
 		add(listEstado, cons);
 		
 		txtFechaDesde = new JTextField(10);
-		cons.gridx = 1;
-		cons.gridy = 2;
+		cons.gridx = 3;
+		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(5, 5, 5, 5);
@@ -120,8 +120,8 @@ public class ConsultarIntervencionPanel extends JPanel {
 		add(txtFechaDesde, cons);
 		
 		txtFechaHasta = new JTextField(10);
-		cons.gridx = 1;
-		cons.gridy = 3;
+		cons.gridx = 5;
+		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(5, 5, 5, 5);
@@ -130,7 +130,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		
 		txtNumTicket = new JTextField(12);
 		cons.gridx = 1;
-		cons.gridy = 4;
+		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(5, 5, 5, 5);
@@ -138,45 +138,54 @@ public class ConsultarIntervencionPanel extends JPanel {
 		add(txtNumTicket, cons);
 		
 		txtNumLegajo = new JTextField(12);
-		cons.gridx = 1;
-		cons.gridy = 5;
+		cons.gridx = 3;
+		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(5, 5, 20, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(txtNumLegajo, cons);
 		
+		btnBuscar = new JButton("Buscar");
+		cons.gridx = 4;
+		cons.gridy = 2;
+		cons.gridheight = 1;
+		cons.gridwidth = 3;
+		cons.insets = new Insets(5, 5, 20, 5);
+		cons.anchor = GridBagConstraints.CENTER;
+		add(btnBuscar, cons);
+		
 		labelAux = new JLabel("dd/mm/aaaa");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
-		cons.gridx = 2;
-		cons.gridy = 2;
+		cons.gridx = 6;
+		cons.gridy = 1;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(5, 0, 5, 10);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 		
-		labelAux = new JLabel("dd/mm/aaaa");
+		/*labelAux = new JLabel("dd/mm/aaaa");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
 		cons.gridy = 3;
-		add(labelAux, cons);
+		add(labelAux, cons);*/
 		
 		cons.gridx = 0;
-		cons.gridy = 6;
+		cons.gridy = 3;
 		cons.gridheight = 1;
-		cons.gridwidth = 6;
+		cons.gridwidth = 7;
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
-		cons.weightx = 4;
+		cons.weightx = 2;
 		//tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(tablaResultados, cons);
 		
 		btnVolver = new JButton("Volver");
 		cons.gridx = 0;
-		cons.gridy = 8;
+		cons.gridy = 5;
 		cons.gridheight = 1;
-		cons.gridwidth = 6;
+		cons.gridwidth = 7;
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.NONE;
