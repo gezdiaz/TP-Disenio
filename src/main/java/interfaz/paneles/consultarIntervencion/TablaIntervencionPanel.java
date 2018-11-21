@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,6 +17,7 @@ import javax.swing.JTable;
 import dto.IntervencionDTO;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
+import interfaz.paneles.actualizarEstadoIntervencion.ActualizarEstadoIntervencionPanel;
 import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
 import interfaz.paneles.consultarTicket.TablaTicketsModelo;
 import interfaz.paneles.derivarTicket.DerivarTicketPanel;
@@ -61,26 +63,30 @@ public class TablaIntervencionPanel extends JPanel{
 		add(scroll, cons);
 		
 		btnModificarEstado.addActionListener(a -> {
+			VentanaBase ventanaModificar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
+			ventana.setVisible(false);
+			ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, new IntervencionDTO(123456L), ventana));
 		});
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.CENTER;
+		cons.anchor = GridBagConstraints.EAST;
+		cons.fill = GridBagConstraints.NONE;
 		add(btnModificarEstado, cons);
 		
 		btnModificarComentario.addActionListener(a ->{
+			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		});
 		cons.gridx = 2;
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.CENTER;
+		cons.anchor = GridBagConstraints.WEST;
+		cons.fill = GridBagConstraints.NONE;
 		add(btnModificarComentario, cons);
-		
-		System.out.println("Termino de hacer la tabla gg");
 		
 	}
 	

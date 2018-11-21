@@ -16,6 +16,7 @@ public class IntervencionDTO {
 	private EstadoIntervencion estadoIntervencion;
 	private LocalDateTime fechaAsignacionIntervencion;
 	private String grupoResolucion;
+	private String descripcionTicket;
 	
 	public IntervencionDTO() {
 		
@@ -94,6 +95,14 @@ public class IntervencionDTO {
 
 	public void setGrupoResolucion(String grupoResolucion) {
 		this.grupoResolucion = grupoResolucion;
+	}
+
+	public String getDescripcionTicket() {
+		return descripcionTicket;
+	}
+
+	public void setDescripcionTicket(String descripcionTicket) {
+		this.descripcionTicket = descripcionTicket;
 	}
 
 }
