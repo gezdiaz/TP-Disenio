@@ -25,7 +25,7 @@ public class TablaIntervencionPanel {
 
 	private JButton btnVer, btnCerrar, btnDerivar, btnConfigurarReporte;
 	private JTable tabla;
-	private TablaTicketsModelo tableModel;
+	private TablaIntervencionesModelo tableModel;
 	
 	public TablaIntervencionPanel(List<IntervencionDTO> intervenciones, VentanaBase ventana) {
 		
@@ -33,7 +33,7 @@ public class TablaIntervencionPanel {
 		GridBagConstraints cons = new GridBagConstraints();
 		JLabel labelAux;
 		tableModel = new TablaTicketsModelo();
-		tableModel.setTickets(intervenciones);
+		tableModel.setIntervenciones(intervenciones);
 		tabla = new JTable(tableModel);
 		
 		btnVer = new JButton("Ver");
