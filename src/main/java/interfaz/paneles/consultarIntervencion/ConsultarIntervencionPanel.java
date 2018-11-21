@@ -183,7 +183,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		
 		btnVolver = new JButton("Volver");
 		cons.gridx = 0;
-		cons.gridy = 5;
+		cons.gridy = 8;
 		cons.gridheight = 1;
 		cons.gridwidth = 7;
 		cons.insets = new Insets(5, 5, 5, 5);

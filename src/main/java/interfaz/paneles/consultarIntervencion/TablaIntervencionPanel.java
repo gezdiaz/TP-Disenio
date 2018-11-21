@@ -80,6 +80,8 @@ public class TablaIntervencionPanel extends JTable{
 		cons.anchor = GridBagConstraints.CENTER;
 		add(btnModificarComentario, cons);
 		
+		System.out.println("Termino de hacer la tabla gg");
+		
 	}
 	
 }
