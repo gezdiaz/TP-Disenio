@@ -5,10 +5,12 @@ import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.table.AbstractTableModel;
+
 import dto.IntervencionDTO;
 import dto.TicketDTO;
 
-public class TablaIntervencionesModelo {
+public class TablaIntervencionesModelo extends AbstractTableModel{
 	
 	private List<IntervencionDTO> intervenciones;
 	private String[] columnas = {"Numero de ticket", "Numero de legajo", "Clasificacion actual", "Estado actual","Fecha apertura",
@@ -57,19 +59,19 @@ public class TablaIntervencionesModelo {
 			valor = intervenciones.get(rowIndex).getClasificacion();
 			break;
 		case 3:
-			valor = intervenciones.get(rowIndex).getEstado().name();
+			valor = intervenciones.get(rowIndex).getEstadoTicket().name();
 			break;
 		case 4:
 			valor = intervenciones.get(rowIndex).getFechaApertura().format(DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.getDefault()));
 			break;
 		case 5:
-			valor = intervenciones.get(rowIndex).getEstado().name();
+			valor = intervenciones.get(rowIndex).getEstadoIntervencion().name();
 			break;
 		case 6:
 			valor = intervenciones.get(rowIndex).getFechaAsignacionIntervencion().format(DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.getDefault()));
 			break;
 		case 7:
-			valor = intervenciones.get(rowIndex).getGrupoResolucion().format(DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.getDefault()));
+			valor = intervenciones.get(rowIndex).getGrupoResolucion();
 			break;
 		default:
 			System.out.println("Indice fuera de rango");

@@ -163,6 +163,7 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
+		
 		labelAux = new JLabel("dd/mm/aaaa");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
 		cons.gridx=5;
@@ -251,8 +252,6 @@ public class ConsultarTicketPanel extends JPanel {
 //		tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(tablaResultados, cons);
 		
-		
-		
 		cons.gridx = 0;
 		cons.gridy = 6;
 		cons.gridheight = 1;
@@ -265,6 +264,8 @@ public class ConsultarTicketPanel extends JPanel {
 			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 		});
 		add(btnVolver, cons);
+		
+		//System.out.println("Dentro del panel:" + this.getSize());
 				
 	}
 	

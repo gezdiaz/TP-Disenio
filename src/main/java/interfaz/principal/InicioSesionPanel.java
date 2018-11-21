@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -109,6 +111,8 @@ public class InicioSesionPanel extends JPanel {
 		});
 		add(salir, cons);
 
+		
+		
 
 	}
 
@@ -117,8 +121,8 @@ public class InicioSesionPanel extends JPanel {
 
 		if (!txtUsuario.getText().trim().isEmpty() || !claveStr.trim().isEmpty()) {
 
+			VentanaBase base;
 			//TODO buscar en el gestor de usuarios el usuario y verificar la clave.
-			String titulo = "Título";
 			/*if(usuario.getGrupo().getNombre()=="Mesa de ayuda"){
 			 * 		titulo = "Mesa de ayuda";
 			 * }else{
@@ -140,22 +144,17 @@ public class InicioSesionPanel extends JPanel {
 			case 1: //inicio de sesion correcto
 				if(GestorUsuarios.usuarioActual().getGrupo().getNombre().equals("Mesa de Ayuda")) {
 					MenuMesaAyudaPanel mmap = new MenuMesaAyudaPanel();
-					VentanaBase base = new VentanaBase(titulo, txtUsuario.getText().trim(), mmap);
+					base = new VentanaBase("Mesa de ayuda", txtUsuario.getText().trim(), mmap);
 					mmap.setVentana(base);
-					base.pack();
-					base.setLocationRelativeTo(null);
-					base.setVisible(true);
-					ventana.dispose();
-				}
-				else {
+				}else {
 					MenuGrupoDeResolucionPanel mgrp = new MenuGrupoDeResolucionPanel();
-					VentanaBase base = new VentanaBase(titulo, txtUsuario.getText().trim(), mgrp);
+					base = new VentanaBase("Grupo de resolución", txtUsuario.getText().trim(), mgrp);
 					mgrp.setVentana(base);
-					base.pack();
-					base.setLocationRelativeTo(null);
-					base.setVisible(true);
-					ventana.dispose();
 				}
+				base.pack();
+				base.setLocationRelativeTo(null);
+				base.setVisible(true);
+				ventana.dispose();
 			}
 
 		}else {

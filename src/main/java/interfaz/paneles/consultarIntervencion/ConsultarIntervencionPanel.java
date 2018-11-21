@@ -17,9 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import accesoADatos.GestorBD;
+import dto.IntervencionDTO;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.consultarTicket.TablaTicketsPanel;
+import interfaz.principal.MenuGrupoDeResolucionPanel;
+import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 
@@ -31,14 +34,13 @@ public class ConsultarIntervencionPanel extends JPanel {
 	private JButton btnBuscar, btnVolver;
 	private TablaIntervencionPanel tablaResultados;
 	
-	
-	
 	public ConsultarIntervencionPanel(VentanaBase ventana) {
-	
 		this.ventana=ventana;
 		this.setLayout(new GridBagLayout());
 		JLabel labelAux;
 		GridBagConstraints cons = new GridBagConstraints();
+		
+		tablaResultados = new TablaIntervencionPanel(new ArrayList<IntervencionDTO>(), this.ventana);
 		
 		listEstado = new JComboBox<String>();
 		for(EstadoIntervencion e: EstadoIntervencion.values()) {
@@ -153,21 +155,11 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.insets = new Insets(5, 0, 5, 10);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
+		
 		labelAux = new JLabel("dd/mm/aaaa");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
 		cons.gridy = 3;
 		add(labelAux, cons);
-		
-		cons.gridx = 0;
-		cons.gridy = 5;
-		cons.gridheight = 1;
-		cons.gridwidth = 6;
-		cons.insets = new Insets(5, 5, 5, 5);
-		cons.anchor = GridBagConstraints.CENTER;
-		cons.fill = GridBagConstraints.BOTH;
-		cons.weightx = 2;
-		tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(tablaResultados, cons);
 		
 		cons.gridx = 0;
 		cons.gridy = 6;
@@ -175,11 +167,26 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.gridwidth = 6;
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.BOTH;
+		cons.weightx = 4;
+		//tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		add(tablaResultados, cons);
+		
+		btnVolver = new JButton("Volver");
+		cons.gridx = 0;
+		cons.gridy = 8;
+		cons.gridheight = 1;
+		cons.gridwidth = 6;
+		cons.insets = new Insets(5, 5, 5, 5);
+		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.NONE;
 		cons.weightx = 1;
+		btnVolver.addActionListener(a -> {
+			ventana.cambiarPanel(new MenuGrupoDeResolucionPanel(ventana));
+		});
 		add(btnVolver, cons);
 		
-		System.out.println("Dentro del panel:" + this.getSize());
+		//System.out.println("Dentro del panel:" + this.getSize());
 		
 		
 	/*	

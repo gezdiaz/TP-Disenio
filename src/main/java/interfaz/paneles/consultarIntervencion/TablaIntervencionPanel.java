@@ -20,19 +20,18 @@ import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
 import interfaz.paneles.consultarTicket.TablaTicketsModelo;
 import interfaz.paneles.derivarTicket.DerivarTicketPanel;
 
-public class TablaIntervencionPanel {
-
+public class TablaIntervencionPanel extends JTable{
 
 	private JButton btnVer, btnCerrar, btnDerivar, btnConfigurarReporte;
 	private JTable tabla;
 	private TablaIntervencionesModelo tableModel;
 	
 	public TablaIntervencionPanel(List<IntervencionDTO> intervenciones, VentanaBase ventana) {
-		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints cons = new GridBagConstraints();
 		JLabel labelAux;
-		tableModel = new TablaTicketsModelo();
+
+		tableModel = new TablaIntervencionesModelo();
 		tableModel.setIntervenciones(intervenciones);
 		tabla = new JTable(tableModel);
 		
