@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -109,6 +111,8 @@ public class InicioSesionPanel extends JPanel {
 		});
 		add(salir, cons);
 
+		
+		
 
 	}
 

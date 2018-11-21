@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
 import java.awt.Rectangle;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -274,6 +275,8 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.insets = insetsMedio;
 		cons.anchor = GridBagConstraints.WEST;
 		cons.fill = GridBagConstraints.VERTICAL;
+		txtDescripcion.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+		txtDescripcion.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
 		add(descripcionScroll, cons);
 
 		cons.gridx = 1;

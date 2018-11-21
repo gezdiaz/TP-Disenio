@@ -1,6 +1,8 @@
 package interfaz;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -35,7 +37,7 @@ public class Main {
 		JFrame ventana = new JFrame("Sistema de Mesa de ayuda");
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.setContentPane(new InicioSesionPanel(ventana));
-		ventana.setIconImage(img.getImage());		 		 
+		ventana.setIconImage(img.getImage());		 		
 		ventana.pack();
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
