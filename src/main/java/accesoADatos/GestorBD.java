@@ -403,21 +403,21 @@ public abstract class GestorBD {
 													+ "WHERE g.ID_GR=cp.ID_GR "
 													+ "AND c.CODIGO=cp.CLAVE "
 													+ "AND c.NOMBRE=?1", GrupoResolucion.class);*/
-			Query cons = manager.createNativeQuery(consulta);
+			Query cons = manager.createNativeQuery(consulta, GrupoResolucion.class);
 			cons.setParameter(1, clasificacion);
 			grupos = (List<GrupoResolucion>)cons.getResultList();
 			System.out.println("Resultado consulta: "+grupos);
 			manager.getTransaction().commit();
 			manager.close();
-
+			System.out.println("Lista grupos en el gestorBD: " + grupos);
 			for(GrupoResolucion c: grupos) {
 				nombres.add(c.getNombre());
 			}
-			
+			System.out.println("Lista Nombres grupos en el gestorBD: " + grupos);
 			return nombres;
 
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 			return new ArrayList<String>();
 
 		}
@@ -451,11 +451,11 @@ public abstract class GestorBD {
 	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
 		
 		EntityManager manager = emf.createEntityManager();
-		EntityManager em = emf.createEntityManager();
+		List<Ticket> resultado;
 		
 		try {
 			 
-            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaBuilder cb = manager.getCriteriaBuilder();
             List<Predicate> lstPredicates = new ArrayList<Predicate>();
             CriteriaQuery<Ticket> consulta = cb.createQuery(Ticket.class);
              
@@ -515,7 +515,9 @@ public abstract class GestorBD {
             
          
              
-            return em.createQuery(consulta).getResultList();
+            resultado = manager.createQuery(consulta).getResultList();
+            manager.close();
+            return resultado;
             
         } catch (Exception e) {
  
@@ -525,5 +527,29 @@ public abstract class GestorBD {
 		
         }
 
+	}
+
+	public static GrupoResolucion buscarGrupoPorNombre(String nombreGrupo) {
+	
+		EntityManager manager = emf.createEntityManager();
+		GrupoResolucion grupo;
+		System.out.println("Nombre a buscar:" + nombreGrupo);
+		try {
+			
+			manager.getTransaction().begin();
+			Query consulta = manager.createQuery("from GrupoResolucion g where g.nombre = ?1", GrupoResolucion.class);
+			consulta.setParameter(1, nombreGrupo);
+			grupo = (GrupoResolucion) consulta.getResultList().get(0);
+			manager.getTransaction().commit();
+			manager.close();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			return null;
+		}
+		
+		return grupo;
 	}
 }

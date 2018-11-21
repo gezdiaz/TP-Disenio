@@ -3,6 +3,9 @@ package interfaz.base;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -32,16 +35,11 @@ public class VentanaBase extends JFrame {
 
 		panel.add(this.subPanel, "Inicio");
 		cartas.show(panel, "Inicio");
+		
+		
 
 		contentPane.add(barraUsuario, BorderLayout.NORTH);
 		contentPane.add(panel, BorderLayout.CENTER);
-		//		this.restriccionesPanel.gridx=0;
-		//		this.restriccionesPanel.gridy=1;
-		//		this.restriccionesPanel.fill=GridBagConstraints.BOTH;
-		//		this.restriccionesPanel.weighty = 2;
-		//		this.restriccionesPanel.weightx = 2;
-		////		otroPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		//		this.subPanel.setBackground(new Color(163,255,140));
 
 		ImageIcon img = new ImageIcon("icono.png");
 		setIconImage(img.getImage());
@@ -54,17 +52,16 @@ public class VentanaBase extends JFrame {
 
 	public void cambiarPanel(JPanel nuevoPanel) {
 		this.subPanel = nuevoPanel;
-		//		panel.add(this.subPanel, restriccionesPanel);
-		//		panel.repaint();
-		//		this.repaint();
-		//		System.out.println(nuevoPanel.toString());
+		
 		panel.add(nuevoPanel, "nuevoPanel");
 
-//		nuevoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		cartas.show(panel, "nuevoPanel");
-		this.setSize(0, 0);
+
+		this.revalidate();
+		this.repaint();
 		this.pack();
 		this.setLocationRelativeTo(null);
 	}
+	
 
 }

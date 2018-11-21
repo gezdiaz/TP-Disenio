@@ -9,17 +9,21 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.KeyboardFocusManager;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.Action;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -27,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 import accesoADatos.GestorBD;
@@ -75,14 +80,17 @@ public class RegistrarTicketPanel extends JPanel {
 		System.out.println("txtnumticket: "+txtNumTicket);
 		txtNumTicket.setText(ticketDTO.getNumTicket().toString());
 		txtNumTicket.setEditable(false);
+		txtNumTicket.setFocusable(false);
 
 		txtFechaAp = new JTextField(15);
 		txtFechaAp.setText(fecha.format(formatoDia));
 		txtFechaAp.setEditable(false);
+		txtFechaAp.setFocusable(false);
 
 		txtHoraAp = new JTextField(15);
 		txtHoraAp.setText(fecha.format(formatoHora));
 		txtHoraAp.setEditable(false);
+		txtHoraAp.setFocusable(false);
 
 		txtNumLegajo = new JTextField(15);
 
@@ -105,37 +113,6 @@ public class RegistrarTicketPanel extends JPanel {
 			listClasificacion.addItem(n);
 		}
 		
-		listClasificacion.setPrototypeDisplayValue("Seleccione una clasificación     ");
-		//		for(int i=1; i<5; i++) {
-		//			listClasificacion.addItem("Clasificación "+i);
-		//		}
-		listClasificacion.setRenderer(new DefaultListCellRenderer() {
-			 
-	         @Override
-	         public Component getListCellRendererComponent(JList list, Object value,
-	                 int index, boolean isSelected, boolean cellHasFocus) {
-	            super.getListCellRendererComponent(list, value, index,
-	                    isSelected, cellHasFocus);
-	            if (index == -1) {
-	               listClasificacion.setToolTipText(value.toString());
-	               return this;
-	            }
-	             
-	            setToolTipText(value.toString());
-	            Rectangle textRect =
-	                    new Rectangle(listClasificacion.getSize().width,
-	                    getPreferredSize().height);
-	            String shortText = SwingUtilities.layoutCompoundLabel(this,
-	                    getFontMetrics(getFont()),
-	                    value.toString(), null,
-	                    getVerticalAlignment(), getHorizontalAlignment(),
-	                    getHorizontalTextPosition(), getVerticalTextPosition(),
-	                    textRect, new Rectangle(), textRect,
-	                    getIconTextGap());
-	            setText(shortText);
-	            return this;
-	         }
-	      });
 		JLabel labelAux;
 
 		setLayout(new GridBagLayout());
@@ -244,7 +221,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.gridwidth = 1;
 		cons.insets = insetsMedio;
 		cons.anchor = GridBagConstraints.CENTER;
-		cons.fill = GridBagConstraints.BOTH;
+		cons.fill = GridBagConstraints.NONE;
 		txtNumLegajo.addFocusListener(new FocusListener() {
 
 			@Override
@@ -259,13 +236,15 @@ public class RegistrarTicketPanel extends JPanel {
 		});
 		add(txtNumLegajo, cons);
 
+		txtNumLegajo.requestFocusInWindow();
+
 		cons.gridx = 1;
 		cons.gridy = 3;
 		cons.gridheight = 1;
-		cons.gridwidth = 1;
+		cons.gridwidth = 2;
 		cons.insets = insetsMedio;
-		cons.anchor = GridBagConstraints.CENTER;
-		cons.fill = GridBagConstraints.BOTH;
+		cons.anchor = GridBagConstraints.WEST;
+		cons.fill = GridBagConstraints.NONE;
 		add(listClasificacion, cons);
 
 		cons.gridx = 1;
@@ -330,7 +309,54 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		add(labelAux, cons);
 
+		this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("ENTER"), "ApretoEnter");
+		this.getActionMap().put("ApretoEnter", new Action() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(btnAceptar.isFocusOwner()) {
+					apretoAceptar();
+				}else {
+					if(btnCancelar.isFocusOwner()) {
+						apretoCancelar();
+					}else {
+						KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner().transferFocus();
+					}
+				}
+			}
 
+			@Override
+			public void addPropertyChangeListener(PropertyChangeListener listener) {
+				
+			}
+
+			@Override
+			public Object getValue(String key) {
+				return null;
+			}
+
+			@Override
+			public boolean isEnabled() {
+				return true;
+			}
+
+			@Override
+			public void putValue(String key, Object value) {
+				
+			}
+
+			@Override
+			public void removePropertyChangeListener(PropertyChangeListener listener) {
+				
+			}
+
+			@Override
+			public void setEnabled(boolean b) {
+				
+			}
+		}
+		);
+		
 	}
 
 	public void setVentana(VentanaBase ventana) {

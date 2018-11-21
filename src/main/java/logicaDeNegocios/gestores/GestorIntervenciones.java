@@ -13,9 +13,20 @@ import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 
 public abstract class GestorIntervenciones {
 
-	public static Intervencion crearIntervencion(Ticket ticket, Usuario usuario, String observaciones) {
+	public static Intervencion crearIntervencionRT(Ticket ticket, String nombreGrupo, String observaciones) {
 
-		Intervencion intervencion = new Intervencion(observaciones, LocalDateTime.now(), ticket, usuario.getGrupo());
+		Usuario usuario = GestorUsuarios.usuarioActual();
+		GrupoResolucion grupo;
+		try {
+			grupo = GestorBD.buscarGrupoPorNombre(nombreGrupo);
+		} catch (Exception e) {
+			return null;
+		}
+		if(grupo == null) {
+			return null;
+		}
+		
+		Intervencion intervencion = new Intervencion(observaciones, LocalDateTime.now(), ticket, grupo);
 
 //		if (!(GestorBD.guardarIntervencion(intervencion)>0)) {
 //			return null;
@@ -60,6 +71,29 @@ public abstract class GestorIntervenciones {
 		//		}
 
 		return true;
+	}
+
+	public static Intervencion crearIntervencion(Ticket ticket, String nombreGrupo, String observaciones) {
+
+		Usuario usuario = GestorUsuarios.usuarioActual();
+		GrupoResolucion grupo;
+		try {
+			grupo = GestorBD.buscarGrupoPorNombre(nombreGrupo);
+		} catch (Exception e) {
+			return null;
+		}
+		if(grupo == null) {
+			return null;
+		}
+		Intervencion intervencion = new Intervencion(observaciones, LocalDateTime.now(), ticket, grupo);
+		
+		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), null,	EstadoIntervencion.Asignado,
+																			 intervencion, usuario, observaciones);
+		
+		intervencion.actualizarEstado(cambioEstado);
+		
+		return intervencion;
+		
 	}
 
 }

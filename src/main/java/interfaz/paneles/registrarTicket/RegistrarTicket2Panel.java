@@ -29,6 +29,7 @@ public class RegistrarTicket2Panel extends JPanel {
 	JComboBox<String> accionList;
 	VentanaBase ventana;
 	TicketDTO ticketDTO;
+	private List<String> listaGR;
 
 	public RegistrarTicket2Panel(VentanaBase ventana, TicketDTO ticketDTO) {
 		//TODO Debería recibir también un ticketDTO
@@ -108,9 +109,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.anchor = GridBagConstraints.CENTER;
 		add(scroll, cons);
 
-		//Lista desplegabel con los grupos:
-		//TODO Debería pedri al gestor los grupos que pueden resolver la clasificación del ticket.
-		List<String> listaGR = GestorBD.getListGruposConClasificacion(ticketDTO.getClasificacion());
+		listaGR = GestorBD.getListGruposConClasificacion(ticketDTO.getClasificacion());
 		System.out.println("Lista Grupos: "+listaGR);
 		accionList.addItem("Cerrar ticket");
 		for(String g: listaGR) {
@@ -186,7 +185,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		}else {
 			//TODO Hacer la acción seleccionada, cerrar o derivar ticket del CU1
 			if(accionList.getSelectedItem()=="Cerrar ticket") {
-				switch(GestorTickets.cerrarTicketMesaAyuda(this.ticketDTO, obserbacionesTxt.getText())) {
+				switch(GestorTickets.cerrarTicketRT(this.ticketDTO, obserbacionesTxt.getText())) {
 				case -2:{
 					JOptionPane.showConfirmDialog(ventana, "No se ha podido registrar el ticket en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					break;
@@ -206,10 +205,24 @@ public class RegistrarTicket2Panel extends JPanel {
 				default:{}
 				}
 				
-			}
-			else {
-				//GestorTickets.derivarTicket(ticketDTO,accionList.getSelectedItem());
-				JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			}else {
+				String nombreGrupo = listaGR.get(accionList.getSelectedIndex()-1);
+				switch(GestorTickets.derivarTicketRT(ticketDTO, nombreGrupo, obserbacionesTxt.getText().trim())) {
+				case -2:{
+					JOptionPane.showConfirmDialog(ventana, "No se ha podido registrar el ticket en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				case 0:{
+					JOptionPane.showConfirmDialog(ventana, "Ticket o grupo de resolución no encontrado en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					break;
+				}
+				case 1:{JOptionPane.showConfirmDialog(ventana, "El ticket ha sido derivado exitosamente \n al grupo de resolucion: "+nombreGrupo, "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
+				break;
+				}
+				default:{}
+				}
+//				JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 		}

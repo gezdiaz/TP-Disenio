@@ -4,16 +4,21 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeListener;
 
+import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 import interfaz.base.VentanaBase;
 import logicaDeNegocios.gestores.GestorUsuarios;
@@ -111,8 +116,57 @@ public class InicioSesionPanel extends JPanel {
 		});
 		add(salir, cons);
 
-		
-		
+		this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("ENTER"), "ApretoEnter");
+		this.getActionMap().put("ApretoEnter", new Action() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(salir.isFocusOwner()) {
+					ventana.dispose();
+					System.exit(0);
+				}else {
+					iniciarSesion();
+				}
+			}
+
+			@Override
+			public void addPropertyChangeListener(PropertyChangeListener listener) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public Object getValue(String key) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean isEnabled() {
+				// TODO Auto-generated method stub
+				return true;
+			}
+
+			@Override
+			public void putValue(String key, Object value) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void removePropertyChangeListener(PropertyChangeListener listener) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setEnabled(boolean b) {
+				// TODO Auto-generated method stub
+				
+			}
+		}
+		);
+				
 
 	}
 
@@ -122,13 +176,6 @@ public class InicioSesionPanel extends JPanel {
 		if (!txtUsuario.getText().trim().isEmpty() || !claveStr.trim().isEmpty()) {
 
 			VentanaBase base;
-			//TODO buscar en el gestor de usuarios el usuario y verificar la clave.
-			/*if(usuario.getGrupo().getNombre()=="Mesa de ayuda"){
-			 * 		titulo = "Mesa de ayuda";
-			 * }else{
-			 * 		titulo = "Grupo resolución" //Puese ser gerencia tambi�n
-			 * }
-			 * */
 			Integer res = GestorUsuarios.iniciarSesion(txtUsuario.getText(), claveStr);
 
 			switch(res) {

@@ -50,7 +50,7 @@ public abstract class GestorTickets {
 		System.out.println("Clasificacion: "+clasificacion);
 		//Crea la intervencion
 		System.out.println("Empiezo a crear la intervencion");
-		Intervencion intervencion = GestorIntervenciones.crearIntervencion(ticket, usuario, ""); //observaciones vacías, en la segunda pnatalla las cambia.
+		Intervencion intervencion = GestorIntervenciones.crearIntervencionRT(ticket, usuario.getGrupo().getNombre(), ""); //observaciones vacías, en la segunda pnatalla las cambia.
 		System.out.println("Termino de crear la intervencion");
 		if(intervencion == null) {
 			System.out.println("Intervencion nula");
@@ -73,7 +73,7 @@ public abstract class GestorTickets {
 		return true;
 	}
 
-	public static Integer cerrarTicketMesaAyuda(TicketDTO ticketDTO, String observaciones) {
+	public static Integer cerrarTicketRT(TicketDTO ticketDTO, String observaciones) {
 
 		Ticket ticket = new Ticket();
 
@@ -132,6 +132,36 @@ public abstract class GestorTickets {
 		
 		return null;
 		
+	}
+
+	public static Integer derivarTicketRT(TicketDTO ticketDTO, String nombreGrupo, String observaciones) {
+		
+		Ticket ticket = GestorBD.buscarTicketPorId(ticketDTO.getNumTicket());
+		GrupoResolucion grupoResolucion = GestorBD.buscarGrupoPorNombre(nombreGrupo);
+		
+		if(ticket == null || grupoResolucion == null) {
+			return 0;
+		}
+		
+		Usuario usuario = GestorUsuarios.usuarioActual();
+		
+		Intervencion intervencion = GestorIntervenciones.crearIntervencion(ticket, nombreGrupo, observaciones);
+		
+		if(!GestorIntervenciones.terminarIntervencion(ticket, observaciones)) {
+			return -1;
+		}
+		
+		ticket.agregarIntervencion(intervencion);
+		
+		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Derivado,
+																 ticket, usuario, observaciones);
+		ticket.acutalizarEstado(cambioEstado);
+		
+		if(!GestorBD.actualizarTicket(ticket)) {
+			return -2;
+		}
+		
+		return 1;
 	}
 
 }

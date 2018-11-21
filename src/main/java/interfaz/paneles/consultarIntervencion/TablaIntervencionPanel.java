@@ -20,7 +20,7 @@ import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
 import interfaz.paneles.consultarTicket.TablaTicketsModelo;
 import interfaz.paneles.derivarTicket.DerivarTicketPanel;
 
-public class TablaIntervencionPanel extends JTable{
+public class TablaIntervencionPanel extends JPanel{
 
 	private JButton btnModificarEstado, btnModificarComentario;
 	private JTable tabla;
