@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
+import dto.NumTicket;
 import logicaDeNegocios.entidades.CambioEstadoIntervencion;
 import logicaDeNegocios.entidades.CambioEstadoTicket;
 import logicaDeNegocios.entidades.Clasificacion;
@@ -35,9 +36,34 @@ public abstract class GestorBD {
 		emf = factory;
 	}
 
+	public static Long getNumTicket() {
+		
+		Long numTicket = -1L;
+		NumTicket nt;
+		System.out.println("GetNumTicket() 1: "+numTicket);
+		try {
+			EntityManager manager = emf.createEntityManager();
+			manager.getTransaction().begin();
+			Query consulta = manager.createQuery("from NumTicket");
+			nt = (NumTicket) consulta.getResultList().get(0);
+			numTicket = nt.getNum();
+			nt.setNum(numTicket+1);
+			manager.persist(nt);
+			manager.getTransaction().commit();
+			manager.close();
+			System.out.println("GetNumTicket() 1: "+numTicket);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return numTicket;
+		
+	}
+	
 	public static Boolean guardarTicket(Ticket ticket) {
 
-		System.out.println("Entro a guardar TIcket");
+//		System.out.println("Entro a guardar Ticket");
 
 		try {
 			EntityManager manager = emf.createEntityManager();
