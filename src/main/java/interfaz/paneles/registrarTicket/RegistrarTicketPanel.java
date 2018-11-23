@@ -365,7 +365,7 @@ public class RegistrarTicketPanel extends JPanel {
 
 	private void apretoCancelar() {
 		// TODO Accion del boton cancelar de Registrar Ticket
-		GestorTickets.eliminarTicket(ticketDTO);
+//		GestorTickets.eliminarTicket(ticketDTO);
 		ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana)); //deberia volver a la pantalla de mesa de ayuda
 
 	}

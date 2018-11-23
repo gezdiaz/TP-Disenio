@@ -14,7 +14,6 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 public class Ticket {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUM_TICKET")
 	private Long numTIcket;
 
