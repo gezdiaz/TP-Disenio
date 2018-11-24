@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -48,6 +51,8 @@ public class RegistrarTicket2Panel extends JPanel {
 		this.ticketDTO = ticketDTO;
 
 		obserbacionesTxt = new JTextArea();
+		obserbacionesTxt.setLineWrap(true);
+		obserbacionesTxt.setWrapStyleWord(true);
 
 		aceptar = new JButton("Aceptar");
 
@@ -98,7 +103,7 @@ public class RegistrarTicket2Panel extends JPanel {
 
 		//Campo observaciones con su barra de scroll
 		scroll = new JScrollPane(obserbacionesTxt);
-		obserbacionesTxt.setPreferredSize(new Dimension(200, 70));
+		obserbacionesTxt.setPreferredSize(new Dimension(250, 70));
 		cons.gridx = 1;
 		cons.gridy = 1;
 		cons.gridheight = 1;
@@ -107,6 +112,8 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.insets = arDer;
 		cons.fill = GridBagConstraints.BOTH;
 		cons.anchor = GridBagConstraints.CENTER;
+		obserbacionesTxt.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+		obserbacionesTxt.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
 		add(scroll, cons);
 
 		listaGR = GestorBD.getListGruposConClasificacion(ticketDTO.getClasificacion());
@@ -145,6 +152,24 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.insets = new Insets(20, 40, 40, 10);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
+		aceptar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoAceptar();
+				}
+			}
+		});
 		add(aceptar, cons);
 
 		cancelar.addActionListener(a -> {
@@ -158,6 +183,24 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.insets = new Insets(20, 10, 40, 25);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.EAST;
+		cancelar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoCancelar();
+				}
+			}
+		});
 		add(cancelar, cons);
 
 		//*campo obligatorio

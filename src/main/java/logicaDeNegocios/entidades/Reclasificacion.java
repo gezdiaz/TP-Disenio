@@ -37,11 +37,12 @@ public class Reclasificacion {
 
 	}
 
-	public Reclasificacion(Clasificacion anterior, Clasificacion nueva, Usuario usuario) {
+	public Reclasificacion(Clasificacion anterior, Clasificacion nueva, Usuario usuario, LocalDateTime fechaReclasificacion) {
 
 		this.clasificacionAnterior = anterior;
 		this.clasificacionNueva = nueva;
 		this.usuario = usuario;
+		this.fechaReclasificacion = fechaReclasificacion;
 
 	}
 

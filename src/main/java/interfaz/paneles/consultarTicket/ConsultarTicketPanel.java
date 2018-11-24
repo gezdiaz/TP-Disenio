@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -239,6 +241,27 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 5, 5);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.CENTER;
+		btnBuscar.addActionListener(a -> {
+			apretoBuscar();
+		});
+		btnBuscar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoBuscar();
+				}
+			}
+		});
 		add(btnBuscar, cons);
 		
 		cons.gridx = 0;
@@ -261,12 +284,39 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		cons.weightx = 1;
 		btnVolver.addActionListener(a -> {
-			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
+			apretoVolver();
+		});
+		btnVolver.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoVolver();
+				}
+			}
 		});
 		add(btnVolver, cons);
 		
 		//System.out.println("Dentro del panel:" + this.getSize());
 				
+	}
+
+	private void apretoVolver() {
+		ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
+	}
+
+	private void apretoBuscar() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

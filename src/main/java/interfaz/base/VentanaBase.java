@@ -52,10 +52,9 @@ public class VentanaBase extends JFrame {
 	public void cambiarPanel(JPanel nuevoPanel) {
 		int diffH = (int)this.getSize().getHeight()-(int)subPanel.getSize().getHeight();
 		int diffW = (int)this.getSize().getWidth()-(int)subPanel.getSize().getWidth();
-		System.out.println("Panel anterior: "+subPanel.getSize());
+
 		this.subPanel = nuevoPanel;
-		System.out.println("Nuevo panel antes de agregarlo: "+subPanel.getSize());
-		System.out.println("Preferred sise del nuevo: "+subPanel.getPreferredSize());
+
 		panel.add(nuevoPanel, "nuevoPanel");
 
 		cartas.show(panel, "nuevoPanel");
@@ -66,7 +65,7 @@ public class VentanaBase extends JFrame {
 		this.repaint();
 		this.pack();
 		this.setLocationRelativeTo(null);
-		System.out.println("Nuevo panel después de mostrarlo: "+subPanel.getSize());
+		this.requestFocus();
 	}
 	
 

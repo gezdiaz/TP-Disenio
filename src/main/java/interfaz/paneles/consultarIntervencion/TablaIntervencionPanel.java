@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -27,8 +29,10 @@ public class TablaIntervencionPanel extends JPanel{
 	private JButton btnModificarEstado, btnModificarComentario;
 	private JTable tabla;
 	private TablaIntervencionesModelo tableModel;
+	VentanaBase ventana;
 	
 	public TablaIntervencionPanel(List<IntervencionDTO> intervenciones, VentanaBase ventana) {
+		this.ventana = ventana;
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints cons = new GridBagConstraints();
 		JLabel labelAux;
@@ -62,11 +66,6 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.weighty = 2;
 		add(scroll, cons);
 		
-		btnModificarEstado.addActionListener(a -> {
-			VentanaBase ventanaModificar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
-			ventana.setVisible(false);
-			ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, new IntervencionDTO(123456L), ventana));
-		});
 		cons.gridx = 0;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -74,11 +73,29 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.insets = new Insets(15, 5, 5, 5);
 		cons.anchor = GridBagConstraints.EAST;
 		cons.fill = GridBagConstraints.NONE;
+		btnModificarEstado.addActionListener(a -> {
+			apretoModificarEstado();
+		});
+		btnModificarEstado.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoModificarEstado();
+				}
+			}
+		});
 		add(btnModificarEstado, cons);
 		
-		btnModificarComentario.addActionListener(a ->{
-			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-		});
 		cons.gridx = 2;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -86,8 +103,39 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.insets = new Insets(15, 5, 5, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		cons.fill = GridBagConstraints.NONE;
+		btnModificarComentario.addActionListener(a ->{
+			apretoModificarComentario();
+		});
+		btnModificarComentario.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoModificarComentario();
+				}
+			}
+		});
 		add(btnModificarComentario, cons);
 		
+	}
+
+	private void apretoModificarComentario() {
+		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	private void apretoModificarEstado() {
+		VentanaBase ventanaModificar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
+		ventana.setVisible(false);
+		ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, new IntervencionDTO(123456L), ventana));
 	}
 	
 }

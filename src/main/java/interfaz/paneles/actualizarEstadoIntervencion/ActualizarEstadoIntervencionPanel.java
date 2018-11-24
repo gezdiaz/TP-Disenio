@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,20 +29,21 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 public class ActualizarEstadoIntervencionPanel extends JPanel{
 
-	private VentanaBase ventana;
+	private VentanaBase ventanaActual, ventanaAnterior;
 	private JTextField txtEstadoActual;
 	private JComboBox<String> listClasificacion, listEstadoIntervencion, listMotivo;
 	private JTextArea txtObservaciones , txtDescripcion;
 	private JButton btnAceptar, btnCancelar;
 	private IntervencionDTO intervencionDTO;
 
-	public ActualizarEstadoIntervencionPanel(VentanaBase ventana, IntervencionDTO intervencionDTO, VentanaBase ventanaAnterior) {
+	public ActualizarEstadoIntervencionPanel(VentanaBase ventanaActual, IntervencionDTO intervencionDTO, VentanaBase ventanaAnterior) {
 		this.setLayout(new GridBagLayout());
 		JLabel labelAux;
 		JScrollPane scroll;
 		GridBagConstraints cons = new GridBagConstraints();
 
-		this.ventana = ventana;
+		this.ventanaActual = ventanaActual;
+		this.ventanaAnterior = ventanaAnterior;
 		this.intervencionDTO = intervencionDTO;
 		//TODO que muestre el estado de la intervencion
 		this.txtEstadoActual = new JTextField(10/*this.intervencionDTO.getEstado().name()*/);
@@ -72,7 +75,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
 
-		this.ventana.setVisible(true);
+		this.ventanaActual.setVisible(true);
 
 		labelAux = new JLabel("Actualizar estado intervencion");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
@@ -193,16 +196,6 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		add(scroll, cons);
 
 		//Botones
-		btnAceptar.addActionListener(a -> {
-			//apretoAceptar();//TODO apretoAceptar()
-			if(txtObservaciones.getText().trim().isEmpty()) {
-				JOptionPane.showConfirmDialog(ventana, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-			}
-			else {
-				ventana.dispose();
-				ventanaAnterior.setVisible(true);
-			}		
-		});
 		cons.gridx = 0;
 		cons.gridy = 7;
 		cons.gridheight = 1;
@@ -211,11 +204,49 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.insets = new Insets(20, 40, 40, 10);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.EAST;
+		btnAceptar.addActionListener(a -> {
+			apretoAceptar();		
+		});
+		btnAceptar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoAceptar();
+				}
+			}
+		});
 		add(btnAceptar, cons);
 
 		btnCancelar.addActionListener(a -> {
-			ventana.dispose();
-			ventanaAnterior.setVisible(true);
+			apretoCancelar();
+		});
+		btnCancelar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoCancelar();
+				}
+			}
 		});
 		cons.gridx = 2;
 		cons.gridy = 7;
@@ -226,5 +257,21 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
 		add(btnCancelar, cons);
+	}
+
+	private void apretoCancelar() {
+		ventanaActual.dispose();
+		ventanaAnterior.setVisible(true);
+	}
+
+	private void apretoAceptar() {
+		//apretoAceptar();//TODO apretoAceptar()
+		if(txtObservaciones.getText().trim().isEmpty()) {
+			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			ventanaActual.dispose();
+			ventanaAnterior.setVisible(true);
+		}
 	}
 }

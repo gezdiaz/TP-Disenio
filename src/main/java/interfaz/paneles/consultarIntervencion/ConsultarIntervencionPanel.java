@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.color.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -153,6 +156,27 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.gridwidth = 3;
 		cons.insets = new Insets(5, 5, 20, 5);
 		cons.anchor = GridBagConstraints.CENTER;
+		btnBuscar.addActionListener(a -> {
+			apretoBuscar();
+		});
+		btnBuscar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoBuscar();
+				}
+			}
+		});
 		add(btnBuscar, cons);
 		
 		labelAux = new JLabel("dd/mm/aaaa");
@@ -191,7 +215,25 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		cons.weightx = 1;
 		btnVolver.addActionListener(a -> {
-			ventana.cambiarPanel(new MenuGrupoDeResolucionPanel(ventana));
+			apretoVolver();
+		});
+		btnVolver.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoVolver();
+				}
+			}
 		});
 		add(btnVolver, cons);
 		
@@ -432,6 +474,15 @@ public class ConsultarIntervencionPanel extends JPanel {
 		
 		System.out.println("Dentro del panel:" + this.getSize());
 	*/	
+	}
+
+	private void apretoBuscar() {
+		// TODO Auto-generated method stub
+		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	private void apretoVolver() {
+		ventana.cambiarPanel(new MenuGrupoDeResolucionPanel(ventana));
 	}
 
 }

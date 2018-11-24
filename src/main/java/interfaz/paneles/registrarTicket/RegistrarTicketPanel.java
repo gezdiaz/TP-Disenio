@@ -12,6 +12,8 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -204,6 +206,24 @@ public class RegistrarTicketPanel extends JPanel {
 		btnAceptar.addActionListener(e -> {
 			apretoAceptar();
 		});
+		btnAceptar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoAceptar();
+				}
+			}
+		});
 		add(btnAceptar, cons);
 
 		cons.gridx = 1;
@@ -236,7 +256,7 @@ public class RegistrarTicketPanel extends JPanel {
 		});
 		add(txtNumLegajo, cons);
 
-		txtNumLegajo.requestFocusInWindow();
+//		txtNumLegajo.requestFocusInWindow();
 
 		cons.gridx = 1;
 		cons.gridy = 3;
@@ -286,6 +306,24 @@ public class RegistrarTicketPanel extends JPanel {
 		btnCancelar.addActionListener(e -> {
 			apretoCancelar();
 		});
+		btnCancelar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoCancelar();
+				}
+			}
+		});
 		add(btnCancelar, cons);
 
 		cons.gridx = 2;
@@ -309,53 +347,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		add(labelAux, cons);
 
-		this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke("ENTER"), "ApretoEnter");
-		this.getActionMap().put("ApretoEnter", new Action() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if(btnAceptar.isFocusOwner()) {
-					apretoAceptar();
-				}else {
-					if(btnCancelar.isFocusOwner()) {
-						apretoCancelar();
-					}else {
-						KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner().transferFocus();
-					}
-				}
-			}
-
-			@Override
-			public void addPropertyChangeListener(PropertyChangeListener listener) {
-				
-			}
-
-			@Override
-			public Object getValue(String key) {
-				return null;
-			}
-
-			@Override
-			public boolean isEnabled() {
-				return true;
-			}
-
-			@Override
-			public void putValue(String key, Object value) {
-				
-			}
-
-			@Override
-			public void removePropertyChangeListener(PropertyChangeListener listener) {
-				
-			}
-
-			@Override
-			public void setEnabled(boolean b) {
-				
-			}
-		}
-		);
+		txtNumLegajo.requestFocusInWindow();
 		
 	}
 

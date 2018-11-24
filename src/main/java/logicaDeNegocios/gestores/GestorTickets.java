@@ -42,7 +42,7 @@ public abstract class GestorTickets {
 		ticket.acutalizarEstado(cambioEstado);
 
 		//Setea la clasificacion
-		Reclasificacion reclasificacion = new Reclasificacion(null, clasificacion, usuario);
+		Reclasificacion reclasificacion = new Reclasificacion(null, clasificacion, usuario, LocalDateTime.now());
 
 		ticket.cambiarClasificacion(reclasificacion);
 		System.out.println("Clasificacion: "+clasificacion);
@@ -106,17 +106,17 @@ public abstract class GestorTickets {
 		return 1;
 	}
 
-	public static void guardarTicket(TicketDTO ticketDTO) {
-
-		Ticket ticket = new Ticket();
-		ticket.setNumTIcket(ticketDTO.getNumTicket());
-		ticket.setDescripcion("");
-
-		if(!GestorBD.actualizarTicket(ticket)) {
-			System.out.println("No se guarda el ticket de mierda");
-		}
-
-	}
+//	public static void guardarTicket(TicketDTO ticketDTO) {
+//
+//		Ticket ticket = new Ticket();
+//		ticket.setNumTIcket(ticketDTO.getNumTicket());
+//		ticket.setDescripcion("");
+//
+//		if(!GestorBD.actualizarTicket(ticket)) {
+//			System.out.println("No se guarda el ticket de mierda");
+//		}
+//
+//	}
 
 	public static void eliminarTicket(TicketDTO ticketDTO) {
 

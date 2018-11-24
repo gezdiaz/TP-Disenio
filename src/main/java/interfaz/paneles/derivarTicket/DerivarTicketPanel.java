@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -24,21 +26,22 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 public class DerivarTicketPanel extends JPanel{
 
-	private VentanaBase ventana;
+	private VentanaBase ventanaActual, ventanaAnterior;
 	private JTextField txtEstadoActual, txtNuevoEstado;
 	private JComboBox<String> listClasificacion, listGrupoResolucion;
 	private JTextArea txtObservaciones , txtDescripcion;
 	private JButton btnAceptar, btnCancelar;
 	private TicketDTO ticketDTO;
 
-	public DerivarTicketPanel(VentanaBase ventana, TicketDTO ticketDTO, VentanaBase ventanaAnterior) {
+	public DerivarTicketPanel(VentanaBase ventanaActual, TicketDTO ticketDTO, VentanaBase ventanaAnterior) {
 
 		this.setLayout(new GridBagLayout());
 		JLabel labelAux;
 		JScrollPane scroll;
 		GridBagConstraints cons = new GridBagConstraints();
 
-		this.ventana = ventana;
+		this.ventanaActual = ventanaActual;
+		this.ventanaAnterior = ventanaAnterior;
 		this.ticketDTO = ticketDTO;
 		//TODO que muestre el estado del ticket
 		this.txtEstadoActual = new JTextField(10/*this.ticketDTO.getEstado().name()*/);
@@ -71,7 +74,7 @@ public class DerivarTicketPanel extends JPanel{
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
 
-		this.ventana.setVisible(true);
+		this.ventanaActual.setVisible(true);
 
 		//Nombre de la pantalla: Derivar Ticket
 		labelAux = new JLabel("Derivar Ticket");
@@ -174,6 +177,8 @@ public class DerivarTicketPanel extends JPanel{
 		scroll = new JScrollPane(txtDescripcion);
 		txtDescripcion.setPreferredSize(new Dimension(200, 70));
 		txtDescripcion.setBackground(new Color(0xF2F2F2));
+		txtDescripcion.setLineWrap(true);
+		txtDescripcion.setWrapStyleWord(true);
 		cons.gridx = 1;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -238,16 +243,6 @@ public class DerivarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Botones
-		btnAceptar.addActionListener(a -> {
-			//apretoAceptar();//TODO apretoAceptar()
-			if(txtObservaciones.getText().trim().isEmpty()) {
-				JOptionPane.showConfirmDialog(ventana, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-			}
-			else {
-				ventana.dispose();
-				ventanaAnterior.setVisible(true);
-			}		
-		});
 		cons.gridx = 0;
 		cons.gridy = 8;
 		cons.gridheight = 1;
@@ -256,13 +251,29 @@ public class DerivarTicketPanel extends JPanel{
 		cons.insets = new Insets(20, 40, 40, 10);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.EAST;
+		btnAceptar.addActionListener(a -> {
+			apretoAceptar();		
+		});
+		btnAceptar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoAceptar();
+				}
+			}
+		});
 		add(btnAceptar, cons);
 
-		btnCancelar.addActionListener(a -> {
-			//apretoCancelar();//TODO apretoCancelar()
-			ventana.dispose();
-			ventanaAnterior.setVisible(true);
-		});
 		cons.gridx = 1;
 		cons.gridy = 8;
 		cons.gridheight = 1;
@@ -271,7 +282,44 @@ public class DerivarTicketPanel extends JPanel{
 		cons.insets = new Insets(20, 10, 40, 25);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
+		btnCancelar.addActionListener(a -> {
+			apretoCancelar();
+		});
+		btnCancelar.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoCancelar();
+				}
+			}
+		});
 		add(btnCancelar, cons);
+	}
+
+	private void apretoCancelar() {
+		//apretoCancelar();//TODO apretoCancelar()
+		ventanaActual.dispose();
+		ventanaAnterior.setVisible(true);
+	}
+
+	private void apretoAceptar() {
+		//apretoAceptar();//TODO apretoAceptar()
+		if(txtObservaciones.getText().trim().isEmpty()) {
+			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+		}else {
+			ventanaActual.dispose();
+			ventanaAnterior.setVisible(true);
+		}
 	}
 
 }

@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -70,7 +72,25 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.insets = new Insets(50, 5, 20, 30);
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		btnRegistrarTicket.addActionListener(a -> {
-			ventana.cambiarPanel(new RegistrarTicketPanel(ventana));
+			registrarTicket();
+		});
+		btnRegistrarTicket.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					registrarTicket();
+				}
+			}
 		});
 		add(btnRegistrarTicket, cons);
 
@@ -82,9 +102,25 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.insets = new Insets(20, 5, 10, 30);
 		cons.fill = GridBagConstraints.NONE;
 		btnConsultarTicket.addActionListener(a -> {
-			ventana.cambiarPanel(new ConsultarTicketPanel(ventana));// crear el panel Consultar ticket
-//			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			consultarTicket();
+		});
+		btnConsultarTicket.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
 
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					consultarTicket();
+				}
+			}
 		});
 		add(btnConsultarTicket, cons);
 
@@ -95,13 +131,44 @@ public class MenuMesaAyudaPanel extends JPanel{
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.insets = new Insets(25, 5, 10, 30);
 		btnCerrarSesion.addActionListener(a -> {
-			GestorUsuarios.cerrarSesion();
-			ventana.dispose();
-			Main.iniciarSesion();
+			cerrarSesion();
+		});
+		btnCerrarSesion.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					cerrarSesion();
+				}
+			}
 		});
 		add(btnCerrarSesion, cons);
 
 
+	}
+
+	private void cerrarSesion() {
+		GestorUsuarios.cerrarSesion();
+		ventana.dispose();
+		Main.iniciarSesion();
+	}
+
+	private void consultarTicket() {
+		ventana.cambiarPanel(new ConsultarTicketPanel(ventana));// crear el panel Consultar ticket
+	}
+
+	
+	private void registrarTicket() {
+		ventana.cambiarPanel(new RegistrarTicketPanel(ventana));
 	}
 
 }
