@@ -43,7 +43,8 @@ public class MainAux {
 			JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
-		
+				
+//		System.out.println("1234".hashCode());
 		
 
 	}

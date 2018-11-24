@@ -11,7 +11,7 @@ public class Usuario {
 	private String nombreUsuario;
 	
 	@Column(name="CLAVE", nullable = false, length=20)
-	private String clave;
+	private int claveHash;
 	
 	@OneToOne
 	@JoinColumn(name = "NUM_LEGAJO")
@@ -26,9 +26,9 @@ public class Usuario {
 		
 	}
 
-	public Usuario(String nombreUsuario, String clave, GrupoResolucion grupoResolucion) {
+	public Usuario(String nombreUsuario, int clave, GrupoResolucion grupoResolucion) {
 		this.nombreUsuario = nombreUsuario;
-		this.clave = clave;
+		this.claveHash = clave;
 		this.grupoResolucion = grupoResolucion;
 	}
 	
@@ -41,12 +41,12 @@ public class Usuario {
 		this.nombreUsuario = nombreUsuario;
 	}
 
-	public String getClave() {
-		return clave;
+	public int getClaveHash() {
+		return claveHash;
 	}
 
-	public void setClave(String clave) {
-		this.clave = clave;
+	public void setClaveHash(int clave) {
+		this.claveHash = clave;
 	}
 
 	public GrupoResolucion getGrupoResolucion() {
@@ -59,7 +59,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [nombreUsuario=" + nombreUsuario + ", clave=" + clave + ", grupoResolucion=" + grupoResolucion
+		return "Usuario [nombreUsuario=" + nombreUsuario + ", clave=" + claveHash + ", grupoResolucion=" + grupoResolucion
 				+ "]";
 	}
 

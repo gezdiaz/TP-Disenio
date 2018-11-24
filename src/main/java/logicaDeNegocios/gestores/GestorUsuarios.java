@@ -17,8 +17,6 @@ public abstract class GestorUsuarios {
 		//TODO Buscar usuario enla base de datos
 		Usuario usuario = GestorBD.buscarUsuario(nombreUsuario);
 
-
-
 		if (usuario == null) {
 			return -2;
 
@@ -26,7 +24,7 @@ public abstract class GestorUsuarios {
 			if (usuario.getNombreUsuario().isEmpty()) {
 				return -1;
 			} else {
-				if (usuario.getClave().equals(clave)) {
+				if (usuario.getClaveHash() == (clave.hashCode())) {
 					usuarioActual = usuario;
 					return 1;
 				} else {
