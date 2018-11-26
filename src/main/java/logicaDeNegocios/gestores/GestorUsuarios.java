@@ -1,7 +1,6 @@
 package logicaDeNegocios.gestores;
 
 import accesoADatos.GestorBD;
-import logicaDeNegocios.entidades.GrupoResolucion;
 import logicaDeNegocios.entidades.Usuario;
 
 public abstract class GestorUsuarios {

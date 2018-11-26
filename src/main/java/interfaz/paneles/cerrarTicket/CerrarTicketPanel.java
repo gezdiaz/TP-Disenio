@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -37,6 +38,9 @@ public class CerrarTicketPanel extends JPanel{
 		this.ticketDTO = ticketDTO;
 
 		txtObservaciones = new JTextArea();
+		txtObservaciones.setLineWrap(true);
+		txtObservaciones.setWrapStyleWord(true);
+		
 
 		btnAceptar = new JButton("Aceptar");
 
@@ -89,7 +93,9 @@ public class CerrarTicketPanel extends JPanel{
 		
 		//Campo Observaciones
 		scroll = new JScrollPane(txtObservaciones);
-		txtObservaciones.setPreferredSize(new Dimension(200, 70));
+		scroll.setPreferredSize(new Dimension(200, 70));
+		txtObservaciones.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+		txtObservaciones.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
 		cons.gridx = 1;
 		cons.gridy = 2;
 		cons.gridheight = 1;

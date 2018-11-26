@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
@@ -47,13 +48,16 @@ public class DerivarTicketPanel extends JPanel{
 		this.txtEstadoActual = new JTextField(10/*this.ticketDTO.getEstado().name()*/);
 		this.txtEstadoActual.setText(EstadoTicket.Abierto.name());
 		this.txtEstadoActual.setEditable(false);
+		this.txtEstadoActual.setFocusable(false);
 		//TODO que muestre la descripcion del ticket
 		this.txtDescripcion = new JTextArea("Una descripcion"/*this.ticketDTO.getDescripcion()*/);
 		this.txtDescripcion.setEditable(false);
+		this.txtDescripcion.setFocusable(false);
 
 		this.txtNuevoEstado = new JTextField(10);
 		this.txtNuevoEstado.setText("Derivado");
 		this.txtNuevoEstado.setEditable(false);
+		this.txtNuevoEstado.setFocusable(false);
 
 		this.listClasificacion = new JComboBox<String>();
 		this.listClasificacion.addItem("Seleccione una clasificacion");
@@ -70,7 +74,9 @@ public class DerivarTicketPanel extends JPanel{
 		}
 
 		this.txtObservaciones = new JTextArea();
-
+		txtObservaciones.setLineWrap(true);
+		txtObservaciones.setWrapStyleWord(true);
+		
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
 
@@ -218,7 +224,9 @@ public class DerivarTicketPanel extends JPanel{
 
 		//Muestra las observaciones
 		scroll = new JScrollPane(txtObservaciones);
-		txtObservaciones.setPreferredSize(new Dimension(200, 70));
+		scroll.setPreferredSize(new Dimension(200, 70));
+		txtObservaciones.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+		txtObservaciones.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
 		cons.gridx = 1;
 		cons.gridy = 6;
 		cons.gridheight = 1;

@@ -23,7 +23,6 @@ import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.gestores.GestorTickets;
-import dto.*;
 
 public class RegistrarTicket2Panel extends JPanel {
 

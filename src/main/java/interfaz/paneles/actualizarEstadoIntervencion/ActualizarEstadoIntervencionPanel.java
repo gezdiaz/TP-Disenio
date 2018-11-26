@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -49,9 +50,11 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		this.txtEstadoActual = new JTextField(10/*this.intervencionDTO.getEstado().name()*/);
 		this.txtEstadoActual.setText(EstadoIntervencion.Asignado.name());
 		this.txtEstadoActual.setEditable(false);
+		this.txtEstadoActual.setFocusable(false);
 		//TODO que muestre la descripcion del ticket
 		this.txtDescripcion = new JTextArea("Una descripcion"/*this.intervencionDTO.getDescripcion()*/);
 		this.txtDescripcion.setEditable(false);
+		this.txtDescripcion.setFocusable(false);
 
 		this.listClasificacion = new JComboBox<String>();
 		this.listClasificacion.addItem("Seleccione una clasificacion");
@@ -70,7 +73,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		this.txtObservaciones = new JTextArea(4,20);
 		txtObservaciones.setLineWrap(true);
 		txtObservaciones.setWrapStyleWord(true);
-		txtObservaciones.setPreferredSize(new Dimension(200, 70));
+//		txtObservaciones.setPreferredSize(new Dimension(200, 70));
 
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
@@ -193,6 +196,9 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.insets = new Insets(10, 5, 5, 5);
 		//cons.fill = GridBagConstraints.BOTH;
 		cons.anchor = GridBagConstraints.WEST;
+		txtObservaciones.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
+		txtObservaciones.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
+		scroll.setPreferredSize(new Dimension(200, 70));
 		add(scroll, cons);
 
 		//Botones

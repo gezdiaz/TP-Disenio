@@ -38,16 +38,14 @@ public class TablaIntervencionesModelo extends AbstractTableModel{
 
 	@Override
 	public int getRowCount() {
-		return 6;
-//		return tickets.size();
+//		return 6;
+		return intervenciones.size();
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object valor = null;
-		if(rowIndex >= intervenciones.size()) {
-			return "";
-		}
+		
 		switch (columnIndex) {
 		case 0:
 			valor = intervenciones.get(rowIndex).getNumTicket();

@@ -3,7 +3,6 @@ package logicaDeNegocios.gestores;
 import java.time.LocalDateTime;
 
 import accesoADatos.GestorBD;
-import dto.TicketDTO;
 import logicaDeNegocios.entidades.CambioEstadoIntervencion;
 import logicaDeNegocios.entidades.GrupoResolucion;
 import logicaDeNegocios.entidades.Intervencion;
