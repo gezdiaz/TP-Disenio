@@ -14,11 +14,11 @@ public class Usuario {
 	private int claveHash;
 	
 	@OneToOne
-	@JoinColumn(name = "NUM_LEGAJO")
+	@JoinColumn(name = "NUM_LEGAJO", nullable = false, foreignKey = @ForeignKey(name = "FK_usuario_empleado"))
 	Empleado empleado;
 	
 	@ManyToOne
-	@JoinColumn(name="ID_GR")
+	@JoinColumn(name="ID_GR", nullable = false, foreignKey = @ForeignKey(name = "FK_usuario_grupo_der_resolucion"))
 	private GrupoResolucion grupoResolucion;
 
 	

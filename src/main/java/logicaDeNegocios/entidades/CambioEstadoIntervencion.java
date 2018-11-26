@@ -15,7 +15,7 @@ public class CambioEstadoIntervencion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCambioInt;
 
-	@Column(name="FECHA_HORA_CAMBIO")
+	@Column(name="FECHA_HORA_CAMBIO", nullable = false)
 	private LocalDateTime fechaHoraCambio; //cambiar nombre en diagrama de clases
 
 	@Enumerated(EnumType.STRING)
@@ -23,15 +23,15 @@ public class CambioEstadoIntervencion {
 	private EstadoIntervencion estadoAnterior;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="ESTADO_NUEVO")
+	@Column(name="ESTADO_NUEVO", nullable = false)
 	private EstadoIntervencion estadoNuevo;
 
 	@ManyToOne
-	@JoinColumn(name="INTERVENCION")
+	@JoinColumn(name="INTERVENCION", foreignKey = @ForeignKey(name = "FK_cambio_estado_intervencion_intervencion"), nullable = false)
 	private Intervencion intervencion;
 
 	@ManyToOne
-	@JoinColumn(name="RESPONSABLE_CAMBIO")
+	@JoinColumn(name="RESPONSABLE_CAMBIO", foreignKey = @ForeignKey(name = "FK_cambio_estado_intervencion_usuario"), nullable = false)
 	private Usuario responsableCambio;
 
 	@Column(name="OBSERVACIONES", length=255, nullable = false)

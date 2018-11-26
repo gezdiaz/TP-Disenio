@@ -3,7 +3,6 @@ package logicaDeNegocios.entidades;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import javax.persistence.*;
 
@@ -21,15 +20,15 @@ public class Intervencion {
 	@Column(name="OBSERVACIONES", length=255, nullable=false)
 	private String observaciones;
 
-	@Column(name="FECHA_HORA_ASIGNACION")
+	@Column(name="FECHA_HORA_ASIGNACION", nullable = false)
 	private LocalDateTime fechaHoraASignacion;
 
 	@ManyToOne
-	@JoinColumn(name="NUM_TICKET")
+	@JoinColumn(name="NUM_TICKET", nullable = false, foreignKey = @ForeignKey(name = "FK_intervencion_ticket"))
 	private Ticket ticket;
 
 	@ManyToOne
-	@JoinColumn(name="ID_GR")
+	@JoinColumn(name="ID_GR", nullable = false, foreignKey = @ForeignKey(name = "FK_intervencion_grupo_de_resolucion"))
 	private GrupoResolucion grupoResolucion;
 
 	@OneToMany(mappedBy = "intervencion", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)

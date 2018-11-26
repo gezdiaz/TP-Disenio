@@ -5,7 +5,6 @@ import java.util.*;
 import javax.persistence.*;
 
 import dto.TicketDTO;
-import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 @Entity
@@ -18,10 +17,10 @@ public class Ticket {
 	private Long numTIcket;
 
 	@ManyToOne
-	@JoinColumn(name = "NUM_LEGAJO")
+	@JoinColumn(name = "NUM_LEGAJO", nullable = false, foreignKey = @ForeignKey(name = "FK_ticket_empleado"))
 	private Empleado solicitante;
 
-	@Column(name = "FECHA_HORA_APERTURA")
+	@Column(name = "FECHA_HORA_APERTURA", nullable = false)
 	private LocalDateTime fechaHoraApertura;
 
 	@Column(name = "DESCRIPCION",nullable = false, length = 255)

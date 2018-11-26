@@ -13,24 +13,24 @@ public class Reclasificacion {
 	@Column(name = "ID_RECLA")
 	private Integer idRecla;	
 
-	@Column(name = "FECHA_RECLASIFICACION")
+	@Column(name = "FECHA_RECLASIFICACION", nullable = false)
 	private LocalDateTime fechaReclasificacion;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO")
+	@JoinColumn(name = "USUARIO", nullable = false)
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "CLAVE_ANTERIOR")
+	@JoinColumn(name = "CLAVE_ANTERIOR", foreignKey = @ForeignKey(name = "FK_reclasificacion_clasificacion_anterior"))
 	private Clasificacion clasificacionAnterior;
 
 
 	@ManyToOne
-	@JoinColumn(name = "CLAVE_NUEVA")
+	@JoinColumn(name = "CLAVE_NUEVA", nullable = false, foreignKey = @ForeignKey(name = "FK_reclasificacion_clasificacion_nueva"))
 	private Clasificacion clasificacionNueva;
 
 	@ManyToOne
-	@JoinColumn(name = "NUM_TICKET")
+	@JoinColumn(name = "NUM_TICKET", nullable = false, foreignKey = @ForeignKey(name = "FK_reclasificacion_ticket"))
 	private Ticket ticket;
 
 	public Reclasificacion() {

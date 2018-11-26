@@ -20,15 +20,14 @@ public class Clasificacion {
 	@Column(name = "DESCRIPCION",nullable = false, length = 255)
 	private String descripcion;
 
-	@Column(name = "ACTIVA")
+	@Column(name = "ACTIVA", nullable = false)
 	private Boolean activa;
 
-	@Column(name = "FECHA_CREACION")
+	@Column(name = "FECHA_CREACION", nullable = false)
 	private LocalDate fechaCreacion;
 
 	@ManyToMany(mappedBy = "clasificaciones")
 	private List<GrupoResolucion> gruposDeResolucion;
-
 
 
 

@@ -23,8 +23,8 @@ public class GrupoResolucion {
 
 	@ManyToMany()
 	@JoinTable(name = "CAPACITADO_PARA", 
-	joinColumns = { @JoinColumn(name = "ID_GR") }, 
-	inverseJoinColumns = { @JoinColumn(name = "CLAVE")}
+	joinColumns = { @JoinColumn(name = "ID_GR", nullable = false, foreignKey = @ForeignKey(name = "FK_capacitado_para_grupo_de_resolucion")) }, 
+	inverseJoinColumns = { @JoinColumn(name = "CLAVE", nullable = false, foreignKey = @ForeignKey(name = "FK_capacitado_para_clasificacion"))}
 			)
 	private List<Clasificacion> clasificaciones;
 

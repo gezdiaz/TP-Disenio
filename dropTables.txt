@@ -1,0 +1,11 @@
+drop table prueba.cambio_estado_intervencion;
+drop table prueba.cambio_estado_ticket;
+drop table prueba.capacitado_para;
+drop table prueba.reclasificacion;
+drop table prueba.intervencion;
+drop table prueba.ticket;
+drop table prueba.usuario;
+drop table prueba.empleado;
+drop table prueba.grupo_de_resolucion;
+drop table prueba.clasificacion;
+drop table prueba.num_ticket;
