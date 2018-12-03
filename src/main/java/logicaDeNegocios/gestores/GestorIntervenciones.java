@@ -95,4 +95,10 @@ public abstract class GestorIntervenciones {
 		
 	}
 
+	public static void actualizarEstado(Intervencion intervencion, EstadoIntervencion asignado, String observaciones) {
+		
+		CambioEstadoIntervencion nuevoEstado = new CambioEstadoIntervencion(LocalDateTime.now(),intervencion.estadoActual(),asignado,intervencion,GestorUsuarios.usuarioActual(),observaciones);
+		intervencion.actualizarEstado(nuevoEstado);
+	}
+
 }

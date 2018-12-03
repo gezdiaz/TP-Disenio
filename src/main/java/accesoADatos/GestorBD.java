@@ -109,7 +109,6 @@ public abstract class GestorBD {
 
 	}
 
-
 	public static Integer guardarIntervencion(Intervencion intervencion) {
 
 		try {
@@ -166,31 +165,6 @@ public abstract class GestorBD {
 			return null;
 		}
 		
-	}
-
-	public static List<Ticket> buscarTickets(Integer numTicket,Integer numLeg,String nombreClasificacion,EstadoTicket estadoActual, LocalDateTime fechaApertura, LocalDateTime fechaUltimoCambio,GrupoResolucion ultGrupo){
-		/*EntityManager manager = emf.createEntityManager();
-		consulta = manager.createQuery("SELECT *"
-									 + "FROM TICKET t, RECLASIFICACION r, CAMBIO_ESTADO_TICKET cet,CLASIFICACION c"
-									 + "WHERE t.NUM_TICKET = ?1"
-									 + "AND   t.NUM_LEGAJO = ?2"
-									 + "AND   t.FECHA_HORA_APERTURA = ?3"
-									 + "AND   t.NUM_TICKET = r.NUM_TICKET"
-									 + "AND   r.CLAVE_NUEVA = c.CLAVE"
-									 + "AND   c.NOMBRE = ?4"
-									 + "AND   t.NUM_TICKET = cet.NUM_TICKET"
-									 + "AND   cet.ESTADO_NUEVO = ?5"
-									 + "AND   cet.FECHA_HORA_CAMBIO = ?6");
-		consulta.setParameter(1, numTicket);
-		consulta.setParameter(2, numLeg);
-		consulta.setParameter(3, fechaApertura);
-		consulta.setParameter(4, nombreClasificacion);
-		consulta.setParameter(5, estadoActual);
-		consulta.setParameter(6, fechaUltimoCambio);*/
-
-		return null;
-
-
 	}
 	
 	public static List<Intervencion> buscarintervenciones(EstadoIntervencion estado, LocalDateTime fechaDesde, LocalDateTime fechaHasta, Long numTicket, Long numLeg) {
@@ -549,7 +523,7 @@ public abstract class GestorBD {
 		}
 	}
 	
-	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,String estadoActual, String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
+	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,String estadoActual, String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, String ultGrupo){
 		
 		EntityManager manager = emf.createEntityManager();
 		List<Ticket> resultado;
@@ -564,17 +538,19 @@ public abstract class GestorBD {
             
             
             if(numTicket != null) {
+            	
                 //Si no funciona podemos utilizar consulta.where antes de cb.equal
-                Predicate p1 = (Predicate) cb.equal(tickets.get("NUM_TICKET"),numTicket.toString());
+                Predicate p1 = cb.equal(tickets.get("numTicket"),numTicket.toString());
+               
                 lstPredicates.add(p1);
             }
              
             if(numLeg != null) {
                  
             	Join<Ticket, Empleado> datos1 = tickets.join("NUM_LEG");
-	            Predicate p2 = (Predicate) cb.equal(datos1.get("NUM_LEG"),"NUM_LEG");
+	            Predicate p2 = cb.equal(datos1.get("NUM_LEG"),"NUM_LEG");
 	            lstPredicates.add(p2);
-	            Predicate p3 = (Predicate) cb.equal(datos1.get("NUM_LEG"), numLeg.toString());
+	            Predicate p3 = cb.equal(datos1.get("NUM_LEG"), numLeg.toString());
 	            lstPredicates.add(p3);
                  
             }
