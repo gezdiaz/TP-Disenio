@@ -20,13 +20,13 @@ import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
 import logicaDeNegocios.entidades.Clasificacion;
 import logicaDeNegocios.entidades.Ticket;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
+import logicaDeNegocios.entidades.Intervencion;
+import logicaDeNegocios.enumeraciones.EstadoIntervencion;
+
 
 public class MainAux {
 
 	public static void main(String[] args) {
-		
-		UIManager.put("OptionPane.background", new Color(163,255,140));
-		UIManager.put("Panel.background", new Color(163,255,140));
 		
 
 		VentanaBase ventana = new VentanaBase("Auxiliar", "Usuario de prueba", new JPanel());
@@ -61,6 +61,12 @@ public class MainAux {
 				
 //		System.out.println("1234".hashCode());
 		
+
+		List<Intervencion> intervencion = GestorBD.buscarintervenciones(EstadoIntervencion.Asignado, null, null, null, null);
+		System.out.println(intervencion.get(0).getIdInt());
+		//soy otro Easter Egg
+
+
 
 	}
 

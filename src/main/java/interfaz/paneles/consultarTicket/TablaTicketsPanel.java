@@ -22,6 +22,7 @@ import interfaz.base.VentanaBase;
 import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
 import interfaz.paneles.derivarTicket.DerivarTicketPanel;
 import logicaDeNegocios.entidades.Ticket;
+import logicaDeNegocios.gestores.GestorUsuarios;
 
 public class TablaTicketsPanel extends JPanel {
 
@@ -29,7 +30,7 @@ public class TablaTicketsPanel extends JPanel {
 	private JTable tabla;
 	private TablaTicketsModelo tableModel;
 	VentanaBase ventana;
-	
+
 	public TablaTicketsPanel(List<TicketDTO> tickets, VentanaBase ventana) {
 		this.ventana = ventana;
 		this.setLayout(new GridBagLayout());
@@ -38,12 +39,12 @@ public class TablaTicketsPanel extends JPanel {
 		tableModel = new TablaTicketsModelo();
 		tableModel.setTickets(tickets);
 		tabla = new JTable(tableModel);
-		
+
 		btnVer = new JButton("Ver");
 		btnCerrar = new JButton("Cerrar");
 		btnDerivar = new JButton("Derivar");
 		btnConfigurarReporte = new JButton("Configurar reporte");
-		
+
 		labelAux = new JLabel("Tickets seleccionados");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 18));
 		cons.gridx = 0;
@@ -53,7 +54,7 @@ public class TablaTicketsPanel extends JPanel {
 		cons.insets = new Insets(15, 15, 7, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
-		
+
 		JScrollPane scroll = new JScrollPane(tabla);
 		cons.gridx = 0;
 		cons.gridy = 1;
@@ -65,7 +66,7 @@ public class TablaTicketsPanel extends JPanel {
 		scroll.setPreferredSize(new Dimension(850, 117));
 		cons.weighty = 2;
 		add(scroll, cons);
-		
+
 		cons.gridx = 1;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -78,15 +79,15 @@ public class TablaTicketsPanel extends JPanel {
 			apretoVer();
 		});
 		btnVer.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {				
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 
@@ -96,8 +97,8 @@ public class TablaTicketsPanel extends JPanel {
 			}
 		});
 		add(btnVer, cons);
-		
-		
+
+
 		cons.gridx = 2;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -108,15 +109,15 @@ public class TablaTicketsPanel extends JPanel {
 			apretoCerrar();
 		});
 		btnCerrar.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {				
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 
@@ -126,7 +127,7 @@ public class TablaTicketsPanel extends JPanel {
 			}
 		});
 		add(btnCerrar, cons);
-		
+
 		cons.gridx = 3;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -137,15 +138,15 @@ public class TablaTicketsPanel extends JPanel {
 			apretoDerivar();
 		});
 		btnDerivar.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {				
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 
@@ -153,10 +154,10 @@ public class TablaTicketsPanel extends JPanel {
 					apretoDerivar();
 				}
 			}
-			
+
 		});
 		add(btnDerivar, cons);
-		
+
 		cons.gridx = 4;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -167,15 +168,15 @@ public class TablaTicketsPanel extends JPanel {
 			apretoConfigurarReporte();
 		});
 		btnConfigurarReporte.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {				
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 
@@ -185,7 +186,7 @@ public class TablaTicketsPanel extends JPanel {
 			}
 		});
 		add(btnConfigurarReporte, cons);
-		
+
 	}
 
 	private void apretoConfigurarReporte() {
@@ -195,9 +196,14 @@ public class TablaTicketsPanel extends JPanel {
 
 	private void apretoDerivar() {
 		//TODO que envie el ticket seleccionado
-		VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
-		ventana.setVisible(false);
-		ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar, new TicketDTO(123456L), ventana));
+		if(tabla.getSelectedRow()!=-1) {
+			VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
+			ventana.setVisible(false);
+			ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));
+		}
+		else {
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar un ticket", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 	private void apretoVer() {
@@ -207,14 +213,20 @@ public class TablaTicketsPanel extends JPanel {
 
 	private void apretoCerrar() {
 		//TODO que envie el ticket seleccionado
-		VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
-		ventana.setVisible(false);
-		ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar, new TicketDTO(123456L), ventana));
+		if(tabla.getSelectedRow()!=-1) {
+			VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
+			ventana.setVisible(false);
+			ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));
+		}
+		else {
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar un ticket", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		}
+
 	}
-	
 	public void setTickets(List<TicketDTO> tickets) {
 		tableModel.setTickets(tickets);
 		tableModel.fireTableDataChanged();
 	}
 	
+
 }

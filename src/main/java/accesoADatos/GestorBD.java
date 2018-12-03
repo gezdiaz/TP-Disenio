@@ -2,6 +2,7 @@ package accesoADatos;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +25,7 @@ import logicaDeNegocios.entidades.Intervencion;
 import logicaDeNegocios.entidades.Reclasificacion;
 import logicaDeNegocios.entidades.Ticket;
 import logicaDeNegocios.entidades.Usuario;
+import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 
@@ -165,6 +167,79 @@ public abstract class GestorBD {
 			return null;
 		}
 		
+	}
+	
+	public static List<Intervencion> buscarintervenciones(EstadoIntervencion estado, LocalDateTime fechaDesde, LocalDateTime fechaHasta, Long numTicket, Long numLeg) {
+
+		
+		EntityManager manager = emf.createEntityManager();
+		List<Intervencion> resultado;
+		
+		try {
+			 
+            CriteriaBuilder cb = manager.getCriteriaBuilder();
+            List<Predicate> lstPredicates = new ArrayList<Predicate>();
+            CriteriaQuery<Intervencion> consulta = cb.createQuery(Intervencion.class);
+             
+            Root<Intervencion> intervenciones = consulta.from(Intervencion.class);
+            Join<Intervencion,Ticket> datos2 = null;
+            
+            if(estado != null) {
+                Join<CambioEstadoIntervencion,Intervencion> datos1 = intervenciones.join("intervencion");
+                Predicate p1 = cb.equal(intervenciones.get("estadoNuevo"),estado);
+                lstPredicates.add(p1);
+            }
+             
+            if(fechaDesde != null) {
+                 
+	            Predicate p2 = cb.between(intervenciones.get("fechaHoraAsignacion"), fechaDesde, LocalDateTime.of(LocalDate.of(9999, 12, 30), LocalTime.of(0, 0, 0)));
+	            lstPredicates.add(p2);
+            
+            }
+            
+            if(fechaHasta != null) {
+                
+	            Predicate p3 = cb.between(intervenciones.get("fechaHoraAsignacion"), LocalDateTime.of(LocalDate.of(0, 1, 1), LocalTime.of(0, 0, 0)), fechaHasta);
+	            lstPredicates.add(p3);
+            
+            }
+            
+            if(numTicket != null) {
+            	
+            	datos2 = intervenciones.join("ticket");
+            	Predicate p4 = cb.equal(intervenciones.get("numTicket"),numTicket);
+            	lstPredicates.add(p4);
+            	
+            }
+            
+            if(numLeg != null) {
+            	
+            	if(numTicket == null) {
+            	datos2 = intervenciones.join("ticket");
+            	}
+            	Join<Ticket,Empleado> datos3 = datos2.join("solicitante");
+            	Predicate p4 = cb.equal(datos3.get("numLegajo"),numLeg);
+            	lstPredicates.add(p4);
+            	//I'm an easter egg
+            	
+            }
+             
+            consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));
+            
+         
+             
+            resultado = manager.createQuery(consulta).getResultList();
+            manager.close();
+            return resultado;
+            
+        } catch (Exception e) {
+ 
+            e.printStackTrace();
+		
+		return null;
+		
+        }
+
 	}
 
 	public static Ticket buscarTicketPorId(Long numTicket) {
@@ -449,8 +524,10 @@ public abstract class GestorBD {
 
 		}
 	}
-	
+
+
 	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,EstadoTicket estadoActual, String nombreClasificacion,LocalDate fechaApertura, LocalDate fechaUltimoGrupo, String ultGrupo){
+
 		
 		EntityManager manager = emf.createEntityManager();
 		List<Ticket> resultado;

@@ -395,6 +395,7 @@ public class ConsultarTicketPanel extends JPanel {
 			return;
 		}
 		tablaResultados.setTickets(ticketsDTO);
+
 		
 	}
 	

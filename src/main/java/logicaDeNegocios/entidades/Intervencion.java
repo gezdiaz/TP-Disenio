@@ -21,7 +21,7 @@ public class Intervencion {
 	private String observaciones;
 
 	@Column(name="FECHA_HORA_ASIGNACION", nullable = false)
-	private LocalDateTime fechaHoraASignacion;
+	private LocalDateTime fechaHoraAsignacion;
 
 	@ManyToOne
 	@JoinColumn(name="NUM_TICKET", nullable = false, foreignKey = @ForeignKey(name = "FK_intervencion_ticket"))
@@ -39,10 +39,10 @@ public class Intervencion {
 
 	}
 
-	public Intervencion(String observaciones, LocalDateTime fechaHoraASignacion, Ticket ticket,
+	public Intervencion(String observaciones, LocalDateTime fechaHoraAsignacion, Ticket ticket,
 			GrupoResolucion grupoResolucion) {
 		this.observaciones = observaciones;
-		this.fechaHoraASignacion = fechaHoraASignacion;
+		this.fechaHoraAsignacion = fechaHoraAsignacion;
 		this.ticket = ticket;
 		this.grupoResolucion = grupoResolucion;
 		this.historialCambioEstadoIntervencion = new ArrayList<CambioEstadoIntervencion>();
@@ -77,12 +77,12 @@ public class Intervencion {
 
 
 	public LocalDateTime getFechaHoraASignacion() {
-		return fechaHoraASignacion;
+		return fechaHoraAsignacion;
 	}
 
 
-	public void setFechaHoraASignacion(LocalDateTime fechaHoraASignacion) {
-		this.fechaHoraASignacion = fechaHoraASignacion;
+	public void setFechaHoraASignacion(LocalDateTime fechaHoraAsignacion) {
+		this.fechaHoraAsignacion = fechaHoraAsignacion;
 	}
 
 
@@ -127,7 +127,7 @@ public class Intervencion {
 
 	@Override
 	public String toString() {
-		return "Intervencion [observaciones=" + observaciones + ", fechaHoraASignacion=" + fechaHoraASignacion
+		return "Intervencion [observaciones=" + observaciones + ", fechaHoraASignacion=" + fechaHoraAsignacion
 				+ ", grupoResolucion=" + grupoResolucion + ", historialCambioEstadoIntervencion="
 				+ historialCambioEstadoIntervencion + "]";
 	}
