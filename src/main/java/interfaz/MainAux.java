@@ -32,7 +32,7 @@ public class MainAux {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
 			GestorBD.setEmf(emf);
 			
-			List<Ticket> tickets = GestorBD.buscarTickets(1L, null, null, null, null, null);
+			List<Ticket> tickets = GestorBD.buscarTickets(1L, null, null, null, null, null,null);
 			System.out.println("Tickets: "+tickets);
 //			ventana.cambiarPanel(panel);
 //			
