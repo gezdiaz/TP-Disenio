@@ -318,7 +318,7 @@ public class ConsultarTicketPanel extends JPanel {
 	private void apretoBuscar() {
 		
 		List<TicketDTO> ticketsDTO = new ArrayList<TicketDTO>();
-		ticketsDTO = GestorTickets.consultarTicket(txtNumTicket.getText(), txtNumLegajo.getText(), listClasificacion.getSelectedItem().toString(), listEstadoActual.getSelectedItem().toString(), txtFechaApertura.getText(), txtFechaUltimoCambio, listUltimoGrupo.getSelectedItem().toString());
+//		ticketsDTO = GestorTickets.consultarTicket(numTicket, numLeg, nombreClasificacion, estadoActual, fechaApertura, fechaUltimoGrupo, ultGrupo)(txtNumTicket.getText(), txtNumLegajo.getText(), listClasificacion.getSelectedItem().toString(), listEstadoActual.getSelectedItem().toString(), txtFechaApertura.getText(), txtFechaUltimoCambio, listUltimoGrupo.getSelectedItem().toString());
 		
 	}
 	

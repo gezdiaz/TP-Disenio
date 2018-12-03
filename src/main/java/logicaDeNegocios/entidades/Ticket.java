@@ -196,7 +196,52 @@ public class Ticket {
 	public String toString() {
 		return "Ticket [numTIcket=" + numTicket + ", solicitante=" + solicitante + ", fechaHoraApertura="
 				+ fechaHoraApertura + ", descripcion=" + descripcion + ", historialCambioEstadoTicket="
-				+  "]";
+				+ historialCambioEstadoTicket + ", historialReclasificacion=" + historialReclasificacion
+				+ ", intervenciones=" + intervenciones +"]";
 	}
+
+	public GrupoResolucion ultimoGrupo() {
+
+		return ultimaIntervencion().getGrupoResolucion();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fechaHoraApertura == null) ? 0 : fechaHoraApertura.hashCode());
+		result = prime * result + ((numTicket == null) ? 0 : numTicket.hashCode());
+		result = prime * result + ((solicitante == null) ? 0 : solicitante.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ticket other = (Ticket) obj;
+		if (fechaHoraApertura == null) {
+			if (other.fechaHoraApertura != null)
+				return false;
+		} else if (!fechaHoraApertura.equals(other.fechaHoraApertura))
+			return false;
+		if (numTicket == null) {
+			if (other.numTicket != null)
+				return false;
+		} else if (!numTicket.equals(other.numTicket))
+			return false;
+		if (solicitante == null) {
+			if (other.solicitante != null)
+				return false;
+		} else if (!solicitante.equals(other.solicitante))
+			return false;
+		return true;
+	}
+
+	
 	
 }

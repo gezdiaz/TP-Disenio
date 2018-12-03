@@ -1,6 +1,7 @@
 package interfaz;
 
 import java.awt.Color;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
@@ -15,7 +16,9 @@ import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.consultarIntervencion.ConsultarIntervencionPanel;
 import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
+import logicaDeNegocios.entidades.Clasificacion;
 import logicaDeNegocios.entidades.Ticket;
+import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 public class MainAux {
 
@@ -32,8 +35,14 @@ public class MainAux {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
 			GestorBD.setEmf(emf);
 			
-			List<Ticket> tickets = GestorBD.buscarTickets(1L, null, null, null, null, null);
-			System.out.println("Tickets: "+tickets);
+//			Ticket ticket = GestorBD.buscarTicketPorId(1L);
+//			System.out.println("Fecha-Hora: "+ticket.getFechaHoraApertura());
+			List<Ticket> tickets = GestorBD.buscarTickets(null, null, null, null, null, LocalDateTime.of(2018, 12, 3, 17, 0), null);
+			for(Ticket t: tickets) {
+				System.out.println(t);
+			}
+//			System.out.println("Tickets: "+tickets);
+			System.out.println("N° de resultados: "+ tickets.size());
 //			ventana.cambiarPanel(panel);
 //			
 //			ventana.pack();			

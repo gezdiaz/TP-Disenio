@@ -125,4 +125,11 @@ public class Intervencion {
 		return actual;
 	}
 
+	@Override
+	public String toString() {
+		return "Intervencion [observaciones=" + observaciones + ", fechaHoraASignacion=" + fechaHoraASignacion
+				+ ", grupoResolucion=" + grupoResolucion + ", historialCambioEstadoIntervencion="
+				+ historialCambioEstadoIntervencion + "]";
+	}
+	
 }

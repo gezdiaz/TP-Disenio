@@ -3,7 +3,9 @@ package accesoADatos;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -448,7 +450,7 @@ public abstract class GestorBD {
 		}
 	}
 	
-	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,String estadoActual, String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
+	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,EstadoTicket estadoActual, String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, String ultGrupo){
 		
 		EntityManager manager = emf.createEntityManager();
 		List<Ticket> resultado;
@@ -472,50 +474,53 @@ public abstract class GestorBD {
              
             if(numLeg != null) {
                  
-            	Join<Ticket, Empleado> datos1 = tickets.join("NUM_LEG");
-	            Predicate p2 = cb.equal(datos1.get("NUM_LEG"),"NUM_LEG");
-	            lstPredicates.add(p2);
-	            Predicate p3 = cb.equal(datos1.get("NUM_LEG"), numLeg.toString());
+            	Join<Ticket, Empleado> datos1 = tickets.join("solicitante");
+	            Predicate p3 = cb.equal(datos1.get("numLegajo"), numLeg);
 	            lstPredicates.add(p3);
                  
             }
             
             if(nombreClasificacion != null) {
             	
-            	Join<Reclasificacion,Ticket> datos2 = tickets.join("NUM_TICKET");
-            	Join<Reclasificacion,Clasificacion> datos3 = datos2.join("CLAVE_NUEVA");
-            	Predicate p3 = (Predicate)cb.equal(datos3.get("NOMBRE"), nombreClasificacion);
+            	Join<Reclasificacion,Ticket> datos2 = tickets.join("historialReclasificacion");
+            	Join<Reclasificacion,Clasificacion> datos3 = datos2.join("clasificacionNueva");
+            	Predicate p3 = (Predicate)cb.equal(datos3.get("nombre"), nombreClasificacion);
             	lstPredicates.add(p3);
             	
             }
             
             if(estadoActual != null) {
             	
-            	Join<CambioEstadoTicket, Ticket> datos4 = tickets.join("NUM_TICKET");
-            	Predicate p4 = (Predicate)cb.equal(datos4.get("ESTADO_NUEVO"), estadoActual);
+            	Join<CambioEstadoTicket, Ticket> datos4 = tickets.join("historialCambioEstadoTicket");
+            	Predicate p4 = (Predicate)cb.equal(datos4.get("estadoNuevo"), estadoActual);
             	lstPredicates.add(p4);
             }
             
             if(fechaApertura != null) {
             	
-            	Predicate p5 = (Predicate) cb.equal(tickets.get("FECHA_HORA_APERTURA"),fechaApertura.toString());
+//            	Predicate p5 = (Predicate) cb.equal(tickets.get("fechaHoraApertura"),fechaApertura);
+            	Predicate p5 = cb.between(tickets.get("fechaHoraApertura"),
+            					LocalDateTime.of(fechaApertura.getYear(), fechaApertura.getMonth(), fechaApertura.getDayOfMonth(), 0, 0),
+            					LocalDateTime.of(fechaApertura.getYear(), fechaApertura.getMonth(), fechaApertura.getDayOfMonth(), 23, 59));
             	lstPredicates.add(p5);
             	
             }
             
             if(fechaUltimoGrupo != null) {
             	
-            	Join<Intervencion,Ticket> datos5 = tickets.join("NUM_TICKET");
-            	Predicate p6 = (Predicate) cb.equal(datos5.get("FECHA_HORA_ASIGNACION"),fechaUltimoGrupo.toString());
+            	Join<Intervencion,Ticket> datos5 = tickets.join("intervenciones");
+            	Predicate p6 = cb.between(datos5.get("fechaHoraASignacion"), 
+		            			LocalDateTime.of(fechaUltimoGrupo.getYear(), fechaUltimoGrupo.getMonth(), fechaUltimoGrupo.getDayOfMonth(), 0, 0),
+		    					LocalDateTime.of(fechaUltimoGrupo.getYear(), fechaUltimoGrupo.getMonth(), fechaUltimoGrupo.getDayOfMonth(), 23, 59));
             	lstPredicates.add(p6);
             	
             }
             
             if(ultGrupo != null) {
             	
-            	Join<Intervencion,Ticket> datos6 = tickets.join("NUM_TICKET");
-            	Join<Intervencion,GrupoResolucion> datos7 = datos6.join("ID_GR");
-            	Predicate p7 = (Predicate) cb.equal(datos7.get("NOMBRE"),ultGrupo);
+            	Join<Intervencion,Ticket> datos6 = tickets.join("intervenciones");
+            	Join<Intervencion,GrupoResolucion> datos7 = datos6.join("grupoResolucion");
+            	Predicate p7 = (Predicate) cb.equal(datos7.get("nombre"),ultGrupo);
             	lstPredicates.add(p7);
             	
             }
@@ -525,7 +530,30 @@ public abstract class GestorBD {
          
              
             resultado = manager.createQuery(consulta).getResultList();
+            
+            for(Ticket t: resultado) {
+            	t.getHistorialCambioEstadoTicket().size();
+            	t.getIntervenciones().size();
+            	t.getHistorialReclasificacion().size();
+            }
+            
             manager.close();
+            
+            for(int i=0; i<resultado.size(); i++) {
+            	if((estadoActual != null && !resultado.get(i).estadoActual().equals(estadoActual))
+            		|| (ultGrupo != null && !resultado.get(i).ultimoGrupo().getNombre().equals(ultGrupo))
+            		|| (nombreClasificacion != null && !resultado.get(i).ultimaCalsificacion().getNombre().equals(nombreClasificacion))){
+            		
+            		resultado.remove(i);
+            		i--;
+            	}
+            }
+            
+            Set<Ticket> ticketSet = new HashSet<>();
+            ticketSet.addAll(resultado);
+            resultado.clear();
+            resultado.addAll(ticketSet);  
+            
             return resultado;
             
         } catch (Exception e) {
