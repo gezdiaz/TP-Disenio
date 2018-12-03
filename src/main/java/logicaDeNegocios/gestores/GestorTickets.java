@@ -1,6 +1,7 @@
 package logicaDeNegocios.gestores;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import accesoADatos.GestorBD;
@@ -112,11 +113,15 @@ public abstract class GestorTickets {
 
 	}
 
-	public static List<TicketDTO> consultarTicket(Long numTicket,Long numLeg,String nombreCLasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
+	public static List<TicketDTO> consultarTicket(Long numTicket,Long numLeg,String nombreClasificacion,String estadoActual,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, String ultGrupo){
 
+		List<Ticket> tickets = GestorBD.buscarTickets(numTicket, numLeg, nombreClasificacion, estadoActual, fechaApertura, fechaUltimoGrupo, ultGrupo);
+		List<TicketDTO> ticketsDTO = new ArrayList<TicketDTO>();
+		for(Ticket i : tickets) {
+			ticketsDTO.add(i.getDTO());
+		}
 
-
-		return null;
+		return ticketsDTO;
 
 	}
 
@@ -221,7 +226,7 @@ public abstract class GestorTickets {
 
 			CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Derivado, ticket, GestorUsuarios.usuarioActual(), observaciones);
 			ticket.acutalizarEstado(nuevoEstado);
-			
+
 			GestorBD.guardarTicket(ticket);
 		}
 		else {

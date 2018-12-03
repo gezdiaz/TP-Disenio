@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import dto.NumTicket;
@@ -107,7 +107,6 @@ public abstract class GestorBD {
 
 	}
 
-
 	public static Integer guardarIntervencion(Intervencion intervencion) {
 
 		try {
@@ -164,31 +163,6 @@ public abstract class GestorBD {
 			return null;
 		}
 		
-	}
-
-	public static List<Ticket> buscarTickets(Integer numTicket,Integer numLeg,String nombreClasificacion,EstadoTicket estadoActual, LocalDateTime fechaApertura, LocalDateTime fechaUltimoCambio,GrupoResolucion ultGrupo){
-		/*EntityManager manager = emf.createEntityManager();
-		consulta = manager.createQuery("SELECT *"
-									 + "FROM TICKET t, RECLASIFICACION r, CAMBIO_ESTADO_TICKET cet,CLASIFICACION c"
-									 + "WHERE t.NUM_TICKET = ?1"
-									 + "AND   t.NUM_LEGAJO = ?2"
-									 + "AND   t.FECHA_HORA_APERTURA = ?3"
-									 + "AND   t.NUM_TICKET = r.NUM_TICKET"
-									 + "AND   r.CLAVE_NUEVA = c.CLAVE"
-									 + "AND   c.NOMBRE = ?4"
-									 + "AND   t.NUM_TICKET = cet.NUM_TICKET"
-									 + "AND   cet.ESTADO_NUEVO = ?5"
-									 + "AND   cet.FECHA_HORA_CAMBIO = ?6");
-		consulta.setParameter(1, numTicket);
-		consulta.setParameter(2, numLeg);
-		consulta.setParameter(3, fechaApertura);
-		consulta.setParameter(4, nombreClasificacion);
-		consulta.setParameter(5, estadoActual);
-		consulta.setParameter(6, fechaUltimoCambio);*/
-
-		return null;
-
-
 	}
 
 	public static Ticket buscarTicketPorId(Long numTicket) {
@@ -474,7 +448,7 @@ public abstract class GestorBD {
 		}
 	}
 	
-	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
+	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,String estadoActual, String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
 		
 		EntityManager manager = emf.createEntityManager();
 		List<Ticket> resultado;
@@ -489,17 +463,19 @@ public abstract class GestorBD {
             
             
             if(numTicket != null) {
-                 
-                Predicate p1 = (Predicate) cb.equal(tickets.get("NUM_TICKET"),numTicket.toString());
+            	
+                //Si no funciona podemos utilizar consulta.where antes de cb.equal
+                Predicate p1 = cb.equal(tickets.get("numTicket"),numTicket.toString());
+               
                 lstPredicates.add(p1);
             }
              
             if(numLeg != null) {
                  
             	Join<Ticket, Empleado> datos1 = tickets.join("NUM_LEG");
-	            Predicate p2 = (Predicate) cb.equal(datos1.get("NUM_LEG"),"NUM_LEG");
+	            Predicate p2 = cb.equal(datos1.get("NUM_LEG"),"NUM_LEG");
 	            lstPredicates.add(p2);
-	            Predicate p3 = (Predicate) cb.equal(datos1.get("NUM_LEG"), numLeg.toString());
+	            Predicate p3 = cb.equal(datos1.get("NUM_LEG"), numLeg.toString());
 	            lstPredicates.add(p3);
                  
             }
@@ -513,27 +489,34 @@ public abstract class GestorBD {
             	
             }
             
+            if(estadoActual != null) {
+            	
+            	Join<CambioEstadoTicket, Ticket> datos4 = tickets.join("NUM_TICKET");
+            	Predicate p4 = (Predicate)cb.equal(datos4.get("ESTADO_NUEVO"), estadoActual);
+            	lstPredicates.add(p4);
+            }
+            
             if(fechaApertura != null) {
             	
-            	Predicate p4 = (Predicate) cb.equal(tickets.get("FECHA_HORA_APERTURA"),fechaApertura.toString());
-            	lstPredicates.add(p4);
+            	Predicate p5 = (Predicate) cb.equal(tickets.get("FECHA_HORA_APERTURA"),fechaApertura.toString());
+            	lstPredicates.add(p5);
             	
             }
             
             if(fechaUltimoGrupo != null) {
             	
-            	Join<Intervencion,Ticket> datos4 = tickets.join("NUM_TICKET");
-            	Predicate p5 = (Predicate) cb.equal(datos4.get("FECHA_HORA_ASIGNACION"),fechaUltimoGrupo.toString());
-            	lstPredicates.add(p5);
+            	Join<Intervencion,Ticket> datos5 = tickets.join("NUM_TICKET");
+            	Predicate p6 = (Predicate) cb.equal(datos5.get("FECHA_HORA_ASIGNACION"),fechaUltimoGrupo.toString());
+            	lstPredicates.add(p6);
             	
             }
             
             if(ultGrupo != null) {
             	
-            	Join<Intervencion,Ticket> datos5 = tickets.join("NUM_TICKET");
-            	Join<Intervencion,GrupoResolucion> datos6 = tickets.join("ID_GR");
-            	Predicate p6 = (Predicate) cb.equal(datos6.get("NOMBRE"),ultGrupo);
-            	lstPredicates.add(p6);
+            	Join<Intervencion,Ticket> datos6 = tickets.join("NUM_TICKET");
+            	Join<Intervencion,GrupoResolucion> datos7 = datos6.join("ID_GR");
+            	Predicate p7 = (Predicate) cb.equal(datos7.get("NOMBRE"),ultGrupo);
+            	lstPredicates.add(p7);
             	
             }
              
