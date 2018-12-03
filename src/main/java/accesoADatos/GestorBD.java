@@ -531,7 +531,7 @@ public abstract class GestorBD {
             if(ultGrupo != null) {
             	
             	Join<Intervencion,Ticket> datos5 = tickets.join("NUM_TICKET");
-            	Join<Intervencion,GrupoResolucion> datos6 = tickets.join("ID_GR");
+            	Join<Intervencion,GrupoResolucion> datos6 = datos5.join("ID_GR");
             	Predicate p6 = (Predicate) cb.equal(datos6.get("NOMBRE"),ultGrupo);
             	lstPredicates.add(p6);
             	
