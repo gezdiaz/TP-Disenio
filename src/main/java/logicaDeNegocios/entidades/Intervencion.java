@@ -21,7 +21,7 @@ public class Intervencion {
 	private String observaciones;
 
 	@Column(name="FECHA_HORA_ASIGNACION", nullable = false)
-	private LocalDateTime fechaHoraASignacion;
+	private LocalDateTime fechaHoraAsignacion;
 
 	@ManyToOne
 	@JoinColumn(name="NUM_TICKET", nullable = false, foreignKey = @ForeignKey(name = "FK_intervencion_ticket"))
