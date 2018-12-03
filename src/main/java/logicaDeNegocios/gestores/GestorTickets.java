@@ -1,5 +1,6 @@
 package logicaDeNegocios.gestores;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,8 @@ public abstract class GestorTickets {
 		Ticket ticket = new Ticket(ticketDTO.getNumTicket(), solicitante, ticketDTO.getFechaHoraApertura(), ticketDTO.getDescripcion());
 		Usuario usuario = GestorUsuarios.usuarioActual();
 
+		ticket.setOperador(usuario);
+		
 		//Cambia el estado a Abierto
 		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), null, EstadoTicket.Abierto, ticket , usuario, ticketDTO.getDescripcion());
 
@@ -124,7 +127,7 @@ public abstract class GestorTickets {
 
 	}
 	
-	public static List<TicketDTO> consultarTicket(Long numTicket,Long numLeg,EstadoTicket estadoActual,String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, String ultGrupo){
+	public static List<TicketDTO> consultarTicket(Long numTicket,Long numLeg,EstadoTicket estadoActual,String nombreClasificacion,LocalDate fechaApertura, LocalDate fechaUltimoGrupo, String ultGrupo){
 		
 		List<Ticket> tickets = GestorBD.buscarTickets(numTicket, numLeg, estadoActual, nombreClasificacion, fechaApertura, fechaUltimoGrupo, ultGrupo);
 		List<TicketDTO> ticketsDTO = new ArrayList<TicketDTO>();

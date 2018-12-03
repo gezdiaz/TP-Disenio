@@ -212,5 +212,9 @@ public class TablaTicketsPanel extends JPanel {
 		ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar, new TicketDTO(123456L), ventana));
 	}
 	
+	public void setTickets(List<TicketDTO> tickets) {
+		tableModel.setTickets(tickets);
+		tableModel.fireTableDataChanged();
+	}
 	
 }

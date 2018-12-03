@@ -1,6 +1,7 @@
 package interfaz;
 
 import java.awt.Color;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class MainAux {
 			
 //			Ticket ticket = GestorBD.buscarTicketPorId(1L);
 //			System.out.println("Fecha-Hora: "+ticket.getFechaHoraApertura());
-			List<Ticket> tickets = GestorBD.buscarTickets(null, null, null, null, null, LocalDateTime.of(2018, 12, 3, 17, 0), null);
+			List<Ticket> tickets = GestorBD.buscarTickets(null, null, null, null, null, LocalDate.of(2018, 12, 3), null);
 			for(Ticket t: tickets) {
 				System.out.println(t);
 			}
@@ -54,7 +55,7 @@ public class MainAux {
 //			System.out.println("Ventana: "+ ventana.getSize());
 //			ventana.setSize(763, 760);
 		} catch (Exception e) {
-			JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(null, "No se pudo establecer conección con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 				

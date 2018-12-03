@@ -450,7 +450,7 @@ public abstract class GestorBD {
 		}
 	}
 	
-	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,EstadoTicket estadoActual, String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, String ultGrupo){
+	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,EstadoTicket estadoActual, String nombreClasificacion,LocalDate fechaApertura, LocalDate fechaUltimoGrupo, String ultGrupo){
 		
 		EntityManager manager = emf.createEntityManager();
 		List<Ticket> resultado;

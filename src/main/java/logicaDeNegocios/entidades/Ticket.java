@@ -25,6 +25,10 @@ public class Ticket {
 
 	@Column(name = "DESCRIPCION",nullable = false, length = 255)
 	private String descripcion;
+	
+	@ManyToOne
+	@JoinColumn(name = "OPERADOR", nullable = false, foreignKey = @ForeignKey(name = "FK_ticket_usuario"))
+	private Usuario operador; 
 
 	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
 	private List<CambioEstadoTicket> historialCambioEstadoTicket;
@@ -34,6 +38,7 @@ public class Ticket {
 
 	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
 	private List<Intervencion> intervenciones;
+	
 
 
 	public Ticket() {
@@ -111,6 +116,14 @@ public class Ticket {
 		this.descripcion = descripcion;
 	}
 
+	public Usuario getOperador() {
+		return operador;
+	}
+
+	public void setOperador(Usuario operador) {
+		this.operador = operador;
+	}
+
 	public void acutalizarEstado(CambioEstadoTicket cambioEstado) {
 
 		historialCambioEstadoTicket.add(cambioEstado);
@@ -176,6 +189,7 @@ public class Ticket {
 
 		dto.setDescripcion(descripcion);
 		dto.setFechaHoraApertura(fechaHoraApertura);
+		dto.setNombreOperador(operador.getNombreUsuario());
 		if (!historialReclasificacion.isEmpty()) {
 			dto.setClasificacion(ultimaCalsificacion().getNombre());
 		}

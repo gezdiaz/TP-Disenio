@@ -57,8 +57,7 @@ public class TablaTicketsModelo extends AbstractTableModel {
 			valor = tickets.get(rowIndex).getFechaHoraApertura().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
 			break;
 		case 4:
-//			valor = tickets.get(rowIndex).getNumTicket();
-			valor = "Operador??";
+			valor = tickets.get(rowIndex).getNombreOperador();
 			break;
 		case 5:
 			valor = tickets.get(rowIndex).getClasificacion();
