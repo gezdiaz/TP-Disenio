@@ -25,6 +25,7 @@ import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.entidades.Ticket;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
+import logicaDeNegocios.gestores.GestorTickets;
 
 public class ConsultarTicketPanel extends JPanel {
 
@@ -315,7 +316,9 @@ public class ConsultarTicketPanel extends JPanel {
 	}
 
 	private void apretoBuscar() {
-		// TODO Auto-generated method stub
+		
+		List<TicketDTO> ticketsDTO = new ArrayList<TicketDTO>();
+		ticketsDTO = GestorTickets.consultarTicket(txtNumTicket.getText(), txtNumLegajo.getText(), listClasificacion.getSelectedItem().toString(), listEstadoActual.getSelectedItem().toString(), txtFechaApertura.getText(), txtFechaUltimoCambio, listUltimoGrupo.getSelectedItem().toString());
 		
 	}
 	

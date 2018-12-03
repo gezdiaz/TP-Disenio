@@ -448,7 +448,7 @@ public abstract class GestorBD {
 		}
 	}
 	
-	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
+	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,String estadoActual, String nombreClasificacion,LocalDateTime fechaApertura, LocalDateTime fechaUltimoGrupo, GrupoResolucion ultGrupo){
 		
 		EntityManager manager = emf.createEntityManager();
 		List<Ticket> resultado;
@@ -463,8 +463,10 @@ public abstract class GestorBD {
             
             
             if(numTicket != null) {
-                 
+            	
+                //Si no funciona podemos utilizar consulta.where antes de cb.equal
                 Predicate p1 = cb.equal(tickets.get("numTicket"),numTicket.toString());
+               
                 lstPredicates.add(p1);
             }
              
@@ -487,27 +489,34 @@ public abstract class GestorBD {
             	
             }
             
+            if(estadoActual != null) {
+            	
+            	Join<CambioEstadoTicket, Ticket> datos4 = tickets.join("NUM_TICKET");
+            	Predicate p4 = (Predicate)cb.equal(datos4.get("ESTADO_NUEVO"), estadoActual);
+            	lstPredicates.add(p4);
+            }
+            
             if(fechaApertura != null) {
             	
-            	Predicate p4 = (Predicate) cb.equal(tickets.get("FECHA_HORA_APERTURA"),fechaApertura.toString());
-            	lstPredicates.add(p4);
+            	Predicate p5 = (Predicate) cb.equal(tickets.get("FECHA_HORA_APERTURA"),fechaApertura.toString());
+            	lstPredicates.add(p5);
             	
             }
             
             if(fechaUltimoGrupo != null) {
             	
-            	Join<Intervencion,Ticket> datos4 = tickets.join("NUM_TICKET");
-            	Predicate p5 = (Predicate) cb.equal(datos4.get("FECHA_HORA_ASIGNACION"),fechaUltimoGrupo.toString());
-            	lstPredicates.add(p5);
+            	Join<Intervencion,Ticket> datos5 = tickets.join("NUM_TICKET");
+            	Predicate p6 = (Predicate) cb.equal(datos5.get("FECHA_HORA_ASIGNACION"),fechaUltimoGrupo.toString());
+            	lstPredicates.add(p6);
             	
             }
             
             if(ultGrupo != null) {
             	
-            	Join<Intervencion,Ticket> datos5 = tickets.join("NUM_TICKET");
-            	Join<Intervencion,GrupoResolucion> datos6 = tickets.join("ID_GR");
-            	Predicate p6 = (Predicate) cb.equal(datos6.get("NOMBRE"),ultGrupo);
-            	lstPredicates.add(p6);
+            	Join<Intervencion,Ticket> datos6 = tickets.join("NUM_TICKET");
+            	Join<Intervencion,GrupoResolucion> datos7 = datos6.join("ID_GR");
+            	Predicate p7 = (Predicate) cb.equal(datos7.get("NOMBRE"),ultGrupo);
+            	lstPredicates.add(p7);
             	
             }
              
