@@ -14,7 +14,7 @@ public class Ticket {
 
 	@Id
 	@Column(name = "NUM_TICKET")
-	private Long numTIcket;
+	private Long numTicket;
 
 	@ManyToOne
 	@JoinColumn(name = "NUM_LEGAJO", nullable = false, foreignKey = @ForeignKey(name = "FK_ticket_empleado"))
@@ -44,7 +44,7 @@ public class Ticket {
 
 	public Ticket(Long numTIcket, Empleado solicitante, LocalDateTime fechaHoraApertura,
 			String descripcion) {
-		this.numTIcket = numTIcket;
+		this.numTicket = numTIcket;
 		this.solicitante = solicitante;
 		this.fechaHoraApertura = fechaHoraApertura;
 		this.descripcion = descripcion;
@@ -84,11 +84,11 @@ public class Ticket {
 	}
 
 	public Long getNumTIcket() {
-		return numTIcket;
+		return numTicket;
 	}
 
 	public void setNumTIcket(Long numTIcket) {
-		this.numTIcket = numTIcket;
+		this.numTicket = numTIcket;
 	}
 
 	public Empleado getSolicitante() {
@@ -160,19 +160,19 @@ public class Ticket {
 
 	public Clasificacion ultimaCalsificacion() {
 		System.out.println("Historial recla: "+historialReclasificacion);
-		Reclasificacion ultima = historialReclasificacion.get(0);
+		Reclasificacion ultima = historialReclasificacion.get(historialReclasificacion.size()-1);
 
-		for(Reclasificacion rc : historialReclasificacion) {
-			if(rc.getFechaReclasificacion().compareTo(ultima.getFechaReclasificacion())>0) {
-				ultima = rc;
-			}
-		}
+//		for(Reclasificacion rc : historialReclasificacion) {
+//			if(rc.getFechaReclasificacion().compareTo(ultima.getFechaReclasificacion())>0) {
+//				ultima = rc;
+//			}
+//		}
 		return ultima.getClasificacionNueva();
 	}
 
 
 	public TicketDTO getDTO() {
-		TicketDTO dto = new TicketDTO(numTIcket);
+		TicketDTO dto = new TicketDTO(numTicket);
 
 		dto.setDescripcion(descripcion);
 		dto.setFechaHoraApertura(fechaHoraApertura);
@@ -182,7 +182,21 @@ public class Ticket {
 		if(solicitante != null) {
 			dto.setNumLegajo(solicitante.getNumLegajo());
 		}
+		if(!historialCambioEstadoTicket.isEmpty()) {
+			dto.setEstado(estadoActual());
+			dto.setFechaUltimoCambioEstado(historialCambioEstadoTicket.get(historialCambioEstadoTicket.size()-1).getFechaHoraCambio());
+		}
+		if(!intervenciones.isEmpty()) {
+			dto.setGrupoActual(ultimaIntervencion().getGrupoResolucion().getNombre());
+		}
 		return dto;
 	}
 
+	@Override
+	public String toString() {
+		return "Ticket [numTIcket=" + numTicket + ", solicitante=" + solicitante + ", fechaHoraApertura="
+				+ fechaHoraApertura + ", descripcion=" + descripcion + ", historialCambioEstadoTicket="
+				+  "]";
+	}
+	
 }
