@@ -185,4 +185,14 @@ public class Ticket {
 		return dto;
 	}
 
+	public List<Intervencion> getIntervenciones(GrupoResolucion grupoResolucion) {
+		List<Intervencion> intervencionesRes = new ArrayList<Intervencion>();
+		for(Intervencion i : intervenciones) {
+			if(i.getGrupoResolucion().equals(grupoResolucion)) {
+				intervencionesRes.add(i);
+			}
+		}
+		return intervencionesRes;
+	}
+
 }
