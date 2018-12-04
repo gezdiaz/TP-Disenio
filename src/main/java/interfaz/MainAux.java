@@ -35,8 +35,8 @@ public class MainAux {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
 			GestorBD.setEmf(emf);
 			
-			List<Ticket> tickets = GestorBD.buscarTickets(1L, null, null, null, null, null,null);
-			System.out.println("Tickets: "+tickets);
+			List<Intervencion> intervenciones = GestorBD.buscarintervenciones(null, null, null, 1L, null);
+			System.out.println("Intervenciones: "+intervenciones);
 
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);

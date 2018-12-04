@@ -171,16 +171,10 @@ public abstract class GestorBD {
 	
 	public static List<Intervencion> buscarintervenciones(EstadoIntervencion estado, LocalDateTime fechaDesde, LocalDateTime fechaHasta, Long numTicket, Long numLeg) {
 		
-		System.out.println("Iniciaaaaaaaaaaaaaaaaaaaaaaaaa");
-		
 		EntityManager manager = emf.createEntityManager();
 		List<Intervencion> resultado;
 		
-		System.out.println("algo1");
-		
 		try {
-			
-			System.out.println("Entra al try");
 			
             CriteriaBuilder cb = manager.getCriteriaBuilder();
             List<Predicate> lstPredicates = new ArrayList<Predicate>();
@@ -242,17 +236,29 @@ public abstract class GestorBD {
             }
             
             manager.close();
-            System.out.println("Termino la query");
-            System.out.println(resultado.get(0).getIdInt());
-            System.out.println("algo2");
+            
+            int j=1;
+            for(int i=0; i<resultado.size(); i++) {
+            	System.out.println(i+"- "+resultado.get(i).getFechaHoraASignacion());
+            	j=i+1;
+            	while(j<resultado.size() && resultado.get(i).equals(resultado.get(j))) {
+            		resultado.remove(j);
+            	}
+            	
+            	if((estado != null && !resultado.get(i).estadoActual().equals(estado))){
+            		resultado.remove(i);
+            		i--;
+            	}
+            	
+            	
+            }
+            
             return resultado;
             
             
             
         } catch (Exception e) {
-        	System.out.println("Entro a la excepcion");
             e.printStackTrace();
-            System.out.println("algo2");
 		return null;
 		
         }
