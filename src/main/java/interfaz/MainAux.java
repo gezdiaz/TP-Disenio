@@ -38,7 +38,7 @@ public class MainAux {
 			
 //			Ticket ticket = GestorBD.buscarTicketPorId(1L);
 //			System.out.println("Fecha-Hora: "+ticket.getFechaHoraApertura());
-			List<Ticket> tickets = GestorBD.buscarTickets(null, null, null, null, null, LocalDate.of(2018, 12, 3), null);
+			List<Ticket> tickets = GestorBD.buscarTickets(1L, null, null, null, null, null, null);
 			for(Ticket t: tickets) {
 				System.out.println(t);
 			}
@@ -62,8 +62,8 @@ public class MainAux {
 //		System.out.println("1234".hashCode());
 		
 
-		List<Intervencion> intervencion = GestorBD.buscarintervenciones(EstadoIntervencion.Asignado, null, null, null, null);
-		System.out.println(intervencion.get(0).getIdInt());
+//		List<Intervencion> intervencion = GestorBD.buscarintervenciones(EstadoIntervencion.Asignado, null, null, null, null);
+//		System.out.println(intervencion.get(0).getIdInt());
 		//soy otro Easter Egg
 
 

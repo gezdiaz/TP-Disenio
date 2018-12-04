@@ -72,8 +72,9 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
+			
+			ticket = manager.merge(ticket);
 			manager.persist(ticket);
-			manager.merge(ticket);
 //			System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
 			//			manager.persist(ticket);
 			manager.getTransaction().commit();
@@ -616,12 +617,9 @@ public abstract class GestorBD {
             
             manager.close();
             
-            System.out.println("Fecha último grupo en GestorBD: "+fechaUltimoCambio);
             
-            System.out.println("Resultado inicial: ");
             int j=1;
             for(int i=0; i<resultado.size(); i++) {
-            	System.out.println(i+"- "+resultado.get(i).getFechaHoraApertura());
             	j=i+1;
             	while(j<resultado.size() && resultado.get(i).equals(resultado.get(j))) {
             		resultado.remove(j);
@@ -636,25 +634,6 @@ public abstract class GestorBD {
             	}
             	
             	
-            }
-            
-//            Set<Ticket> ticketSet = new HashSet<>();
-//            
-//            ticketSet.addAll(resultado);
-//            int i=0;
-//            System.out.println("Ticket SET:");
-//            for(Ticket t: ticketSet) {
-//            	System.out.println(i+"- "+t.getFechaHoraApertura());
-//            	i++;
-//            }
-//            resultado.clear();
-//            resultado.addAll(ticketSet);  
-//            
-            int i=0;
-            System.out.println("De vuelta en resultado: ");
-            for(Ticket t: resultado) {
-            	System.out.println(i+"- "+t.getFechaHoraApertura());
-            	i++;
             }
             
             return resultado;

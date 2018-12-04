@@ -187,7 +187,7 @@ public abstract class GestorTickets {
 		return 1;
 	}
 
-	public static Integer derivarTicket(TicketDTO ticketDTO, String nombreGrupo, String observaciones) {
+	public static Integer derivarTicket(TicketDTO ticketDTO, String nombreGrupo, String observaciones, String clasificacion) {
 
 		Ticket ticket = new Ticket();
 		GrupoResolucion grupoResolucion = new GrupoResolucion();
@@ -227,9 +227,24 @@ public abstract class GestorTickets {
 		}
 		ticket.agregarIntervencion(intervencion);
 
-		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Derivado, ticket, GestorUsuarios.usuarioActual(), observaciones);
+		Usuario usuario = GestorUsuarios.usuarioActual();
+		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Derivado, ticket, usuario, observaciones);
 		ticket.acutalizarEstado(nuevoEstado);
 
+		if(clasificacion != null) {
+			
+			Clasificacion nuevaClasificacion = GestorBD.buscarClasificacion(clasificacion);
+			if(nuevaClasificacion == null) {
+				return -1;
+			}
+			Reclasificacion reclasificacion = new Reclasificacion(ticket.ultimaCalsificacion(), nuevaClasificacion, usuario, LocalDateTime.now());
+			
+			ticket.cambiarClasificacion(reclasificacion);
+			
+			
+		}
+		
+		
 		if(!GestorBD.guardarTicket(ticket)) {
 			return -3;
 		}
