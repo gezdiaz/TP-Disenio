@@ -1,8 +1,6 @@
 package interfaz;
 
 import java.awt.Color;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
@@ -17,16 +15,17 @@ import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.consultarIntervencion.ConsultarIntervencionPanel;
 import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
-import logicaDeNegocios.entidades.Clasificacion;
-import logicaDeNegocios.entidades.Ticket;
-import logicaDeNegocios.enumeraciones.EstadoTicket;
 import logicaDeNegocios.entidades.Intervencion;
+import logicaDeNegocios.entidades.Ticket;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 
 
 public class MainAux {
 
 	public static void main(String[] args) {
+		
+		UIManager.put("OptionPane.background", new Color(163,255,140));
+		UIManager.put("Panel.background", new Color(163,255,140));
 		
 
 		VentanaBase ventana = new VentanaBase("Auxiliar", "Usuario de prueba", new JPanel());
@@ -54,19 +53,17 @@ public class MainAux {
 //			System.out.println("Panel: "+ panel.getSize());
 //			System.out.println("Ventana: "+ ventana.getSize());
 //			ventana.setSize(763, 760);
+
 		} catch (Exception e) {
-			JOptionPane.showConfirmDialog(null, "No se pudo establecer conección con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 				
-//		System.out.println("1234".hashCode());
 		
 
 //		List<Intervencion> intervencion = GestorBD.buscarintervenciones(EstadoIntervencion.Asignado, null, null, null, null);
 //		System.out.println(intervencion.get(0).getIdInt());
 		//soy otro Easter Egg
-
-
 
 	}
 

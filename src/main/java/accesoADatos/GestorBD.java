@@ -171,13 +171,12 @@ public abstract class GestorBD {
 	}
 	
 	public static List<Intervencion> buscarintervenciones(EstadoIntervencion estado, LocalDateTime fechaDesde, LocalDateTime fechaHasta, Long numTicket, Long numLeg) {
-
 		
 		EntityManager manager = emf.createEntityManager();
 		List<Intervencion> resultado;
 		
 		try {
-			 
+			
             CriteriaBuilder cb = manager.getCriteriaBuilder();
             List<Predicate> lstPredicates = new ArrayList<Predicate>();
             CriteriaQuery<Intervencion> consulta = cb.createQuery(Intervencion.class);
@@ -185,9 +184,11 @@ public abstract class GestorBD {
             Root<Intervencion> intervenciones = consulta.from(Intervencion.class);
             Join<Intervencion,Ticket> datos2 = null;
             
+            
+            
             if(estado != null) {
-                Join<CambioEstadoIntervencion,Intervencion> datos1 = intervenciones.join("intervencion");
-                Predicate p1 = cb.equal(intervenciones.get("estadoNuevo"),estado);
+                Join<CambioEstadoIntervencion,Intervencion> datos1 = intervenciones.join("historialCambioEstadoIntervencion");
+                Predicate p1 = cb.equal(datos1.get("estadoNuevo"),estado);
                 lstPredicates.add(p1);
             }
              
@@ -208,7 +209,7 @@ public abstract class GestorBD {
             if(numTicket != null) {
             	
             	datos2 = intervenciones.join("ticket");
-            	Predicate p4 = cb.equal(intervenciones.get("numTicket"),numTicket);
+            	Predicate p4 = cb.equal(datos2.get("numTicket"),numTicket);
             	lstPredicates.add(p4);
             	
             }
@@ -224,22 +225,46 @@ public abstract class GestorBD {
             	//I'm an easter egg
             	
             }
-             
+            
             consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));
             
-         
-             
+            
+            
             resultado = manager.createQuery(consulta).getResultList();
+            
+            for(Intervencion t: resultado) {
+            	t.getHistorialCambioEstadoIntervencion();
+            }
+            
             manager.close();
+            
+            int j=1;
+            for(int i=0; i<resultado.size(); i++) {
+            	System.out.println(i+"- "+resultado.get(i).getFechaHoraASignacion());
+            	j=i+1;
+            	while(j<resultado.size() && resultado.get(i).equals(resultado.get(j))) {
+            		resultado.remove(j);
+            	}
+            	
+            	if((estado != null && !resultado.get(i).estadoActual().equals(estado))){
+            		resultado.remove(i);
+            		i--;
+            	}
+            	
+            	
+            }
+            
             return resultado;
             
+            
+            
         } catch (Exception e) {
- 
             e.printStackTrace();
-		
 		return null;
 		
         }
+		
+		
 
 	}
 
@@ -586,6 +611,7 @@ public abstract class GestorBD {
             
             if(fechaUltimoCambio != null) {
             	
+
             	Join<Intervencion,Ticket> datos5 = tickets.join("historialCambioEstadoTicket");
             	Predicate p6 = cb.between(datos5.get("fechaHoraCambio"), 
 		            			LocalDateTime.of(fechaUltimoCambio.getYear(), fechaUltimoCambio.getMonth(), fechaUltimoCambio.getDayOfMonth(), 0, 0),
