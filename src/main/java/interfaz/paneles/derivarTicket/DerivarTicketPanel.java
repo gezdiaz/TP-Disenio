@@ -24,6 +24,7 @@ import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
+import logicaDeNegocios.gestores.GestorTickets;
 
 public class DerivarTicketPanel extends JPanel{
 
@@ -46,11 +47,11 @@ public class DerivarTicketPanel extends JPanel{
 		this.ticketDTO = ticketDTO;
 		//TODO que muestre el estado del ticket
 		this.txtEstadoActual = new JTextField(10/*this.ticketDTO.getEstado().name()*/);
-		this.txtEstadoActual.setText(EstadoTicket.Abierto.name());
+		this.txtEstadoActual.setText(ticketDTO.getEstado().toString());
 		this.txtEstadoActual.setEditable(false);
 		this.txtEstadoActual.setFocusable(false);
 		//TODO que muestre la descripcion del ticket
-		this.txtDescripcion = new JTextArea("Una descripcion"/*this.ticketDTO.getDescripcion()*/);
+		this.txtDescripcion = new JTextArea(/*"Una descripcion"*/this.ticketDTO.getDescripcion());
 		this.txtDescripcion.setEditable(false);
 		this.txtDescripcion.setFocusable(false);
 
@@ -65,6 +66,7 @@ public class DerivarTicketPanel extends JPanel{
 		for(String n: nombresClas) {
 			listClasificacion.addItem(n);
 		}
+		listClasificacion.setSelectedItem(ticketDTO.getClasificacion());
 
 		this.listGrupoResolucion = new JComboBox<String>();
 		this.listGrupoResolucion.addItem("Seleccione un grupo de resolución");
@@ -260,7 +262,7 @@ public class DerivarTicketPanel extends JPanel{
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.EAST;
 		btnAceptar.addActionListener(a -> {
-			apretoAceptar();		
+			apretoAceptar((String)listGrupoResolucion.getSelectedItem(), txtObservaciones.getText());		
 		});
 		btnAceptar.addKeyListener(new KeyListener() {
 			
@@ -276,7 +278,7 @@ public class DerivarTicketPanel extends JPanel{
 			public void keyPressed(KeyEvent e) {
 
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					apretoAceptar();
+					apretoAceptar((String)listGrupoResolucion.getSelectedItem(), txtObservaciones.getText());
 				}
 			}
 		});
@@ -320,13 +322,40 @@ public class DerivarTicketPanel extends JPanel{
 		ventanaAnterior.setVisible(true);
 	}
 
-	private void apretoAceptar() {
+	private void apretoAceptar(String grupoResolucion, String observaciones) {
 		//apretoAceptar();//TODO apretoAceptar()
 		if(txtObservaciones.getText().trim().isEmpty()) {
 			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}else {
-			ventanaActual.dispose();
-			ventanaAnterior.setVisible(true);
+			if(grupoResolucion.equals("Seleccione un grupo de resolución")) {
+				JOptionPane.showConfirmDialog(ventanaActual, "Debe seleccionar un grupo de resolucion", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				switch(GestorTickets.derivarTicket(ticketDTO, grupoResolucion, observaciones)) {
+				case -3:{
+					JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					break;
+				}
+				case -2:{
+					JOptionPane.showConfirmDialog(ventanaActual, "Error conectándose a la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					break;
+				}
+				case -1:{
+					JOptionPane.showConfirmDialog(ventanaActual, "Grupo de resolucion no encontrado en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					break;
+				}
+				case 0:{
+					JOptionPane.showConfirmDialog(ventanaActual, "Ticket no encontrado en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					break;
+				}
+				case 1:{JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido cerrado exitosamente", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				ventanaActual.dispose();
+				ventanaAnterior.setVisible(true);
+				break;
+				}
+				default:{}
+				}
+			}
 		}
 	}
 
