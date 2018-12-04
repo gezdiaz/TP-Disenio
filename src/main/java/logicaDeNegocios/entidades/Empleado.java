@@ -17,6 +17,15 @@ public class Empleado {
 	@Column(name="APELLIDO", length=50, nullable=false)
 	private String apellido;
 
+	@Column(name = "TELEFONO_INTERNO")
+	private Long telefonoInterno;
+	
+	@Column(name = "TELEFONO_DIRECTO")
+	private Long telefonoDirecto;
+	
+	@Column(name = "DIRECCION", length = 50)
+	private String direccion;
+	
 
 	public Empleado() {
 

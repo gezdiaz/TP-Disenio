@@ -49,13 +49,13 @@ public abstract class GestorTickets {
 		Reclasificacion reclasificacion = new Reclasificacion(null, clasificacion, usuario, LocalDateTime.now());
 
 		ticket.cambiarClasificacion(reclasificacion);
-		System.out.println("Clasificacion: "+clasificacion);
+//		System.out.println("Clasificacion: "+clasificacion);
 		//Crea la intervencion
-		System.out.println("Empiezo a crear la intervencion");
+//		System.out.println("Empiezo a crear la intervencion");
 		Intervencion intervencion = GestorIntervenciones.crearIntervencionRT(ticket, usuario.getGrupo().getNombre(), ""); //observaciones vacías, en la segunda pnatalla las cambia.
-		System.out.println("Termino de crear la intervencion");
+//		System.out.println("Termino de crear la intervencion");
 		if(intervencion == null) {
-			System.out.println("Intervencion nula");
+//			System.out.println("Intervencion nula");
 			return false;
 		}
 
