@@ -121,5 +121,11 @@ public class CambioEstadoTicket {
 		this.observaciones = observaciones;
 	}
 
+	@Override
+	public String toString() {
+		return "CambioEstadoTicket [fechaHoraCambio=" + fechaHoraCambio + ", estadoAnterior=" + estadoAnterior
+				+ ", estadoNuevo=" + estadoNuevo + ", observaciones=" + observaciones + "]";
+	}
+
 
 }

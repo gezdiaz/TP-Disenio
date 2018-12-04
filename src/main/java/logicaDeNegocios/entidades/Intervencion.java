@@ -39,10 +39,10 @@ public class Intervencion {
 
 	}
 
-	public Intervencion(String observaciones, LocalDateTime fechaHoraASignacion, Ticket ticket,
+	public Intervencion(String observaciones, LocalDateTime fechaHoraAsignacion, Ticket ticket,
 			GrupoResolucion grupoResolucion) {
 		this.observaciones = observaciones;
-		this.fechaHoraAsignacion = fechaHoraASignacion;
+		this.fechaHoraAsignacion = fechaHoraAsignacion;
 		this.ticket = ticket;
 		this.grupoResolucion = grupoResolucion;
 		this.historialCambioEstadoIntervencion = new ArrayList<CambioEstadoIntervencion>();
@@ -80,9 +80,9 @@ public class Intervencion {
 		return fechaHoraAsignacion;
 	}
 
-
-	public void setFechaHoraASignacion(LocalDateTime fechaHoraASignacion) {
-		this.fechaHoraAsignacion = fechaHoraASignacion;
+	
+	public void setFechaHoraASignacion(LocalDateTime fechaHoraAsignacion) {
+		this.fechaHoraAsignacion = fechaHoraAsignacion;
 	}
 
 
@@ -125,4 +125,11 @@ public class Intervencion {
 		return actual;
 	}
 
+	@Override
+	public String toString() {
+		return "Intervencion [observaciones=" + observaciones + ", fechaHoraASignacion=" + fechaHoraAsignacion
+				+ ", grupoResolucion=" + grupoResolucion + ", historialCambioEstadoIntervencion="
+				+ historialCambioEstadoIntervencion + "]";
+	}
+	
 }

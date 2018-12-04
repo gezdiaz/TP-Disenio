@@ -94,7 +94,11 @@ public class Reclasificacion {
 		this.ticket = ticket;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Reclasificacion [fechaReclasificacion=" + fechaReclasificacion + ", clasificacionAnterior="
+				+ clasificacionAnterior + ", clasificacionNueva=" + clasificacionNueva + "]";
+	}
 
 
 }

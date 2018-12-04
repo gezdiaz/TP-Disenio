@@ -22,6 +22,7 @@ import interfaz.base.VentanaBase;
 import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
 import interfaz.paneles.derivarTicket.DerivarTicketPanel;
 import logicaDeNegocios.entidades.Ticket;
+import logicaDeNegocios.enumeraciones.EstadoTicket;
 import logicaDeNegocios.gestores.GestorUsuarios;
 
 public class TablaTicketsPanel extends JPanel {
@@ -197,9 +198,14 @@ public class TablaTicketsPanel extends JPanel {
 	private void apretoDerivar() {
 		//TODO que envie el ticket seleccionado
 		if(tabla.getSelectedRow()!=-1) {
-			VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
-			ventana.setVisible(false);
-			ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));
+			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.EsperaOk) || tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.Abierto)) {
+				VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
+				ventana.setVisible(false);
+				ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));
+			}
+			else {
+				JOptionPane.showConfirmDialog(ventana, "Solo se pueden derivar tickets en estado Abierto o en Espera Ok", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		else {
 			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar un ticket", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -214,15 +220,24 @@ public class TablaTicketsPanel extends JPanel {
 	private void apretoCerrar() {
 		//TODO que envie el ticket seleccionado
 		if(tabla.getSelectedRow()!=-1) {
-			VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
-			ventana.setVisible(false);
-			ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));
+			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.EsperaOk)) {
+				VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
+				ventana.setVisible(false);
+				ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));
+			}
+			else {
+				JOptionPane.showConfirmDialog(ventana, "Solo se pueden cerrar tickets en estado Espera Ok", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 		else {
 			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar un ticket", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		}
 
 	}
-
+	public void setTickets(List<TicketDTO> tickets) {
+		tableModel.setTickets(tickets);
+		tableModel.fireTableDataChanged();
+	}
+	
 
 }

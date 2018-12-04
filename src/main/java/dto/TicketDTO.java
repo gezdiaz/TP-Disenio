@@ -7,7 +7,7 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 public class TicketDTO {
 
 	Long numTicket;
-	String clasificacion, grupoActual;
+	String clasificacion, grupoActual, nombreOperador;
 	Long numLegajo;
 	String descripcion;
 	LocalDateTime fechaHoraApertura, fechaUltimoCambioEstado;
@@ -21,11 +21,23 @@ public class TicketDTO {
 	
 	
 	
-	public String getGrupoActual() {
-		return grupoActual;
+	public String getNombreOperador() {
+		return nombreOperador;
 	}
 
 
+
+
+	public void setNombreOperador(String nombreOperador) {
+		this.nombreOperador = nombreOperador;
+	}
+
+
+
+
+	public String getGrupoActual() {
+		return grupoActual;
+	}
 
 
 	public void setGrupoActual(String grupoActual) {

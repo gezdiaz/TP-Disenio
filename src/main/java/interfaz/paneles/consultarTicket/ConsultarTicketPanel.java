@@ -8,6 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -51,6 +56,7 @@ public class ConsultarTicketPanel extends JPanel {
 		for(String n: nombresClas) {
 			listClasificacion.addItem(n);
 		}
+		listClasificacion.setSelectedItem("Seleccione una clasificación");
 		
 		txtFechaApertura = new JTextField();
 		
@@ -60,13 +66,16 @@ public class ConsultarTicketPanel extends JPanel {
 		for(String n: nombresGrupo) {
 			listUltimoGrupo.addItem(n);
 		}
+		listUltimoGrupo.setSelectedItem("Seleccione un grupo de resolución");
 		
 		txtNumLegajo = new JTextField(6);
 		
 		listEstadoActual = new JComboBox<String>();
+		listEstadoActual.addItem("Seleccione un estado");
 		for(EstadoTicket e: EstadoTicket.values()) {
 			listEstadoActual.addItem(e.name());
 		}
+		listEstadoActual.setSelectedItem("Seleccione un estado");;
 		
 		txtFechaUltimoCambio = new JTextField(10);
 		
@@ -318,7 +327,75 @@ public class ConsultarTicketPanel extends JPanel {
 	private void apretoBuscar() {
 		
 		List<TicketDTO> ticketsDTO = new ArrayList<TicketDTO>();
-		//ticketsDTO = GestorTickets.consultarTicket(txtNumTicket.getText(), txtNumLegajo.getText(), listClasificacion.getSelectedItem().toString(), listEstadoActual.getSelectedItem().toString(), txtFechaApertura.getText(), txtFechaUltimoCambio, listUltimoGrupo.getSelectedItem().toString());
+		Long numTicket = null, numLegajo = null;
+		String nombreClasificacion = null, ultGrupo = null;
+		EstadoTicket estadoActual = null;
+		LocalDate fechaApertura = null, fechaUltimoGrupo = null;
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		if(!txtNumTicket.getText().trim().isEmpty()) {
+			try {
+				numTicket = Long.parseLong(txtNumTicket.getText().trim());
+			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número ticket\"", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+		if(!txtNumLegajo.getText().trim().isEmpty()) {
+			try {
+				numLegajo = Long.parseLong(txtNumLegajo.getText().trim());
+			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número Legajo\"", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+		if(!txtFechaApertura.getText().trim().isEmpty()) {
+			try {
+				fechaApertura = LocalDate.parse(txtFechaApertura.getText().trim(), format);
+			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura ingresada no está en el formato correcto", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				return;
+			}
+			if(fechaApertura.compareTo(LocalDate.now()) > 0) {
+				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura no puede ser futura", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+		if(!txtFechaUltimoCambio.getText().trim().isEmpty()) {
+			try {
+				fechaUltimoGrupo = LocalDate.parse(txtFechaUltimoCambio.getText().trim(), format);
+			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado ingresada no está en el formato correcto", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			if(fechaUltimoGrupo.compareTo(LocalDate.now()) > 0) {
+				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado no puede ser futura", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+		if(!listEstadoActual.getSelectedItem().equals("Seleccione un estado")) {
+			for(EstadoTicket e: EstadoTicket.values()) {
+				if(e.name().equals(listEstadoActual.getSelectedItem())) {
+					estadoActual = e;
+				}
+			}
+		}
+		if(!listClasificacion.getSelectedItem().equals("Seleccione una clasificación")) {
+			nombreClasificacion = (String) listClasificacion.getSelectedItem();
+		}
+		if(!listUltimoGrupo.getSelectedItem().equals("Seleccione un grupo de resolución")) {
+			ultGrupo = (String) listUltimoGrupo.getSelectedItem();
+		}
+		
+		ticketsDTO = GestorTickets.consultarTicket(numTicket, numLegajo, estadoActual, nombreClasificacion, fechaApertura, fechaUltimoGrupo, ultGrupo);
+		
+		if(ticketsDTO.isEmpty()) {
+			JOptionPane.showConfirmDialog(ventana, "No se encontraron tickets con los criterios ingresados", "No se encontraron tickets", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			//return;
+		}
+		tablaResultados.setTickets(ticketsDTO);
+
 		
 	}
 	
