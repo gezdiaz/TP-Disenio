@@ -604,17 +604,11 @@ public abstract class GestorBD {
             
             if(fechaUltimoCambio != null) {
             	
-<<<<<<< HEAD
-            	Join<Intervencion,Ticket> datos5 = tickets.join("intervenciones");
-            	Predicate p6 = cb.between(datos5.get("fechaHoraAsignacion"), 
-		            			LocalDateTime.of(fechaUltimoGrupo.getYear(), fechaUltimoGrupo.getMonth(), fechaUltimoGrupo.getDayOfMonth(), 0, 0),
-		    					LocalDateTime.of(fechaUltimoGrupo.getYear(), fechaUltimoGrupo.getMonth(), fechaUltimoGrupo.getDayOfMonth(), 23, 59));
-=======
+
             	Join<Intervencion,Ticket> datos5 = tickets.join("historialCambioEstadoTicket");
             	Predicate p6 = cb.between(datos5.get("fechaHoraCambio"), 
 		            			LocalDateTime.of(fechaUltimoCambio.getYear(), fechaUltimoCambio.getMonth(), fechaUltimoCambio.getDayOfMonth(), 0, 0),
 		    					LocalDateTime.of(fechaUltimoCambio.getYear(), fechaUltimoCambio.getMonth(), fechaUltimoCambio.getDayOfMonth(), 23, 59));
->>>>>>> 8f5addf23b13f8e8a1c201c7e505680e896788e8
             	lstPredicates.add(p6);
             	
             }
