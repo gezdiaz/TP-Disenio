@@ -44,7 +44,7 @@ public abstract class GestorBD {
 		
 		Long numTicket = -1L;
 		NumTicket nt;
-		System.out.println("GetNumTicket() 1: "+numTicket);
+//		System.out.println("GetNumTicket() 1: "+numTicket);
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
@@ -55,7 +55,7 @@ public abstract class GestorBD {
 			manager.persist(nt);
 			manager.getTransaction().commit();
 			manager.close();
-			System.out.println("GetNumTicket() 1: "+numTicket);
+//			System.out.println("GetNumTicket() 1: "+numTicket);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,11 +74,11 @@ public abstract class GestorBD {
 			manager.getTransaction().begin();
 			manager.persist(ticket);
 			manager.merge(ticket);
-			System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
+//			System.out.println("Después del merge, numTicket: "+ticket.getNumTIcket());
 			//			manager.persist(ticket);
 			manager.getTransaction().commit();
 			manager.close();
-			System.out.println("Salgo de guardar TIcket");
+//			System.out.println("Salgo de guardar TIcket");
 			return true;
 
 		} catch (Exception e) {
@@ -91,7 +91,7 @@ public abstract class GestorBD {
 
 	public static Boolean actualizarTicket(Ticket ticket) {
 
-		System.out.println("Entro a guardar cambio de ticket");
+//		System.out.println("Entro a guardar cambio de ticket");
 
 		try {
 			EntityManager manager = emf.createEntityManager();
@@ -100,7 +100,7 @@ public abstract class GestorBD {
 			manager.persist(ticket);
 			manager.getTransaction().commit();
 			manager.close();
-			System.out.println("Salgo de guardar ticket");
+//			System.out.println("Salgo de guardar ticket");
 			return true;
 
 		} catch (Exception e) {
@@ -308,8 +308,8 @@ public abstract class GestorBD {
 
 			return empleado;
 		} catch (Exception e) {
-			System.out.println("Exepcion en buscar usuario: ");
-			System.out.println();
+//			System.out.println("Exepcion en buscar usuario: ");
+//			System.out.println();
 			e.printStackTrace();
 
 			return null;			
@@ -341,8 +341,8 @@ public abstract class GestorBD {
 
 			return usuario;
 		} catch (Exception e) {
-			System.out.println("Exepcion en buscar usuario: ");
-			System.out.println();
+//			System.out.println("Exepcion en buscar usuario: ");
+//			System.out.println();
 			e.printStackTrace();
 
 			return null;			
@@ -502,14 +502,14 @@ public abstract class GestorBD {
 			Query cons = manager.createNativeQuery(consulta, GrupoResolucion.class);
 			cons.setParameter(1, clasificacion);
 			grupos = (List<GrupoResolucion>)cons.getResultList();
-			System.out.println("Resultado consulta: "+grupos);
+//			System.out.println("Resultado consulta: "+grupos);
 			manager.getTransaction().commit();
 			manager.close();
-			System.out.println("Lista grupos en el gestorBD: " + grupos);
+//			System.out.println("Lista grupos en el gestorBD: " + grupos);
 			for(GrupoResolucion c: grupos) {
 				nombres.add(c.getNombre());
 			}
-			System.out.println("Lista Nombres grupos en el gestorBD: " + grupos);
+//			System.out.println("Lista Nombres grupos en el gestorBD: " + grupos);
 			return nombres;
 
 		} catch (Exception e) {
@@ -545,7 +545,7 @@ public abstract class GestorBD {
 	}
 
 
-	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,EstadoTicket estadoActual, String nombreClasificacion,LocalDate fechaApertura, LocalDate fechaUltimoGrupo, String ultGrupo){
+	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,EstadoTicket estadoActual, String nombreClasificacion,LocalDate fechaApertura, LocalDate fechaUltimoCambio, String ultGrupo){
 
 		
 		EntityManager manager = emf.createEntityManager();
@@ -602,12 +602,19 @@ public abstract class GestorBD {
             	
             }
             
-            if(fechaUltimoGrupo != null) {
+            if(fechaUltimoCambio != null) {
             	
+<<<<<<< HEAD
             	Join<Intervencion,Ticket> datos5 = tickets.join("intervenciones");
             	Predicate p6 = cb.between(datos5.get("fechaHoraAsignacion"), 
 		            			LocalDateTime.of(fechaUltimoGrupo.getYear(), fechaUltimoGrupo.getMonth(), fechaUltimoGrupo.getDayOfMonth(), 0, 0),
 		    					LocalDateTime.of(fechaUltimoGrupo.getYear(), fechaUltimoGrupo.getMonth(), fechaUltimoGrupo.getDayOfMonth(), 23, 59));
+=======
+            	Join<Intervencion,Ticket> datos5 = tickets.join("historialCambioEstadoTicket");
+            	Predicate p6 = cb.between(datos5.get("fechaHoraCambio"), 
+		            			LocalDateTime.of(fechaUltimoCambio.getYear(), fechaUltimoCambio.getMonth(), fechaUltimoCambio.getDayOfMonth(), 0, 0),
+		    					LocalDateTime.of(fechaUltimoCambio.getYear(), fechaUltimoCambio.getMonth(), fechaUltimoCambio.getDayOfMonth(), 23, 59));
+>>>>>>> 8f5addf23b13f8e8a1c201c7e505680e896788e8
             	lstPredicates.add(p6);
             	
             }
@@ -623,7 +630,7 @@ public abstract class GestorBD {
              
             consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));
             
-         
+            consulta.orderBy(cb.desc(tickets.get("fechaHoraApertura")));
              
             resultado = manager.createQuery(consulta).getResultList();
             
@@ -635,7 +642,17 @@ public abstract class GestorBD {
             
             manager.close();
             
+            System.out.println("Fecha último grupo en GestorBD: "+fechaUltimoCambio);
+            
+            System.out.println("Resultado inicial: ");
+            int j=1;
             for(int i=0; i<resultado.size(); i++) {
+            	System.out.println(i+"- "+resultado.get(i).getFechaHoraApertura());
+            	j=i+1;
+            	while(j<resultado.size() && resultado.get(i).equals(resultado.get(j))) {
+            		resultado.remove(j);
+            	}
+            	
             	if((estadoActual != null && !resultado.get(i).estadoActual().equals(estadoActual))
             		|| (ultGrupo != null && !resultado.get(i).ultimoGrupo().getNombre().equals(ultGrupo))
             		|| (nombreClasificacion != null && !resultado.get(i).ultimaCalsificacion().getNombre().equals(nombreClasificacion))){
@@ -643,12 +660,28 @@ public abstract class GestorBD {
             		resultado.remove(i);
             		i--;
             	}
+            	
+            	
             }
             
-            Set<Ticket> ticketSet = new HashSet<>();
-            ticketSet.addAll(resultado);
-            resultado.clear();
-            resultado.addAll(ticketSet);  
+//            Set<Ticket> ticketSet = new HashSet<>();
+//            
+//            ticketSet.addAll(resultado);
+//            int i=0;
+//            System.out.println("Ticket SET:");
+//            for(Ticket t: ticketSet) {
+//            	System.out.println(i+"- "+t.getFechaHoraApertura());
+//            	i++;
+//            }
+//            resultado.clear();
+//            resultado.addAll(ticketSet);  
+//            
+            int i=0;
+            System.out.println("De vuelta en resultado: ");
+            for(Ticket t: resultado) {
+            	System.out.println(i+"- "+t.getFechaHoraApertura());
+            	i++;
+            }
             
             return resultado;
             
@@ -666,7 +699,7 @@ public abstract class GestorBD {
 	
 		EntityManager manager = emf.createEntityManager();
 		GrupoResolucion grupo;
-		System.out.println("Nombre a buscar:" + nombreGrupo);
+//		System.out.println("Nombre a buscar:" + nombreGrupo);
 		try {
 			
 			manager.getTransaction().begin();

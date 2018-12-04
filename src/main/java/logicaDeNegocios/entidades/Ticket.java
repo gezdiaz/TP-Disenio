@@ -172,7 +172,7 @@ public class Ticket {
 	}
 
 	public Clasificacion ultimaCalsificacion() {
-		System.out.println("Historial recla: "+historialReclasificacion);
+//		System.out.println("Historial recla: "+historialReclasificacion);
 		Reclasificacion ultima = historialReclasificacion.get(historialReclasificacion.size()-1);
 
 //		for(Reclasificacion rc : historialReclasificacion) {
