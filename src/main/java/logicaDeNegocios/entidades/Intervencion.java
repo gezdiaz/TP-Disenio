@@ -42,7 +42,7 @@ public class Intervencion {
 	public Intervencion(String observaciones, LocalDateTime fechaHoraASignacion, Ticket ticket,
 			GrupoResolucion grupoResolucion) {
 		this.observaciones = observaciones;
-		this.fechaHoraASignacion = fechaHoraASignacion;
+		this.fechaHoraAsignacion = fechaHoraASignacion;
 		this.ticket = ticket;
 		this.grupoResolucion = grupoResolucion;
 		this.historialCambioEstadoIntervencion = new ArrayList<CambioEstadoIntervencion>();
@@ -77,12 +77,12 @@ public class Intervencion {
 
 
 	public LocalDateTime getFechaHoraASignacion() {
-		return fechaHoraASignacion;
+		return fechaHoraAsignacion;
 	}
 
 
 	public void setFechaHoraASignacion(LocalDateTime fechaHoraASignacion) {
-		this.fechaHoraASignacion = fechaHoraASignacion;
+		this.fechaHoraAsignacion = fechaHoraASignacion;
 	}
 
 
