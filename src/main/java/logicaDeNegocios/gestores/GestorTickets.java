@@ -39,7 +39,7 @@ public abstract class GestorTickets {
 		Usuario usuario = GestorUsuarios.usuarioActual();
 
 		ticket.setOperador(usuario);
-		
+
 		//Cambia el estado a Abierto
 		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), null, EstadoTicket.Abierto, ticket , usuario, ticketDTO.getDescripcion());
 
@@ -115,9 +115,9 @@ public abstract class GestorTickets {
 		GestorBD.eliminarTicket(ticketDTO.getNumTicket());
 
 	}
-	
+
 	public static List<TicketDTO> consultarTicket(Long numTicket,Long numLeg,EstadoTicket estadoActual,String nombreClasificacion,LocalDate fechaApertura, LocalDate fechaUltimoGrupo, String ultGrupo){
-		
+
 		List<Ticket> tickets = GestorBD.buscarTickets(numTicket, numLeg, estadoActual, nombreClasificacion, fechaApertura, fechaUltimoGrupo, ultGrupo);
 
 		List<TicketDTO> ticketsDTO = new ArrayList<TicketDTO>();
@@ -210,31 +210,27 @@ public abstract class GestorTickets {
 			return -2;
 		}
 
-		if(ticket.estadoActual().equals(EstadoTicket.EsperaOk) || ticket.estadoActual().equals(EstadoTicket.Abierto)) {
-			List<Intervencion> intervenciones = ticket.getIntervenciones(grupoResolucion);
-			Intervencion intervencion=null;
-			if(!intervenciones.isEmpty()) {
-				for(Intervencion i : intervenciones) {
-					if(i.estadoActual().equals(EstadoIntervencion.EnEspera)) {
-						intervencion = i;
-					}
+		List<Intervencion> intervenciones = ticket.getIntervenciones(grupoResolucion);
+		Intervencion intervencion=null;
+		if(!intervenciones.isEmpty()) {
+			for(Intervencion i : intervenciones) {
+				if(i.estadoActual().equals(EstadoIntervencion.EnEspera)) {
+					intervencion = i;
 				}
 			}
-			if(intervencion==null) {
-				intervencion = GestorIntervenciones.crearIntervencion(ticket, nombreGrupo, observaciones);
-			}
-			else {
-				GestorIntervenciones.actualizarEstado(intervencion,EstadoIntervencion.Asignado, observaciones);
-			}
-			ticket.agregarIntervencion(intervencion);
-
-			CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Derivado, ticket, GestorUsuarios.usuarioActual(), observaciones);
-			ticket.acutalizarEstado(nuevoEstado);
-
-			GestorBD.guardarTicket(ticket);
+		}
+		if(intervencion==null) {
+			intervencion = GestorIntervenciones.crearIntervencion(ticket, nombreGrupo, observaciones);
 		}
 		else {
-			//no se puede derivar este ticket
+			GestorIntervenciones.actualizarEstado(intervencion,EstadoIntervencion.Asignado, observaciones);
+		}
+		ticket.agregarIntervencion(intervencion);
+
+		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Derivado, ticket, GestorUsuarios.usuarioActual(), observaciones);
+		ticket.acutalizarEstado(nuevoEstado);
+
+		if(!GestorBD.guardarTicket(ticket)) {
 			return -3;
 		}
 

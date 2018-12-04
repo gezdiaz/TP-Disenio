@@ -392,7 +392,7 @@ public class ConsultarTicketPanel extends JPanel {
 		
 		if(ticketsDTO.isEmpty()) {
 			JOptionPane.showConfirmDialog(ventana, "No se encontraron tickets con los criterios ingresados", "No se encontraron tickets", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			return;
+			//return;
 		}
 		tablaResultados.setTickets(ticketsDTO);
 

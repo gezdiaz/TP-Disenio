@@ -80,7 +80,7 @@ public class Intervencion {
 		return fechaHoraAsignacion;
 	}
 
-
+	
 	public void setFechaHoraASignacion(LocalDateTime fechaHoraAsignacion) {
 		this.fechaHoraAsignacion = fechaHoraAsignacion;
 	}
