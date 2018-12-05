@@ -478,7 +478,7 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			Query cons = manager.createQuery("from Clasificacion");
+			Query cons = manager.createQuery("from Clasificacion c order by c.nombre");
 			clasificaciones = cons.getResultList();
 			manager.getTransaction().commit();
 			manager.close();
@@ -505,12 +505,8 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			String consulta = "SELECT g.ID_GR, g.NOMBRE FROM GRUPO_DE_RESOLUCION g, CLASIFICACION c, CAPACITADO_PARA cp WHERE g.ID_GR=cp.ID_GR AND c.CODIGO=cp.CLAVE AND c.NOMBRE=?1";
-			/*Query cons = manager.createNativeQuery("SELECT g.ID_GR, g.NOMBRE "
-													+ "FROM GRUPO_DE_RESOLUCION g, CLASIFICACION c, CAPACITADO_PARA cp "
-													+ "WHERE g.ID_GR=cp.ID_GR "
-													+ "AND c.CODIGO=cp.CLAVE "
-													+ "AND c.NOMBRE=?1", GrupoResolucion.class);*/
+			String consulta = "SELECT g.ID_GR, g.NOMBRE FROM GRUPO_DE_RESOLUCION g, CLASIFICACION c, CAPACITADO_PARA cp WHERE g.ID_GR=cp.ID_GR AND c.CODIGO=cp.CLAVE AND c.NOMBRE=?1 ORDER BY g.NOMBRE";
+
 			Query cons = manager.createNativeQuery(consulta, GrupoResolucion.class);
 			cons.setParameter(1, clasificacion);
 			grupos = (List<GrupoResolucion>)cons.getResultList();

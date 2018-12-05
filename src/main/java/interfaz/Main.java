@@ -1,8 +1,6 @@
 package interfaz;
 
 import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
