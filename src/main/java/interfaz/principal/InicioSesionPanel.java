@@ -42,6 +42,9 @@ public class InicioSesionPanel extends JPanel {
 		iniciarSesion = new JButton("Inicicar sesión");
 
 		salir = new JButton("Salir");
+		
+		txtUsuario.setPreferredSize(iniciarSesion.getPreferredSize());
+		txtClave.setPreferredSize(iniciarSesion.getPreferredSize());
 
 		labelAux = new JLabel("Iniciar sesión");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
@@ -53,7 +56,7 @@ public class InicioSesionPanel extends JPanel {
 		cons.anchor = GridBagConstraints.CENTER;
 		add(labelAux, cons);
 
-		labelAux = new JLabel("Nombre usuario");
+		labelAux = new JLabel("Nombre de usuario");
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
@@ -89,25 +92,25 @@ public class InicioSesionPanel extends JPanel {
 		cons.fill = GridBagConstraints.HORIZONTAL;
 		add(txtClave, cons);
 
-		cons.gridx = 1;
+		cons.gridx = 0;
 		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(10, 10, 20, 40);
-		cons.anchor = GridBagConstraints.EAST;
+		cons.insets = new Insets(10, 40, 20, 10);
+		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.NONE;
 		iniciarSesion.addActionListener(a -> {
 			iniciarSesion();
 		});
 		add(iniciarSesion, cons);
 
-		cons.gridx = 0;
+		cons.gridx = 1;
 		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(10, 40, 20, 10);
-		cons.anchor = GridBagConstraints.WEST;
-		cons.fill = GridBagConstraints.NONE;
+		cons.insets = new Insets(10, 10, 20, 40);
+		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.HORIZONTAL;
 		salir.addActionListener(a -> {
 			ventana.dispose();
 			System.exit(0);

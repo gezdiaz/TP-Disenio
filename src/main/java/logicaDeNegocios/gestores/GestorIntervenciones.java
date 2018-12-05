@@ -111,6 +111,7 @@ public abstract class GestorIntervenciones {
 	public static List<IntervencionDTO> consultarIntervencion(EstadoIntervencion estadoActual, LocalDate fechaDesde, LocalDate fechaHasta, Long numTicket, Long numLegajo){
 		
 		LocalDateTime fechaHoraDesde=null, fechaHoraHasta=null;
+		String codGrupoActual = GestorUsuarios.usuarioActual().getGrupo().getCodigo();
 		
 		if(fechaDesde!=null) {
 			fechaHoraDesde=LocalDateTime.of(fechaDesde, LocalTime.of(0, 0));
@@ -120,7 +121,7 @@ public abstract class GestorIntervenciones {
 			fechaHoraHasta=LocalDateTime.of(fechaHasta, LocalTime.of(0, 0));
 		}
 			
-		List<Intervencion> intervenciones = GestorBD.buscarintervenciones(estadoActual, fechaHoraDesde,fechaHoraHasta, numTicket, numLegajo);
+		List<Intervencion> intervenciones = GestorBD.buscarintervenciones(estadoActual, fechaHoraDesde,fechaHoraHasta, numTicket, numLegajo, codGrupoActual);
 		List<IntervencionDTO> intervencionesDTO = new ArrayList<IntervencionDTO>();
 		for(Intervencion i : intervenciones) {
 			intervencionesDTO.add(i.getDTO());

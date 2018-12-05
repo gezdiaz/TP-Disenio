@@ -170,7 +170,7 @@ public abstract class GestorBD {
 		
 	}
 	
-	public static List<Intervencion> buscarintervenciones(EstadoIntervencion estado, LocalDateTime fechaDesde, LocalDateTime fechaHasta, Long numTicket, Long numLeg) {
+	public static List<Intervencion> buscarintervenciones(EstadoIntervencion estado, LocalDateTime fechaDesde, LocalDateTime fechaHasta, Long numTicket, Long numLeg, String codGrupoActual) {
 		
 		EntityManager manager = emf.createEntityManager();
 		List<Intervencion> resultado;
@@ -226,6 +226,10 @@ public abstract class GestorBD {
             	
             }
             
+            Join<GrupoResolucion, Intervencion> datos4 = intervenciones.join("grupoResolucion");
+            Predicate p5 = cb.equal(datos4.get("codigo"), codGrupoActual);
+            lstPredicates.add(p5);
+            
             consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));
             
             
@@ -242,7 +246,6 @@ public abstract class GestorBD {
             
             int j=1;
             for(int i=0; i<resultado.size(); i++) {
-            	System.out.println(i+"- "+resultado.get(i).getFechaHoraASignacion());
             	j=i+1;
             	while(j<resultado.size() && resultado.get(i).equals(resultado.get(j))) {
             		resultado.remove(j);
@@ -262,7 +265,7 @@ public abstract class GestorBD {
             
         } catch (Exception e) {
             e.printStackTrace();
-		return null;
+            return null;
 		
         }
 		
@@ -502,7 +505,7 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			Query cons = manager.createQuery("from Clasificacion");
+			Query cons = manager.createQuery("from Clasificacion c order by c.nombre");
 			clasificaciones = cons.getResultList();
 			manager.getTransaction().commit();
 			manager.close();
@@ -529,12 +532,8 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			String consulta = "SELECT g.ID_GR, g.NOMBRE FROM GRUPO_DE_RESOLUCION g, CLASIFICACION c, CAPACITADO_PARA cp WHERE g.ID_GR=cp.ID_GR AND c.CODIGO=cp.CLAVE AND c.NOMBRE=?1";
-			/*Query cons = manager.createNativeQuery("SELECT g.ID_GR, g.NOMBRE "
-													+ "FROM GRUPO_DE_RESOLUCION g, CLASIFICACION c, CAPACITADO_PARA cp "
-													+ "WHERE g.ID_GR=cp.ID_GR "
-													+ "AND c.CODIGO=cp.CLAVE "
-													+ "AND c.NOMBRE=?1", GrupoResolucion.class);*/
+			String consulta = "SELECT g.ID_GR, g.NOMBRE FROM GRUPO_DE_RESOLUCION g, CLASIFICACION c, CAPACITADO_PARA cp WHERE g.ID_GR=cp.ID_GR AND c.CODIGO=cp.CLAVE AND c.NOMBRE=?1 ORDER BY g.NOMBRE";
+
 			Query cons = manager.createNativeQuery(consulta, GrupoResolucion.class);
 			cons.setParameter(1, clasificacion);
 			grupos = (List<GrupoResolucion>)cons.getResultList();

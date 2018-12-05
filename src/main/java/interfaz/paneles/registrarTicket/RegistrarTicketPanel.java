@@ -150,23 +150,23 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.insets = insetsDerecha;
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
-
-		labelAux = new JLabel("Clasificación de ticket*");
+		
+		labelAux = new JLabel("Descripción*");
 		cons.gridx = 0;
 		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = insetsDerecha;
-		cons.anchor = GridBagConstraints.WEST;
+		cons.anchor = GridBagConstraints.NORTHWEST;
 		add(labelAux, cons);
 
-		labelAux = new JLabel("Descripción*");
+		labelAux = new JLabel("Clasificación de ticket*");
 		cons.gridx = 0;
-		cons.gridy = 4;
+		cons.gridy = 5;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = insetsDerecha;
-		cons.anchor = GridBagConstraints.NORTHWEST;
+		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 
 		labelAux = new JLabel("Fecha apertura");
@@ -176,6 +176,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.gridwidth = 1;
 		cons.insets = insetsDerecha;
 		cons.anchor = GridBagConstraints.WEST;
+		add(labelAux, cons);
 
 		labelAux = new JLabel("Hora apertura");
 		cons.gridx = 0;
@@ -256,19 +257,8 @@ public class RegistrarTicketPanel extends JPanel {
 		});
 		add(txtNumLegajo, cons);
 
-//		txtNumLegajo.requestFocusInWindow();
-
 		cons.gridx = 1;
 		cons.gridy = 3;
-		cons.gridheight = 1;
-		cons.gridwidth = 2;
-		cons.insets = insetsMedio;
-		cons.anchor = GridBagConstraints.WEST;
-		cons.fill = GridBagConstraints.NONE;
-		add(listClasificacion, cons);
-
-		cons.gridx = 1;
-		cons.gridy = 4;
 		cons.gridheight = 2;
 		cons.gridwidth = 2;
 		cons.insets = insetsMedio;
@@ -277,6 +267,15 @@ public class RegistrarTicketPanel extends JPanel {
 		txtDescripcion.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
 		txtDescripcion.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
 		add(descripcionScroll, cons);
+		
+		cons.gridx = 1;
+		cons.gridy = 5;
+		cons.gridheight = 1;
+		cons.gridwidth = 2;
+		cons.insets = insetsMedio;
+		cons.anchor = GridBagConstraints.WEST;
+		cons.fill = GridBagConstraints.NONE;
+		add(listClasificacion, cons);
 
 		cons.gridx = 1;
 		cons.gridy = 6;

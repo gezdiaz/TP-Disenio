@@ -4,5 +4,6 @@ public enum EstadoTicket {
 	Abierto,
 	Cerrado,
 	EsperaOk,
-	Derivado
+	Derivado;
+	
 }
