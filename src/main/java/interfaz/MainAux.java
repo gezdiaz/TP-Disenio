@@ -38,7 +38,7 @@ public class MainAux {
 			
 //			Ticket ticket = GestorBD.buscarTicketPorId(1L);
 //			System.out.println("Fecha-Hora: "+ticket.getFechaHoraApertura());
-			List<Intervencion> tickets = GestorBD.buscarintervenciones(null, null, LocalDateTime.of(2018, 12, 4, 19, 46), null, null);
+			List<Intervencion> tickets = GestorBD.buscarintervenciones(null, null, LocalDateTime.of(2018, 12, 4, 19, 46), null, null, null);
 			for(Intervencion t: tickets) {
 				System.out.println(t);
 			}

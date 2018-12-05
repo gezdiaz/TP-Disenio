@@ -20,9 +20,6 @@ import dto.IntervencionDTO;
 import interfaz.TablaRender;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.actualizarEstadoIntervencion.ActualizarEstadoIntervencionPanel;
-import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
-import interfaz.paneles.consultarTicket.TablaTicketsModelo;
-import interfaz.paneles.derivarTicket.DerivarTicketPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.gestores.GestorUsuarios;
 

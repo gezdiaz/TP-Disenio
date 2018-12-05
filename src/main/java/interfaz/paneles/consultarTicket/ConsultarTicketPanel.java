@@ -48,34 +48,33 @@ public class ConsultarTicketPanel extends JPanel {
 		
 		
 		txtNumTicket = new JTextField(20);
-//		txtNumTicket.setSize(50, (int) txtNumTicket.getSize().getHeight());
 		
 		listClasificacion = new JComboBox<String>();
-		listClasificacion.addItem("Seleccione una clasificación");
+		listClasificacion.addItem("Todas las clasificaciones");
 		List<String> nombresClas = GestorBD.getListClasificaciones();
 		for(String n: nombresClas) {
 			listClasificacion.addItem(n);
 		}
-		listClasificacion.setSelectedItem("Seleccione una clasificación");
+		listClasificacion.setSelectedItem("Todas las clasificaciones");
 		
 		txtFechaApertura = new JTextField();
 		
 		listUltimoGrupo = new JComboBox<String>();
-		listUltimoGrupo.addItem("Seleccione un grupo de resolución");
+		listUltimoGrupo.addItem("Todos los grupos de resolución");
 		List<String> nombresGrupo = GestorBD.getListGrupos();
 		for(String n: nombresGrupo) {
 			listUltimoGrupo.addItem(n);
 		}
-		listUltimoGrupo.setSelectedItem("Seleccione un grupo de resolución");
+		listUltimoGrupo.setSelectedItem("Todos los grupos de resolución");
 		
 		txtNumLegajo = new JTextField(6);
 		
 		listEstadoActual = new JComboBox<String>();
-		listEstadoActual.addItem("Seleccione un estado");
+		listEstadoActual.addItem("Todos los estados");
 		for(EstadoTicket e: EstadoTicket.values()) {
 			listEstadoActual.addItem(e.name());
 		}
-		listEstadoActual.setSelectedItem("Seleccione un estado");;
+		listEstadoActual.setSelectedItem(EstadoTicket.Abierto.name());
 		
 		txtFechaUltimoCambio = new JTextField(10);
 		
@@ -374,17 +373,17 @@ public class ConsultarTicketPanel extends JPanel {
 				return;
 			}
 		}
-		if(!listEstadoActual.getSelectedItem().equals("Seleccione un estado")) {
+		if(!listEstadoActual.getSelectedItem().equals("Todos los estados")) {
 			for(EstadoTicket e: EstadoTicket.values()) {
 				if(e.name().equals(listEstadoActual.getSelectedItem())) {
 					estadoActual = e;
 				}
 			}
 		}
-		if(!listClasificacion.getSelectedItem().equals("Seleccione una clasificación")) {
+		if(!listClasificacion.getSelectedItem().equals("Todas las clasificaciones")) {
 			nombreClasificacion = (String) listClasificacion.getSelectedItem();
 		}
-		if(!listUltimoGrupo.getSelectedItem().equals("Seleccione un grupo de resolución")) {
+		if(!listUltimoGrupo.getSelectedItem().equals("Todos los grupos de resolución")) {
 			ultGrupo = (String) listUltimoGrupo.getSelectedItem();
 		}
 		

@@ -170,7 +170,7 @@ public abstract class GestorBD {
 		
 	}
 	
-	public static List<Intervencion> buscarintervenciones(EstadoIntervencion estado, LocalDateTime fechaDesde, LocalDateTime fechaHasta, Long numTicket, Long numLeg) {
+	public static List<Intervencion> buscarintervenciones(EstadoIntervencion estado, LocalDateTime fechaDesde, LocalDateTime fechaHasta, Long numTicket, Long numLeg, String codGrupoActual) {
 		
 		EntityManager manager = emf.createEntityManager();
 		List<Intervencion> resultado;
@@ -226,6 +226,10 @@ public abstract class GestorBD {
             	
             }
             
+            Join<GrupoResolucion, Intervencion> datos4 = intervenciones.join("grupoResolucion");
+            Predicate p5 = cb.equal(datos4.get("codigo"), codGrupoActual);
+            lstPredicates.add(p5);
+            
             consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));
             
             
@@ -261,7 +265,7 @@ public abstract class GestorBD {
             
         } catch (Exception e) {
             e.printStackTrace();
-		return null;
+            return null;
 		
         }
 		
