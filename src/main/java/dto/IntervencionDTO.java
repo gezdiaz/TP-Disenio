@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
+import logicaDeNegocios.enumeraciones.Motivos;
 
 public class IntervencionDTO {
 	
@@ -17,6 +18,7 @@ public class IntervencionDTO {
 	private LocalDateTime fechaAsignacionIntervencion;
 	private String grupoResolucion;
 	private String descripcionTicket;
+	private Motivos motivo;
 	
 	public IntervencionDTO() {
 		
@@ -103,6 +105,14 @@ public class IntervencionDTO {
 
 	public void setDescripcionTicket(String descripcionTicket) {
 		this.descripcionTicket = descripcionTicket;
+	}
+
+	public Motivos getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(Motivos motivo) {
+		this.motivo = motivo;
 	}
 
 }
