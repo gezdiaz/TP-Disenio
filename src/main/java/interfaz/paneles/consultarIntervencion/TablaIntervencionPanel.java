@@ -138,4 +138,9 @@ public class TablaIntervencionPanel extends JPanel{
 		ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, new IntervencionDTO(123456L), ventana));
 	}
 	
+	public void setIntervenciones(List<IntervencionDTO> intervenciones) {
+		tableModel.setIntervenciones(intervenciones);
+		tableModel.fireTableDataChanged();
+	}
+	
 }

@@ -1,14 +1,21 @@
 package logicaDeNegocios.gestores;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import accesoADatos.GestorBD;
+import dto.IntervencionDTO;
+import dto.TicketDTO;
 import logicaDeNegocios.entidades.CambioEstadoIntervencion;
 import logicaDeNegocios.entidades.GrupoResolucion;
 import logicaDeNegocios.entidades.Intervencion;
 import logicaDeNegocios.entidades.Ticket;
 import logicaDeNegocios.entidades.Usuario;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
+import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 public abstract class GestorIntervenciones {
 
@@ -99,6 +106,28 @@ public abstract class GestorIntervenciones {
 		
 		CambioEstadoIntervencion nuevoEstado = new CambioEstadoIntervencion(LocalDateTime.now(),intervencion.estadoActual(),asignado,intervencion,GestorUsuarios.usuarioActual(),observaciones);
 		intervencion.actualizarEstado(nuevoEstado);
+	}
+	
+	public static List<IntervencionDTO> consultarIntervencion(EstadoIntervencion estadoActual, LocalDate fechaDesde, LocalDate fechaHasta, Long numTicket, Long numLegajo){
+		
+		LocalDateTime fechaHoraDesde=null, fechaHoraHasta=null;
+		
+		if(fechaDesde!=null) {
+			fechaHoraDesde=LocalDateTime.of(fechaDesde, LocalTime.of(0, 0));
+		}
+		
+		if(fechaHasta!=null) {
+			fechaHoraHasta=LocalDateTime.of(fechaHasta, LocalTime.of(0, 0));
+		}
+			
+		List<Intervencion> intervenciones = GestorBD.buscarintervenciones(estadoActual, fechaHoraDesde,fechaHoraHasta, numTicket, numLegajo);
+		List<IntervencionDTO> intervencionesDTO = new ArrayList<IntervencionDTO>();
+		for(Intervencion i : intervenciones) {
+			intervencionesDTO.add(i.getDTO());
+		}
+
+		return intervencionesDTO;
+
 	}
 
 }

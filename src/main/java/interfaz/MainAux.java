@@ -1,6 +1,7 @@
 package interfaz;
 
 import java.awt.Color;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
@@ -37,8 +38,8 @@ public class MainAux {
 			
 //			Ticket ticket = GestorBD.buscarTicketPorId(1L);
 //			System.out.println("Fecha-Hora: "+ticket.getFechaHoraApertura());
-			List<Ticket> tickets = GestorBD.buscarTickets(1L, null, null, null, null, null, null);
-			for(Ticket t: tickets) {
+			List<Intervencion> tickets = GestorBD.buscarintervenciones(null, null, LocalDateTime.of(2018, 12, 4, 19, 46), null, null);
+			for(Intervencion t: tickets) {
 				System.out.println(t);
 			}
 //			System.out.println("Tickets: "+tickets);

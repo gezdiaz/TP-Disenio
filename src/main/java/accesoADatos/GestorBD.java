@@ -233,7 +233,9 @@ public abstract class GestorBD {
             resultado = manager.createQuery(consulta).getResultList();
             
             for(Intervencion t: resultado) {
-            	t.getHistorialCambioEstadoIntervencion();
+            	t.getHistorialCambioEstadoIntervencion().size();
+            	t.getTicket().getHistorialCambioEstadoTicket().size();
+            	t.getTicket().getHistorialReclasificacion().size();
             }
             
             manager.close();

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import dto.IntervencionDTO;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 
 @Entity
@@ -15,7 +16,7 @@ public class Intervencion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_INT")
-	private int idInt;
+	private Long idInt;
 
 	@Column(name="OBSERVACIONES", length=255, nullable=false)
 	private String observaciones;
@@ -48,11 +49,11 @@ public class Intervencion {
 		this.historialCambioEstadoIntervencion = new ArrayList<CambioEstadoIntervencion>();
 	}
 
-	public int getIdInt() {
+	public Long getIdInt() {
 		return idInt;
 	}
 
-	public void setIdInt(int idInt) {
+	public void setIdInt(Long idInt) {
 		this.idInt = idInt;
 	}
 
@@ -123,6 +124,23 @@ public class Intervencion {
 		//		}
 
 		return actual;
+	}
+	
+	public IntervencionDTO getDTO() {
+		IntervencionDTO intervencionDTO= new IntervencionDTO();
+		
+		intervencionDTO.setIdIntervencion(this.idInt);
+		intervencionDTO.setNumTicket(this.ticket.getNumTIcket());
+		intervencionDTO.setNumLegajo(this.ticket.getSolicitante().getNumLegajo());
+		intervencionDTO.setClasificacion(this.ticket.ultimaCalsificacion().getNombre());
+		intervencionDTO.setEstadoIntervencion(estadoActual());
+		intervencionDTO.setEstadoTicket(this.ticket.estadoActual());
+		intervencionDTO.setFechaApertura(this.ticket.getFechaHoraApertura());
+		intervencionDTO.setFechaAsignacionIntervencion(this.fechaHoraAsignacion);
+		intervencionDTO.setDescripcionTicket(this.ticket.getDescripcion());
+		intervencionDTO.setGrupoResolucion(this.grupoResolucion.getNombre());
+		
+		return intervencionDTO;
 	}
 
 	@Override
