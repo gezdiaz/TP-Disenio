@@ -115,8 +115,8 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
+			intervencion=manager.merge(intervencion);
 			manager.persist(intervencion);
-			manager.merge(intervencion);
 			manager.getTransaction().commit();
 			manager.close();
 
@@ -290,6 +290,33 @@ public abstract class GestorBD {
 			}*/
 
 			return ticket;
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			return null;
+		}
+	}
+	
+	public static Intervencion buscarIntervencionPorId(Long idIntervencion) {
+
+		try {
+			EntityManager manager = emf.createEntityManager();
+			Intervencion intervencion;
+
+			manager.getTransaction().begin();
+			intervencion = manager.find(Intervencion.class, idIntervencion);
+			manager.getTransaction().commit();
+			intervencion.getHistorialCambioEstadoIntervencion().size();
+			intervencion.getTicket().getHistorialCambioEstadoTicket().size();
+			intervencion.getTicket().getHistorialReclasificacion().size();
+			manager.close();
+
+			/*if(ticket==null) {
+				System.out.println("Ticket es null");
+			}*/
+
+			return intervencion;
 		} catch (Exception e) {
 
 			e.printStackTrace();
