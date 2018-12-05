@@ -242,7 +242,6 @@ public abstract class GestorBD {
             
             int j=1;
             for(int i=0; i<resultado.size(); i++) {
-            	System.out.println(i+"- "+resultado.get(i).getFechaHoraASignacion());
             	j=i+1;
             	while(j<resultado.size() && resultado.get(i).equals(resultado.get(j))) {
             		resultado.remove(j);

@@ -17,12 +17,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import dto.IntervencionDTO;
-import dto.TicketDTO;
+import interfaz.TablaRender;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.actualizarEstadoIntervencion.ActualizarEstadoIntervencionPanel;
-import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
-import interfaz.paneles.consultarTicket.TablaTicketsModelo;
-import interfaz.paneles.derivarTicket.DerivarTicketPanel;
 
 public class TablaIntervencionPanel extends JPanel{
 
@@ -44,7 +41,7 @@ public class TablaIntervencionPanel extends JPanel{
 		btnModificarEstado = new JButton("Modificar Estado");
 		btnModificarComentario = new JButton("Modificar Comentario");
 		
-		labelAux = new JLabel("Intervenciones seleccionados");
+		labelAux = new JLabel("Intervenciones encontradas:");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 18));
 		cons.gridx = 0;
 		cons.gridy = 0;
@@ -55,6 +52,7 @@ public class TablaIntervencionPanel extends JPanel{
 		add(labelAux, cons);
 		
 		JScrollPane scroll = new JScrollPane(tabla);
+		tabla.setDefaultRenderer(Object.class, new TablaRender());
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
@@ -62,11 +60,11 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.insets = new Insets(5, 0, 5, 0);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
-		scroll.setPreferredSize(new Dimension(593, 117));
+		scroll.setPreferredSize(new Dimension(800, 120));
 		cons.weighty = 2;
 		add(scroll, cons);
 		
-		cons.gridx = 0;
+		cons.gridx = 1;
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -96,7 +94,7 @@ public class TablaIntervencionPanel extends JPanel{
 		});
 		add(btnModificarEstado, cons);
 		
-		cons.gridx = 2;
+		cons.gridx = 3;
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;

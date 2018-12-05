@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
 import dto.TicketDTO;
+import interfaz.TablaRender;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
 import interfaz.paneles.derivarTicket.DerivarTicketPanel;
@@ -57,6 +58,7 @@ public class TablaTicketsPanel extends JPanel {
 		add(labelAux, cons);
 
 		JScrollPane scroll = new JScrollPane(tabla);
+		tabla.setDefaultRenderer(Object.class, new TablaRender());
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
