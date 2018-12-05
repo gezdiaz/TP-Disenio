@@ -17,6 +17,7 @@ import logicaDeNegocios.entidades.Ticket;
 import logicaDeNegocios.entidades.Usuario;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
+import logicaDeNegocios.enumeraciones.Motivos;
 
 public abstract class GestorTickets {
 
@@ -249,6 +250,59 @@ public abstract class GestorTickets {
 			return -3;
 		}
 
+		return 1;
+	}
+
+	public static Integer cambiarEstado(Motivos motivo, Long numTicket, String observaciones) {
+		
+		Ticket ticket = GestorBD.buscarTicketPorId(numTicket); Boolean bandera=false; CambioEstadoTicket nuevoEstado=null;
+		
+		if(ticket==null) {
+			return 0;
+		}
+		
+		if(motivo==null || motivo.equals(Motivos.Intervencion_Incorrecta) || motivo.equals(Motivos.Parcialmente_Terminada)) {
+			nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Abierto, ticket, GestorUsuarios.usuarioActual(), observaciones);
+		}
+		if(motivo!=null && motivo.equals(Motivos.Trabajo_Terminado)) {
+			for(Intervencion i : ticket.getIntervenciones()) {
+				if(i.estadoActual().equals(EstadoIntervencion.EnEspera)) {
+					bandera = true;
+				}
+			}
+			if(bandera) {
+				nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Abierto, ticket, GestorUsuarios.usuarioActual(), observaciones);
+			}
+			else {
+				nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.EsperaOk, ticket, GestorUsuarios.usuarioActual(), observaciones);
+			}
+		}
+		
+		ticket.acutalizarEstado(nuevoEstado);
+		
+		if(!GestorBD.guardarTicket(ticket)) {
+			return 0;
+		}
+		
+		return 1;
+	}
+
+	public static Integer cambiarClasificacion(TicketDTO ticketDTO) {
+		
+		Ticket ticket = GestorBD.buscarTicketPorId(ticketDTO.getNumTicket());
+		
+		if(ticket==null) {
+			return 0;
+		}
+		
+		if(!ticket.ultimaCalsificacion().getNombre().equals(ticketDTO.getClasificacion())) {
+			Reclasificacion reclasificacion = new Reclasificacion(ticket.ultimaCalsificacion(), GestorBD.buscarClasificacion(ticketDTO.getClasificacion()), GestorUsuarios.usuarioActual(), LocalDateTime.now());
+			ticket.cambiarClasificacion(reclasificacion);
+			if(!GestorBD.guardarTicket(ticket)) {
+				return 0;
+			}
+		}
+		
 		return 1;
 	}
 

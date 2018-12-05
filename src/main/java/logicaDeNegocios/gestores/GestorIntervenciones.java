@@ -130,4 +130,31 @@ public abstract class GestorIntervenciones {
 
 	}
 
+	public static Integer actualizarEstadoIntervencion(IntervencionDTO intervencionDTO) {
+		
+		Intervencion intervencion = GestorBD.buscarIntervencionPorId(intervencionDTO.getIdIntervencion());
+		
+		CambioEstadoIntervencion nuevoEstado = new CambioEstadoIntervencion(LocalDateTime.now(), intervencion.estadoActual(), intervencionDTO.getEstadoIntervencion(), intervencion, GestorUsuarios.usuarioActual(), intervencionDTO.getObservaciones());
+		
+		intervencion.actualizarEstado(nuevoEstado);
+		
+		//TODO
+		if(GestorTickets.cambiarEstado(intervencionDTO.getMotivo(), intervencionDTO.getNumTicket(), intervencionDTO.getObservaciones())!=1) {
+			return -2;
+		}
+		
+		if(GestorBD.guardarIntervencion(intervencion)!=1) {
+			return -3;
+		}
+		
+		TicketDTO ticketDTO = new TicketDTO(intervencionDTO.getNumTicket());
+		ticketDTO.setClasificacion(intervencionDTO.getClasificacion());
+		
+		if(GestorTickets.cambiarClasificacion(ticketDTO)!=1) {
+			return -1;
+		}
+		
+		return 1;
+	}
+
 }

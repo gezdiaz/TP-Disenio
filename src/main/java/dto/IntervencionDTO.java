@@ -19,6 +19,7 @@ public class IntervencionDTO {
 	private String grupoResolucion;
 	private String descripcionTicket;
 	private Motivos motivo;
+	private String observaciones;
 	
 	public IntervencionDTO() {
 		
@@ -113,6 +114,14 @@ public class IntervencionDTO {
 
 	public void setMotivo(Motivos motivo) {
 		this.motivo = motivo;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 
 }

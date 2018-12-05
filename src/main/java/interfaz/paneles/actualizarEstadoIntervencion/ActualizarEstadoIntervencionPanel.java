@@ -28,6 +28,7 @@ import interfaz.base.VentanaBase;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 import logicaDeNegocios.enumeraciones.Motivos;
+import logicaDeNegocios.gestores.GestorIntervenciones;
 
 public class ActualizarEstadoIntervencionPanel extends JPanel{
 
@@ -322,11 +323,46 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 	}
 
 	private void apretoAceptar() {
-		//apretoAceptar();//TODO apretoAceptar()
+		
 		if(txtObservaciones.getText().trim().isEmpty()) {
 			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 		else {
+			intervencionDTO.setObservaciones(txtObservaciones.getText());
+			for(EstadoIntervencion e: EstadoIntervencion.values()) {
+				if(listEstadoIntervencion.getSelectedItem().equals(e.name())) {
+					intervencionDTO.setEstadoIntervencion(e);
+				}
+			}
+			if(intervencionDTO.getEstadoIntervencion().equals(EstadoIntervencion.Terminado)) {
+				for(Motivos m : Motivos.values()) {
+					if(m.name().equals(listMotivo.getSelectedItem())) {
+						intervencionDTO.setMotivo(m);
+					}
+				}
+			}
+			else {
+				intervencionDTO.setMotivo(null);
+			}
+			intervencionDTO.setClasificacion((String)listClasificacion.getSelectedItem());
+			switch(GestorIntervenciones.actualizarEstadoIntervencion(intervencionDTO)) {
+			case -3:{
+				JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado del ticket", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				break;
+			}
+			case -2:{
+				JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado de la intervencion", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				break;
+			}
+			case -1:{
+				JOptionPane.showConfirmDialog(ventanaActual, "Error reclasificando el ticket", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				break;
+			}
+			case 1:{
+				JOptionPane.showConfirmDialog(ventanaActual, "Se actualizo el estado de la intervencion exitosamente", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				break;
+			}
+			}
 			ventanaActual.dispose();
 			ventanaAnterior.setVisible(true);
 		}

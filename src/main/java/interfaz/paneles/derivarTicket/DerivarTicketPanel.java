@@ -49,12 +49,12 @@ public class DerivarTicketPanel extends JPanel{
 		this.ventanaActual = ventanaActual;
 		this.ventanaAnterior = ventanaAnterior;
 		this.ticketDTO = ticketDTO;
-		//TODO que muestre el estado del ticket
+		
 		this.txtEstadoActual = new JTextField(10/*this.ticketDTO.getEstado().name()*/);
 		this.txtEstadoActual.setText(ticketDTO.getEstado().toString());
 		this.txtEstadoActual.setEditable(false);
 		this.txtEstadoActual.setFocusable(false);
-		//TODO que muestre la descripcion del ticket
+		
 		this.txtDescripcion = new JTextArea(/*"Una descripcion"*/this.ticketDTO.getDescripcion());
 		this.txtDescripcion.setEditable(false);
 		this.txtDescripcion.setFocusable(false);
@@ -339,13 +339,13 @@ public class DerivarTicketPanel extends JPanel{
 	}
 
 	private void apretoCancelar() {
-		//apretoCancelar();//TODO apretoCancelar()
+		
 		ventanaActual.dispose();
 		ventanaAnterior.setVisible(true);
 	}
 
 	private void apretoAceptar() {
-		//apretoAceptar();//TODO apretoAceptar()
+		
 		String grupoResolucion = (String) listGrupoResolucion.getSelectedItem(), clasificacion = null;
 		
 		if(txtObservaciones.getText().trim().isEmpty()) {
