@@ -27,6 +27,7 @@ import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
+import logicaDeNegocios.enumeraciones.Motivos;
 
 public class ActualizarEstadoIntervencionPanel extends JPanel{
 
@@ -39,19 +40,19 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 
 	public ActualizarEstadoIntervencionPanel(VentanaBase ventanaActual, IntervencionDTO intervencionDTO, VentanaBase ventanaAnterior) {
 		this.setLayout(new GridBagLayout());
-		JLabel labelAux;
+		JLabel labelAux, labelMotivo;
 		JScrollPane scroll;
 		GridBagConstraints cons = new GridBagConstraints();
 
 		this.ventanaActual = ventanaActual;
 		this.ventanaAnterior = ventanaAnterior;
 		this.intervencionDTO = intervencionDTO;
-		//TODO que muestre el estado de la intervencion
+		
 		this.txtEstadoActual = new JTextField(10/*this.intervencionDTO.getEstado().name()*/);
 		this.txtEstadoActual.setText(intervencionDTO.getEstadoIntervencion().name());
 		this.txtEstadoActual.setEditable(false);
 		this.txtEstadoActual.setFocusable(false);
-		//TODO que muestre la descripcion del ticket
+		
 		this.txtDescripcion = new JTextArea(intervencionDTO.getDescripcionTicket());
 		this.txtDescripcion.setEditable(false);
 		this.txtDescripcion.setFocusable(false);
@@ -63,6 +64,11 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 			listClasificacion.addItem(n);
 		}
 		this.listClasificacion.setSelectedItem(intervencionDTO.getClasificacion());
+		
+		this.listMotivo = new JComboBox<String>();
+		this.listMotivo.addItem(Motivos.Trabajo_Terminado.getName());
+		this.listMotivo.addItem(Motivos.Intervencion_Incorrecta.getName());
+		this.listMotivo.addItem(Motivos.Parcialmente_Terminada.getName());
 
 		this.listEstadoIntervencion = new JComboBox<String>();
 		this.listEstadoIntervencion.addItem("Seleccione un estado");
@@ -80,6 +86,8 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 			listEstadoIntervencion.addItem(EstadoIntervencion.Asignado.name());
 			break;
 		}
+		default:
+			break;
 		}		
 
 		this.txtObservaciones = new JTextArea(4,20);
@@ -132,15 +140,18 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 		
-		labelAux = new JLabel("Motivo");
+		labelMotivo = new JLabel("Motivo");
 		cons.gridx = 2;
 		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.weightx = 1;
-		cons.insets = new Insets(10, 50, 10, 5);
+		cons.insets = new Insets(10, 0, 10, 5);
 		cons.anchor = GridBagConstraints.WEST;
-		add(labelAux, cons);
+		/*if(!listEstadoIntervencion.getSelectedItem().equals(EstadoIntervencion.Terminado)) {
+			labelMotivo.setVisible(false);
+		}*/
+		add(labelMotivo, cons);
 
 		labelAux = new JLabel("Clasificacion*");
 		cons.gridx = 0;
@@ -200,7 +211,25 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.insets = new Insets(10, 5, 5, 5);
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
+		this.listEstadoIntervencion.addActionListener(e->{
+			if(listEstadoIntervencion.getSelectedItem().equals(EstadoIntervencion.Terminado.name())) {
+				this.listMotivo.setEnabled(true);
+			}
+			else {
+				this.listMotivo.setEnabled(false);
+			}
+		});
 		add(listEstadoIntervencion, cons);
+		
+		cons.gridx = 2;
+		cons.gridy = 3;
+		cons.gridheight = 1;
+		cons.gridwidth = 1;
+		cons.insets = new Insets(10, 5, 5, 5);
+		cons.fill = GridBagConstraints.NONE;
+		cons.anchor = GridBagConstraints.EAST;
+		this.listMotivo.setEnabled(false);
+		add(listMotivo, cons);
 
 		cons.gridx = 1;
 		cons.gridy = 4;
