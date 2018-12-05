@@ -23,6 +23,8 @@ import interfaz.paneles.actualizarEstadoIntervencion.ActualizarEstadoIntervencio
 import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
 import interfaz.paneles.consultarTicket.TablaTicketsModelo;
 import interfaz.paneles.derivarTicket.DerivarTicketPanel;
+import logicaDeNegocios.enumeraciones.EstadoIntervencion;
+import logicaDeNegocios.gestores.GestorUsuarios;
 
 public class TablaIntervencionPanel extends JPanel{
 
@@ -129,13 +131,29 @@ public class TablaIntervencionPanel extends JPanel{
 	}
 
 	private void apretoModificarComentario() {
-		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		if(tabla.getSelectedRow()!=-1) {
+			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);;
+		}
+		else {
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervencion", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 	private void apretoModificarEstado() {
-		VentanaBase ventanaModificar = new VentanaBase(ventana.getTitle(), "Usuario de Prueba", new JPanel());
-		ventana.setVisible(false);
-		ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, new IntervencionDTO(123456L), ventana));
+		if(tabla.getSelectedRow()!=-1) {
+			if(!tableModel.getIntervenciones().get(tabla.getSelectedRow()).getEstadoIntervencion().equals(EstadoIntervencion.Terminado)) {
+				VentanaBase ventanaModificar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
+				ventana.setVisible(false);
+				ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, tableModel.getIntervenciones().get(tabla.getSelectedRow()), ventana));
+			}
+			else {
+				JOptionPane.showConfirmDialog(ventana, "No se puede modificar el estado de una intervencion terminada", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+		else {
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervencion", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		}
+		
 	}
 	
 	public void setIntervenciones(List<IntervencionDTO> intervenciones) {

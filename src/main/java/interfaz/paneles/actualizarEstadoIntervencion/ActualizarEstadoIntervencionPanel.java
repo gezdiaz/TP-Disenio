@@ -48,11 +48,11 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		this.intervencionDTO = intervencionDTO;
 		//TODO que muestre el estado de la intervencion
 		this.txtEstadoActual = new JTextField(10/*this.intervencionDTO.getEstado().name()*/);
-		this.txtEstadoActual.setText(EstadoIntervencion.Asignado.name());
+		this.txtEstadoActual.setText(intervencionDTO.getEstadoIntervencion().name());
 		this.txtEstadoActual.setEditable(false);
 		this.txtEstadoActual.setFocusable(false);
 		//TODO que muestre la descripcion del ticket
-		this.txtDescripcion = new JTextArea("Una descripcion"/*this.intervencionDTO.getDescripcion()*/);
+		this.txtDescripcion = new JTextArea(intervencionDTO.getDescripcionTicket());
 		this.txtDescripcion.setEditable(false);
 		this.txtDescripcion.setFocusable(false);
 
@@ -62,18 +62,30 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		for(String n: nombresClas) {
 			listClasificacion.addItem(n);
 		}
+		this.listClasificacion.setSelectedItem(intervencionDTO.getClasificacion());
 
 		this.listEstadoIntervencion = new JComboBox<String>();
 		this.listEstadoIntervencion.addItem("Seleccione un estado");
-		listEstadoIntervencion.addItem(EstadoIntervencion.Asignado.name());
-		listEstadoIntervencion.addItem(EstadoIntervencion.EnEspera.name());
-		listEstadoIntervencion.addItem(EstadoIntervencion.Terminado.name());
-		listEstadoIntervencion.addItem(EstadoIntervencion.Trabajando.name());		
+		switch(intervencionDTO.getEstadoIntervencion()) {
+		case Asignado:{
+			listEstadoIntervencion.addItem(EstadoIntervencion.Trabajando.name());
+			break;
+		}
+		case Trabajando:{
+			listEstadoIntervencion.addItem(EstadoIntervencion.EnEspera.name());
+			listEstadoIntervencion.addItem(EstadoIntervencion.Terminado.name());
+			break;
+		}
+		case EnEspera:{
+			listEstadoIntervencion.addItem(EstadoIntervencion.Asignado.name());
+			break;
+		}
+		}		
 
 		this.txtObservaciones = new JTextArea(4,20);
 		txtObservaciones.setLineWrap(true);
 		txtObservaciones.setWrapStyleWord(true);
-//		txtObservaciones.setPreferredSize(new Dimension(200, 70));
+		//		txtObservaciones.setPreferredSize(new Dimension(200, 70));
 
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
@@ -112,6 +124,16 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 
 		labelAux = new JLabel("Nuevo estado*");
 		cons.gridx = 0;
+		cons.gridy = 3;
+		cons.gridheight = 1;
+		cons.gridwidth = 1;
+		cons.weightx = 1;
+		cons.insets = new Insets(10, 50, 10, 5);
+		cons.anchor = GridBagConstraints.WEST;
+		add(labelAux, cons);
+		
+		labelAux = new JLabel("Motivo");
+		cons.gridx = 2;
 		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
@@ -183,7 +205,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.gridx = 1;
 		cons.gridy = 4;
 		cons.gridheight = 1;
-		cons.gridwidth = 2;
+		cons.gridwidth = 3;
 		cons.insets = new Insets(10, 5, 5, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(listClasificacion, cons);
@@ -214,15 +236,15 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 			apretoAceptar();		
 		});
 		btnAceptar.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {				
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 
@@ -237,15 +259,15 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 			apretoCancelar();
 		});
 		btnCancelar.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {				
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 
