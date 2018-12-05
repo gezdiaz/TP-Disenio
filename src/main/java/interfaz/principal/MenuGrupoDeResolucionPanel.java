@@ -190,9 +190,14 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 	}
 
 	private void cerrarSesion() {
-		GestorUsuarios.cerrarSesion();
-		ventana.dispose();
-		Main.iniciarSesion();
+		int res = JOptionPane.showConfirmDialog(ventana, "Está seguro que desea cerrar sesión.", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+		if(res == JOptionPane.YES_OPTION) {
+			GestorUsuarios.cerrarSesion();
+			ventana.dispose();
+			Main.iniciarSesion();
+		}
+		
 	}
 
 	private void apretoBuscarClasificacion() {

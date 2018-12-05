@@ -317,8 +317,12 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 	}
 
 	private void apretoCancelar() {
-		ventanaActual.dispose();
-		ventanaAnterior.setVisible(true);
+		int res = JOptionPane.showConfirmDialog(ventanaActual, "Está seguro que desea cancelar la operación", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+		if(res == JOptionPane.YES_OPTION) {
+			ventanaActual.dispose();
+			ventanaAnterior.setVisible(true);
+		}
 	}
 
 	private void apretoAceptar() {

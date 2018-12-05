@@ -218,8 +218,12 @@ public class RegistrarTicket2Panel extends JPanel {
 	}
 	private void apretoCancelar() {
 		//TODO Boton cancelar en la segunda pantalla de registrar ticket
-		GestorTickets.eliminarTicket(ticketDTO);
-		ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
+		int res = JOptionPane.showConfirmDialog(ventana, "Está seguro que desea cancelar la operación, se eliminará el ticket creado.", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if(res == JOptionPane.YES_OPTION) {
+			GestorTickets.eliminarTicket(ticketDTO);
+			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
+		}
+		
 	}
 	private void apretoAceptar() {
 		if(obserbacionesTxt.getText().trim().isEmpty()) {
