@@ -1,4 +1,4 @@
-package interfaz;
+package interfaz.auxiliar;
 
 import java.awt.Component;
 

@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 
 import dto.TicketDTO;
-import interfaz.TablaRender;
+import interfaz.auxiliar.TablaRender;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.cerrarTicket.CerrarTicketPanel;
 import interfaz.paneles.derivarTicket.DerivarTicketPanel;

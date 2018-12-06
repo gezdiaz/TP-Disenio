@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import dto.IntervencionDTO;
-import interfaz.TablaRender;
+import interfaz.auxiliar.TablaRender;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.actualizarEstadoIntervencion.ActualizarEstadoIntervencionPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;

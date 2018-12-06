@@ -35,9 +35,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.DocumentFilter;
 
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
+import interfaz.auxiliar.LimiteTexto;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.entidades.Empleado;
@@ -46,17 +51,19 @@ import logicaDeNegocios.gestores.SistemaPersonal;
 
 public class RegistrarTicketPanel extends JPanel {
 
-	VentanaBase ventana;
-	Boolean legajoValido;
-	JButton btnAceptar, btnCancelar;
-	JTextField txtNumTicket, txtNumLegajo, txtFechaAp, txtHoraAp;
-	JComboBox</*Clasificacion*/String> listClasificacion; //TODO Cambiar String por clasificacion cuando esa clase exista
-	JTextArea txtDescripcion;
-	JLabel infoEmpleado; /*Si no ingreso legajo, "Ingrese legajo" en negro
-						   Si el legajo no es válido, "Legajo inválido" en rojo
-						   Si el legajo es válido, "Nombre y apellido" en verde*/
-	TicketDTO ticketDTO;
-	LocalDateTime fecha;
+	private VentanaBase ventana;
+	private Boolean legajoValido;
+	private JButton btnAceptar, btnCancelar;
+	private JTextField txtNumTicket, txtNumLegajo, txtFechaAp, txtHoraAp;
+	private JComboBox</*Clasificacion*/String> listClasificacion; //TODO Cambiar String por clasificacion cuando esa clase exista
+	private JTextArea txtDescripcion;
+	private JLabel infoEmpleado; /*Si no ingreso legajo, "Ingrese legajo" en negro
+						   		   Si el legajo no es válido, "Legajo inválido" en rojo
+						   		   Si el legajo es válido, "Nombre y apellido" en verde*/
+	private TicketDTO ticketDTO;
+	private LocalDateTime fecha;
+	private JLabel caracteresRestantes;
+	
 
 	public RegistrarTicketPanel(VentanaBase ventana) {
 		this();
@@ -95,11 +102,33 @@ public class RegistrarTicketPanel extends JPanel {
 		txtHoraAp.setFocusable(false);
 
 		txtNumLegajo = new JTextField(15);
+		AbstractDocument doc = (AbstractDocument) txtNumLegajo.getDocument();
+		doc.setDocumentFilter(new LimiteTexto(6));
+		
+		caracteresRestantes = new JLabel("Caracteres restantes: 250");
 
 		txtDescripcion = new JTextArea(4, 20);
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setWrapStyleWord(true);
 		JScrollPane descripcionScroll = new JScrollPane(txtDescripcion);
+		doc = (AbstractDocument) txtDescripcion.getDocument();
+		doc.setDocumentFilter(new LimiteTexto(250));
+		doc.addDocumentListener(new DocumentListener() {
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+		});
 
 		infoEmpleado = new JLabel("Ingrese un legajo");
 		infoEmpleado.setPreferredSize(new Dimension(180, infoEmpleado.getFont().getSize()+4));
@@ -334,6 +363,16 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		cons.weightx = 2;
 		add(infoEmpleado, cons);
+		
+		cons.gridx = 2;
+		cons.gridy = 3;
+		cons.gridheight = 1;
+		cons.gridwidth = 1;
+		cons.insets = insetsIzquierda;
+		cons.anchor = GridBagConstraints.EAST;
+		cons.fill = GridBagConstraints.NONE;
+		cons.weightx = 2;
+		add(caracteresRestantes, cons);
 
 		labelAux = new JLabel("dd/mm/aaaa");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
