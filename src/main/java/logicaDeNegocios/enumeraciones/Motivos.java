@@ -4,9 +4,9 @@ public enum Motivos {
 	
 	
 	
-	Parcialmente_Terminada("Parcialmente Terminada"),
-	Trabajo_Terminado("Trabajo Terminado"), 
-	Intervencion_Incorrecta("Intervencion Incorrecta");
+	PARCIALMENTE_TERMINADA("Parcialmente Terminada"),
+	TRABAJO_TERMINADO("Trabajo Terminado"), 
+	INTERVENCION_INCORRECTA("Intervencion Incorrecta");
 	
 	private String name;
 	

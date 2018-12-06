@@ -200,7 +200,7 @@ public class TablaTicketsPanel extends JPanel {
 	private void apretoDerivar() {
 		//TODO que envie el ticket seleccionado
 		if(tabla.getSelectedRow()!=-1) {
-			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.EsperaOk) || tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.Abierto)) {
+			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.ESPERA_OK) || tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.EN_MESA_DE_AYUDA)) {
 				VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
 				ventana.setVisible(false);
 				ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));
@@ -222,7 +222,7 @@ public class TablaTicketsPanel extends JPanel {
 	private void apretoCerrar() {
 		//TODO que envie el ticket seleccionado
 		if(tabla.getSelectedRow()!=-1) {
-			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.EsperaOk)) {
+			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.ESPERA_OK)) {
 				VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
 				ventana.setVisible(false);
 				ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));

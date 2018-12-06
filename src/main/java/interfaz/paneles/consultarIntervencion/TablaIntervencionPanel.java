@@ -139,7 +139,7 @@ public class TablaIntervencionPanel extends JPanel{
 
 	private void apretoModificarEstado() {
 		if(tabla.getSelectedRow()!=-1) {
-			if(!tableModel.getIntervenciones().get(tabla.getSelectedRow()).getEstadoIntervencion().equals(EstadoIntervencion.Terminado)) {
+			if(!tableModel.getIntervenciones().get(tabla.getSelectedRow()).getEstadoIntervencion().equals(EstadoIntervencion.TERMINADO)) {
 				VentanaBase ventanaModificar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
 				ventana.setVisible(false);
 				ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, tableModel.getIntervenciones().get(tabla.getSelectedRow()), ventana));

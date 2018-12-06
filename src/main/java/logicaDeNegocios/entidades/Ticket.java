@@ -31,12 +31,15 @@ public class Ticket {
 	private Usuario operador; 
 
 	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
+	@OrderBy("idCambioTick ASC")
 	private List<CambioEstadoTicket> historialCambioEstadoTicket;
 
 	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
+	@OrderBy("idRecla ASC")
 	private List<Reclasificacion> historialReclasificacion;
 
 	@OneToMany(mappedBy = "ticket", cascade = {CascadeType.ALL})
+	@OrderBy("idInt ASC")
 	private List<Intervencion> intervenciones;
 	
 
@@ -147,7 +150,6 @@ public class Ticket {
 	public EstadoTicket estadoActual() {
 		CambioEstadoTicket ultimoCambio = historialCambioEstadoTicket.get(historialCambioEstadoTicket.size()-1);
 		EstadoTicket actual = ultimoCambio.getEstadoNuevo();
-
 		//		for(CambioEstadoTicket c: historialCambioEstadoTicket) {
 		//			if(c.getFechaHoraCambio().compareTo(ultimoCambio.getFechaHoraCambio()) > 0) {
 		//				ultimoCambio = c;

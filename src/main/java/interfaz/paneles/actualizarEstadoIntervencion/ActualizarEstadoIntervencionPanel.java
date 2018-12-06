@@ -67,24 +67,24 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		this.listClasificacion.setSelectedItem(intervencionDTO.getClasificacion());
 		
 		this.listMotivo = new JComboBox<String>();
-		this.listMotivo.addItem(Motivos.Trabajo_Terminado.getName());
-		this.listMotivo.addItem(Motivos.Intervencion_Incorrecta.getName());
-		this.listMotivo.addItem(Motivos.Parcialmente_Terminada.getName());
+		this.listMotivo.addItem(Motivos.TRABAJO_TERMINADO.getName());
+		this.listMotivo.addItem(Motivos.INTERVENCION_INCORRECTA.getName());
+		this.listMotivo.addItem(Motivos.PARCIALMENTE_TERMINADA.getName());
 
 		this.listEstadoIntervencion = new JComboBox<String>();
 		this.listEstadoIntervencion.addItem("Seleccione un estado");
 		switch(intervencionDTO.getEstadoIntervencion()) {
-		case Asignado:{
-			listEstadoIntervencion.addItem(EstadoIntervencion.Trabajando.name());
+		case ASIGNADO:{
+			listEstadoIntervencion.addItem(EstadoIntervencion.TRABAJANDO.name());
 			break;
 		}
-		case Trabajando:{
-			listEstadoIntervencion.addItem(EstadoIntervencion.EnEspera.name());
-			listEstadoIntervencion.addItem(EstadoIntervencion.Terminado.name());
+		case TRABAJANDO:{
+			listEstadoIntervencion.addItem(EstadoIntervencion.EN_ESPERA.name());
+			listEstadoIntervencion.addItem(EstadoIntervencion.TERMINADO.name());
 			break;
 		}
-		case EnEspera:{
-			listEstadoIntervencion.addItem(EstadoIntervencion.Asignado.name());
+		case EN_ESPERA:{
+			listEstadoIntervencion.addItem(EstadoIntervencion.ASIGNADO.name());
 			break;
 		}
 		default:
@@ -213,7 +213,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
 		this.listEstadoIntervencion.addActionListener(e->{
-			if(listEstadoIntervencion.getSelectedItem().equals(EstadoIntervencion.Terminado.name())) {
+			if(listEstadoIntervencion.getSelectedItem().equals(EstadoIntervencion.TERMINADO.name())) {
 				this.listMotivo.setEnabled(true);
 			}
 			else {
@@ -338,7 +338,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 					intervencionDTO.setEstadoIntervencion(e);
 				}
 			}
-			if(intervencionDTO.getEstadoIntervencion().equals(EstadoIntervencion.Terminado)) {
+			if(intervencionDTO.getEstadoIntervencion().equals(EstadoIntervencion.TERMINADO)) {
 				for(Motivos m : Motivos.values()) {
 					if(m.name().equals(listMotivo.getSelectedItem())) {
 						intervencionDTO.setMotivo(m);

@@ -38,11 +38,11 @@ public abstract class GestorIntervenciones {
 //			return null;
 //		}
 
-		CambioEstadoIntervencion cambioEstado1 = new CambioEstadoIntervencion(LocalDateTime.now(), null, EstadoIntervencion.Asignado, intervencion, usuario, observaciones);
+		CambioEstadoIntervencion cambioEstado1 = new CambioEstadoIntervencion(LocalDateTime.now(), null, EstadoIntervencion.ASIGNADO, intervencion, usuario, observaciones);
 
 		intervencion.actualizarEstado(cambioEstado1);
 
-		CambioEstadoIntervencion cambioEstado2 = new CambioEstadoIntervencion(LocalDateTime.now(), intervencion.estadoActual(), EstadoIntervencion.Trabajando, intervencion, usuario, observaciones);
+		CambioEstadoIntervencion cambioEstado2 = new CambioEstadoIntervencion(LocalDateTime.now(), intervencion.estadoActual(), EstadoIntervencion.TRABAJANDO, intervencion, usuario, observaciones);
 
 		intervencion.actualizarEstado(cambioEstado2);
 
@@ -65,7 +65,7 @@ public abstract class GestorIntervenciones {
 
 		ultima.setObservaciones(observaciones);
 
-		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), ultima.estadoActual(), EstadoIntervencion.Terminado, ultima, GestorUsuarios.usuarioActual(), observaciones);
+		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), ultima.estadoActual(), EstadoIntervencion.TERMINADO, ultima, GestorUsuarios.usuarioActual(), observaciones);
 
 		ultima.actualizarEstado(cambioEstado);
 
@@ -93,7 +93,7 @@ public abstract class GestorIntervenciones {
 		}
 		Intervencion intervencion = new Intervencion(observaciones, LocalDateTime.now(), ticket, grupo);
 		
-		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), null,	EstadoIntervencion.Asignado,
+		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), null,	EstadoIntervencion.ASIGNADO,
 																			 intervencion, usuario, observaciones);
 		
 		intervencion.actualizarEstado(cambioEstado);

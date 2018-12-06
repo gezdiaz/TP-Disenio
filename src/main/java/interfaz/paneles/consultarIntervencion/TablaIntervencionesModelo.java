@@ -57,13 +57,13 @@ public class TablaIntervencionesModelo extends AbstractTableModel{
 			valor = intervenciones.get(rowIndex).getClasificacion();
 			break;
 		case 3:
-			valor = intervenciones.get(rowIndex).getEstadoTicket().name();
+			valor = intervenciones.get(rowIndex).getEstadoTicket().getName();
 			break;
 		case 4:
 			valor = intervenciones.get(rowIndex).getFechaApertura().format(DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.getDefault()));
 			break;
 		case 5:
-			valor = intervenciones.get(rowIndex).getEstadoIntervencion().name();
+			valor = intervenciones.get(rowIndex).getEstadoIntervencion().getName();
 			break;
 		case 6:
 			valor = intervenciones.get(rowIndex).getFechaAsignacionIntervencion().format(DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.getDefault()));

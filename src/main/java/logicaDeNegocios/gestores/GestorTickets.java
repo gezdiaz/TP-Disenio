@@ -42,7 +42,7 @@ public abstract class GestorTickets {
 		ticket.setOperador(usuario);
 
 		//Cambia el estado a Abierto
-		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), null, EstadoTicket.Abierto, ticket , usuario, ticketDTO.getDescripcion());
+		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), null, EstadoTicket.EN_MESA_DE_AYUDA, ticket , usuario, ticketDTO.getDescripcion());
 
 		ticket.acutalizarEstado(cambioEstado);
 
@@ -96,7 +96,7 @@ public abstract class GestorTickets {
 			return 0;
 		}
 
-		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Cerrado, ticket, GestorUsuarios.usuarioActual(), observaciones);
+		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.CERRADO, ticket, GestorUsuarios.usuarioActual(), observaciones);
 
 		//		if(!GestorBD.guardarCambioEstadoTIcket(nuevoEstado)) {
 		//			return 0;
@@ -149,7 +149,7 @@ public abstract class GestorTickets {
 
 		ticket.agregarIntervencion(intervencion);
 
-		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Derivado,
+		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.DERIVADO,
 				ticket, usuario, observaciones);
 		ticket.acutalizarEstado(cambioEstado);
 
@@ -176,7 +176,7 @@ public abstract class GestorTickets {
 			return -1;
 		}
 
-		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(),ticket.estadoActual(),EstadoTicket.Cerrado,ticket,GestorUsuarios.usuarioActual(),observaciones);
+		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(),ticket.estadoActual(),EstadoTicket.CERRADO,ticket,GestorUsuarios.usuarioActual(),observaciones);
 
 		ticket.acutalizarEstado(nuevoEstado);
 
@@ -215,7 +215,7 @@ public abstract class GestorTickets {
 		Intervencion intervencion=null;
 		if(!intervenciones.isEmpty()) {
 			for(Intervencion i : intervenciones) {
-				if(i.estadoActual().equals(EstadoIntervencion.EnEspera)) {
+				if(i.estadoActual().equals(EstadoIntervencion.EN_ESPERA)) {
 					intervencion = i;
 				}
 			}
@@ -224,12 +224,12 @@ public abstract class GestorTickets {
 			intervencion = GestorIntervenciones.crearIntervencion(ticket, nombreGrupo, observaciones);
 		}
 		else {
-			GestorIntervenciones.actualizarEstado(intervencion,EstadoIntervencion.Asignado, observaciones);
+			GestorIntervenciones.actualizarEstado(intervencion,EstadoIntervencion.ASIGNADO, observaciones);
 		}
 		ticket.agregarIntervencion(intervencion);
 
 		Usuario usuario = GestorUsuarios.usuarioActual();
-		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Derivado, ticket, usuario, observaciones);
+		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.DERIVADO, ticket, usuario, observaciones);
 		ticket.acutalizarEstado(nuevoEstado);
 
 		if(clasificacion != null) {
@@ -261,20 +261,20 @@ public abstract class GestorTickets {
 			return 0;
 		}
 		
-		if(motivo==null || motivo.equals(Motivos.Intervencion_Incorrecta) || motivo.equals(Motivos.Parcialmente_Terminada)) {
-			nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Abierto, ticket, GestorUsuarios.usuarioActual(), observaciones);
+		if(motivo==null || motivo.equals(Motivos.INTERVENCION_INCORRECTA) || motivo.equals(Motivos.PARCIALMENTE_TERMINADA)) {
+			nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.EN_MESA_DE_AYUDA, ticket, GestorUsuarios.usuarioActual(), observaciones);
 		}
-		if(motivo!=null && motivo.equals(Motivos.Trabajo_Terminado)) {
+		if(motivo!=null && motivo.equals(Motivos.TRABAJO_TERMINADO)) {
 			for(Intervencion i : ticket.getIntervenciones()) {
-				if(i.estadoActual().equals(EstadoIntervencion.EnEspera)) {
+				if(i.estadoActual().equals(EstadoIntervencion.EN_ESPERA)) {
 					bandera = true;
 				}
 			}
 			if(bandera) {
-				nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.Abierto, ticket, GestorUsuarios.usuarioActual(), observaciones);
+				nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.EN_MESA_DE_AYUDA, ticket, GestorUsuarios.usuarioActual(), observaciones);
 			}
 			else {
-				nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.EsperaOk, ticket, GestorUsuarios.usuarioActual(), observaciones);
+				nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.ESPERA_OK, ticket, GestorUsuarios.usuarioActual(), observaciones);
 			}
 		}
 		

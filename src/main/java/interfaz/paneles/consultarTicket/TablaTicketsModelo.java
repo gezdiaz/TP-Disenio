@@ -63,7 +63,7 @@ public class TablaTicketsModelo extends AbstractTableModel {
 			valor = tickets.get(rowIndex).getClasificacion();
 			break;
 		case 6:
-			valor = tickets.get(rowIndex).getEstado().name();
+			valor = tickets.get(rowIndex).getEstado().getName();
 			break;
 		case 7:
 			valor = tickets.get(rowIndex).getFechaUltimoCambioEstado().format(DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.getDefault()));

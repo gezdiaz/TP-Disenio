@@ -72,9 +72,9 @@ public class ConsultarTicketPanel extends JPanel {
 		listEstadoActual = new JComboBox<String>();
 		listEstadoActual.addItem("Todos los estados");
 		for(EstadoTicket e: EstadoTicket.values()) {
-			listEstadoActual.addItem(e.name());
+			listEstadoActual.addItem(e.getName());
 		}
-		listEstadoActual.setSelectedItem(EstadoTicket.Abierto.name());
+		listEstadoActual.setSelectedItem(EstadoTicket.EN_MESA_DE_AYUDA.getName());
 		
 		txtFechaUltimoCambio = new JTextField(10);
 		
@@ -375,7 +375,7 @@ public class ConsultarTicketPanel extends JPanel {
 		}
 		if(!listEstadoActual.getSelectedItem().equals("Todos los estados")) {
 			for(EstadoTicket e: EstadoTicket.values()) {
-				if(e.name().equals(listEstadoActual.getSelectedItem())) {
+				if(e.getName().equals(listEstadoActual.getSelectedItem())) {
 					estadoActual = e;
 				}
 			}

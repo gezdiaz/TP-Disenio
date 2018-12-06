@@ -18,33 +18,21 @@ public class TicketDTO {
 		numTicket = num;
 	}
 	
-	
-	
-	
 	public String getNombreOperador() {
 		return nombreOperador;
 	}
-
-
-
 
 	public void setNombreOperador(String nombreOperador) {
 		this.nombreOperador = nombreOperador;
 	}
 
-
-
-
 	public String getGrupoActual() {
 		return grupoActual;
 	}
 
-
 	public void setGrupoActual(String grupoActual) {
 		this.grupoActual = grupoActual;
 	}
-
-
 
 
 	public LocalDateTime getFechaUltimoCambioEstado() {

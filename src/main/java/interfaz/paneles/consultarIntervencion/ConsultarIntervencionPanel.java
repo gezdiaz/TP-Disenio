@@ -52,9 +52,9 @@ public class ConsultarIntervencionPanel extends JPanel {
 		listEstado = new JComboBox<String>();
 		listEstado.addItem("Todos los estados");
 		for(EstadoIntervencion e: EstadoIntervencion.values()) {
-			listEstado.addItem(e.name());
+			listEstado.addItem(e.getName());
 		}
-		listEstado.setSelectedItem(EstadoIntervencion.Asignado.name());
+		listEstado.setSelectedItem(EstadoIntervencion.ASIGNADO.getName());
 		
 		labelAux = new JLabel("Consultar intervenciones asignadas");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
@@ -297,7 +297,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		}
 		if(!listEstado.getSelectedItem().equals("Todos los estados")) {
 			for(EstadoIntervencion e: EstadoIntervencion.values()) {
-				if(e.name().equals(listEstado.getSelectedItem())) {
+				if(e.getName().equals(listEstado.getSelectedItem())) {
 					estadoActual = e;
 				}
 			}
