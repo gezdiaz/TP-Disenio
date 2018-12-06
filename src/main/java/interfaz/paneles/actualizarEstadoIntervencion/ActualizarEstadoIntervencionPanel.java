@@ -340,7 +340,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 			}
 			if(intervencionDTO.getEstadoIntervencion().equals(EstadoIntervencion.TERMINADO)) {
 				for(Motivos m : Motivos.values()) {
-					if(m.name().equals(listMotivo.getSelectedItem())) {
+					if(m.getName().equals(listMotivo.getSelectedItem())) {
 						intervencionDTO.setMotivo(m);
 					}
 				}

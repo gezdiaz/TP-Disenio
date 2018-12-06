@@ -306,7 +306,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		intervencionesDTO = GestorIntervenciones.consultarIntervencion(estadoActual,fechaDesde,fechaHasta,numTicket,numLegajo);
 		
 		if(intervencionesDTO.isEmpty()) {
-			JOptionPane.showConfirmDialog(ventana, "No se encontraron tickets con los criterios ingresados", "No se encontraron tickets", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showConfirmDialog(ventana, "No se encontraron intervenciones con los criterios ingresados", "No se encontraron intervenciones", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			//return;
 		}
 		tablaResultados.setIntervenciones(intervencionesDTO);

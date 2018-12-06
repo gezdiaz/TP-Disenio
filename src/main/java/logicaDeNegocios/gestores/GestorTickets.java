@@ -70,7 +70,7 @@ public abstract class GestorTickets {
 		//			return false;
 		//		}
 
-		if(!GestorBD.actualizarTicket(ticket)) {
+		if(!GestorBD.guardarTicket(ticket)) {
 			return false;
 		}
 		return true;
@@ -104,7 +104,7 @@ public abstract class GestorTickets {
 
 		ticket.acutalizarEstado(nuevoEstado);
 		//no se pudo guardar en base de datos
-		if(!GestorBD.actualizarTicket(ticket)) {
+		if(!GestorBD.guardarTicket(ticket)) {
 			return -2;
 		}
 
@@ -153,7 +153,7 @@ public abstract class GestorTickets {
 				ticket, usuario, observaciones);
 		ticket.acutalizarEstado(cambioEstado);
 
-		if(!GestorBD.actualizarTicket(ticket)) {
+		if(!GestorBD.guardarTicket(ticket)) {
 			return -2;
 		}
 
@@ -181,7 +181,7 @@ public abstract class GestorTickets {
 		ticket.acutalizarEstado(nuevoEstado);
 
 		//no se pudo guardar en base de datos
-		if(!GestorBD.actualizarTicket(ticket)) {
+		if(!GestorBD.guardarTicket(ticket)) {
 			return -2;
 		}
 
@@ -263,18 +263,19 @@ public abstract class GestorTickets {
 		
 		if(motivo==null || motivo.equals(Motivos.INTERVENCION_INCORRECTA) || motivo.equals(Motivos.PARCIALMENTE_TERMINADA)) {
 			nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.EN_MESA_DE_AYUDA, ticket, GestorUsuarios.usuarioActual(), observaciones);
-		}
-		if(motivo!=null && motivo.equals(Motivos.TRABAJO_TERMINADO)) {
-			for(Intervencion i : ticket.getIntervenciones()) {
-				if(i.estadoActual().equals(EstadoIntervencion.EN_ESPERA) && !i.getIdInt().equals(idIntervencion)) {
-					bandera = true;
+		}else {
+			if(motivo.equals(Motivos.TRABAJO_TERMINADO)) {
+				for(Intervencion i : ticket.getIntervenciones()) {
+					if(i.estadoActual().equals(EstadoIntervencion.EN_ESPERA)) {
+						bandera = true;
+					}
 				}
-			}
-			if(bandera) {
-				nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.EN_MESA_DE_AYUDA, ticket, GestorUsuarios.usuarioActual(), observaciones);
-			}
-			else {
-				nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.ESPERA_OK, ticket, GestorUsuarios.usuarioActual(), observaciones);
+				if(bandera) {
+					nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.EN_MESA_DE_AYUDA, ticket, GestorUsuarios.usuarioActual(), observaciones);
+				}
+				else {
+					nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.ESPERA_OK, ticket, GestorUsuarios.usuarioActual(), observaciones);
+				}
 			}
 		}
 		
