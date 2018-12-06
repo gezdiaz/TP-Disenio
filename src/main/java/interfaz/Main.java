@@ -18,6 +18,7 @@ public class Main {
 
 		UIManager.put("OptionPane.background", new Color(163,255,140));
 		UIManager.put("Panel.background", new Color(163,255,140));
+		UIManager.put("Button.defaultButtonFollowsFocus", Boolean.TRUE);
 
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
