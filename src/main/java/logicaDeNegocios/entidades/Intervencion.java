@@ -33,6 +33,7 @@ public class Intervencion {
 	private GrupoResolucion grupoResolucion;
 
 	@OneToMany(mappedBy = "intervencion", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@OrderBy("idCambioInt ASC")
 	private List<CambioEstadoIntervencion> historialCambioEstadoIntervencion;
 
 
