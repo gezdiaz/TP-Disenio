@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
+import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
 import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.gestores.GestorTickets;
 
@@ -28,8 +29,9 @@ public class CerrarTicketPanel extends JPanel{
 	private JTextArea txtObservaciones;
 	private JButton btnAceptar, btnCancelar;
 	private TicketDTO ticketDTO;
-
-	public CerrarTicketPanel(VentanaBase ventanaActual, TicketDTO ticketDTO, VentanaBase ventanaAnterior) {
+	private ConsultarTicketPanel consultarTicketPanel;
+	
+	public CerrarTicketPanel(VentanaBase ventanaActual, TicketDTO ticketDTO, VentanaBase ventanaAnterior, ConsultarTicketPanel consultarTicketPanel) {
 		this.setLayout(new GridBagLayout());
 		JLabel labelAux;
 		JScrollPane scroll;
@@ -37,6 +39,7 @@ public class CerrarTicketPanel extends JPanel{
 		GridBagConstraints cons = new GridBagConstraints();
 		this.ventanaActual = ventanaActual;
 		this.ventanaAnterior = ventanaAnterior;
+		this.consultarTicketPanel = consultarTicketPanel;
 		this.ticketDTO = ticketDTO;
 
 		txtObservaciones = new JTextArea();
@@ -216,8 +219,9 @@ public class CerrarTicketPanel extends JPanel{
 				break;
 			}
 			case 1:{JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido cerrado exitosamente", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			ventanaActual.dispose();
-			ventanaAnterior.setVisible(true);
+				ventanaActual.dispose();
+				ventanaAnterior.setVisible(true);
+				consultarTicketPanel.buscar();
 			break;
 			}
 			default:{}

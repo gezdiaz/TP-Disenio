@@ -81,7 +81,7 @@ public class ConsultarTicketPanel extends JPanel {
 		btnBuscar = new JButton("Buscar");
 		btnVolver = new JButton("Vover");
 		
-		tablaResultados = new TablaTicketsPanel(new ArrayList<TicketDTO>(), ventana);
+		tablaResultados = new TablaTicketsPanel(new ArrayList<TicketDTO>(), ventana, this);
 		
 		labelAux = new JLabel("Consultar Ticket");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
@@ -251,7 +251,7 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.CENTER;
 		btnBuscar.addActionListener(a -> {
-			apretoBuscar();
+			buscar();
 		});
 		btnBuscar.addKeyListener(new KeyListener() {
 			
@@ -267,7 +267,7 @@ public class ConsultarTicketPanel extends JPanel {
 			public void keyPressed(KeyEvent e) {
 
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					apretoBuscar();
+					buscar();
 				}
 			}
 		});
@@ -323,7 +323,7 @@ public class ConsultarTicketPanel extends JPanel {
 		ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 	}
 
-	private void apretoBuscar() {
+	public void buscar() {
 		
 		List<TicketDTO> ticketsDTO = new ArrayList<TicketDTO>();
 		Long numTicket = null, numLegajo = null;

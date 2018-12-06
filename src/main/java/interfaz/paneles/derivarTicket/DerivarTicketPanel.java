@@ -27,6 +27,7 @@ import org.w3c.dom.ls.LSInput;
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
+import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 import logicaDeNegocios.gestores.GestorTickets;
 
@@ -38,8 +39,9 @@ public class DerivarTicketPanel extends JPanel{
 	private JTextArea txtObservaciones , txtDescripcion;
 	private JButton btnAceptar, btnCancelar;
 	private TicketDTO ticketDTO;
+	private ConsultarTicketPanel consultarTicketPanel;
 
-	public DerivarTicketPanel(VentanaBase ventanaActual, TicketDTO ticketDTO, VentanaBase ventanaAnterior) {
+	public DerivarTicketPanel(VentanaBase ventanaActual, TicketDTO ticketDTO, VentanaBase ventanaAnterior, ConsultarTicketPanel consultarTicketPanel) {
 
 		this.setLayout(new GridBagLayout());
 		JLabel labelAux;
@@ -49,6 +51,7 @@ public class DerivarTicketPanel extends JPanel{
 		this.ventanaActual = ventanaActual;
 		this.ventanaAnterior = ventanaAnterior;
 		this.ticketDTO = ticketDTO;
+		this.consultarTicketPanel = consultarTicketPanel;
 		
 		this.txtEstadoActual = new JTextField(10/*this.ticketDTO.getEstado().name()*/);
 		this.txtEstadoActual.setText(ticketDTO.getEstado().toString());
@@ -382,8 +385,9 @@ public class DerivarTicketPanel extends JPanel{
 					break;
 				}
 				case 1:{JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido derivado exitosamente\n al grupo: "+grupoResolucion, "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-				ventanaActual.dispose();
-				ventanaAnterior.setVisible(true);
+					ventanaActual.dispose();
+					ventanaAnterior.setVisible(true);
+					consultarTicketPanel.buscar();
 				break;
 				}
 				default:{}

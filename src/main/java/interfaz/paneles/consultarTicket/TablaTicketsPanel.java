@@ -32,9 +32,11 @@ public class TablaTicketsPanel extends JPanel {
 	private JTable tabla;
 	private TablaTicketsModelo tableModel;
 	VentanaBase ventana;
+	ConsultarTicketPanel consultarTicketPanel;
 
-	public TablaTicketsPanel(List<TicketDTO> tickets, VentanaBase ventana) {
+	public TablaTicketsPanel(List<TicketDTO> tickets, VentanaBase ventana, ConsultarTicketPanel consultarTicketPanel) {
 		this.ventana = ventana;
+		this.consultarTicketPanel = consultarTicketPanel;
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints cons = new GridBagConstraints();
 		JLabel labelAux;
@@ -203,7 +205,7 @@ public class TablaTicketsPanel extends JPanel {
 			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.ESPERA_OK) || tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.EN_MESA_DE_AYUDA)) {
 				VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
 				ventana.setVisible(false);
-				ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));
+				ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana, consultarTicketPanel));
 			}
 			else {
 				JOptionPane.showConfirmDialog(ventana, "Solo se pueden derivar tickets en estado Abierto o en Espera Ok", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -225,7 +227,7 @@ public class TablaTicketsPanel extends JPanel {
 			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.ESPERA_OK)) {
 				VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
 				ventana.setVisible(false);
-				ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana));
+				ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana, consultarTicketPanel));
 			}
 			else {
 				JOptionPane.showConfirmDialog(ventana, "Solo se pueden cerrar tickets en estado Espera Ok", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
