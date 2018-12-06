@@ -185,7 +185,7 @@ public class InicioSesionPanel extends JPanel {
 					base = new VentanaBase("Mesa de ayuda", txtUsuario.getText().trim(), mmap);
 					mmap.setVentana(base);
 				}else {
-					MenuGrupoDeResolucionPanel mgrp = new MenuGrupoDeResolucionPanel();
+					MenuGrupoDeResolucionPanel mgrp = new MenuGrupoDeResolucionPanel(GestorUsuarios.usuarioActual().getGrupo().getNombre());
 					base = new VentanaBase("Grupo de resolución", txtUsuario.getText().trim(), mgrp);
 					mgrp.setVentana(base);
 				}

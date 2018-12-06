@@ -31,8 +31,8 @@ public class TablaTicketsPanel extends JPanel {
 	private JButton btnVer, btnCerrar, btnDerivar, btnConfigurarReporte;
 	private JTable tabla;
 	private TablaTicketsModelo tableModel;
-	VentanaBase ventana;
-	ConsultarTicketPanel consultarTicketPanel;
+	private VentanaBase ventana;
+	private ConsultarTicketPanel consultarTicketPanel;
 
 	public TablaTicketsPanel(List<TicketDTO> tickets, VentanaBase ventana, ConsultarTicketPanel consultarTicketPanel) {
 		this.ventana = ventana;

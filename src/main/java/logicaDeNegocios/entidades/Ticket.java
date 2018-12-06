@@ -164,11 +164,11 @@ public class Ticket {
 
 		Intervencion ultima = this.intervenciones.get(intervenciones.size()-1);
 
-		//		for(Intervencion i : intervenciones) {
-		//			if(i.getFechaHoraASignacion().compareTo(ultima.getFechaHoraASignacion())>0) {
-		//				ultima = i;
-		//			}
-		//		}
+		for(Intervencion i : intervenciones) {
+			if(i.ultimoCambioEstado().getFechaHoraCambio().compareTo(ultima.ultimoCambioEstado().getFechaHoraCambio()) > 0) {
+				ultima = i;
+			}
+		}
 
 		return ultima;
 	}

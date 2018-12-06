@@ -150,5 +150,10 @@ public class Intervencion {
 				+ ", grupoResolucion=" + grupoResolucion + ", historialCambioEstadoIntervencion="
 				+ historialCambioEstadoIntervencion + "]";
 	}
+
+	public CambioEstadoIntervencion ultimoCambioEstado() {
+		
+		return historialCambioEstadoIntervencion.get(historialCambioEstadoIntervencion.size()-1);
+	}
 	
 }

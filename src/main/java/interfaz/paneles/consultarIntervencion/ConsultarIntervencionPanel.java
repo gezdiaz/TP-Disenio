@@ -1,11 +1,9 @@
 package interfaz.paneles.consultarIntervencion;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.color.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.time.LocalDate;
@@ -13,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -21,17 +18,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import accesoADatos.GestorBD;
 import dto.IntervencionDTO;
-import dto.TicketDTO;
 import interfaz.base.VentanaBase;
-import interfaz.paneles.consultarTicket.TablaTicketsPanel;
 import interfaz.principal.MenuGrupoDeResolucionPanel;
-import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
-import logicaDeNegocios.enumeraciones.EstadoTicket;
 import logicaDeNegocios.gestores.GestorIntervenciones;
-import logicaDeNegocios.gestores.GestorTickets;
+import logicaDeNegocios.gestores.GestorUsuarios;
 
 public class ConsultarIntervencionPanel extends JPanel {
 
@@ -314,7 +306,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 	}
 
 	private void apretoVolver() {
-		ventana.cambiarPanel(new MenuGrupoDeResolucionPanel(ventana));
+		ventana.cambiarPanel(new MenuGrupoDeResolucionPanel(ventana, GestorUsuarios.usuarioActual().getGrupo().getNombre()));
 	}
 
 }

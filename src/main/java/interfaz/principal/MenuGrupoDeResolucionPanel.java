@@ -25,8 +25,8 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 	VentanaBase ventana;
 	JButton btnConsultarIntervenciones, btnRegistrarClasificacion, btnBuscarClasificacion, btnCerrarSesion;
 
-	public MenuGrupoDeResolucionPanel(VentanaBase ventana) {
-		this();
+	public MenuGrupoDeResolucionPanel(VentanaBase ventana, String nombreGrupo) {
+		this(nombreGrupo);
 		setVentana(ventana);
 	}
 
@@ -34,7 +34,7 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 		this.ventana = ventana;
 	}
 
-	public MenuGrupoDeResolucionPanel() {
+	public MenuGrupoDeResolucionPanel(String nombreGrupo) {
 
 		GridBagConstraints cons = new GridBagConstraints();
 		setLayout(new GridBagLayout());
@@ -48,12 +48,12 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 		
 		this.btnCerrarSesion = new JButton("Cerrar Sesión");
 
-		labelAux = new JLabel("Grupo de resolucion");
+		labelAux = new JLabel("Grupo de resolucion: "+nombreGrupo);
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
 		cons.gridx = 0;
 		cons.gridy = 0;
 		cons.gridheight = 1;
-		cons.gridwidth = 1;
+		cons.gridwidth = 2;
 		cons.anchor = GridBagConstraints.WEST;
 		cons.insets = new Insets(15, 20, 15, 30);
 		add(labelAux, cons);
@@ -72,8 +72,8 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.anchor = GridBagConstraints.SOUTH;
-		cons.insets = new Insets(50, 5, 20, 30);
-		cons.fill = GridBagConstraints.HORIZONTAL;
+		cons.insets = new Insets(50, 15, 20, 30);
+		cons.fill = GridBagConstraints.NONE;
 		btnConsultarIntervenciones.addActionListener(a->{
 			apretoConsultarIntervenciones();
 		});

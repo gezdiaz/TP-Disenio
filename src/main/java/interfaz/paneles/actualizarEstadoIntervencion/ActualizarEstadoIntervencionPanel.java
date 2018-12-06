@@ -9,7 +9,6 @@ import java.awt.Insets;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -23,11 +22,9 @@ import javax.swing.JTextField;
 
 import accesoADatos.GestorBD;
 import dto.IntervencionDTO;
-import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.consultarIntervencion.ConsultarIntervencionPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
-import logicaDeNegocios.enumeraciones.EstadoTicket;
 import logicaDeNegocios.enumeraciones.Motivos;
 import logicaDeNegocios.gestores.GestorIntervenciones;
 
@@ -60,6 +57,8 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		this.txtDescripcion = new JTextArea(intervencionDTO.getDescripcionTicket());
 		this.txtDescripcion.setEditable(false);
 		this.txtDescripcion.setFocusable(false);
+		this.txtDescripcion.setLineWrap(true);
+		this.txtDescripcion.setWrapStyleWord(true);
 
 		this.listClasificacion = new JComboBox<String>();
 		this.listClasificacion.addItem("Seleccione una clasificacion");
@@ -197,7 +196,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		add(txtEstadoActual, cons);
 
 		scroll = new JScrollPane(txtDescripcion);
-		txtDescripcion.setPreferredSize(new Dimension(200, 70));
+		scroll.setPreferredSize(new Dimension(200, 70));
 		txtDescripcion.setBackground(new Color(0xF2F2F2));
 		cons.gridx = 1;
 		cons.gridy = 2;

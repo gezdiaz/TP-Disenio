@@ -49,10 +49,6 @@ public class Usuario {
 		this.claveHash = clave;
 	}
 
-	public GrupoResolucion getGrupoResolucion() {
-		return grupoResolucion;
-	}
-
 	public void setGrupoResolucion(GrupoResolucion grupoResolucion) {
 		this.grupoResolucion = grupoResolucion;
 	}
@@ -64,9 +60,7 @@ public class Usuario {
 	}
 
 	public GrupoResolucion getGrupo() {
-		
 		return grupoResolucion;
-		
 	}
 
 }
