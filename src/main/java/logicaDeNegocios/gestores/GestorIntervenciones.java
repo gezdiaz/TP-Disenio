@@ -139,8 +139,7 @@ public abstract class GestorIntervenciones {
 		
 		intervencion.actualizarEstado(nuevoEstado);
 		
-		//TODO
-		if(GestorTickets.cambiarEstado(intervencionDTO.getMotivo(), intervencionDTO.getNumTicket(), intervencionDTO.getObservaciones())!=1) {
+		if(GestorTickets.cambiarEstado(intervencionDTO.getMotivo(), intervencionDTO.getNumTicket(), intervencionDTO.getObservaciones(), intervencionDTO.getIdIntervencion())!=1) {
 			return -2;
 		}
 		

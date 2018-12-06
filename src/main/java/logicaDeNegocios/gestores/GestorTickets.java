@@ -253,7 +253,7 @@ public abstract class GestorTickets {
 		return 1;
 	}
 
-	public static Integer cambiarEstado(Motivos motivo, Long numTicket, String observaciones) {
+	public static Integer cambiarEstado(Motivos motivo, Long numTicket, String observaciones, Long idIntervencion) {
 		
 		Ticket ticket = GestorBD.buscarTicketPorId(numTicket); Boolean bandera=false; CambioEstadoTicket nuevoEstado=null;
 		
@@ -266,7 +266,7 @@ public abstract class GestorTickets {
 		}
 		if(motivo!=null && motivo.equals(Motivos.TRABAJO_TERMINADO)) {
 			for(Intervencion i : ticket.getIntervenciones()) {
-				if(i.estadoActual().equals(EstadoIntervencion.EN_ESPERA)) {
+				if(i.estadoActual().equals(EstadoIntervencion.EN_ESPERA) && !i.getIdInt().equals(idIntervencion)) {
 					bandera = true;
 				}
 			}
