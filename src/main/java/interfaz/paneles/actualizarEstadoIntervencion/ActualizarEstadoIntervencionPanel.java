@@ -25,6 +25,7 @@ import accesoADatos.GestorBD;
 import dto.IntervencionDTO;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
+import interfaz.paneles.consultarIntervencion.ConsultarIntervencionPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 import logicaDeNegocios.enumeraciones.Motivos;
@@ -38,13 +39,15 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 	private JTextArea txtObservaciones , txtDescripcion;
 	private JButton btnAceptar, btnCancelar;
 	private IntervencionDTO intervencionDTO;
+	private ConsultarIntervencionPanel consultarIntervencionPanel;
 
-	public ActualizarEstadoIntervencionPanel(VentanaBase ventanaActual, IntervencionDTO intervencionDTO, VentanaBase ventanaAnterior) {
+	public ActualizarEstadoIntervencionPanel(VentanaBase ventanaActual, IntervencionDTO intervencionDTO, VentanaBase ventanaAnterior, ConsultarIntervencionPanel consultarIntervencionPanel) {
 		this.setLayout(new GridBagLayout());
 		JLabel labelAux, labelMotivo;
 		JScrollPane scroll;
 		GridBagConstraints cons = new GridBagConstraints();
-
+		
+		this.consultarIntervencionPanel = consultarIntervencionPanel;
 		this.ventanaActual = ventanaActual;
 		this.ventanaAnterior = ventanaAnterior;
 		this.intervencionDTO = intervencionDTO;
@@ -369,6 +372,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 			}
 			ventanaActual.dispose();
 			ventanaAnterior.setVisible(true);
+			consultarIntervencionPanel.apretoBuscar();
 		}
 	}
 }

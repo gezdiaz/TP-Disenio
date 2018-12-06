@@ -47,7 +47,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		JLabel labelAux;
 		GridBagConstraints cons = new GridBagConstraints();
 		
-		tablaResultados = new TablaIntervencionPanel(new ArrayList<IntervencionDTO>(), this.ventana);
+		tablaResultados = new TablaIntervencionPanel(new ArrayList<IntervencionDTO>(), this.ventana, this);
 		
 		listEstado = new JComboBox<String>();
 		listEstado.addItem("Todos los estados");
@@ -245,7 +245,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 			
 	}
 
-	private void apretoBuscar() {
+	public void apretoBuscar() {
 		// TODO Auto-generated method stub
 		//JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		List<IntervencionDTO> intervencionesDTO = new ArrayList<IntervencionDTO>();
