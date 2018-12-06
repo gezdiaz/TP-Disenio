@@ -29,8 +29,10 @@ public class TablaIntervencionPanel extends JPanel{
 	private JTable tabla;
 	private TablaIntervencionesModelo tableModel;
 	VentanaBase ventana;
+	ConsultarIntervencionPanel consultarIntervencionPanel;
 	
-	public TablaIntervencionPanel(List<IntervencionDTO> intervenciones, VentanaBase ventana) {
+	public TablaIntervencionPanel(List<IntervencionDTO> intervenciones, VentanaBase ventana, ConsultarIntervencionPanel consultarIntervencionPanel) {
+		this.consultarIntervencionPanel = consultarIntervencionPanel;
 		this.ventana = ventana;
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints cons = new GridBagConstraints();
@@ -142,7 +144,7 @@ public class TablaIntervencionPanel extends JPanel{
 			if(!tableModel.getIntervenciones().get(tabla.getSelectedRow()).getEstadoIntervencion().equals(EstadoIntervencion.TERMINADO)) {
 				VentanaBase ventanaModificar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
 				ventana.setVisible(false);
-				ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, tableModel.getIntervenciones().get(tabla.getSelectedRow()), ventana));
+				ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, tableModel.getIntervenciones().get(tabla.getSelectedRow()), ventana, consultarIntervencionPanel));
 			}
 			else {
 				JOptionPane.showConfirmDialog(ventana, "No se puede modificar el estado de una intervencion terminada", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
