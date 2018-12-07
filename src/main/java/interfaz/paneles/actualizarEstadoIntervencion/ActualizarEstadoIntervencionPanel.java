@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -19,9 +20,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
 
 import accesoADatos.GestorBD;
 import dto.IntervencionDTO;
+import interfaz.auxiliar.LimiteTexto;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.consultarIntervencion.ConsultarIntervencionPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
@@ -37,6 +42,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 	private JButton btnAceptar, btnCancelar;
 	private IntervencionDTO intervencionDTO;
 	private ConsultarIntervencionPanel consultarIntervencionPanel;
+	private JLabel caracteresRestantes;
 
 	public ActualizarEstadoIntervencionPanel(VentanaBase ventanaActual, IntervencionDTO intervencionDTO, VentanaBase ventanaAnterior, ConsultarIntervencionPanel consultarIntervencionPanel) {
 		this.setLayout(new GridBagLayout());
@@ -49,10 +55,13 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		this.ventanaAnterior = ventanaAnterior;
 		this.intervencionDTO = intervencionDTO;
 		
+
 		this.txtEstadoActual = new JTextField(10);
-		this.txtEstadoActual.setText(intervencionDTO.getEstadoIntervencion().name());
+		this.txtEstadoActual.setText(intervencionDTO.getEstadoIntervencion().getName());
 		this.txtEstadoActual.setEditable(false);
 		this.txtEstadoActual.setFocusable(false);
+		
+		this.caracteresRestantes = new JLabel("Caracteres restantes: 250");
 		
 		this.txtDescripcion = new JTextArea(intervencionDTO.getDescripcionTicket());
 		this.txtDescripcion.setEditable(false);
@@ -91,11 +100,32 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		}
 		default:
 			break;
-		}		
+		}	
+		listEstadoIntervencion.setSelectedItem("Seleccione un estado");
 
 		this.txtObservaciones = new JTextArea(4,20);
 		txtObservaciones.setLineWrap(true);
 		txtObservaciones.setWrapStyleWord(true);
+
+		AbstractDocument doc = (AbstractDocument) txtObservaciones.getDocument();
+		doc.setDocumentFilter(new LimiteTexto(250));
+		doc.addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+		});
 
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
@@ -190,6 +220,16 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.insets = new Insets(10, 5, 5, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(txtEstadoActual, cons);
+		
+		caracteresRestantes.setFont(new Font(caracteresRestantes.getFont().getFontName(), caracteresRestantes.getFont().getStyle(), 10));
+		cons.gridx = 0;
+		cons.gridy = 5;
+		cons.gridheight = 1;
+		cons.gridwidth = 1;
+		cons.weightx = 1;
+		cons.insets = new Insets(10, 0, 10, 5);
+		cons.anchor = GridBagConstraints.SOUTH;
+		add(caracteresRestantes, cons);
 
 		scroll = new JScrollPane(txtDescripcion);
 		scroll.setPreferredSize(new Dimension(200, 70));
@@ -328,18 +368,8 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 		else {
-			intervencionDTO.setObservaciones(txtObservaciones.getText());
-			for(EstadoIntervencion e: EstadoIntervencion.values()) {
-				if(listEstadoIntervencion.getSelectedItem().equals(e.name())) {
-					intervencionDTO.setEstadoIntervencion(e);
-				}
-			}
-			if(intervencionDTO.getEstadoIntervencion().equals(EstadoIntervencion.TERMINADO)) {
-				for(Motivos m : Motivos.values()) {
-					if(m.getName().equals(listMotivo.getSelectedItem())) {
-						intervencionDTO.setMotivo(m);
-					}
-				}
+			if(listEstadoIntervencion.getSelectedItem().equals("Seleccione un estado")) {
+				JOptionPane.showConfirmDialog(ventanaActual, "Debe seleccionar un estado", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				intervencionDTO.setMotivo(null);

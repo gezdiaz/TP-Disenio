@@ -105,7 +105,7 @@ public abstract class GestorBD {
 			EntityManager manager = emf.createEntityManager();
 			Clasificacion rta;
 			manager.getTransaction().begin();
-			Query cons = manager.createQuery("from Clasificacion c where c.nombre = ?1");
+			Query cons = manager.createQuery("from Clasificacion c where c.nombre = ?1 and activa = true");
 			cons.setParameter(1, clasificacion);
 			rta = (Clasificacion) cons.getSingleResult();
 			manager.getTransaction().commit();
@@ -277,7 +277,7 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			Query cons = manager.createQuery("from Clasificacion c order by c.nombre");
+			Query cons = manager.createQuery("from Clasificacion c where activa = true order by c.nombre");
 			clasificaciones = cons.getResultList();
 			manager.getTransaction().commit();
 			manager.close();
