@@ -16,8 +16,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
 
 import dto.TicketDTO;
+import interfaz.auxiliar.LimiteTexto;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
 import interfaz.principal.MenuMesaAyudaPanel;
@@ -30,6 +34,7 @@ public class CerrarTicketPanel extends JPanel{
 	private JButton btnAceptar, btnCancelar;
 	private TicketDTO ticketDTO;
 	private ConsultarTicketPanel consultarTicketPanel;
+	private JLabel caracteresRestantes;
 	
 	public CerrarTicketPanel(VentanaBase ventanaActual, TicketDTO ticketDTO, VentanaBase ventanaAnterior, ConsultarTicketPanel consultarTicketPanel) {
 		this.setLayout(new GridBagLayout());
@@ -41,10 +46,31 @@ public class CerrarTicketPanel extends JPanel{
 		this.ventanaAnterior = ventanaAnterior;
 		this.consultarTicketPanel = consultarTicketPanel;
 		this.ticketDTO = ticketDTO;
+		
+		caracteresRestantes = new JLabel("Caracteres restantes: 250");
 
 		txtObservaciones = new JTextArea();
 		txtObservaciones.setLineWrap(true);
 		txtObservaciones.setWrapStyleWord(true);
+		AbstractDocument doc = (AbstractDocument) txtObservaciones.getDocument();
+		doc.setDocumentFilter(new LimiteTexto(250));
+		doc.addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+		});
 
 
 		btnAceptar = new JButton("Aceptar");
@@ -96,6 +122,15 @@ public class CerrarTicketPanel extends JPanel{
 		cons.anchor = GridBagConstraints.NORTHWEST;
 		add(labelAux, cons);
 
+		caracteresRestantes.setFont(new Font(caracteresRestantes.getFont().getFontName(), caracteresRestantes.getFont().getStyle(), 10));
+		cons.gridx = 0;
+		cons.gridy = 2;
+		cons.gridheight = 1;
+		cons.gridwidth = 1;
+		cons.insets = new Insets(10, 5, 5, 5);
+		cons.anchor = GridBagConstraints.SOUTH;
+		add(caracteresRestantes, cons);
+		
 		//Campo Observaciones
 		scroll = new JScrollPane(txtObservaciones);
 		scroll.setPreferredSize(new Dimension(200, 70));

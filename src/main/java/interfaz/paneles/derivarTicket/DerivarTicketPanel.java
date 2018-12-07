@@ -21,11 +21,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
 
 import org.w3c.dom.ls.LSInput;
 
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
+import interfaz.auxiliar.LimiteTexto;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
@@ -40,6 +44,7 @@ public class DerivarTicketPanel extends JPanel{
 	private JButton btnAceptar, btnCancelar;
 	private TicketDTO ticketDTO;
 	private ConsultarTicketPanel consultarTicketPanel;
+	private JLabel caracteresRestantes;
 
 	public DerivarTicketPanel(VentanaBase ventanaActual, TicketDTO ticketDTO, VentanaBase ventanaAnterior, ConsultarTicketPanel consultarTicketPanel) {
 
@@ -54,7 +59,7 @@ public class DerivarTicketPanel extends JPanel{
 		this.consultarTicketPanel = consultarTicketPanel;
 		
 		this.txtEstadoActual = new JTextField(10/*this.ticketDTO.getEstado().name()*/);
-		this.txtEstadoActual.setText(ticketDTO.getEstado().toString());
+		this.txtEstadoActual.setText(ticketDTO.getEstado().getName());
 		this.txtEstadoActual.setEditable(false);
 		this.txtEstadoActual.setFocusable(false);
 		
@@ -63,7 +68,7 @@ public class DerivarTicketPanel extends JPanel{
 		this.txtDescripcion.setFocusable(false);
 
 		this.txtNuevoEstado = new JTextField(10);
-		this.txtNuevoEstado.setText("Derivado");
+		this.txtNuevoEstado.setText(EstadoTicket.DERIVADO.getName());
 		this.txtNuevoEstado.setEditable(false);
 		this.txtNuevoEstado.setFocusable(false);
 
@@ -99,10 +104,31 @@ public class DerivarTicketPanel extends JPanel{
 		for(String n: nombresGrupo) {
 			listGrupoResolucion.addItem(n);
 		}
+		
+		this.caracteresRestantes = new JLabel("Caracteres restantes: 250");
 
 		this.txtObservaciones = new JTextArea();
-		txtObservaciones.setLineWrap(true);
-		txtObservaciones.setWrapStyleWord(true);
+		this.txtObservaciones.setLineWrap(true);
+		this.txtObservaciones.setWrapStyleWord(true);
+		AbstractDocument doc = (AbstractDocument) txtObservaciones.getDocument();
+		doc.setDocumentFilter(new LimiteTexto(250));
+		doc.addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+		});
 		
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
@@ -249,6 +275,15 @@ public class DerivarTicketPanel extends JPanel{
 		cons.anchor = GridBagConstraints.WEST;
 		add(listGrupoResolucion, cons);
 
+		caracteresRestantes.setFont(new Font(caracteresRestantes.getFont().getFontName(), caracteresRestantes.getFont().getStyle(), 10));
+		cons.gridx = 0;
+		cons.gridy = 7;
+		cons.gridheight = 1;
+		cons.gridwidth = 1;
+		cons.insets = new Insets(10, 5, 5, 5);
+		cons.anchor = GridBagConstraints.EAST;
+		add(caracteresRestantes, cons);
+		
 		//Muestra las observaciones
 		scroll = new JScrollPane(txtObservaciones);
 		scroll.setPreferredSize(new Dimension(200, 70));
@@ -256,7 +291,7 @@ public class DerivarTicketPanel extends JPanel{
 		txtObservaciones.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
 		cons.gridx = 1;
 		cons.gridy = 6;
-		cons.gridheight = 1;
+		cons.gridheight = 2;
 		cons.gridwidth = 1;
 		cons.weightx = 2;
 		cons.insets = new Insets(25, 5, 5, 25);
@@ -268,7 +303,7 @@ public class DerivarTicketPanel extends JPanel{
 		labelAux = new JLabel("*Campo obligatorio");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 8));
 		cons.gridx = 0;
-		cons.gridy = 7;
+		cons.gridy = 8;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.weightx = 1;
@@ -279,13 +314,13 @@ public class DerivarTicketPanel extends JPanel{
 
 		//Botones
 		cons.gridx = 0;
-		cons.gridy = 8;
+		cons.gridy = 9;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.weightx = 1;
 		cons.insets = new Insets(20, 40, 40, 10);
 		cons.fill = GridBagConstraints.NONE;
-		cons.anchor = GridBagConstraints.EAST;
+		cons.anchor = GridBagConstraints.WEST;
 		btnAceptar.addActionListener(a -> {
 			apretoAceptar();		
 		});
@@ -310,13 +345,13 @@ public class DerivarTicketPanel extends JPanel{
 		add(btnAceptar, cons);
 
 		cons.gridx = 1;
-		cons.gridy = 8;
+		cons.gridy = 9;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.weightx = 1;
 		cons.insets = new Insets(20, 10, 40, 25);
 		cons.fill = GridBagConstraints.NONE;
-		cons.anchor = GridBagConstraints.WEST;
+		cons.anchor = GridBagConstraints.EAST;
 		btnCancelar.addActionListener(a -> {
 			apretoCancelar();
 		});
@@ -342,7 +377,6 @@ public class DerivarTicketPanel extends JPanel{
 	}
 
 	private void apretoCancelar() {
-		//apretoCancelar();//TODO apretoCancelar()
 		int res = JOptionPane.showConfirmDialog(ventanaActual, "Está seguro que desea cancelar la operación", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 		if(res == JOptionPane.YES_OPTION) {

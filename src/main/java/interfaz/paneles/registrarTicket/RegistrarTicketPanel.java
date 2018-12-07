@@ -231,8 +231,8 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.gridy = 9;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = insetsDerecha;
-		cons.anchor = GridBagConstraints.CENTER;
+		cons.insets = new Insets(20, 40, 30, 10);
+		cons.anchor = GridBagConstraints.WEST;
 		btnAceptar.addActionListener(e -> {
 			apretoAceptar();
 		});
@@ -324,12 +324,12 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.fill = GridBagConstraints.BOTH;
 		add(txtHoraAp, cons);
 
-		cons.gridx = 1;
+		cons.gridx = 2;
 		cons.gridy = 9;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = insetsMedio;
-		cons.anchor = GridBagConstraints.CENTER;
+		cons.insets = new Insets(20, 10, 30, 40);
+		cons.anchor = GridBagConstraints.EAST;
 		cons.fill = GridBagConstraints.NONE;
 		btnCancelar.addActionListener(e -> {
 			apretoCancelar();
@@ -364,8 +364,9 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.weightx = 2;
 		add(infoEmpleado, cons);
 		
-		cons.gridx = 2;
-		cons.gridy = 3;
+		caracteresRestantes.setFont(new Font(caracteresRestantes.getFont().getFontName(), caracteresRestantes.getFont().getStyle(), 10));
+		cons.gridx = 0;
+		cons.gridy = 4;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = insetsIzquierda;
@@ -384,8 +385,6 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		cons.fill = GridBagConstraints.NONE;
 		add(labelAux, cons);
-
-		txtNumLegajo.requestFocusInWindow();
 		
 	}
 

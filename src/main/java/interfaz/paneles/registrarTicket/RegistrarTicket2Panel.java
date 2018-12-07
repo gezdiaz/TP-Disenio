@@ -17,21 +17,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
 
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
+import interfaz.auxiliar.LimiteTexto;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.gestores.GestorTickets;
 
 public class RegistrarTicket2Panel extends JPanel {
 
-	JTextArea obserbacionesTxt;
-	JButton aceptar, cancelar;
-	JComboBox<String> accionList;
-	VentanaBase ventana;
-	TicketDTO ticketDTO;
+	private JTextArea obserbacionesTxt;
+	private JButton aceptar, cancelar;
+	private JComboBox<String> accionList;
+	private VentanaBase ventana;
+	private TicketDTO ticketDTO;
 	private List<String> listaGR;
+	private JLabel caracteresRestantes;
 
 	public RegistrarTicket2Panel(VentanaBase ventana, TicketDTO ticketDTO) {
 		//TODO Debería recibir también un ticketDTO
@@ -48,10 +53,30 @@ public class RegistrarTicket2Panel extends JPanel {
 		this.ventana = ventana;
 
 		this.ticketDTO = ticketDTO;
+		
+		this.caracteresRestantes = new JLabel("Caracteres restantes: 250");
 
 		obserbacionesTxt = new JTextArea();
 		obserbacionesTxt.setLineWrap(true);
 		obserbacionesTxt.setWrapStyleWord(true);
+		AbstractDocument doc = (AbstractDocument) obserbacionesTxt.getDocument();
+		doc.setDocumentFilter(new LimiteTexto(250));
+		doc.addDocumentListener(new DocumentListener() {
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				caracteresRestantes.setText("Caracteres restantes: "+(250-e.getDocument().getLength()));
+			}
+		});
 
 		aceptar = new JButton("Aceptar");
 
@@ -78,10 +103,19 @@ public class RegistrarTicket2Panel extends JPanel {
 		cons.insets = izq;
 		cons.anchor = GridBagConstraints.NORTHWEST;
 		add(labelAux, cons);
+		
+		caracteresRestantes.setFont(new Font(caracteresRestantes.getFont().getFontName(), caracteresRestantes.getFont().getStyle(), 10));
+		cons.gridx = 0;
+		cons.gridy = 2;
+		cons.gridheight = 1;
+		cons.gridwidth = 1;
+		cons.insets = izq;
+		cons.anchor = GridBagConstraints.WEST;
+		add(caracteresRestantes,cons);
 
 		labelAux = new JLabel("Acción");
 		cons.gridx = 0;
-		cons.gridy = 2;
+		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = izq;
@@ -102,10 +136,10 @@ public class RegistrarTicket2Panel extends JPanel {
 
 		//Campo observaciones con su barra de scroll
 		scroll = new JScrollPane(obserbacionesTxt);
-		obserbacionesTxt.setPreferredSize(new Dimension(250, 70));
+		scroll.setPreferredSize(new Dimension(250, 70));
 		cons.gridx = 1;
 		cons.gridy = 1;
-		cons.gridheight = 1;
+		cons.gridheight = 2;
 		cons.gridwidth = 1;
 		cons.weightx = 2;
 		cons.insets = arDer;
@@ -130,7 +164,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		  }*/
 		accionList.setSelectedItem("Cerrar ticket");
 		cons.gridx = 1;
-		cons.gridy = 2;
+		cons.gridy = 3;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.weightx = 1;
@@ -144,7 +178,7 @@ public class RegistrarTicket2Panel extends JPanel {
 			apretoAceptar();
 		});
 		cons.gridx = 0;
-		cons.gridy = 4;
+		cons.gridy = 5;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.weightx = 1;
@@ -175,7 +209,7 @@ public class RegistrarTicket2Panel extends JPanel {
 			apretoCancelar();
 		});
 		cons.gridx = 1;
-		cons.gridy = 4;
+		cons.gridy = 5;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.weightx = 1;
@@ -206,7 +240,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		labelAux = new JLabel("*Campo obligatorio");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 8));
 		cons.gridx = 0;
-		cons.gridy = 3;
+		cons.gridy = 4;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.weightx = 1;
