@@ -55,7 +55,7 @@ public class RegistrarTicketPanel extends JPanel {
 	private Boolean legajoValido;
 	private JButton btnAceptar, btnCancelar;
 	private JTextField txtNumTicket, txtNumLegajo, txtFechaAp, txtHoraAp;
-	private JComboBox</*Clasificacion*/String> listClasificacion; //TODO Cambiar String por clasificacion cuando esa clase exista
+	private JComboBox<String> listClasificacion;
 	private JTextArea txtDescripcion;
 	private JLabel infoEmpleado; /*Si no ingreso legajo, "Ingrese legajo" en negro
 						   		   Si el legajo no es válido, "Legajo inválido" en rojo
@@ -83,10 +83,6 @@ public class RegistrarTicketPanel extends JPanel {
 
 		txtNumTicket = new JTextField(15);
 		ticketDTO = GestorTickets.getNuevoTicket();
-		//GestorTickets.guardarTicket(ticketDTO);
-		System.out.println("ticket dto: "+ticketDTO);
-		System.out.println("numTicektDto: "+ticketDTO.getNumTicket());
-		System.out.println("txtnumticket: "+txtNumTicket);
 		txtNumTicket.setText(ticketDTO.getNumTicket().toString());
 		txtNumTicket.setEditable(false);
 		txtNumTicket.setFocusable(false);
@@ -138,7 +134,7 @@ public class RegistrarTicketPanel extends JPanel {
 
 		listClasificacion = new JComboBox<>();
 		listClasificacion.addItem("Seleccione una clasificación");
-		//TODO meter las clasificaciones en la lista
+		
 		List<String> nombresClas = GestorBD.getListClasificaciones();
 		for(String n: nombresClas) {
 			listClasificacion.addItem(n);
@@ -394,9 +390,8 @@ public class RegistrarTicketPanel extends JPanel {
 	}
 
 	private void apretoCancelar() {
-		// TODO Accion del boton cancelar de Registrar Ticket
-//		GestorTickets.eliminarTicket(ticketDTO);
-		int res = JOptionPane.showConfirmDialog(ventana, "Está seguro que desea cancelar la operación", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		
+		int res = JOptionPane.showConfirmDialog(ventana, "¿Está seguro que desea cancelar la operación?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 		if(res == JOptionPane.YES_OPTION) {
 			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana)); //deberia volver a la pantalla de mesa de ayuda
@@ -404,51 +399,40 @@ public class RegistrarTicketPanel extends JPanel {
 
 	}
 	private void apretoAceptar() {
-		// TODO Accion del boton Aceptar de Registrar Ticket.
-
+		
 		if(legajoValido) {
 			if(txtDescripcion.getText().trim().isEmpty()) {
 				//mostrar Error
-				JOptionPane.showConfirmDialog(ventana, "Debe ingresar una descripción", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-				//				System.out.println("Debe ingresar una descripción");
+				JOptionPane.showConfirmDialog(ventana, "Debe ingresar una descripción.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}else {
 				if(listClasificacion.getSelectedItem().toString().equals("Seleccione una clasificación")) {
 					//mostrar error
-					JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una clasificación", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					//					System.out.println("Debe seleccionar una clasificación");
-				}else {
-					//					System.out.println("Todo correcto");
-					//TODO Pasar el ticketDTO a RegistrarTicket2Panel
-
+					JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una clasificación.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				}else {					
 					ticketDTO.setNumLegajo(Long.parseLong((txtNumLegajo.getText())));
 					ticketDTO.setClasificacion(listClasificacion.getSelectedItem().toString());
 					ticketDTO.setDescripcion(txtDescripcion.getText().trim());
 					ticketDTO.setFechaHoraApertura(fecha);
 
 					if(GestorTickets.registrarTicket(ticketDTO)) {
-						JOptionPane.showConfirmDialog(ventana, "El ticket se ha registrado correctamente", "Registro exitoso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showConfirmDialog(ventana, "El ticket se ha registrado correctamente.", "Registro exitoso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					}else {
-						JOptionPane.showConfirmDialog(ventana, "Se produjo un error al registrar el ticket", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showConfirmDialog(ventana, "Se produjo un error al registrar el ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-
 					JPanel p = new RegistrarTicket2Panel(ventana, ticketDTO);
 					ventana.cambiarPanel(p);
-
 				}
 			}
 		}else {
 			//mostrar Error
-			JOptionPane.showConfirmDialog(ventana, "Debe ingresar un legajo válido", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-			//			System.out.println("Debe ingresar un legajo válido");
+			JOptionPane.showConfirmDialog(ventana, "Debe ingresar un legajo válido.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
-
-
 	}
 
 
 	private void validarLegajo() {
-		// TODO Validar legajo en Regitrar Ticket
+		
 		String legajoIngresado = txtNumLegajo.getText();
 		Long numLegajo;
 
@@ -466,7 +450,7 @@ public class RegistrarTicketPanel extends JPanel {
 				infoEmpleado.setForeground(Color.red);
 				return;
 			}
-			//TODO Buscar el empleado en el sistema de personal
+			
 			Empleado empleado = SistemaPersonal.getEmpleado(numLegajo);
 			if(empleado!=null){
 				legajoValido = true;

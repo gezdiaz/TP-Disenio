@@ -187,11 +187,6 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 		
-		/*labelAux = new JLabel("dd/mm/aaaa");
-		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
-		cons.gridy = 3;
-		add(labelAux, cons);*/
-		
 		cons.gridx = 0;
 		cons.gridy = 3;
 		cons.gridheight = 1;
@@ -200,7 +195,6 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
 		cons.weightx = 2;
-		//tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(tablaResultados, cons);
 		
 		btnVolver = new JButton("Volver");
@@ -238,8 +232,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 	}
 
 	public void apretoBuscar() {
-		// TODO Auto-generated method stub
-		//JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		
 		List<IntervencionDTO> intervencionesDTO = new ArrayList<IntervencionDTO>();
 		Long numTicket=null, numLegajo=null;
 		EstadoIntervencion estadoActual=null;
@@ -250,7 +243,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 			try {
 				numTicket = Long.parseLong(txtNumTicket.getText().trim());
 			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número ticket\"", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número ticket\".", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -258,7 +251,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 			try {
 				numLegajo = Long.parseLong(txtNumLegajo.getText().trim());
 			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número Legajo\"", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número Legajo\".", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -266,12 +259,12 @@ public class ConsultarIntervencionPanel extends JPanel {
 			try {
 				fechaDesde = LocalDate.parse(txtFechaDesde.getText().trim(), format);
 			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura ingresada no está en el formato correcto", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura ingresada no está en el formato correcto.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 				return;
 			}
 			if(fechaDesde.compareTo(LocalDate.now()) > 0) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura no puede ser futura", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura no puede ser futura.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -279,11 +272,11 @@ public class ConsultarIntervencionPanel extends JPanel {
 			try {
 				fechaHasta = LocalDate.parse(txtFechaHasta.getText().trim(), format);
 			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado ingresada no está en el formato correcto", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado ingresada no está en el formato correcto.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			if(fechaHasta.compareTo(LocalDate.now()) > 0) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado no puede ser futura", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado no puede ser futura.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -298,8 +291,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		intervencionesDTO = GestorIntervenciones.consultarIntervencion(estadoActual,fechaDesde,fechaHasta,numTicket,numLegajo);
 		
 		if(intervencionesDTO.isEmpty()) {
-			JOptionPane.showConfirmDialog(ventana, "No se encontraron intervenciones con los criterios ingresados", "No se encontraron intervenciones", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			//return;
+			JOptionPane.showConfirmDialog(ventana, "No se encontraron intervenciones con los criterios ingresados.", "No se encontraron intervenciones", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		}
 		tablaResultados.setIntervenciones(intervencionesDTO);
 	

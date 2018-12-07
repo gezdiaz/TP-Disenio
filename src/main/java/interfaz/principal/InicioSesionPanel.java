@@ -171,13 +171,13 @@ public class InicioSesionPanel extends JPanel {
 
 			switch(res) {
 			case -2: //Problema con la base de datos 
-				JOptionPane.showConfirmDialog(ventana, "No se pudo establecer conexión con la base de datos", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "No se pudo establecer conexión con la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			case -1: //no se encontró el usuario
-				JOptionPane.showConfirmDialog(ventana, "Nombre de usuario inexistente", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "Nombre de usuario inexistente.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			case 0: //clave incorrecta
-				JOptionPane.showConfirmDialog(ventana, "La clave ingresada es incorrecta", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "La clave ingresada es incorrecta.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			case 1: //inicio de sesion correcto
 				if(GestorUsuarios.usuarioActual().getGrupo().getNombre().equals("Mesa de Ayuda")) {
@@ -186,7 +186,7 @@ public class InicioSesionPanel extends JPanel {
 					mmap.setVentana(base);
 				}else {
 					MenuGrupoDeResolucionPanel mgrp = new MenuGrupoDeResolucionPanel(GestorUsuarios.usuarioActual().getGrupo().getNombre());
-					base = new VentanaBase("Grupo de resolución", txtUsuario.getText().trim(), mgrp);
+					base = new VentanaBase("Grupo de resolución: "+GestorUsuarios.usuarioActual().getGrupo().getNombre(), txtUsuario.getText().trim(), mgrp);
 					mgrp.setVentana(base);
 				}
 				base.pack();
@@ -196,7 +196,7 @@ public class InicioSesionPanel extends JPanel {
 			}
 
 		}else {
-			JOptionPane.showConfirmDialog(ventana, "Debe ingresar un usuario y clave", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(ventana, "Debe ingresar un usuario y clave.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

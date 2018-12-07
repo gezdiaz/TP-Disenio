@@ -195,12 +195,10 @@ public class TablaTicketsPanel extends JPanel {
 	}
 
 	private void apretoConfigurarReporte() {
-		// TODO Configurar Reporte
-		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible.", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void apretoDerivar() {
-		//TODO que envie el ticket seleccionado
 		if(tabla.getSelectedRow()!=-1) {
 			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.ESPERA_OK) || tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.EN_MESA_DE_AYUDA)) {
 				VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
@@ -208,21 +206,19 @@ public class TablaTicketsPanel extends JPanel {
 				ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana, consultarTicketPanel));
 			}
 			else {
-				JOptionPane.showConfirmDialog(ventana, "Solo se pueden derivar tickets en estado Abierto o en Espera Ok", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "Solo se pueden derivar tickets en estado Abierto o en Espera Ok.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		else {
-			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar un ticket", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar un ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	private void apretoVer() {
-		// TODO Auto-generated method stub
-		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible.", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void apretoCerrar() {
-		//TODO que envie el ticket seleccionado
 		if(tabla.getSelectedRow()!=-1) {
 			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.ESPERA_OK)) {
 				VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
@@ -230,11 +226,11 @@ public class TablaTicketsPanel extends JPanel {
 				ventanaCerrar.cambiarPanel(new CerrarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana, consultarTicketPanel));
 			}
 			else {
-				JOptionPane.showConfirmDialog(ventana, "Solo se pueden cerrar tickets en estado Espera Ok", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "Solo se pueden cerrar tickets en estado Espera Ok.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		else {
-			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar un ticket", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar un ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -242,6 +238,4 @@ public class TablaTicketsPanel extends JPanel {
 		tableModel.setTickets(tickets);
 		tableModel.fireTableDataChanged();
 	}
-	
-
 }

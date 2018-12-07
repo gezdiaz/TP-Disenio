@@ -49,7 +49,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		this.ventanaAnterior = ventanaAnterior;
 		this.intervencionDTO = intervencionDTO;
 		
-		this.txtEstadoActual = new JTextField(10/*this.intervencionDTO.getEstado().name()*/);
+		this.txtEstadoActual = new JTextField(10);
 		this.txtEstadoActual.setText(intervencionDTO.getEstadoIntervencion().name());
 		this.txtEstadoActual.setEditable(false);
 		this.txtEstadoActual.setFocusable(false);
@@ -96,7 +96,6 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		this.txtObservaciones = new JTextArea(4,20);
 		txtObservaciones.setLineWrap(true);
 		txtObservaciones.setWrapStyleWord(true);
-		//		txtObservaciones.setPreferredSize(new Dimension(200, 70));
 
 		btnAceptar = new JButton("Aceptar");
 		btnCancelar = new JButton("Cancelar");
@@ -113,7 +112,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 
-		labelAux = new JLabel("Estado actual"/*"123456"*//*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("Estado actual");
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
@@ -151,9 +150,6 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.weightx = 1;
 		cons.insets = new Insets(10, 0, 10, 5);
 		cons.anchor = GridBagConstraints.WEST;
-		/*if(!listEstadoIntervencion.getSelectedItem().equals(EstadoIntervencion.Terminado)) {
-			labelMotivo.setVisible(false);
-		}*/
 		add(labelMotivo, cons);
 
 		labelAux = new JLabel("Clasificacion*");
@@ -203,7 +199,6 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.gridheight = 1;
 		cons.gridwidth = 2;
 		cons.insets = new Insets(10, 5, 5, 5);
-		//cons.fill = GridBagConstraints.BOTH;
 		cons.anchor = GridBagConstraints.WEST;
 		add(scroll, cons);
 
@@ -248,7 +243,6 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		cons.gridheight = 1;
 		cons.gridwidth = 2;
 		cons.insets = new Insets(10, 5, 5, 5);
-		//cons.fill = GridBagConstraints.BOTH;
 		cons.anchor = GridBagConstraints.WEST;
 		txtObservaciones.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, null);
 		txtObservaciones.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, null);
@@ -320,7 +314,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 	}
 
 	private void apretoCancelar() {
-		int res = JOptionPane.showConfirmDialog(ventanaActual, "Está seguro que desea cancelar la operación", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		int res = JOptionPane.showConfirmDialog(ventanaActual, "¿Está seguro que desea cancelar la operación?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 		if(res == JOptionPane.YES_OPTION) {
 			ventanaActual.dispose();
@@ -331,7 +325,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 	private void apretoAceptar() {
 		
 		if(txtObservaciones.getText().trim().isEmpty()) {
-			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 		else {
 			intervencionDTO.setObservaciones(txtObservaciones.getText());
@@ -353,19 +347,19 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 			intervencionDTO.setClasificacion((String)listClasificacion.getSelectedItem());
 			switch(GestorIntervenciones.actualizarEstadoIntervencion(intervencionDTO)) {
 			case -3:{
-				JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado del ticket", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado del ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			}
 			case -2:{
-				JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado de la intervencion", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado de la intervencion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			}
 			case -1:{
-				JOptionPane.showConfirmDialog(ventanaActual, "Error reclasificando el ticket", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventanaActual, "Error reclasificando el ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			}
 			case 1:{
-				JOptionPane.showConfirmDialog(ventanaActual, "Se actualizo el estado de la intervencion exitosamente", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showConfirmDialog(ventanaActual, "Se actualizo el estado de la intervencion exitosamente.", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				break;
 			}
 			}

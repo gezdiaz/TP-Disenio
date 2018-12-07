@@ -13,7 +13,6 @@ public abstract class GestorUsuarios {
 
 	public static Integer iniciarSesion(String nombreUsuario, String clave) {
 
-		//TODO Buscar usuario enla base de datos
 		Usuario usuario = GestorBD.buscarUsuario(nombreUsuario);
 
 		if (usuario == null) {

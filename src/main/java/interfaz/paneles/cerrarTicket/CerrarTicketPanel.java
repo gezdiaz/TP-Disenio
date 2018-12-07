@@ -21,6 +21,7 @@ import dto.TicketDTO;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
 import interfaz.principal.MenuMesaAyudaPanel;
+import logicaDeNegocios.enumeraciones.EstadoTicket;
 import logicaDeNegocios.gestores.GestorTickets;
 
 public class CerrarTicketPanel extends JPanel{
@@ -65,7 +66,7 @@ public class CerrarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Muestra el Numero de ticket
-		labelAux = new JLabel("N° Ticket: "+/*"123456"*/ticketDTO.getNumTicket());
+		labelAux = new JLabel("N° Ticket: "+ticketDTO.getNumTicket());
 		cons.gridx = 1;
 		cons.gridy = 0;
 		cons.gridheight = 1;
@@ -76,7 +77,7 @@ public class CerrarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Muestra el Nuevo estado del ticket
-		labelAux = new JLabel("Nuevo estado de ticket: CERRADO"/*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("Nuevo estado de ticket: "+EstadoTicket.CERRADO.getName());
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
@@ -190,8 +191,8 @@ public class CerrarTicketPanel extends JPanel{
 	}
 
 	private void apretoCancelar() {
-		//apretoCancelar();//TODO apretoCancelar()
-		int res = JOptionPane.showConfirmDialog(ventanaActual, "Está seguro que desea cancelar la operación", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		
+		int res = JOptionPane.showConfirmDialog(ventanaActual, "¿Está seguro que desea cancelar la operación?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 		if(res == JOptionPane.YES_OPTION) {
 			ventanaActual.dispose();
@@ -200,25 +201,25 @@ public class CerrarTicketPanel extends JPanel{
 	}
 
 	private void apretoAceptar(String observaciones) {
-		//apretoAceptar();//TODO apretoAceptar()
+		
 		if(txtObservaciones.getText().trim().isEmpty()) {
-			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 		else {
 			switch(GestorTickets.cerrarTicket(ticketDTO, observaciones)) {
 			case -2:{
-				JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			}
 			case -1:{
-				JOptionPane.showConfirmDialog(ventanaActual, "Error conectándose a la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventanaActual, "Error conectándose a la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			}
 			case 0:{
-				JOptionPane.showConfirmDialog(ventanaActual, "Ticket no encontrado en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventanaActual, "Ticket no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				break;
 			}
-			case 1:{JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido cerrado exitosamente", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			case 1:{JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido cerrado exitosamente.", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				ventanaActual.dispose();
 				ventanaAnterior.setVisible(true);
 				consultarTicketPanel.buscar();

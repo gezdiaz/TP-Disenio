@@ -281,7 +281,6 @@ public class ConsultarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
 		cons.weightx = 2;
-//		tablaResultados.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(tablaResultados, cons);
 		
 		cons.gridx = 0;
@@ -313,10 +312,7 @@ public class ConsultarTicketPanel extends JPanel {
 				}
 			}
 		});
-		add(btnVolver, cons);
-		
-		//System.out.println("Dentro del panel:" + this.getSize());
-				
+		add(btnVolver, cons);				
 	}
 
 	private void apretoVolver() {
@@ -336,7 +332,7 @@ public class ConsultarTicketPanel extends JPanel {
 			try {
 				numTicket = Long.parseLong(txtNumTicket.getText().trim());
 			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número ticket\"", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número ticket\".", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -344,7 +340,7 @@ public class ConsultarTicketPanel extends JPanel {
 			try {
 				numLegajo = Long.parseLong(txtNumLegajo.getText().trim());
 			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número Legajo\"", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "Solo se permiten números en el campo \"Número Legajo\".", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -352,12 +348,12 @@ public class ConsultarTicketPanel extends JPanel {
 			try {
 				fechaApertura = LocalDate.parse(txtFechaApertura.getText().trim(), format);
 			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura ingresada no está en el formato correcto", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura ingresada no está en el formato correcto.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 				return;
 			}
 			if(fechaApertura.compareTo(LocalDate.now()) > 0) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura no puede ser futura", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura no puede ser futura.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -365,11 +361,11 @@ public class ConsultarTicketPanel extends JPanel {
 			try {
 				fechaUltimoGrupo = LocalDate.parse(txtFechaUltimoCambio.getText().trim(), format);
 			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado ingresada no está en el formato correcto", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado ingresada no está en el formato correcto.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			if(fechaUltimoGrupo.compareTo(LocalDate.now()) > 0) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado no puede ser futura", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado no puede ser futura.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}
@@ -390,12 +386,9 @@ public class ConsultarTicketPanel extends JPanel {
 		ticketsDTO = GestorTickets.consultarTicket(numTicket, numLegajo, estadoActual, nombreClasificacion, fechaApertura, fechaUltimoGrupo, ultGrupo);
 		
 		if(ticketsDTO.isEmpty()) {
-			JOptionPane.showConfirmDialog(ventana, "No se encontraron tickets con los criterios ingresados", "No se encontraron tickets", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-			//return;
+			JOptionPane.showConfirmDialog(ventana, "No se encontraron tickets con los criterios ingresados.", "No se encontraron tickets", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		}
-		tablaResultados.setTickets(ticketsDTO);
-
-		
+		tablaResultados.setTickets(ticketsDTO);	
 	}
 	
 }

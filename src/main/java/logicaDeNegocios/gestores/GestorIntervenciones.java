@@ -34,10 +34,6 @@ public abstract class GestorIntervenciones {
 		
 		Intervencion intervencion = new Intervencion(observaciones, LocalDateTime.now(), ticket, grupo);
 
-//		if (!(GestorBD.guardarIntervencion(intervencion)>0)) {
-//			return null;
-//		}
-
 		CambioEstadoIntervencion cambioEstado1 = new CambioEstadoIntervencion(LocalDateTime.now(), null, EstadoIntervencion.ASIGNADO, intervencion, usuario, observaciones);
 
 		intervencion.actualizarEstado(cambioEstado1);
@@ -45,16 +41,6 @@ public abstract class GestorIntervenciones {
 		CambioEstadoIntervencion cambioEstado2 = new CambioEstadoIntervencion(LocalDateTime.now(), intervencion.estadoActual(), EstadoIntervencion.TRABAJANDO, intervencion, usuario, observaciones);
 
 		intervencion.actualizarEstado(cambioEstado2);
-
-		//		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado1)) {
-		//			return null;
-		//		}
-		//		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado2)) {
-		//			return null;
-		//		}
-		/*if (!(GestorBD.guardarIntervencion(intervencion)>0)) {
-			return null;
-		}*/
 
 		return intervencion;
 	}
@@ -68,13 +54,6 @@ public abstract class GestorIntervenciones {
 		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), ultima.estadoActual(), EstadoIntervencion.TERMINADO, ultima, GestorUsuarios.usuarioActual(), observaciones);
 
 		ultima.actualizarEstado(cambioEstado);
-
-		//		if(!GestorBD.guardarCambioEstadoIntervencion(cambioEstado)) {
-		//			return false;
-		//		}
-		//		if(!GestorBD.actualizarIntervencion(ultima)) {
-		//			return false;
-		//		}
 
 		return true;
 	}
@@ -93,8 +72,7 @@ public abstract class GestorIntervenciones {
 		}
 		Intervencion intervencion = new Intervencion(observaciones, LocalDateTime.now(), ticket, grupo);
 		
-		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), null,	EstadoIntervencion.ASIGNADO,
-																			 intervencion, usuario, observaciones);
+		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), null,	EstadoIntervencion.ASIGNADO, intervencion, usuario, observaciones);
 		
 		intervencion.actualizarEstado(cambioEstado);
 		

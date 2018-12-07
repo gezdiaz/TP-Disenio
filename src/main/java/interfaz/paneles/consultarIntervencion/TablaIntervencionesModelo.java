@@ -38,7 +38,6 @@ public class TablaIntervencionesModelo extends AbstractTableModel{
 
 	@Override
 	public int getRowCount() {
-//		return 6;
 		return intervenciones.size();
 	}
 
@@ -72,11 +71,10 @@ public class TablaIntervencionesModelo extends AbstractTableModel{
 			valor = intervenciones.get(rowIndex).getGrupoResolucion();
 			break;
 		default:
-			System.out.println("Indice fuera de rango");
+			System.out.println("Indice fuera de rango.");
 			valor = "S/D";
 			break;
-		}
-		
+		}		
 		return valor;
 	}
 

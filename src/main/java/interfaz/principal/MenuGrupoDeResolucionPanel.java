@@ -190,7 +190,7 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 	}
 
 	private void cerrarSesion() {
-		int res = JOptionPane.showConfirmDialog(ventana, "Está seguro que desea cerrar sesión.", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		int res = JOptionPane.showConfirmDialog(ventana, "¿Está seguro que desea cerrar sesión?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 		if(res == JOptionPane.YES_OPTION) {
 			GestorUsuarios.cerrarSesion();
@@ -201,12 +201,11 @@ public class MenuGrupoDeResolucionPanel extends JPanel{
 	}
 
 	private void apretoBuscarClasificacion() {
-		// TODO Auto-generated method stub
-		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aún no esta disponible.", "Próximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void apretoRegistarClasificacion() {
-		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aún no esta disponible.", "Próximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void apretoConsultarIntervenciones() {

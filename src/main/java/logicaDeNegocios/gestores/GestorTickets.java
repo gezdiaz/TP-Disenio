@@ -22,7 +22,6 @@ import logicaDeNegocios.enumeraciones.Motivos;
 public abstract class GestorTickets {
 
 	public static TicketDTO getNuevoTicket() {
-		// TODO Metodo que crea un nuevo ticket
 		TicketDTO ticketDTO = new TicketDTO(-1L);
 
 		ticketDTO.setNumTicket(GestorBD.getNumTicket());
@@ -33,7 +32,6 @@ public abstract class GestorTickets {
 	}
 
 	public static Boolean registrarTicket(TicketDTO ticketDTO) {
-		// TODO Auto-generated method stub
 		Clasificacion clasificacion = GestorBD.buscarClasificacion(ticketDTO.getClasificacion());
 		Empleado solicitante = SistemaPersonal.getEmpleado(ticketDTO.getNumLegajo());
 		Ticket ticket = new Ticket(ticketDTO.getNumTicket(), solicitante, ticketDTO.getFechaHoraApertura(), ticketDTO.getDescripcion());
@@ -50,25 +48,17 @@ public abstract class GestorTickets {
 		Reclasificacion reclasificacion = new Reclasificacion(null, clasificacion, usuario, LocalDateTime.now());
 
 		ticket.cambiarClasificacion(reclasificacion);
-//		System.out.println("Clasificacion: "+clasificacion);
+
 		//Crea la intervencion
-//		System.out.println("Empiezo a crear la intervencion");
+
 		Intervencion intervencion = GestorIntervenciones.crearIntervencionRT(ticket, usuario.getGrupo().getNombre(), ""); //observaciones vacías, en la segunda pnatalla las cambia.
-//		System.out.println("Termino de crear la intervencion");
+
 		if(intervencion == null) {
-//			System.out.println("Intervencion nula");
+
 			return false;
 		}
 
 		ticket.agregarIntervencion(intervencion);
-
-		//Guarda en la base de datos
-		//		if(!GestorBD.guardarCambioEstadoTIcket(cambioEstado)) {
-		//			return false;
-		//		}
-		//		if(!GestorBD.guardarReclasificacion(reclasificacion)) {
-		//			return false;
-		//		}
 
 		if(!GestorBD.guardarTicket(ticket)) {
 			return false;
@@ -97,10 +87,6 @@ public abstract class GestorTickets {
 		}
 
 		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.CERRADO, ticket, GestorUsuarios.usuarioActual(), observaciones);
-
-		//		if(!GestorBD.guardarCambioEstadoTIcket(nuevoEstado)) {
-		//			return 0;
-		//		}
 
 		ticket.acutalizarEstado(nuevoEstado);
 		//no se pudo guardar en base de datos
@@ -244,8 +230,7 @@ public abstract class GestorTickets {
 			
 			
 		}
-		
-		
+				
 		if(!GestorBD.guardarTicket(ticket)) {
 			return -3;
 		}

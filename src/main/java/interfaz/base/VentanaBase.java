@@ -20,17 +20,16 @@ public class VentanaBase extends JFrame {
 	JPanel subPanel;
 	JPanel panel;
 	CardLayout cartas;
-	//	GridBagConstraints restriccionesPanel;
 
 
 	public VentanaBase(String title, String nombreUsuario, JPanel subPanel){
 		super(title);
-		//		this.restriccionesPanel = new GridBagConstraints();
 		this.subPanel = subPanel;
 		this.cartas = new CardLayout();
 		JPanel contentPane = new JPanel(new BorderLayout());
 		panel = new JPanel(cartas);
 		barraUsuario = new PanelBarraUsuario(nombreUsuario);
+		this.setResizable(false);
 
 
 		panel.add(this.subPanel, "Inicio");
@@ -78,10 +77,8 @@ public class VentanaBase extends JFrame {
         d.height = Math.min(m.height, d.height);
 
         if (resize) {
-//            Point p = getLocation();
             setVisible(false);
             setSize(d);
-//            setLocation(p);
             setVisible(true);
             setLocationRelativeTo(null);
         }

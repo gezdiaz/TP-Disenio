@@ -53,17 +53,17 @@ public class DerivarTicketPanel extends JPanel{
 		this.ticketDTO = ticketDTO;
 		this.consultarTicketPanel = consultarTicketPanel;
 		
-		this.txtEstadoActual = new JTextField(10/*this.ticketDTO.getEstado().name()*/);
+		this.txtEstadoActual = new JTextField(10);
 		this.txtEstadoActual.setText(ticketDTO.getEstado().toString());
 		this.txtEstadoActual.setEditable(false);
 		this.txtEstadoActual.setFocusable(false);
 		
-		this.txtDescripcion = new JTextArea(/*"Una descripcion"*/this.ticketDTO.getDescripcion());
+		this.txtDescripcion = new JTextArea(this.ticketDTO.getDescripcion());
 		this.txtDescripcion.setEditable(false);
 		this.txtDescripcion.setFocusable(false);
 
 		this.txtNuevoEstado = new JTextField(10);
-		this.txtNuevoEstado.setText("Derivado");
+		this.txtNuevoEstado.setText(EstadoTicket.DERIVADO.getName());
 		this.txtNuevoEstado.setEditable(false);
 		this.txtNuevoEstado.setFocusable(false);
 
@@ -121,7 +121,7 @@ public class DerivarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Muestra el Numero de ticket
-		labelAux = new JLabel("N° Ticket: "+/*"123456"*/ticketDTO.getNumTicket());
+		labelAux = new JLabel("N° Ticket: "+ticketDTO.getNumTicket());
 		cons.gridx = 1;
 		cons.gridy = 0;
 		cons.gridheight = 1;
@@ -132,7 +132,7 @@ public class DerivarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Muestra el Nuevo estado del ticket
-		labelAux = new JLabel("Estado actual del ticket"/*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("Estado actual del ticket");
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
@@ -143,7 +143,7 @@ public class DerivarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Muestra la descripcion del ticket
-		labelAux = new JLabel("Descripcion"/*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("Descripcion");
 		cons.gridx = 0;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -154,7 +154,7 @@ public class DerivarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Muestra el Nuevo estado del ticket
-		labelAux = new JLabel("Nuevo estado"/*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("Nuevo estado");
 		cons.gridx = 0;
 		cons.gridy = 3;
 		cons.gridheight = 1;
@@ -165,7 +165,7 @@ public class DerivarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Muestra la clasificacion del ticket
-		labelAux = new JLabel("Clasificacion"/*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("Clasificacion");
 		cons.gridx = 0;
 		cons.gridy = 4;
 		cons.gridheight = 1;
@@ -176,7 +176,7 @@ public class DerivarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Muestra el grupo de resolucion
-		labelAux = new JLabel("Grupo de resolucion*"/*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("Grupo de resolucion*");
 		cons.gridx = 0;
 		cons.gridy = 5;
 		cons.gridheight = 1;
@@ -187,7 +187,7 @@ public class DerivarTicketPanel extends JPanel{
 		add(labelAux, cons);
 
 		//Muestra las observaciones
-		labelAux = new JLabel("Observaciones*"/*ticketDTO.getNumTicket()*/);
+		labelAux = new JLabel("Observaciones*");
 		cons.gridx = 0;
 		cons.gridy = 6;
 		cons.gridheight = 1;
@@ -342,8 +342,7 @@ public class DerivarTicketPanel extends JPanel{
 	}
 
 	private void apretoCancelar() {
-		//apretoCancelar();//TODO apretoCancelar()
-		int res = JOptionPane.showConfirmDialog(ventanaActual, "Está seguro que desea cancelar la operación", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		int res = JOptionPane.showConfirmDialog(ventanaActual, "¿Está seguro que desea cancelar la operación?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 		if(res == JOptionPane.YES_OPTION) {
 			ventanaActual.dispose();
@@ -356,10 +355,10 @@ public class DerivarTicketPanel extends JPanel{
 		String grupoResolucion = (String) listGrupoResolucion.getSelectedItem(), clasificacion = null;
 		
 		if(txtObservaciones.getText().trim().isEmpty()) {
-			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}else {
 			if(grupoResolucion.equals("Seleccione un grupo de resolución")) {
-				JOptionPane.showConfirmDialog(ventanaActual, "Debe seleccionar un grupo de resolucion", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventanaActual, "Debe seleccionar un grupo de resolucion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 			else {
 				
@@ -369,22 +368,22 @@ public class DerivarTicketPanel extends JPanel{
 				
 				switch(GestorTickets.derivarTicket(ticketDTO, grupoResolucion, txtObservaciones.getText().trim(), clasificacion)) {
 				case -3:{
-					JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 					break;
 				}
 				case -2:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Error conectándose a la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showConfirmDialog(ventanaActual, "Error conectándose a la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 					break;
 				}
 				case -1:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Grupo de resolucion o clasificación no encontrados en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showConfirmDialog(ventanaActual, "Grupo de resolucion o clasificación no encontrados en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 					break;
 				}
 				case 0:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Ticket no encontrado en la base de datos", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showConfirmDialog(ventanaActual, "Ticket no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 					break;
 				}
-				case 1:{JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido derivado exitosamente\n al grupo: "+grupoResolucion, "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+				case 1:{JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido derivado exitosamente\n al grupo: "+grupoResolucion+".", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					ventanaActual.dispose();
 					ventanaAnterior.setVisible(true);
 					consultarTicketPanel.buscar();

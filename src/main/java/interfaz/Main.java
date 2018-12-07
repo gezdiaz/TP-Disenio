@@ -25,7 +25,7 @@ public class Main {
 			GestorBD.setEmf(emf);
 			iniciarSesion();
 		} catch (Exception e) {
-			JOptionPane.showConfirmDialog(null, "No se pudo establecer conección con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(null, "No se pudo establecer conección con la base de datos.\n"+e.getMessage(), "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 
@@ -33,7 +33,8 @@ public class Main {
 
 	public static void iniciarSesion() {
 		ImageIcon img = new ImageIcon("icono.png");
-		JFrame ventana = new JFrame("Sistema de Mesa de ayuda");
+		JFrame ventana = new JFrame("La Llamita SGR");
+		ventana.setResizable(false);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.setContentPane(new InicioSesionPanel(ventana));
 		ventana.setIconImage(img.getImage());		 		
