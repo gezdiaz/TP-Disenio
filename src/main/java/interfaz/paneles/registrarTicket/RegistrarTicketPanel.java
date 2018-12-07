@@ -43,13 +43,14 @@ import javax.swing.text.DocumentFilter;
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import interfaz.auxiliar.LimiteTexto;
+import interfaz.auxiliar.PanelCancelable;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.entidades.Empleado;
 import logicaDeNegocios.gestores.GestorTickets;
 import logicaDeNegocios.gestores.SistemaPersonal;
 
-public class RegistrarTicketPanel extends JPanel {
+public class RegistrarTicketPanel extends PanelCancelable {
 
 	private VentanaBase ventana;
 	private Boolean legajoValido;
@@ -328,7 +329,7 @@ public class RegistrarTicketPanel extends JPanel {
 		cons.anchor = GridBagConstraints.EAST;
 		cons.fill = GridBagConstraints.NONE;
 		btnCancelar.addActionListener(e -> {
-			apretoCancelar();
+			apretoCancelar(false);
 		});
 		btnCancelar.addKeyListener(new KeyListener() {
 			
@@ -344,7 +345,7 @@ public class RegistrarTicketPanel extends JPanel {
 			public void keyPressed(KeyEvent e) {
 
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					apretoCancelar();
+					apretoCancelar(false);
 				}
 			}
 		});
@@ -388,10 +389,14 @@ public class RegistrarTicketPanel extends JPanel {
 		this.ventana = ventana;
 	}
 
-	private void apretoCancelar() {
+	@Override
+	public void apretoCancelar(Boolean desdeVentana) {
 		
-		int res = JOptionPane.showConfirmDialog(ventana, "¿Está seguro que desea cancelar la operación?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
+		int res = JOptionPane.YES_OPTION;
+		
+		if(!desdeVentana) {
+			res = JOptionPane.showConfirmDialog(ventana, "¿Está seguro que desea cancelar la operación?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		}
 		if(res == JOptionPane.YES_OPTION) {
 			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana)); //deberia volver a la pantalla de mesa de ayuda
 		}

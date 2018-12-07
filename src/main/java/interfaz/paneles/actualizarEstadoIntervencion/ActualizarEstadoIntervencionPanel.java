@@ -27,13 +27,14 @@ import javax.swing.text.AbstractDocument;
 import accesoADatos.GestorBD;
 import dto.IntervencionDTO;
 import interfaz.auxiliar.LimiteTexto;
+import interfaz.auxiliar.PanelCancelable;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.consultarIntervencion.ConsultarIntervencionPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.Motivos;
 import logicaDeNegocios.gestores.GestorIntervenciones;
 
-public class ActualizarEstadoIntervencionPanel extends JPanel{
+public class ActualizarEstadoIntervencionPanel extends PanelCancelable{
 
 	private VentanaBase ventanaActual, ventanaAnterior;
 	private JTextField txtEstadoActual;
@@ -322,7 +323,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		add(btnAceptar, cons);
 
 		btnCancelar.addActionListener(a -> {
-			apretoCancelar();
+			apretoCancelar(false);
 		});
 		btnCancelar.addKeyListener(new KeyListener() {
 
@@ -338,7 +339,7 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 			public void keyPressed(KeyEvent e) {
 
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					apretoCancelar();
+					apretoCancelar(false);
 				}
 			}
 		});
@@ -353,9 +354,14 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 		add(btnCancelar, cons);
 	}
 
-	private void apretoCancelar() {
-		int res = JOptionPane.showConfirmDialog(ventanaActual, "¿Está seguro que desea cancelar la operación?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
+	@Override
+	public void apretoCancelar(Boolean desdeVantana) {
+		int res = JOptionPane.YES_OPTION;
+		
+		if(!desdeVantana) {
+			res = JOptionPane.showConfirmDialog(ventanaActual, "¿Está seguro que desea cancelar la operación?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		}
+		
 		if(res == JOptionPane.YES_OPTION) {
 			ventanaActual.dispose();
 			ventanaAnterior.setVisible(true);
@@ -387,7 +393,6 @@ public class ActualizarEstadoIntervencionPanel extends JPanel{
 					}
 				}
 				intervencionDTO.setMotivo(motivo);
-				
 
 				intervencionDTO.setClasificacion((String)listClasificacion.getSelectedItem());
 				intervencionDTO.setObservaciones(txtObservaciones.getText().trim());

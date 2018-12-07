@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
+import interfaz.auxiliar.PanelCancelable;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.entidades.Ticket;

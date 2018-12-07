@@ -24,11 +24,12 @@ import javax.swing.text.AbstractDocument;
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import interfaz.auxiliar.LimiteTexto;
+import interfaz.auxiliar.PanelCancelable;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
 import logicaDeNegocios.gestores.GestorTickets;
 
-public class RegistrarTicket2Panel extends JPanel {
+public class RegistrarTicket2Panel extends PanelCancelable {
 
 	private JTextArea obserbacionesTxt;
 	private JButton aceptar, cancelar;
@@ -198,7 +199,7 @@ public class RegistrarTicket2Panel extends JPanel {
 		add(aceptar, cons);
 
 		cancelar.addActionListener(a -> {
-			apretoCancelar();
+			apretoCancelar(false);
 		});
 		cons.gridx = 1;
 		cons.gridy = 5;
@@ -222,7 +223,7 @@ public class RegistrarTicket2Panel extends JPanel {
 			public void keyPressed(KeyEvent e) {
 
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					apretoCancelar();
+					apretoCancelar(false);
 				}
 			}
 		});
@@ -242,14 +243,19 @@ public class RegistrarTicket2Panel extends JPanel {
 		add(labelAux, cons);
 
 	}
-	private void apretoCancelar() {
-		
-		int res = JOptionPane.showConfirmDialog(ventana, "¿Está seguro que desea cancelar la operación? Se eliminará el ticket creado.", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+	
+	@Override
+	public void apretoCancelar(Boolean desdeVantana) {
+		int res = JOptionPane.YES_OPTION;
+
+		if(!desdeVantana) {	
+			res = JOptionPane.showConfirmDialog(ventana, "¿Está seguro que desea cancelar la operación? Se eliminará el ticket creado.", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		}
 		if(res == JOptionPane.YES_OPTION) {
 			GestorTickets.eliminarTicket(ticketDTO);
 			ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 		}
-		
+
 	}
 	private void apretoAceptar() {
 		if(obserbacionesTxt.getText().trim().isEmpty()) {

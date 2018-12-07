@@ -156,7 +156,7 @@ public abstract class GestorBD {
             
             consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));     
             
-            consulta.orderBy(cb.desc(intervenciones.get("fechaHoraAsignacion")));
+            consulta.orderBy(cb.desc(intervenciones.get("idInt")));
             
             resultado = manager.createQuery(consulta).getResultList();      
             
@@ -383,7 +383,7 @@ public abstract class GestorBD {
             	lstPredicates.add(p7);	
             }
             consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));
-            consulta.orderBy(cb.desc(tickets.get("fechaHoraApertura")));  
+            consulta.orderBy(cb.desc(tickets.get("numTicket")));  
             resultado = manager.createQuery(consulta).getResultList();
             for(Ticket t: resultado) {
             	t.getHistorialCambioEstadoTicket().size();

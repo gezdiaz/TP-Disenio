@@ -6,11 +6,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import interfaz.auxiliar.PanelCancelable;
 
 
 public class VentanaBase extends JFrame {
@@ -42,7 +47,40 @@ public class VentanaBase extends JFrame {
 		ImageIcon img = new ImageIcon("icono.png");
 		setIconImage(img.getImage());
 
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				salir();
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+			}
+		});
+		
 		this.setContentPane(contentPane);
 		this.setLocationRelativeTo(null);
 
@@ -84,5 +122,19 @@ public class VentanaBase extends JFrame {
         }
         super.paint(g);
     }
+	
+	private void salir() {
+
+		int res = JOptionPane.showConfirmDialog(this, "¿Está seguro que desea salir del sistema? \nEs posible que se eliminen datos.", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		if(res == JOptionPane.YES_OPTION) {
+			if(subPanel instanceof PanelCancelable) {
+				((PanelCancelable) subPanel).apretoCancelar(true);
+			}
+		}else {
+			return;
+		}
+
+		System.exit(0);
+	}
 	
 }

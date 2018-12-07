@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 
 import dto.CriteriosDTO;
 import dto.IntervencionDTO;
+import interfaz.auxiliar.PanelCancelable;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuGrupoDeResolucionPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
@@ -303,5 +304,6 @@ public class ConsultarIntervencionPanel extends JPanel {
 	private void apretoVolver() {
 		ventana.cambiarPanel(new MenuGrupoDeResolucionPanel(ventana, GestorUsuarios.usuarioActual().getGrupo().getNombre()));
 	}
+
 
 }
