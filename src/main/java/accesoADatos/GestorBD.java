@@ -32,8 +32,6 @@ public abstract class GestorBD {
 
 	private static EntityManagerFactory emf;
 
-	private static Query consulta;
-
 	public static void setEmf(EntityManagerFactory factory) {
 		emf = factory;
 	}
@@ -154,9 +152,14 @@ public abstract class GestorBD {
             }            
             Join<GrupoResolucion, Intervencion> datos4 = intervenciones.join("grupoResolucion");
             Predicate p5 = cb.equal(datos4.get("codigo"), codGrupoActual);
-            lstPredicates.add(p5);            
+            lstPredicates.add(p5);        
+            
             consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));     
-            resultado = manager.createQuery(consulta).getResultList();            
+            
+            consulta.orderBy(cb.desc(intervenciones.get("fechaHoraAsignacion")));
+            
+            resultado = manager.createQuery(consulta).getResultList();      
+            
             for(Intervencion t: resultado) {
             	t.getHistorialCambioEstadoIntervencion().size();
             	t.getTicket().getHistorialCambioEstadoTicket().size();
@@ -330,7 +333,6 @@ public abstract class GestorBD {
 			return new ArrayList<String>();
 		}
 	}
-
 
 	public static List<Ticket> buscarTickets(Long numTicket,Long numLeg,EstadoTicket estadoActual, String nombreClasificacion,LocalDate fechaApertura, LocalDate fechaUltimoCambio, String ultGrupo){		
 		EntityManager manager = emf.createEntityManager();

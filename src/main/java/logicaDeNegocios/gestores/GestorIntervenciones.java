@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import accesoADatos.GestorBD;
+import dto.CriteriosDTO;
 import dto.IntervencionDTO;
 import dto.TicketDTO;
 import logicaDeNegocios.entidades.CambioEstadoIntervencion;
@@ -86,7 +87,13 @@ public abstract class GestorIntervenciones {
 		intervencion.actualizarEstado(nuevoEstado);
 	}
 	
-	public static List<IntervencionDTO> consultarIntervencion(EstadoIntervencion estadoActual, LocalDate fechaDesde, LocalDate fechaHasta, Long numTicket, Long numLegajo){
+	public static List<IntervencionDTO> consultarIntervencion(CriteriosDTO criteriosDTO){
+		
+		EstadoIntervencion estadoActual = criteriosDTO.getEstadoActual();
+		LocalDate fechaDesde = criteriosDTO.getFechaDesde();
+		LocalDate fechaHasta = criteriosDTO.getFechaHasta();
+		Long numTicket = criteriosDTO.getNumTicket();
+		Long numLegajo = criteriosDTO.getNumLegajo();
 		
 		LocalDateTime fechaHoraDesde=null, fechaHoraHasta=null;
 		String codGrupoActual = GestorUsuarios.usuarioActual().getGrupo().getCodigo();

@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import dto.CriteriosDTO;
 import dto.IntervencionDTO;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuGrupoDeResolucionPanel;
@@ -288,7 +289,9 @@ public class ConsultarIntervencionPanel extends JPanel {
 			}
 		}
 		
-		intervencionesDTO = GestorIntervenciones.consultarIntervencion(estadoActual,fechaDesde,fechaHasta,numTicket,numLegajo);
+		CriteriosDTO criteriosDTO = new CriteriosDTO(estadoActual, fechaDesde, fechaHasta, numTicket, numLegajo);
+		
+		intervencionesDTO = GestorIntervenciones.consultarIntervencion(criteriosDTO);
 		
 		if(intervencionesDTO.isEmpty()) {
 			JOptionPane.showConfirmDialog(ventana, "No se encontraron intervenciones con los criterios ingresados.", "No se encontraron intervenciones", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);

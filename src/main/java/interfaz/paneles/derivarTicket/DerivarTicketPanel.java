@@ -403,6 +403,7 @@ public class DerivarTicketPanel extends JPanel{
 					clasificacion = (String) listClasificacion.getSelectedItem();
 				}
 				
+				
 				switch(GestorTickets.derivarTicket(ticketDTO, grupoResolucion, txtObservaciones.getText().trim(), clasificacion)) {
 				case -3:{
 					JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
