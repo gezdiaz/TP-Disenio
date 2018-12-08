@@ -103,9 +103,16 @@ public abstract class GestorTickets {
 
 	}
 
-	public static List<TicketDTO> consultarTicket(Long numTicket,Long numLeg,EstadoTicket estadoActual,String nombreClasificacion,LocalDate fechaApertura, LocalDate fechaUltimoGrupo, String ultGrupo){
+	public static List<TicketDTO> consultarTicket(TicketDTO tDTO){
+		Long numTicket = tDTO.getNumTicket();
+		Long numLeg = tDTO.getNumLegajo();
+		EstadoTicket estadoActual = tDTO.getEstado();
+		String nombreClasificacion = tDTO.getClasificacion();
+		LocalDate fechaApertura = tDTO.getFechaHoraApertura() != null? tDTO.getFechaHoraApertura().toLocalDate(): null;
+		LocalDate fechaUltimoCambio = tDTO.getFechaUltimoCambioEstado() != null? tDTO.getFechaUltimoCambioEstado().toLocalDate(): null;
+		String ultGrupo = tDTO.getGrupoActual();
 
-		List<Ticket> tickets = GestorBD.buscarTickets(numTicket, numLeg, estadoActual, nombreClasificacion, fechaApertura, fechaUltimoGrupo, ultGrupo);
+		List<Ticket> tickets = GestorBD.buscarTickets(numTicket, numLeg, estadoActual, nombreClasificacion, fechaApertura, fechaUltimoCambio, ultGrupo);
 
 		List<TicketDTO> ticketsDTO = new ArrayList<TicketDTO>();
 		for(Ticket i : tickets) {

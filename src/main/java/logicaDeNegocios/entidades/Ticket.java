@@ -203,7 +203,7 @@ public class Ticket {
 			dto.setFechaUltimoCambioEstado(historialCambioEstadoTicket.get(historialCambioEstadoTicket.size()-1).getFechaHoraCambio());
 		}
 		if(!intervenciones.isEmpty()) {
-			dto.setGrupoActual(ultimaIntervencion().getGrupoResolucion().getNombre());
+			dto.setGrupoActual(ultimoGrupo().getNombre());
 		}
 		return dto;
 	}
@@ -229,8 +229,14 @@ public class Ticket {
 	}
 
 	public GrupoResolucion ultimoGrupo() {
-
-		return ultimaIntervencion().getGrupoResolucion();
+		EstadoTicket estActual = estadoActual();
+		
+		if(estActual.equals(EstadoTicket.CERRADO) || estActual.equals(EstadoTicket.EN_MESA_DE_AYUDA) || estActual.equals(EstadoTicket.ESPERA_OK)) {
+			return new GrupoResolucion("A1", "Mesa de Ayuda");
+		}else {
+			return ultimaIntervencion().getGrupoResolucion();
+		}
+		
 	}
 
 	@Override
@@ -268,6 +274,10 @@ public class Ticket {
 		} else if (!solicitante.equals(other.solicitante))
 			return false;
 		return true;
+	}
+
+	public CambioEstadoTicket ultimoCambioEstado() {
+		return historialCambioEstadoTicket.get(historialCambioEstadoTicket.size()-1);
 	}
 
 	

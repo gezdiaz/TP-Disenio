@@ -326,7 +326,7 @@ public class ConsultarTicketPanel extends JPanel {
 		Long numTicket = null, numLegajo = null;
 		String nombreClasificacion = null, ultGrupo = null;
 		EstadoTicket estadoActual = null;
-		LocalDate fechaApertura = null, fechaUltimoGrupo = null;
+		LocalDate fechaApertura = null, fechaUltimoCambio = null;
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 		if(!txtNumTicket.getText().trim().isEmpty()) {
@@ -360,12 +360,12 @@ public class ConsultarTicketPanel extends JPanel {
 		}
 		if(!txtFechaUltimoCambio.getText().trim().isEmpty()) {
 			try {
-				fechaUltimoGrupo = LocalDate.parse(txtFechaUltimoCambio.getText().trim(), format);
+				fechaUltimoCambio = LocalDate.parse(txtFechaUltimoCambio.getText().trim(), format);
 			} catch (Exception e) {
 				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado ingresada no está en el formato correcto.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			if(fechaUltimoGrupo.compareTo(LocalDate.now()) > 0) {
+			if(fechaUltimoCambio.compareTo(LocalDate.now()) > 0) {
 				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado no puede ser futura.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -383,8 +383,15 @@ public class ConsultarTicketPanel extends JPanel {
 		if(!listUltimoGrupo.getSelectedItem().equals("Todos los grupos de resolución")) {
 			ultGrupo = (String) listUltimoGrupo.getSelectedItem();
 		}
+		TicketDTO tDTO = new TicketDTO(numTicket);
+		tDTO.setNumLegajo(numLegajo);
+		tDTO.setEstado(estadoActual);
+		tDTO.setClasificacion(nombreClasificacion);
+		tDTO.setFechaHoraApertura(fechaApertura != null? fechaApertura.atStartOfDay(): null);
+		tDTO.setGrupoActual(ultGrupo);
+		tDTO.setFechaUltimoCambioEstado(fechaUltimoCambio !=null? fechaUltimoCambio.atStartOfDay(): null);
 		
-		ticketsDTO = GestorTickets.consultarTicket(numTicket, numLegajo, estadoActual, nombreClasificacion, fechaApertura, fechaUltimoGrupo, ultGrupo);
+		ticketsDTO = GestorTickets.consultarTicket(tDTO);
 		
 		if(ticketsDTO.isEmpty()) {
 			JOptionPane.showConfirmDialog(ventana, "No se encontraron tickets con los criterios ingresados.", "No se encontraron tickets", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);

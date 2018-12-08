@@ -370,7 +370,7 @@ public abstract class GestorBD {
             	lstPredicates.add(p5);  	
             }   
             if(fechaUltimoCambio != null) {
-            	Join<Intervencion,Ticket> datos5 = tickets.join("historialCambioEstadoTicket");
+            	Join<CambioEstadoTicket,Ticket> datos5 = tickets.join("historialCambioEstadoTicket");
             	Predicate p6 = cb.between(datos5.get("fechaHoraCambio"), 
 		            			LocalDateTime.of(fechaUltimoCambio.getYear(), fechaUltimoCambio.getMonth(), fechaUltimoCambio.getDayOfMonth(), 0, 0),
 		    					LocalDateTime.of(fechaUltimoCambio.getYear(), fechaUltimoCambio.getMonth(), fechaUltimoCambio.getDayOfMonth(), 23, 59));
@@ -399,7 +399,8 @@ public abstract class GestorBD {
             	}
             	if((estadoActual != null && !resultado.get(i).estadoActual().equals(estadoActual))
             		|| (ultGrupo != null && !resultado.get(i).ultimoGrupo().getNombre().equals(ultGrupo))
-            		|| (nombreClasificacion != null && !resultado.get(i).ultimaCalsificacion().getNombre().equals(nombreClasificacion))){	
+            		|| (nombreClasificacion != null && !resultado.get(i).ultimaCalsificacion().getNombre().equals(nombreClasificacion)
+            		|| (fechaUltimoCambio !=null) && !resultado.get(i).ultimoCambioEstado().getFechaHoraCambio().toLocalDate().equals(fechaUltimoCambio))){	
             		resultado.remove(i);
             		i--;
             	}	
