@@ -87,16 +87,16 @@ public class ActualizarEstadoIntervencionPanel extends PanelCancelable{
 		this.listEstadoIntervencion.addItem("Seleccione un estado");
 		switch(intervencionDTO.getEstadoIntervencion()) {
 		case ASIGNADO:{
-			listEstadoIntervencion.addItem(EstadoIntervencion.TRABAJANDO.name());
+			listEstadoIntervencion.addItem(EstadoIntervencion.TRABAJANDO.getName());
 			break;
 		}
 		case TRABAJANDO:{
-			listEstadoIntervencion.addItem(EstadoIntervencion.EN_ESPERA.name());
-			listEstadoIntervencion.addItem(EstadoIntervencion.TERMINADO.name());
+			listEstadoIntervencion.addItem(EstadoIntervencion.EN_ESPERA.getName());
+			listEstadoIntervencion.addItem(EstadoIntervencion.TERMINADO.getName());
 			break;
 		}
 		case EN_ESPERA:{
-			listEstadoIntervencion.addItem(EstadoIntervencion.ASIGNADO.name());
+			listEstadoIntervencion.addItem(EstadoIntervencion.ASIGNADO.getName());
 			break;
 		}
 		default:
@@ -251,7 +251,7 @@ public class ActualizarEstadoIntervencionPanel extends PanelCancelable{
 		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.WEST;
 		this.listEstadoIntervencion.addActionListener(e->{
-			if(listEstadoIntervencion.getSelectedItem().equals(EstadoIntervencion.TERMINADO.name())) {
+			if(listEstadoIntervencion.getSelectedItem().equals(EstadoIntervencion.TERMINADO.getName())) {
 				this.listMotivo.setEnabled(true);
 			}
 			else {
@@ -393,7 +393,7 @@ public class ActualizarEstadoIntervencionPanel extends PanelCancelable{
 					}
 				}
 				intervencionDTO.setMotivo(motivo);
-
+				intervencionDTO.setEstadoIntervencion(estadoseleccionado);
 				intervencionDTO.setClasificacion((String)listClasificacion.getSelectedItem());
 				intervencionDTO.setObservaciones(txtObservaciones.getText().trim());
 				switch(GestorIntervenciones.actualizarEstadoIntervencion(intervencionDTO)) {

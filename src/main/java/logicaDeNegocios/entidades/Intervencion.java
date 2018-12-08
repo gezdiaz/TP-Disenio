@@ -140,6 +140,7 @@ public class Intervencion {
 		intervencionDTO.setFechaAsignacionIntervencion(this.fechaHoraAsignacion);
 		intervencionDTO.setDescripcionTicket(this.ticket.getDescripcion());
 		intervencionDTO.setGrupoResolucion(this.grupoResolucion.getNombre());
+		intervencionDTO.setObservaciones(this.observaciones);
 		
 		return intervencionDTO;
 	}

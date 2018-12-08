@@ -236,7 +236,7 @@ public class DerivarTicketPanel extends PanelCancelable{
 
 		//Muestra la descripcion
 		scroll = new JScrollPane(txtDescripcion);
-		txtDescripcion.setPreferredSize(new Dimension(200, 70));
+		scroll.setPreferredSize(new Dimension(200, 70));
 		txtDescripcion.setBackground(new Color(0xF2F2F2));
 		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setWrapStyleWord(true);
@@ -245,8 +245,8 @@ public class DerivarTicketPanel extends PanelCancelable{
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
 		cons.insets = new Insets(10, 5, 5, 5);
-		cons.fill = GridBagConstraints.BOTH;
-		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.NONE;
+		cons.anchor = GridBagConstraints.WEST;
 		add(scroll, cons);
 
 		//Muestra el nuevo estado del ticket
@@ -297,8 +297,8 @@ public class DerivarTicketPanel extends PanelCancelable{
 		cons.gridwidth = 1;
 		cons.weightx = 2;
 		cons.insets = new Insets(25, 5, 5, 25);
-		cons.fill = GridBagConstraints.BOTH;
-		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.NONE;
+		cons.anchor = GridBagConstraints.WEST;
 		add(scroll, cons);
 
 		//*campo obligatorio
