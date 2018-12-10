@@ -129,14 +129,12 @@ public abstract class GestorBD {
                 Predicate p1 = cb.equal(datos1.get("estadoNuevo"),estado);
                 lstPredicates.add(p1);
             }            
-            if(fechaDesde != null) {      
-	            Predicate p2 = cb.between(intervenciones.get("fechaHoraAsignacion"), fechaDesde, LocalDateTime.of(LocalDate.of(9999, 12, 30), LocalTime.of(0, 0, 0)));
-	            lstPredicates.add(p2);           
-            }           
-            if(fechaHasta != null) {                
-	            Predicate p3 = cb.between(intervenciones.get("fechaHoraAsignacion"), LocalDateTime.of(LocalDate.of(0, 1, 1), LocalTime.of(0, 0, 0)), fechaHasta);
-	            lstPredicates.add(p3);            
-            }            
+
+            if(fechaDesde != null && fechaHasta != null) {
+            	Predicate p2 = cb.between(intervenciones.get("fechaHoraAsignacion"), fechaDesde, fechaHasta);
+            	lstPredicates.add(p2);
+            }
+            
             if(numTicket != null) {            	
             	datos2 = intervenciones.join("ticket");
             	Predicate p4 = cb.equal(datos2.get("numTicket"),numTicket);

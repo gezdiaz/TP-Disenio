@@ -99,11 +99,11 @@ public abstract class GestorIntervenciones {
 		String codGrupoActual = GestorUsuarios.usuarioActual().getGrupo().getCodigo();
 		
 		if(fechaDesde!=null) {
-			fechaHoraDesde=LocalDateTime.of(fechaDesde, LocalTime.of(0, 0));
+			fechaHoraDesde=fechaDesde.atStartOfDay();
 		}
 		
 		if(fechaHasta!=null) {
-			fechaHoraHasta=LocalDateTime.of(fechaHasta, LocalTime.of(0, 0));
+			fechaHoraHasta=fechaHasta.atTime(LocalTime.MAX);
 		}
 			
 		List<Intervencion> intervenciones = GestorBD.buscarintervenciones(estadoActual, fechaHoraDesde,fechaHoraHasta, numTicket, numLegajo, codGrupoActual);
