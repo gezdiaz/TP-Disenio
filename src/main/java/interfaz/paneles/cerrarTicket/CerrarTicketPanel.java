@@ -144,7 +144,7 @@ public class CerrarTicketPanel extends PanelCancelable{
 		cons.gridwidth = 1;
 		cons.weightx = 2;
 		cons.insets = new Insets(25, 5, 5, 25);
-		cons.fill = GridBagConstraints.BOTH;
+		cons.fill = GridBagConstraints.NONE;
 		cons.anchor = GridBagConstraints.CENTER;
 		add(scroll, cons);
 

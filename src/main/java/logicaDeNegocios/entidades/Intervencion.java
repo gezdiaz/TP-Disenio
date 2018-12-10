@@ -110,6 +110,7 @@ public class Intervencion {
 	public void actualizarEstado(CambioEstadoIntervencion cambioEstadoIntervencion) {
 
 		historialCambioEstadoIntervencion.add(cambioEstadoIntervencion);
+		observaciones = cambioEstadoIntervencion.getObservaciones();
 
 	}
 

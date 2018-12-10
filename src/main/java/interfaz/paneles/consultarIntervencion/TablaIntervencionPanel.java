@@ -4,12 +4,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,7 +27,7 @@ import logicaDeNegocios.gestores.GestorUsuarios;
 
 public class TablaIntervencionPanel extends JPanel{
 
-	private JButton btnModificarEstado, btnModificarComentario;
+	private JButton btnModificarEstado, btnModificarComentario, btnVerObservaciones;
 	private JTable tabla;
 	private TablaIntervencionesModelo tableModel;
 	VentanaBase ventana;
@@ -44,6 +46,7 @@ public class TablaIntervencionPanel extends JPanel{
 		
 		btnModificarEstado = new JButton("Modificar Estado");
 		btnModificarComentario = new JButton("Modificar Comentario");
+		btnVerObservaciones = new JButton("Ver Observaciones");
 		
 		labelAux = new JLabel("Intervenciones encontradas:");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 18));
@@ -60,21 +63,36 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
-		cons.gridwidth = 6;
+		cons.gridwidth = 2;
 		cons.insets = new Insets(5, 0, 5, 0);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
 		scroll.setPreferredSize(new Dimension(800, 120));
 		cons.weighty = 2;
 		add(scroll, cons);
-		
-		cons.gridx = 1;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.EAST;
-		cons.fill = GridBagConstraints.NONE;
+
+		btnVerObservaciones.addActionListener(a -> {
+			apretoVerObservaciones();
+		});
+		btnVerObservaciones.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					apretoVerObservaciones();
+				}
+			}
+		});
+
 		btnModificarEstado.addActionListener(a -> {
 			apretoModificarEstado();
 		});
@@ -90,21 +108,12 @@ public class TablaIntervencionPanel extends JPanel{
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
-
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					apretoModificarEstado();
 				}
 			}
 		});
-		add(btnModificarEstado, cons);
 		
-		cons.gridx = 3;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.WEST;
-		cons.fill = GridBagConstraints.NONE;
 		btnModificarComentario.addActionListener(a ->{
 			apretoModificarComentario();
 		});
@@ -126,16 +135,44 @@ public class TablaIntervencionPanel extends JPanel{
 				}
 			}
 		});
-		add(btnModificarComentario, cons);
+		
+		JPanel panelBotones = new JPanel(new GridLayout(1, 4, 7, 7));
+		panelBotones.add(btnVerObservaciones);
+		panelBotones.add(btnModificarEstado);
+		panelBotones.add(btnModificarComentario);
+		
+		cons.gridx = 0;
+		cons.gridy = 2;
+		cons.gridheight = 1;
+		cons.gridwidth = 2;
+		cons.insets = new Insets(5, 0, 5, 0);
+		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.NONE;
+		cons.weighty = 2;
+		add(panelBotones, cons);
 		
 	}
 
+	private void apretoVerObservaciones() {
+		if(tabla.getSelectedRow()!=-1) {
+			//TODO nuevo panel.
+			JDialog dialogo = new JDialog(ventana, "Observaciones", true);
+			dialogo.setContentPane(new ObservacionesPanel(dialogo, tableModel.getIntervenciones().get(tabla.getSelectedRow()).getObservaciones()));
+			dialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialogo.pack();
+			dialogo.setLocationRelativeTo(ventana);
+			dialogo.setVisible(true);			
+		}else {
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervencion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+		}	
+	}
+	
 	private void apretoModificarComentario() {
 		if(tabla.getSelectedRow()!=-1) {
 			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad no esta disponible.", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);;
 		}
 		else {
-			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervencion.", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervencion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
