@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import dto.TicketDTO;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
+import logicaDeNegocios.gestores.SistemaPersonal;
 
 @Entity
 @Table(name = "TICKET")
@@ -51,7 +52,7 @@ public class Ticket {
 	}
 
 	public Ticket(Long numTIcket, Empleado solicitante, LocalDateTime fechaHoraApertura,
-			String descripcion) {
+			String descripcion, Usuario usuario) {
 		this.numTicket = numTIcket;
 		this.solicitante = solicitante;
 		this.fechaHoraApertura = fechaHoraApertura;
@@ -59,9 +60,12 @@ public class Ticket {
 		this.historialCambioEstadoTicket = new ArrayList<CambioEstadoTicket>();
 		this.historialReclasificacion = new ArrayList<Reclasificacion>();
 		this.intervenciones = new ArrayList<Intervencion>();
+		this.operador=usuario;
 	}
 
-
+	public Ticket(TicketDTO ticketDTO, Usuario usuario, Empleado solicitante) {
+		this(ticketDTO.getNumTicket(),solicitante,ticketDTO.getFechaHoraApertura(),ticketDTO.getDescripcion(),usuario);
+	}
 
 	public List<CambioEstadoTicket> getHistorialCambioEstadoTicket() {
 		return historialCambioEstadoTicket;
