@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -64,7 +65,7 @@ public class TablaTicketsPanel extends JPanel {
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
-		cons.gridwidth = 6;
+		cons.gridwidth = 2;
 		cons.insets = new Insets(5, 0, 5, 0);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
@@ -72,14 +73,23 @@ public class TablaTicketsPanel extends JPanel {
 		cons.weighty = 2;
 		add(scroll, cons);
 
-		cons.gridx = 1;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.CENTER;
-		cons.fill = GridBagConstraints.NONE;
-		cons.weighty = 1;
+//		cons.gridx = 0;
+//		cons.gridy = 2;
+//		cons.gridheight = 1;
+//		cons.gridwidth = 1;
+//		cons.insets = new Insets(15, 5, 5, 5);
+//		cons.anchor = GridBagConstraints.EAST;
+//		cons.fill = GridBagConstraints.NONE;
+//		add(new JLabel(""), cons);		
+		
+//		cons.gridx = 1;
+//		cons.gridy = 2;
+//		cons.gridheight = 1;
+//		cons.gridwidth = 1;
+//		cons.insets = new Insets(15, 5, 5, 5);
+//		cons.anchor = GridBagConstraints.EAST;
+//		cons.fill = GridBagConstraints.NONE;
+//		cons.weighty = 2;
 		btnVer.addActionListener(a -> {
 			apretoVer();
 		});
@@ -101,15 +111,7 @@ public class TablaTicketsPanel extends JPanel {
 				}
 			}
 		});
-		add(btnVer, cons);
 
-
-		cons.gridx = 2;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.CENTER;
 		btnCerrar.addActionListener(a -> {
 			apretoCerrar();
 		});
@@ -131,14 +133,7 @@ public class TablaTicketsPanel extends JPanel {
 				}
 			}
 		});
-		add(btnCerrar, cons);
 
-		cons.gridx = 3;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.CENTER;
 		btnDerivar.addActionListener(a ->{
 			apretoDerivar();
 		});
@@ -161,14 +156,7 @@ public class TablaTicketsPanel extends JPanel {
 			}
 
 		});
-		add(btnDerivar, cons);
 
-		cons.gridx = 4;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 5, 5, 5);
-		cons.anchor = GridBagConstraints.CENTER;
 		btnConfigurarReporte.addActionListener(a -> {
 			apretoConfigurarReporte();
 		});
@@ -190,8 +178,23 @@ public class TablaTicketsPanel extends JPanel {
 				}
 			}
 		});
-		add(btnConfigurarReporte, cons);
 
+		JPanel panelBotones = new JPanel(new GridLayout(1, 4, 7, 7));
+		panelBotones.add(btnVer);
+		panelBotones.add(btnCerrar);
+		panelBotones.add(btnDerivar);
+		panelBotones.add(btnConfigurarReporte);
+		
+		cons.gridx = 0;
+		cons.gridy = 2;
+		cons.gridheight = 1;
+		cons.gridwidth = 2;
+		cons.insets = new Insets(5, 0, 5, 0);
+		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.NONE;
+		cons.weighty = 2;
+		add(panelBotones, cons);
+		
 	}
 
 	private void apretoConfigurarReporte() {

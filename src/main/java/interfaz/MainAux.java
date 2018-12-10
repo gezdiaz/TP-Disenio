@@ -36,24 +36,13 @@ public class MainAux {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
 			GestorBD.setEmf(emf);
 			
-//			Ticket ticket = GestorBD.buscarTicketPorId(1L);
-//			System.out.println("Fecha-Hora: "+ticket.getFechaHoraApertura());
-			List<Intervencion> tickets = GestorBD.buscarintervenciones(null, null, LocalDateTime.of(2018, 12, 4, 19, 46), null, null, null);
-			for(Intervencion t: tickets) {
-				System.out.println(t);
-			}
-//			System.out.println("Tickets: "+tickets);
-			System.out.println("N° de resultados: "+ tickets.size());
-//			ventana.cambiarPanel(panel);
-//			
-//			ventana.pack();			
-//			ventana.setLocationRelativeTo(null);
-//			ventana.setVisible(true);
-//			ventana.setFocusable(true);
-//			ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//			System.out.println("Panel: "+ panel.getSize());
-//			System.out.println("Ventana: "+ ventana.getSize());
-//			ventana.setSize(763, 760);
+			ventana.cambiarPanel(panel);
+			ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+			ventana.setLocationRelativeTo(null);
+			ventana.setVisible(true);
+			
+			
 
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, "No se pudo establecer coneccion con la base de datos\n"+e.getMessage(), "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);

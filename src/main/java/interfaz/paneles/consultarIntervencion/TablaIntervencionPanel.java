@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -62,23 +63,14 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.gridx = 0;
 		cons.gridy = 1;
 		cons.gridheight = 1;
-		cons.gridwidth = 3;
+		cons.gridwidth = 2;
 		cons.insets = new Insets(5, 0, 5, 0);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
 		scroll.setPreferredSize(new Dimension(800, 120));
 		cons.weighty = 2;
 		add(scroll, cons);
-		
-		cons.gridx = 0;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 1, 5, 1);
-		cons.anchor = GridBagConstraints.EAST;
-		cons.fill = GridBagConstraints.NONE;
-		cons.weighty = 1;
-		cons.weightx = 2;
+
 		btnVerObservaciones.addActionListener(a -> {
 			apretoVerObservaciones();
 		});
@@ -100,16 +92,7 @@ public class TablaIntervencionPanel extends JPanel{
 				}
 			}
 		});
-		add(btnVerObservaciones, cons);
-		
-		cons.gridx = 1;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 1, 5, 1);
-		cons.anchor = GridBagConstraints.CENTER;
-		cons.fill = GridBagConstraints.NONE;
-		cons.weightx = 1;
+
 		btnModificarEstado.addActionListener(a -> {
 			apretoModificarEstado();
 		});
@@ -130,16 +113,7 @@ public class TablaIntervencionPanel extends JPanel{
 				}
 			}
 		});
-		add(btnModificarEstado, cons);
 		
-		cons.gridx = 2;
-		cons.gridy = 2;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(15, 1, 5, 1);
-		cons.anchor = GridBagConstraints.WEST;
-		cons.fill = GridBagConstraints.NONE;
-		cons.weightx = 7.5;
 		btnModificarComentario.addActionListener(a ->{
 			apretoModificarComentario();
 		});
@@ -161,7 +135,21 @@ public class TablaIntervencionPanel extends JPanel{
 				}
 			}
 		});
-		add(btnModificarComentario, cons);
+		
+		JPanel panelBotones = new JPanel(new GridLayout(1, 4, 7, 7));
+		panelBotones.add(btnVerObservaciones);
+		panelBotones.add(btnModificarEstado);
+		panelBotones.add(btnModificarComentario);
+		
+		cons.gridx = 0;
+		cons.gridy = 2;
+		cons.gridheight = 1;
+		cons.gridwidth = 2;
+		cons.insets = new Insets(5, 0, 5, 0);
+		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.NONE;
+		cons.weighty = 2;
+		add(panelBotones, cons);
 		
 	}
 
