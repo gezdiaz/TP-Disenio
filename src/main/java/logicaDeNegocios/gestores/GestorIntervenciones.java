@@ -20,7 +20,7 @@ import logicaDeNegocios.enumeraciones.EstadoTicket;
 
 public abstract class GestorIntervenciones {
 
-	public static Intervencion crearIntervencionRT(Ticket ticket, String nombreGrupo, String observaciones) {
+	public static Intervencion crearIntervencionRT(Ticket ticket, String nombreGrupo) {
 
 		Usuario usuario = GestorUsuarios.usuarioActual();
 		GrupoResolucion grupo;
@@ -33,28 +33,32 @@ public abstract class GestorIntervenciones {
 			return null;
 		}
 		
-		Intervencion intervencion = new Intervencion(observaciones, LocalDateTime.now(), ticket, grupo);
+		Intervencion intervencion = new Intervencion("", LocalDateTime.now(), ticket, grupo);
 
-		CambioEstadoIntervencion cambioEstado1 = new CambioEstadoIntervencion(LocalDateTime.now(), null, EstadoIntervencion.ASIGNADO, intervencion, usuario, observaciones);
+		CambioEstadoIntervencion cambioEstado1 = new CambioEstadoIntervencion(LocalDateTime.now(), null, EstadoIntervencion.ASIGNADO, intervencion, usuario, "");
 
 		intervencion.actualizarEstado(cambioEstado1);
 
-		CambioEstadoIntervencion cambioEstado2 = new CambioEstadoIntervencion(LocalDateTime.now(), intervencion.estadoActual(), EstadoIntervencion.TRABAJANDO, intervencion, usuario, observaciones);
+		CambioEstadoIntervencion cambioEstado2 = new CambioEstadoIntervencion(LocalDateTime.now(), intervencion.estadoActual(), EstadoIntervencion.TRABAJANDO, intervencion, usuario, "");
 
 		intervencion.actualizarEstado(cambioEstado2);
 
 		return intervencion;
 	}
 
-	public static boolean terminarIntervencion(Ticket ticket, String observaciones) {
-
+	public static boolean terminarIntervencion(Long numTicket, String observaciones) {
+		
+		Ticket ticket = GestorBD.buscarTicketPorId(numTicket);
+		
 		Intervencion ultima = ticket.ultimaIntervencion();
 
 		ultima.setObservaciones(observaciones);
+		
+		actualizarEstado(ultima, EstadoIntervencion.TERMINADO, GestorUsuarios.usuarioActual());
+		//TODO borrar esto
+		/*CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), ultima.estadoActual(), EstadoIntervencion.TERMINADO, ultima, GestorUsuarios.usuarioActual(), observaciones);
 
-		CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), ultima.estadoActual(), EstadoIntervencion.TERMINADO, ultima, GestorUsuarios.usuarioActual(), observaciones);
-
-		ultima.actualizarEstado(cambioEstado);
+		ultima.actualizarEstado(cambioEstado);*/
 
 		return true;
 	}
@@ -81,9 +85,9 @@ public abstract class GestorIntervenciones {
 		
 	}
 
-	public static void actualizarEstado(Intervencion intervencion, EstadoIntervencion asignado, String observaciones) {
+	public static void actualizarEstado(Intervencion intervencion, EstadoIntervencion estado, Usuario usuario) {
 		
-		CambioEstadoIntervencion nuevoEstado = new CambioEstadoIntervencion(LocalDateTime.now(),intervencion.estadoActual(),asignado,intervencion,GestorUsuarios.usuarioActual(),observaciones);
+		CambioEstadoIntervencion nuevoEstado = new CambioEstadoIntervencion(LocalDateTime.now(),intervencion.estadoActual(),estado,intervencion,usuario,intervencion.getObservaciones());
 		intervencion.actualizarEstado(nuevoEstado);
 	}
 	

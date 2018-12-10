@@ -27,6 +27,7 @@ import interfaz.auxiliar.LimiteTexto;
 import interfaz.auxiliar.PanelCancelable;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuMesaAyudaPanel;
+import logicaDeNegocios.gestores.GestorIntervenciones;
 import logicaDeNegocios.gestores.GestorTickets;
 
 public class RegistrarTicket2Panel extends PanelCancelable {
@@ -261,44 +262,47 @@ public class RegistrarTicket2Panel extends PanelCancelable {
 		if(obserbacionesTxt.getText().trim().isEmpty()) {
 			JOptionPane.showConfirmDialog(ventana, "Debe ingresar observaciones.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}else {
-			
-			if(accionList.getSelectedItem()=="Cerrar ticket") {
-				switch(GestorTickets.cerrarTicketRT(this.ticketDTO, obserbacionesTxt.getText())) {
-				case -2:{
-					JOptionPane.showConfirmDialog(ventana, "No se ha podido registrar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case -1:{
-					JOptionPane.showConfirmDialog(ventana, "Error conectándose a la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case 0:{
-					JOptionPane.showConfirmDialog(ventana, "Ticket no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case 1:{JOptionPane.showConfirmDialog(ventana, "El ticket ha sido cerrado exitosamente.", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-				ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
-				break;
-				}
-				default:{}
-				}
-				
+			if(!GestorIntervenciones.terminarIntervencion(ticketDTO.getNumTicket(), obserbacionesTxt.getText())) {
+				JOptionPane.showConfirmDialog(ventana, "Ticket no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}else {
-				String nombreGrupo = listaGR.get(accionList.getSelectedIndex()-1);
-				switch(GestorTickets.derivarTicketRT(ticketDTO, nombreGrupo, obserbacionesTxt.getText().trim())) {
-				case -2:{
-					JOptionPane.showConfirmDialog(ventana, "No se ha podido registrar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				if(accionList.getSelectedItem()=="Cerrar ticket") {
+					switch(GestorTickets.cerrarTicketRT(this.ticketDTO, obserbacionesTxt.getText())) {
+					case -2:{
+						JOptionPane.showConfirmDialog(ventana, "No se ha podido registrar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case -1:{
+						JOptionPane.showConfirmDialog(ventana, "Error conectándose a la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case 0:{
+						JOptionPane.showConfirmDialog(ventana, "Ticket no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case 1:{JOptionPane.showConfirmDialog(ventana, "El ticket ha sido cerrado exitosamente.", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 					break;
-				}
-				case 0:{
-					JOptionPane.showConfirmDialog(ventana, "Ticket o grupo de resolución no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					}
+					default:{}
+					}
+					
+				}else {
+					String nombreGrupo = listaGR.get(accionList.getSelectedIndex()-1);
+					switch(GestorTickets.derivarTicketRT(ticketDTO, nombreGrupo, obserbacionesTxt.getText().trim())) {
+					case -2:{
+						JOptionPane.showConfirmDialog(ventana, "No se ha podido registrar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case 0:{
+						JOptionPane.showConfirmDialog(ventana, "Ticket o grupo de resolución no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case 1:{JOptionPane.showConfirmDialog(ventana, "El ticket ha sido derivado exitosamente \n al grupo de resolucion: "+nombreGrupo+".", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
 					break;
-				}
-				case 1:{JOptionPane.showConfirmDialog(ventana, "El ticket ha sido derivado exitosamente \n al grupo de resolucion: "+nombreGrupo+".", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-				ventana.cambiarPanel(new MenuMesaAyudaPanel(ventana));
-				break;
-				}
-				default:{}
+					}
+					default:{}
+					}
 				}
 			}
 			

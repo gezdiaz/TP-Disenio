@@ -33,11 +33,9 @@ public abstract class GestorTickets {
 
 	public static Boolean registrarTicket(TicketDTO ticketDTO) {
 		Clasificacion clasificacion = GestorBD.buscarClasificacion(ticketDTO.getClasificacion());
-		Empleado solicitante = SistemaPersonal.getEmpleado(ticketDTO.getNumLegajo());
-		Ticket ticket = new Ticket(ticketDTO.getNumTicket(), solicitante, ticketDTO.getFechaHoraApertura(), ticketDTO.getDescripcion());
 		Usuario usuario = GestorUsuarios.usuarioActual();
-
-		ticket.setOperador(usuario);
+		Empleado solicitante = SistemaPersonal.getEmpleado(ticketDTO.getNumLegajo());
+		Ticket ticket = new Ticket(ticketDTO,usuario,solicitante);
 
 		//Cambia el estado a Abierto
 		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), null, EstadoTicket.EN_MESA_DE_AYUDA, ticket , usuario, ticketDTO.getDescripcion());
@@ -51,7 +49,7 @@ public abstract class GestorTickets {
 
 		//Crea la intervencion
 
-		Intervencion intervencion = GestorIntervenciones.crearIntervencionRT(ticket, usuario.getGrupo().getNombre(), ""); //observaciones vacías, en la segunda pnatalla las cambia.
+		Intervencion intervencion = GestorIntervenciones.crearIntervencionRT(ticket, usuario.getGrupo().getNombre()); //observaciones vacías, en la segunda pnatalla las cambia.
 
 		if(intervencion == null) {
 
@@ -80,10 +78,6 @@ public abstract class GestorTickets {
 		//no se concecto a la base de datos
 		if(ticket.getNumTIcket()==-1) {
 			return -1;
-		}
-
-		if(!GestorIntervenciones.terminarIntervencion(ticket, observaciones)) {
-			return 0;
 		}
 
 		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.CERRADO, ticket, GestorUsuarios.usuarioActual(), observaciones);
@@ -124,10 +118,10 @@ public abstract class GestorTickets {
 	}
 
 	public static Integer derivarTicketRT(TicketDTO ticketDTO, String nombreGrupo, String observaciones) {
-
-		Ticket ticket = GestorBD.buscarTicketPorId(ticketDTO.getNumTicket());
+		
 		GrupoResolucion grupoResolucion = GestorBD.buscarGrupoPorNombre(nombreGrupo);
-
+		Ticket ticket = GestorBD.buscarTicketPorId(ticketDTO.getNumTicket());
+		
 		if(ticket == null || grupoResolucion == null) {
 			return 0;
 		}
@@ -135,10 +129,6 @@ public abstract class GestorTickets {
 		Usuario usuario = GestorUsuarios.usuarioActual();
 
 		Intervencion intervencion = GestorIntervenciones.crearIntervencion(ticket, nombreGrupo, observaciones);
-
-		if(!GestorIntervenciones.terminarIntervencion(ticket, observaciones)) {
-			return -1;
-		}
 
 		ticket.agregarIntervencion(intervencion);
 
@@ -182,7 +172,8 @@ public abstract class GestorTickets {
 	}
 
 	public static Integer derivarTicket(TicketDTO ticketDTO, String nombreGrupo, String observaciones, String clasificacion) {
-
+		
+		Usuario usuario = GestorUsuarios.usuarioActual();
 		Ticket ticket = new Ticket();
 		GrupoResolucion grupoResolucion = new GrupoResolucion();
 
@@ -217,11 +208,10 @@ public abstract class GestorTickets {
 			intervencion = GestorIntervenciones.crearIntervencion(ticket, nombreGrupo, observaciones);
 		}
 		else {
-			GestorIntervenciones.actualizarEstado(intervencion,EstadoIntervencion.ASIGNADO, observaciones);
+			GestorIntervenciones.actualizarEstado(intervencion,EstadoIntervencion.ASIGNADO, usuario);
 		}
 		ticket.agregarIntervencion(intervencion);
 
-		Usuario usuario = GestorUsuarios.usuarioActual();
 		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.DERIVADO, ticket, usuario, observaciones);
 		ticket.acutalizarEstado(nuevoEstado);
 
