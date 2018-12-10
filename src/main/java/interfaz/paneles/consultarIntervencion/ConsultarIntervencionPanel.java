@@ -257,19 +257,6 @@ public class ConsultarIntervencionPanel extends JPanel {
 				return;
 			}
 		}
-		if(!txtFechaDesde.getText().trim().isEmpty()) {
-			try {
-				fechaDesde = LocalDate.parse(txtFechaDesde.getText().trim(), format);
-			} catch (Exception e) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura ingresada no está en el formato correcto.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-				e.printStackTrace();
-				return;
-			}
-			if(fechaDesde.compareTo(LocalDate.now()) > 0) {
-				JOptionPane.showConfirmDialog(ventana, "La fecha de apertura no puede ser futura.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-		}
 		if(!txtFechaHasta.getText().trim().isEmpty()) {
 			try {
 				fechaHasta = LocalDate.parse(txtFechaHasta.getText().trim(), format);
@@ -281,6 +268,30 @@ public class ConsultarIntervencionPanel extends JPanel {
 				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado no puede ser futura.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+		}
+		if(!txtFechaDesde.getText().trim().isEmpty()) {
+			try {
+				fechaDesde = LocalDate.parse(txtFechaDesde.getText().trim(), format);
+			} catch (Exception e) {
+				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado ingresada no está en el formato correcto.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				return;
+			}
+			if(fechaDesde.compareTo(LocalDate.now()) > 0) {
+				JOptionPane.showConfirmDialog(ventana, "La fecha de último cambio de estado no puede ser futura.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+
+		if(fechaDesde != null && fechaHasta == null) {
+			fechaHasta = LocalDate.now();
+		}
+		if(fechaHasta != null && fechaDesde == null) {
+			fechaDesde = LocalDate.MIN;
+		}
+		if(fechaDesde !=null  && fechaDesde.compareTo(fechaHasta) > 0) {
+			JOptionPane.showConfirmDialog(ventana, "La fecha desde debe ser anterior a la fecha hasta.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		if(!listEstado.getSelectedItem().equals("Todos los estados")) {
 			for(EstadoIntervencion e: EstadoIntervencion.values()) {

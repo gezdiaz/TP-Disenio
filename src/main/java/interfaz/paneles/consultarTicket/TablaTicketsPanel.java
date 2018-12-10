@@ -68,7 +68,7 @@ public class TablaTicketsPanel extends JPanel {
 		cons.insets = new Insets(5, 0, 5, 0);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
-		scroll.setPreferredSize(new Dimension(850, 117));
+		scroll.setPreferredSize(new Dimension(900, 117));
 		cons.weighty = 2;
 		add(scroll, cons);
 
