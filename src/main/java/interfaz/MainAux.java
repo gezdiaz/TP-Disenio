@@ -36,6 +36,7 @@ public class MainAux {
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, "No se pudo establecer conección con la base de datos.\n"+e.getMessage(), "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 
