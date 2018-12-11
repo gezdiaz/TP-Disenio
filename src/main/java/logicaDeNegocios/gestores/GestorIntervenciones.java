@@ -54,7 +54,7 @@ public abstract class GestorIntervenciones {
 
 		ultima.setObservaciones(observaciones);
 		
-		actualizarEstado(ultima, EstadoIntervencion.TERMINADO, GestorUsuarios.usuarioActual());
+		actualizarEstado(ultima, EstadoIntervencion.TERMINADO, GestorUsuarios.usuarioActual(), observaciones);
 		//TODO borrar esto
 		/*CambioEstadoIntervencion cambioEstado = new CambioEstadoIntervencion(LocalDateTime.now(), ultima.estadoActual(), EstadoIntervencion.TERMINADO, ultima, GestorUsuarios.usuarioActual(), observaciones);
 
@@ -85,9 +85,9 @@ public abstract class GestorIntervenciones {
 		
 	}
 
-	public static void actualizarEstado(Intervencion intervencion, EstadoIntervencion estado, Usuario usuario) {
+	public static void actualizarEstado(Intervencion intervencion, EstadoIntervencion estado, Usuario usuario, String observaciones) {
 		
-		CambioEstadoIntervencion nuevoEstado = new CambioEstadoIntervencion(LocalDateTime.now(),intervencion.estadoActual(),estado,intervencion,usuario,intervencion.getObservaciones());
+		CambioEstadoIntervencion nuevoEstado = new CambioEstadoIntervencion(LocalDateTime.now(),intervencion.estadoActual(),estado,intervencion,usuario, observaciones);
 		intervencion.actualizarEstado(nuevoEstado);
 	}
 	

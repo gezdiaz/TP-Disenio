@@ -211,7 +211,7 @@ public abstract class GestorTickets {
 			intervencion = GestorIntervenciones.crearIntervencion(ticket, nombreGrupo, observaciones);
 		}
 		else {
-			GestorIntervenciones.actualizarEstado(intervencion,EstadoIntervencion.ASIGNADO, usuario);
+			GestorIntervenciones.actualizarEstado(intervencion,EstadoIntervencion.ASIGNADO, usuario, observaciones);
 		}
 		ticket.agregarIntervencion(intervencion);
 
