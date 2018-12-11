@@ -294,12 +294,17 @@ public class Ticket {
 	}
 
 	public GrupoResolucion getGrupoEnFecha(LocalDateTime fechaHora) {
-		int i = 0;
-		while(i < (intervenciones.size()-1) && intervenciones.get(i+1).getFechaHoraAsignacion().compareTo(fechaHora) <= 0) {
-			i++;
+
+		Intervencion ultimaModificada = intervenciones.get(0);
+
+		for(Intervencion i: intervenciones) {
+			if(i.getFechaHoraUltimoCambioAntesDe(fechaHora).compareTo(ultimaModificada.getFechaHoraUltimoCambioAntesDe(fechaHora)) >0) {
+				ultimaModificada = i;
+			}
 		}
 		
-		return intervenciones.get(i).getGrupoResolucion();
+		
+		return ultimaModificada.getGrupoResolucion();
 	}
 
 	

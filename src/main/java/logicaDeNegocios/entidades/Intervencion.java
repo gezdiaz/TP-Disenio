@@ -157,5 +157,25 @@ public class Intervencion {
 		
 		return historialCambioEstadoIntervencion.get(historialCambioEstadoIntervencion.size()-1);
 	}
+
+	public LocalDateTime getFechaHoraUltimoCambio() {
+		return ultimoCambioEstado().getFechaHoraCambio();
+	}
+
+	public LocalDateTime getFechaHoraUltimoCambioAntesDe(LocalDateTime fechaHora) {
+		int i = -1;
+		
+		while(i < (historialCambioEstadoIntervencion.size()-1)
+			&& historialCambioEstadoIntervencion.get(i+1).getFechaHoraCambio().compareTo(fechaHora) <= 0) {
+			
+			i++;
+		}
+		
+		if(i >= 0) {
+			return historialCambioEstadoIntervencion.get(i).getFechaHoraCambio();
+		}else {
+			return LocalDateTime.MIN;
+		}
+	}
 	
 }

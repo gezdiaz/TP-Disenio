@@ -305,7 +305,11 @@ public abstract class GestorTickets {
 			entradaHistorial.setObservaciones(c.getObservaciones());
 			entradaHistorial.setOperador(c.getResponsableCambio().getNombreUsuario());
 			entradaHistorial.setClasificacion(ticket.getClasificacionEnFecha(c.getFechaHoraCambio()).getNombre());
-			entradaHistorial.setGrupoResolucion(ticket.getGrupoEnFecha(c.getFechaHoraCambio()).getNombre());
+			if(c.getEstadoNuevo().equals(EstadoTicket.EN_MESA_DE_AYUDA) || c.getEstadoNuevo().equals(EstadoTicket.ESPERA_OK) || c.getEstadoNuevo().equals(EstadoTicket.CERRADO)) {
+				entradaHistorial.setGrupoResolucion("Mesa de Ayuda");
+			}else {
+				entradaHistorial.setGrupoResolucion(ticket.getGrupoEnFecha(c.getFechaHoraCambio()).getNombre());
+			}
 			historialDTO.add(entradaHistorial);
 		}
 		
