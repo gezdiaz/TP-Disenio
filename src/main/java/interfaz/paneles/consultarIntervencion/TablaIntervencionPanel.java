@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import dto.IntervencionDTO;
+import interfaz.auxiliar.ObservacionesPanel;
 import interfaz.auxiliar.TablaRender;
 import interfaz.base.VentanaBase;
 import interfaz.paneles.actualizarEstadoIntervencion.ActualizarEstadoIntervencionPanel;
@@ -155,7 +156,6 @@ public class TablaIntervencionPanel extends JPanel{
 
 	private void apretoVerObservaciones() {
 		if(tabla.getSelectedRow()!=-1) {
-			//TODO nuevo panel.
 			JDialog dialogo = new JDialog(ventana, "Observaciones", true);
 			dialogo.setContentPane(new ObservacionesPanel(dialogo, tableModel.getIntervenciones().get(tabla.getSelectedRow()).getObservaciones()));
 			dialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -169,7 +169,7 @@ public class TablaIntervencionPanel extends JPanel{
 	
 	private void apretoModificarComentario() {
 		if(tabla.getSelectedRow()!=-1) {
-			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad no esta disponible.", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);;
+			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aún no esta disponible.", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);;
 		}
 		else {
 			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervencion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);

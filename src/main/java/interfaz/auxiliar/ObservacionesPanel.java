@@ -1,4 +1,4 @@
-package interfaz.paneles.consultarIntervencion;
+package interfaz.auxiliar;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

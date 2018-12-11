@@ -128,6 +128,13 @@ public abstract class GestorIntervenciones {
 		
 		intervencion.actualizarEstado(nuevoEstado);
 		
+		TicketDTO ticketDTO = new TicketDTO(intervencionDTO.getNumTicket());
+		ticketDTO.setClasificacion(intervencionDTO.getClasificacion());
+		
+		if(GestorTickets.cambiarClasificacion(ticketDTO)!=1) {
+			return -1;
+		}
+		
 		if (!intervencionDTO.getEstadoIntervencion().equals(EstadoIntervencion.TRABAJANDO)) {
 			if (GestorTickets.cambiarEstado(intervencionDTO.getMotivo(), intervencionDTO.getNumTicket(),
 					intervencionDTO.getObservaciones(), intervencionDTO.getIdIntervencion()) != 1) {
@@ -137,13 +144,6 @@ public abstract class GestorIntervenciones {
 		
 		if(GestorBD.guardarIntervencion(intervencion)!=1) {
 			return -3;
-		}
-		
-		TicketDTO ticketDTO = new TicketDTO(intervencionDTO.getNumTicket());
-		ticketDTO.setClasificacion(intervencionDTO.getClasificacion());
-		
-		if(GestorTickets.cambiarClasificacion(ticketDTO)!=1) {
-			return -1;
 		}
 		
 		return 1;

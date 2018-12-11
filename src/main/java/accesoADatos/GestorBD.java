@@ -397,7 +397,7 @@ public abstract class GestorBD {
             	}
             	if((estadoActual != null && !resultado.get(i).estadoActual().equals(estadoActual))
             		|| (ultGrupo != null && !resultado.get(i).ultimoGrupo().getNombre().equals(ultGrupo))
-            		|| (nombreClasificacion != null && !resultado.get(i).ultimaCalsificacion().getNombre().equals(nombreClasificacion)
+            		|| (nombreClasificacion != null && !resultado.get(i).ultimaClasificacion().getNombre().equals(nombreClasificacion)
             		|| (fechaUltimoCambio !=null) && !resultado.get(i).ultimoCambioEstado().getFechaHoraCambio().toLocalDate().equals(fechaUltimoCambio))){	
             		resultado.remove(i);
             		i--;

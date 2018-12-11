@@ -181,15 +181,15 @@ public class TablaTicketsPanel extends JPanel {
 	}
 
 	private void apretoConfigurarReporte() {
-		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible.", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aún no esta disponible.", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void apretoDerivar() {
 		if(tabla.getSelectedRow()!=-1) {
 			if(tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.ESPERA_OK) || tableModel.getTickets().get(tabla.getSelectedRow()).getEstado().equals(EstadoTicket.EN_MESA_DE_AYUDA)) {
-				VentanaBase ventanaCerrar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
+				VentanaBase ventanaDerivar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
 				ventana.setVisible(false);
-				ventanaCerrar.cambiarPanel(new DerivarTicketPanel(ventanaCerrar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana, consultarTicketPanel));
+				ventanaDerivar.cambiarPanel(new DerivarTicketPanel(ventanaDerivar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana, consultarTicketPanel));
 			}
 			else {
 				JOptionPane.showConfirmDialog(ventana, "Solo se pueden derivar tickets en estado Abierto o en Espera Ok.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -201,7 +201,15 @@ public class TablaTicketsPanel extends JPanel {
 	}
 
 	private void apretoVer() {
-		JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aun no esta disponible.", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		if(tabla.getSelectedRow()!=-1) {		
+			VentanaBase ventanaVer = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
+			ventana.setVisible(false);
+			ventanaVer.cambiarPanel(new VerTicketPanel(ventanaVer,tableModel.getTickets().get(tabla.getSelectedRow()), ventana, consultarTicketPanel));
+			ventanaVer.setVisible(true);
+		}
+		else {
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar un ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	private void apretoCerrar() {

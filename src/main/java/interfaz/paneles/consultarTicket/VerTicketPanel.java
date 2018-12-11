@@ -7,18 +7,21 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import dto.HistorialTicketDTO;
 import dto.TicketDTO;
+import interfaz.auxiliar.ObservacionesPanel;
 import interfaz.auxiliar.TablaRender;
+import interfaz.base.VentanaBase;
 import logicaDeNegocios.entidades.Empleado;
 import logicaDeNegocios.gestores.GestorTickets;
 import logicaDeNegocios.gestores.SistemaPersonal;
@@ -29,22 +32,26 @@ public class VerTicketPanel extends JPanel {
 	private JButton btnVolver, btnVerObservaciones;
 	private JTable tablaHistorial;
 	private TablaHistorialModelo tableModel;
+	private VentanaBase ventanaActual, ventanaAnterior;
+	private ConsultarTicketPanel consultarTicketPanel;
 	
-	public VerTicketPanel(TicketDTO ticketDTO) {
+	public VerTicketPanel(VentanaBase ventanaActual, TicketDTO ticketDTO, VentanaBase ventanaAnterior, ConsultarTicketPanel consultarTicketPanel) {
 		
 		this.ticketDTO = ticketDTO;
+		this.ventanaAnterior = ventanaAnterior;
+		this.ventanaActual = ventanaActual;
+		this.consultarTicketPanel = consultarTicketPanel;
 		
 		List<HistorialTicketDTO> historialDTO = GestorTickets.getHistorialTicket(ticketDTO);
+		Empleado empleado = SistemaPersonal.getEmpleado(ticketDTO.getNumLegajo());
 		
 		tableModel = new TablaHistorialModelo(historialDTO);
-		tableModel.setHistorial(new ArrayList<HistorialTicketDTO>());
 		tablaHistorial = new JTable(tableModel);
 		btnVerObservaciones = new JButton("Ver Observaciones");
 		btnVolver = new JButton("Volver");
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints cons = new GridBagConstraints();
-		Empleado empleado = SistemaPersonal.getEmpleado(ticketDTO.getNumLegajo());
 		
 		JLabel labelAux = new JLabel("Información del ticket");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 20));
@@ -139,13 +146,16 @@ public class VerTicketPanel extends JPanel {
 		
 		JScrollPane scroll = new JScrollPane(tablaHistorial);
 		tablaHistorial.setDefaultRenderer(Object.class, new TablaRender());
-		scroll.setPreferredSize(new Dimension(600, 150));
 		cons.gridx = 0;
 		cons.gridy = 10;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(10, 40, 10, 5);
+		cons.insets = new Insets(10, 40, 10, 10);
 		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.BOTH;
+		scroll.setPreferredSize(new Dimension(600, 200));
+		scroll.setMinimumSize(new Dimension(600, 120));
+//		cons.weightx = 2;
 		add(scroll, cons);
 		
 		btnVerObservaciones.addActionListener(a -> {
@@ -175,6 +185,7 @@ public class VerTicketPanel extends JPanel {
 		cons.gridwidth = 1;
 		cons.insets = new Insets(10, 5, 10, 5);
 		cons.anchor = GridBagConstraints.CENTER;
+		cons.fill = GridBagConstraints.NONE;
 		add(btnVerObservaciones, cons);
 		
 		
@@ -212,11 +223,22 @@ public class VerTicketPanel extends JPanel {
 	}
 	
 	private void apretoVerObservaciones() {
-		
+		if(tablaHistorial.getSelectedRow() != -1) {
+			JDialog dialogo = new JDialog(ventanaActual, "Observaciones", true);
+			dialogo.setContentPane(new ObservacionesPanel(dialogo, tableModel.getHistorial().get(tablaHistorial.getSelectedRow()).getObservaciones()));
+			dialogo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialogo.pack();
+			dialogo.setLocationRelativeTo(ventanaActual);
+			dialogo.setVisible(true);	
+		}else {
+			JOptionPane.showConfirmDialog(ventanaActual, "Debe seleccionar un elemento.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	private void apretoVolver() {
-		
+		ventanaActual.dispose();
+		ventanaAnterior.setVisible(true);
+		consultarTicketPanel.buscar();
 	}
 	
 }

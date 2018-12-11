@@ -6,11 +6,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import accesoADatos.GestorBD;
 import dto.TicketDTO;
 import interfaz.base.VentanaBase;
+import interfaz.paneles.consultarTicket.ConsultarTicketPanel;
 import interfaz.paneles.consultarTicket.VerTicketPanel;
 
 public class MainAux {
@@ -24,12 +26,13 @@ public class MainAux {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
 			GestorBD.setEmf(emf);
 
-			TicketDTO ticketDTO = new TicketDTO(1234L);
-			ticketDTO.setNumLegajo(23809L);
-			VentanaBase ventana = new VentanaBase("Título", "Usuario", new VerTicketPanel(ticketDTO));
+			TicketDTO ticketDTO = new TicketDTO(1L);
+			ticketDTO.setNumLegajo(23791L);
+			VentanaBase ventana = new VentanaBase("Título", "Usuario", new JPanel());
+			ventana.cambiarPanel(new VerTicketPanel(ventana, ticketDTO, new VentanaBase("", "", new JPanel()), new ConsultarTicketPanel(ventana)));
 			
-			ventana.pack();
-			ventana.setLocationRelativeTo(null);
+//			ventana.pack();
+//			ventana.setLocationRelativeTo(null);
 			ventana.setVisible(true);
 			
 			

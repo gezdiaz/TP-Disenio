@@ -29,7 +29,6 @@ public class TablaHistorialModelo extends AbstractTableModel {
 	
 	@Override
 	public String getColumnName(int column) {
-		// TODO Auto-generated method stub
 		return columnas[column];
 	}
 

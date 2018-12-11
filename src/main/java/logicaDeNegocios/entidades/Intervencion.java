@@ -78,7 +78,7 @@ public class Intervencion {
 	}
 
 
-	public LocalDateTime getFechaHoraASignacion() {
+	public LocalDateTime getFechaHoraAsignacion() {
 		return fechaHoraAsignacion;
 	}
 
@@ -134,7 +134,7 @@ public class Intervencion {
 		intervencionDTO.setIdIntervencion(this.idInt);
 		intervencionDTO.setNumTicket(this.ticket.getNumTIcket());
 		intervencionDTO.setNumLegajo(this.ticket.getSolicitante().getNumLegajo());
-		intervencionDTO.setClasificacion(this.ticket.ultimaCalsificacion().getNombre());
+		intervencionDTO.setClasificacion(this.ticket.ultimaClasificacion().getNombre());
 		intervencionDTO.setEstadoIntervencion(estadoActual());
 		intervencionDTO.setEstadoTicket(this.ticket.estadoActual());
 		intervencionDTO.setFechaApertura(this.ticket.getFechaHoraApertura());

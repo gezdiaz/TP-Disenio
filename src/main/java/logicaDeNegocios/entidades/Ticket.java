@@ -177,7 +177,7 @@ public class Ticket {
 		return ultima;
 	}
 
-	public Clasificacion ultimaCalsificacion() {
+	public Clasificacion ultimaClasificacion() {
 //		System.out.println("Historial recla: "+historialReclasificacion);
 		Reclasificacion ultima = historialReclasificacion.get(historialReclasificacion.size()-1);
 
@@ -197,7 +197,7 @@ public class Ticket {
 		dto.setFechaHoraApertura(fechaHoraApertura);
 		dto.setNombreOperador(operador.getNombreUsuario());
 		if (!historialReclasificacion.isEmpty()) {
-			dto.setClasificacion(ultimaCalsificacion().getNombre());
+			dto.setClasificacion(ultimaClasificacion().getNombre());
 		}
 		if(solicitante != null) {
 			dto.setNumLegajo(solicitante.getNumLegajo());
@@ -282,6 +282,24 @@ public class Ticket {
 
 	public CambioEstadoTicket ultimoCambioEstado() {
 		return historialCambioEstadoTicket.get(historialCambioEstadoTicket.size()-1);
+	}
+
+	public Clasificacion getClasificacionEnFecha(LocalDateTime fechaHora) {
+		int i = 0;
+		while(i < (historialReclasificacion.size()-1) && historialReclasificacion.get(i+1).getFechaReclasificacion().compareTo(fechaHora) <= 0) {
+			i++;
+		}
+		
+		return historialReclasificacion.get(i).getClasificacionNueva();
+	}
+
+	public GrupoResolucion getGrupoEnFecha(LocalDateTime fechaHora) {
+		int i = 0;
+		while(i < (intervenciones.size()-1) && intervenciones.get(i+1).getFechaHoraAsignacion().compareTo(fechaHora) <= 0) {
+			i++;
+		}
+		
+		return intervenciones.get(i).getGrupoResolucion();
 	}
 
 	

@@ -3,6 +3,7 @@ package logicaDeNegocios.gestores;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import accesoADatos.GestorBD;
@@ -38,10 +39,6 @@ public abstract class GestorTickets {
 		Empleado solicitante = SistemaPersonal.getEmpleado(ticketDTO.getNumLegajo());
 		Ticket ticket = new Ticket(ticketDTO,usuario,solicitante);
 
-		//Cambia el estado a Abierto
-		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), null, EstadoTicket.EN_MESA_DE_AYUDA, ticket , usuario, ticketDTO.getDescripcion());
-
-		ticket.acutalizarEstado(cambioEstado);
 
 		//Setea la clasificacion
 		Reclasificacion reclasificacion = new Reclasificacion(null, clasificacion, usuario, LocalDateTime.now());
@@ -58,6 +55,11 @@ public abstract class GestorTickets {
 		}
 
 		ticket.agregarIntervencion(intervencion);
+		
+		//Cambia el estado a Abierto
+		CambioEstadoTicket cambioEstado = new CambioEstadoTicket(LocalDateTime.now(), null, EstadoTicket.EN_MESA_DE_AYUDA, ticket , usuario, ticketDTO.getDescripcion());
+
+		ticket.acutalizarEstado(cambioEstado);
 
 		if(!GestorBD.guardarTicket(ticket)) {
 			return false;
@@ -213,21 +215,21 @@ public abstract class GestorTickets {
 		}
 		ticket.agregarIntervencion(intervencion);
 
-		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.DERIVADO, ticket, usuario, observaciones);
-		ticket.acutalizarEstado(nuevoEstado);
-
 		if(clasificacion != null) {
 			
 			Clasificacion nuevaClasificacion = GestorBD.buscarClasificacion(clasificacion);
 			if(nuevaClasificacion == null) {
 				return -1;
 			}
-			Reclasificacion reclasificacion = new Reclasificacion(ticket.ultimaCalsificacion(), nuevaClasificacion, usuario, LocalDateTime.now());
+			Reclasificacion reclasificacion = new Reclasificacion(ticket.ultimaClasificacion(), nuevaClasificacion, usuario, LocalDateTime.now());
 			
 			ticket.cambiarClasificacion(reclasificacion);
 			
 			
 		}
+		
+		CambioEstadoTicket nuevoEstado = new CambioEstadoTicket(LocalDateTime.now(), ticket.estadoActual(), EstadoTicket.DERIVADO, ticket, usuario, observaciones);
+		ticket.acutalizarEstado(nuevoEstado);
 				
 		if(!GestorBD.guardarTicket(ticket)) {
 			return -3;
@@ -279,8 +281,8 @@ public abstract class GestorTickets {
 			return 0;
 		}
 		
-		if(!ticket.ultimaCalsificacion().getNombre().equals(ticketDTO.getClasificacion())) {
-			Reclasificacion reclasificacion = new Reclasificacion(ticket.ultimaCalsificacion(), GestorBD.buscarClasificacion(ticketDTO.getClasificacion()), GestorUsuarios.usuarioActual(), LocalDateTime.now());
+		if(!ticket.ultimaClasificacion().getNombre().equals(ticketDTO.getClasificacion())) {
+			Reclasificacion reclasificacion = new Reclasificacion(ticket.ultimaClasificacion(), GestorBD.buscarClasificacion(ticketDTO.getClasificacion()), GestorUsuarios.usuarioActual(), LocalDateTime.now());
 			ticket.cambiarClasificacion(reclasificacion);
 			if(!GestorBD.guardarTicket(ticket)) {
 				return 0;
@@ -293,10 +295,21 @@ public abstract class GestorTickets {
 	public static List<HistorialTicketDTO> getHistorialTicket(TicketDTO ticketDTO) {
 		// TODO Auto-generated method stub
 		ArrayList<HistorialTicketDTO> historialDTO = new ArrayList<HistorialTicketDTO>();
+		Ticket ticket = GestorBD.buscarTicketPorId(ticketDTO.getNumTicket());
+		HistorialTicketDTO entradaHistorial;
 		
-		for(int i=0; i<10; i++) {
-			historialDTO.add(new HistorialTicketDTO());
+		for(CambioEstadoTicket c: ticket.getHistorialCambioEstadoTicket()) {
+			entradaHistorial = new HistorialTicketDTO();
+			entradaHistorial.setFechaHoraCambioEstado(c.getFechaHoraCambio());
+			entradaHistorial.setNuevoEstado(c.getEstadoNuevo());
+			entradaHistorial.setObservaciones(c.getObservaciones());
+			entradaHistorial.setOperador(c.getResponsableCambio().getNombreUsuario());
+			entradaHistorial.setClasificacion(ticket.getClasificacionEnFecha(c.getFechaHoraCambio()).getNombre());
+			entradaHistorial.setGrupoResolucion(ticket.getGrupoEnFecha(c.getFechaHoraCambio()).getNombre());
+			historialDTO.add(entradaHistorial);
 		}
+		
+		Collections.reverse(historialDTO);
 		
 		return historialDTO;
 	}
