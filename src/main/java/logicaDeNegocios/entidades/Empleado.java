@@ -26,6 +26,9 @@ public class Empleado {
 	@Column(name = "DIRECCION", length = 50)
 	private String direccion;
 	
+	@Column(name = "CARGO", length = 50)
+	private String Cargo;
+	
 
 	public Empleado() {
 
@@ -60,6 +63,38 @@ public class Empleado {
 
 	public void setNumLegajo(Long numLegajo) {
 		this.numLegajo = numLegajo;
+	}
+
+	public Long getTelefonoInterno() {
+		return telefonoInterno;
+	}
+
+	public void setTelefonoInterno(Long telefonoInterno) {
+		this.telefonoInterno = telefonoInterno;
+	}
+
+	public Long getTelefonoDirecto() {
+		return telefonoDirecto;
+	}
+
+	public void setTelefonoDirecto(Long telefonoDirecto) {
+		this.telefonoDirecto = telefonoDirecto;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
+	public String getCargo() {
+		return Cargo;
+	}
+
+	public void setCargo(String cargo) {
+		Cargo = cargo;
 	}
 
 	@Override

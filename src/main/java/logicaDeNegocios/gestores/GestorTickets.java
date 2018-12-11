@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import accesoADatos.GestorBD;
+import dto.HistorialTicketDTO;
 import dto.TicketDTO;
 import logicaDeNegocios.entidades.CambioEstadoTicket;
 import logicaDeNegocios.entidades.Clasificacion;
@@ -287,6 +288,17 @@ public abstract class GestorTickets {
 		}
 		
 		return 1;
+	}
+
+	public static List<HistorialTicketDTO> getHistorialTicket(TicketDTO ticketDTO) {
+		// TODO Auto-generated method stub
+		ArrayList<HistorialTicketDTO> historialDTO = new ArrayList<HistorialTicketDTO>();
+		
+		for(int i=0; i<10; i++) {
+			historialDTO.add(new HistorialTicketDTO());
+		}
+		
+		return historialDTO;
 	}
 
 }

@@ -73,23 +73,6 @@ public class TablaTicketsPanel extends JPanel {
 		cons.weighty = 2;
 		add(scroll, cons);
 
-//		cons.gridx = 0;
-//		cons.gridy = 2;
-//		cons.gridheight = 1;
-//		cons.gridwidth = 1;
-//		cons.insets = new Insets(15, 5, 5, 5);
-//		cons.anchor = GridBagConstraints.EAST;
-//		cons.fill = GridBagConstraints.NONE;
-//		add(new JLabel(""), cons);		
-		
-//		cons.gridx = 1;
-//		cons.gridy = 2;
-//		cons.gridheight = 1;
-//		cons.gridwidth = 1;
-//		cons.insets = new Insets(15, 5, 5, 5);
-//		cons.anchor = GridBagConstraints.EAST;
-//		cons.fill = GridBagConstraints.NONE;
-//		cons.weighty = 2;
 		btnVer.addActionListener(a -> {
 			apretoVer();
 		});
