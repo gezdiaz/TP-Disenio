@@ -151,7 +151,7 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.fill = GridBagConstraints.NONE;
 		cons.weighty = 2;
 		add(panelBotones, cons);
-		
+				
 	}
 
 	private void apretoVerObservaciones() {

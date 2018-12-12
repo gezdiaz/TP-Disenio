@@ -20,7 +20,6 @@ import javax.swing.JTextField;
 
 import dto.CriteriosDTO;
 import dto.IntervencionDTO;
-import interfaz.auxiliar.PanelCancelable;
 import interfaz.base.VentanaBase;
 import interfaz.principal.MenuGrupoDeResolucionPanel;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
@@ -148,7 +147,18 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.insets = new Insets(5, 5, 20, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(txtNumLegajo, cons);
+				
+		labelAux = new JLabel("dd/mm/aaaa");
+		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
+		cons.gridx = 6;
+		cons.gridy = 1;
+		cons.gridheight = 1;
+		cons.gridwidth = 1;
+		cons.insets = new Insets(5, 0, 5, 10);
+		cons.anchor = GridBagConstraints.WEST;
+		add(labelAux, cons);
 		
+
 		btnBuscar = new JButton("Buscar");
 		cons.gridx = 4;
 		cons.gridy = 2;
@@ -178,16 +188,6 @@ public class ConsultarIntervencionPanel extends JPanel {
 			}
 		});
 		add(btnBuscar, cons);
-		
-		labelAux = new JLabel("dd/mm/aaaa");
-		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 10));
-		cons.gridx = 6;
-		cons.gridy = 1;
-		cons.gridheight = 1;
-		cons.gridwidth = 1;
-		cons.insets = new Insets(5, 0, 5, 10);
-		cons.anchor = GridBagConstraints.WEST;
-		add(labelAux, cons);
 		
 		cons.gridx = 0;
 		cons.gridy = 3;
@@ -230,7 +230,8 @@ public class ConsultarIntervencionPanel extends JPanel {
 			}
 		});
 		add(btnVolver, cons);
-			
+
+		
 	}
 
 	public void apretoBuscar() {
