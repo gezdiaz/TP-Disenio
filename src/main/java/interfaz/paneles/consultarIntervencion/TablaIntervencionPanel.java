@@ -33,7 +33,7 @@ public class TablaIntervencionPanel extends JPanel{
 	private TablaIntervencionesModelo tableModel;
 	VentanaBase ventana;
 	ConsultarIntervencionPanel consultarIntervencionPanel;
-	
+
 	public TablaIntervencionPanel(List<IntervencionDTO> intervenciones, VentanaBase ventana, ConsultarIntervencionPanel consultarIntervencionPanel) {
 		this.consultarIntervencionPanel = consultarIntervencionPanel;
 		this.ventana = ventana;
@@ -44,11 +44,11 @@ public class TablaIntervencionPanel extends JPanel{
 		tableModel = new TablaIntervencionesModelo();
 		tableModel.setIntervenciones(intervenciones);
 		tabla = new JTable(tableModel);
-		
+
 		btnModificarEstado = new JButton("Modificar Estado");
 		btnModificarComentario = new JButton("Modificar Comentario");
 		btnVerObservaciones = new JButton("Ver Observaciones");
-		
+
 		labelAux = new JLabel("Intervenciones encontradas:");
 		labelAux.setFont(new Font(labelAux.getFont().getFontName(), labelAux.getFont().getStyle(), 18));
 		cons.gridx = 0;
@@ -58,7 +58,7 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.insets = new Insets(15, 15, 7, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
-		
+
 		JScrollPane scroll = new JScrollPane(tabla);
 		tabla.setDefaultRenderer(Object.class, new TablaRender());
 		cons.gridx = 0;
@@ -76,15 +76,15 @@ public class TablaIntervencionPanel extends JPanel{
 			apretoVerObservaciones();
 		});
 		btnVerObservaciones.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {				
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 
@@ -98,15 +98,15 @@ public class TablaIntervencionPanel extends JPanel{
 			apretoModificarEstado();
 		});
 		btnModificarEstado.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {				
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -114,20 +114,20 @@ public class TablaIntervencionPanel extends JPanel{
 				}
 			}
 		});
-		
+
 		btnModificarComentario.addActionListener(a ->{
 			apretoModificarComentario();
 		});
 		btnModificarComentario.addKeyListener(new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {				
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 
@@ -136,12 +136,12 @@ public class TablaIntervencionPanel extends JPanel{
 				}
 			}
 		});
-		
+
 		JPanel panelBotones = new JPanel(new GridLayout(1, 4, 7, 7));
 		panelBotones.add(btnVerObservaciones);
 		panelBotones.add(btnModificarEstado);
 		panelBotones.add(btnModificarComentario);
-		
+
 		cons.gridx = 0;
 		cons.gridy = 2;
 		cons.gridheight = 1;
@@ -151,7 +151,7 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.fill = GridBagConstraints.NONE;
 		cons.weighty = 2;
 		add(panelBotones, cons);
-				
+
 	}
 
 	private void apretoVerObservaciones() {
@@ -166,7 +166,7 @@ public class TablaIntervencionPanel extends JPanel{
 			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervencion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}	
 	}
-	
+
 	private void apretoModificarComentario() {
 		if(tabla.getSelectedRow()!=-1) {
 			JOptionPane.showConfirmDialog(ventana, "Esta funcionalidad aún no esta disponible.", "Proximamente", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);;
@@ -179,9 +179,14 @@ public class TablaIntervencionPanel extends JPanel{
 	private void apretoModificarEstado() {
 		if(tabla.getSelectedRow()!=-1) {
 			if(!tableModel.getIntervenciones().get(tabla.getSelectedRow()).getEstadoIntervencion().equals(EstadoIntervencion.TERMINADO)) {
-				VentanaBase ventanaModificar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
-				ventana.setVisible(false);
-				ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, tableModel.getIntervenciones().get(tabla.getSelectedRow()), ventana, consultarIntervencionPanel));
+				if(!tableModel.getIntervenciones().get(tabla.getSelectedRow()).getEstadoIntervencion().equals(EstadoIntervencion.EN_ESPERA)) {
+					VentanaBase ventanaModificar = new VentanaBase(ventana.getTitle(), GestorUsuarios.usuarioActual().getNombreUsuario(), new JPanel());
+					ventana.setVisible(false);
+					ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, tableModel.getIntervenciones().get(tabla.getSelectedRow()), ventana, consultarIntervencionPanel));
+				}
+				else {
+					JOptionPane.showConfirmDialog(ventana, "No se puede modificar el estado de una intervencion en espera.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				}
 			}
 			else {
 				JOptionPane.showConfirmDialog(ventana, "No se puede modificar el estado de una intervencion terminada.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -190,12 +195,12 @@ public class TablaIntervencionPanel extends JPanel{
 		else {
 			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervencion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 	}
-	
+
 	public void setIntervenciones(List<IntervencionDTO> intervenciones) {
 		tableModel.setIntervenciones(intervenciones);
 		tableModel.fireTableDataChanged();
 	}
-	
+
 }
