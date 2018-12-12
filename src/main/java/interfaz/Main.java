@@ -17,15 +17,15 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		UIManager.put("OptionPane.background", new Color(163,255,140));
-		UIManager.put("Panel.background", new Color(163,255,140));
-		UIManager.put("Button.defaultButtonFollowsFocus", Boolean.TRUE);
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		UIManager.put("OptionPane.background", new Color(163,255,140));
+		UIManager.put("Panel.background", new Color(163,255,140));
+		UIManager.put("Button.defaultButtonFollowsFocus", Boolean.TRUE);
 
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
