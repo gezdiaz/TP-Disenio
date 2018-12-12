@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import accesoADatos.GestorBD;
 import interfaz.principal.InicioSesionPanel;
@@ -19,6 +20,12 @@ public class Main {
 		UIManager.put("OptionPane.background", new Color(163,255,140));
 		UIManager.put("Panel.background", new Color(163,255,140));
 		UIManager.put("Button.defaultButtonFollowsFocus", Boolean.TRUE);
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		try {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("persistencia");
