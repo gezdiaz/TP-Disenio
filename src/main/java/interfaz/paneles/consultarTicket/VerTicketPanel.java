@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import dto.HistorialTicketDTO;
 import dto.TicketDTO;
@@ -47,6 +48,7 @@ public class VerTicketPanel extends JPanel {
 		
 		tableModel = new TablaHistorialModelo(historialDTO);
 		tablaHistorial = new JTable(tableModel);
+		tablaHistorial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		btnVerObservaciones = new JButton("Ver Observaciones");
 		btnVolver = new JButton("Volver");
 		

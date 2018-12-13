@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
 
 import dto.TicketDTO;
@@ -44,7 +45,8 @@ public class TablaTicketsPanel extends JPanel {
 		tableModel = new TablaTicketsModelo();
 		tableModel.setTickets(tickets);
 		tabla = new JTable(tableModel);
-
+		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		btnVer = new JButton("Ver");
 		btnCerrar = new JButton("Cerrar");
 		btnDerivar = new JButton("Derivar");

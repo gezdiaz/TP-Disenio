@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import dto.IntervencionDTO;
 import interfaz.auxiliar.ObservacionesPanel;
@@ -44,6 +45,7 @@ public class TablaIntervencionPanel extends JPanel{
 		tableModel = new TablaIntervencionesModelo();
 		tableModel.setIntervenciones(intervenciones);
 		tabla = new JTable(tableModel);
+		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		btnModificarEstado = new JButton("Modificar Estado");
 		btnModificarComentario = new JButton("Modificar Comentario");
