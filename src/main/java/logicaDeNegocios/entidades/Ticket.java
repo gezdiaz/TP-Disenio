@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 import dto.TicketDTO;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
-import logicaDeNegocios.gestores.SistemaPersonal;
 
 @Entity
 @Table(name = "TICKET")

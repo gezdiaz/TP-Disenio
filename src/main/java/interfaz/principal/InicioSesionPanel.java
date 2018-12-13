@@ -17,7 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.text.AbstractDocument;
 
+import interfaz.auxiliar.LimiteTexto;
 import interfaz.base.VentanaBase;
 import logicaDeNegocios.gestores.GestorUsuarios;
 
@@ -36,8 +38,12 @@ public class InicioSesionPanel extends JPanel {
 		JLabel labelAux;
 
 		txtUsuario = new JTextField();
+		AbstractDocument doc = (AbstractDocument) txtUsuario.getDocument();
+		doc.setDocumentFilter(new LimiteTexto(30));
 
 		txtClave = new JPasswordField();
+		doc = (AbstractDocument) txtClave.getDocument();
+		doc.setDocumentFilter(new LimiteTexto(30));
 
 		iniciarSesion = new JButton("Inicicar sesión");
 
