@@ -403,37 +403,39 @@ public class DerivarTicketPanel extends PanelCancelable{
 				JOptionPane.showConfirmDialog(ventanaActual, "Debe seleccionar un grupo de resolucion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 			else {
-				
-				if(!listClasificacion.getSelectedItem().equals(ticketDTO.getClasificacion())) {
-					clasificacion = (String) listClasificacion.getSelectedItem();
-				}
-				
-				
-				switch(GestorTickets.derivarTicket(ticketDTO, grupoResolucion, txtObservaciones.getText().trim(), clasificacion)) {
-				case -3:{
-					JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case -2:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Error conectándose a la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case -1:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Grupo de resolucion o clasificación no encontrados en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case 0:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Ticket no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case 1:{
-					JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido derivado exitosamente\n al grupo: "+grupoResolucion+".", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-					ventanaActual.dispose();
-					ventanaAnterior.setVisible(true);
-					consultarTicketPanel.buscar();
-				break;
-				}
-				default:{}
+				int res = JOptionPane.showConfirmDialog(ventanaActual, "¿Está seguro que desea derivar el ticket a "+grupoResolucion+"?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if(res == JOptionPane.YES_OPTION) {
+					if(!listClasificacion.getSelectedItem().equals(ticketDTO.getClasificacion())) {
+						clasificacion = (String) listClasificacion.getSelectedItem();
+					}
+
+
+					switch(GestorTickets.derivarTicket(ticketDTO, grupoResolucion, txtObservaciones.getText().trim(), clasificacion)) {
+					case -3:{
+						JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case -2:{
+						JOptionPane.showConfirmDialog(ventanaActual, "Error conectándose a la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case -1:{
+						JOptionPane.showConfirmDialog(ventanaActual, "Grupo de resolucion o clasificación no encontrados en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case 0:{
+						JOptionPane.showConfirmDialog(ventanaActual, "Ticket no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case 1:{
+						JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido derivado exitosamente al grupo: "+grupoResolucion+".", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						ventanaActual.dispose();
+						ventanaAnterior.setVisible(true);
+						consultarTicketPanel.buscar();
+						break;
+					}
+					default:{}
+					}
 				}
 			}
 		}

@@ -401,30 +401,33 @@ public class ActualizarEstadoIntervencionPanel extends PanelCancelable{
 						}
 					}
 				}
-				intervencionDTO.setMotivo(motivo);
-				intervencionDTO.setEstadoIntervencion(estadoseleccionado);
-				intervencionDTO.setClasificacion((String)listClasificacion.getSelectedItem());
-				intervencionDTO.setObservaciones(txtObservaciones.getText().trim());
-				switch(GestorIntervenciones.actualizarEstadoIntervencion(intervencionDTO)) {
-				case -3:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado del ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case -2:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado de la intervencion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case -1:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Error reclasificando el ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-					break;
-				}
-				case 1:{
-					JOptionPane.showConfirmDialog(ventanaActual, "Se actualizo el estado de la intervencion exitosamente.", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-					ventanaActual.dispose();
-					ventanaAnterior.setVisible(true);
-					consultarIntervencionPanel.apretoBuscar();
-					break;
-				}
+				int res = JOptionPane.showConfirmDialog(ventanaActual, "¿Está seguro que desea cambiar el estado de la intervención a "+estadoseleccionado.getName()+"?"+(motivo==null?"":("\nPor el motivo: "+motivo.getName())) , "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if(res == JOptionPane.YES_OPTION) {
+					intervencionDTO.setMotivo(motivo);
+					intervencionDTO.setEstadoIntervencion(estadoseleccionado);
+					intervencionDTO.setClasificacion((String)listClasificacion.getSelectedItem());
+					intervencionDTO.setObservaciones(txtObservaciones.getText().trim());
+					switch(GestorIntervenciones.actualizarEstadoIntervencion(intervencionDTO)) {
+					case -3:{
+						JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado del ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case -2:{
+						JOptionPane.showConfirmDialog(ventanaActual, "Error actualizando el estado de la intervencion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case -1:{
+						JOptionPane.showConfirmDialog(ventanaActual, "Error reclasificando el ticket.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case 1:{
+						JOptionPane.showConfirmDialog(ventanaActual, "Se actualizo el estado de la intervencion exitosamente.", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						ventanaActual.dispose();
+						ventanaAnterior.setVisible(true);
+						consultarIntervencionPanel.apretoBuscar();
+						break;
+					}
+					}
 				}
 			}
 

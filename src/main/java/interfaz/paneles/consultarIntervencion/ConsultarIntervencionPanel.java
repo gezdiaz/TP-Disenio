@@ -91,7 +91,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(5, 10, 5, 5);
+		cons.insets = new Insets(5, 10, 20, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
 		
@@ -135,7 +135,7 @@ public class ConsultarIntervencionPanel extends JPanel {
 		cons.gridy = 2;
 		cons.gridheight = 1;
 		cons.gridwidth = 1;
-		cons.insets = new Insets(5, 5, 5, 5);
+		cons.insets = new Insets(5, 5, 20, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(txtNumTicket, cons);
 		

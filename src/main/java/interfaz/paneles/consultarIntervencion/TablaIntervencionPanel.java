@@ -1,5 +1,6 @@
 package interfaz.paneles.consultarIntervencion;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -70,8 +71,8 @@ public class TablaIntervencionPanel extends JPanel{
 		cons.insets = new Insets(5, 0, 5, 0);
 		cons.anchor = GridBagConstraints.CENTER;
 		cons.fill = GridBagConstraints.BOTH;
-		scroll.setPreferredSize(new Dimension(800, 120));
 		cons.weighty = 2;
+		scroll.setPreferredSize(new Dimension(800, 120));
 		add(scroll, cons);
 
 		btnVerObservaciones.addActionListener(a -> {

@@ -26,8 +26,6 @@ import logicaDeNegocios.entidades.Usuario;
 import logicaDeNegocios.enumeraciones.EstadoIntervencion;
 import logicaDeNegocios.enumeraciones.EstadoTicket;
 
-
-
 public abstract class GestorBD {
 
 	private static EntityManagerFactory emf;
@@ -152,7 +150,7 @@ public abstract class GestorBD {
             Predicate p5 = cb.equal(datos4.get("codigo"), codGrupoActual);
             lstPredicates.add(p5);        
             
-            consulta.where(cb.and((javax.persistence.criteria.Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));     
+            consulta.where(cb.and((Predicate[]) lstPredicates.toArray(new Predicate[lstPredicates.size()])));     
             
             consulta.orderBy(cb.desc(intervenciones.get("idInt")));
             

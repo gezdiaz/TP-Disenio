@@ -50,6 +50,10 @@ public abstract class GestorIntervenciones {
 		
 		Ticket ticket = GestorBD.buscarTicketPorId(numTicket);
 		
+		if(ticket == null) {
+			return false;
+		}
+		
 		Intervencion ultima = ticket.ultimaIntervencion();
 
 		ultima.setObservaciones(observaciones);
@@ -60,6 +64,10 @@ public abstract class GestorIntervenciones {
 
 		ultima.actualizarEstado(cambioEstado);*/
 
+		if(GestorBD.guardarIntervencion(ultima) == 0) {
+			return false;
+		}
+		
 		return true;
 	}
 
