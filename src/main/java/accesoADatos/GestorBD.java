@@ -319,7 +319,7 @@ public abstract class GestorBD {
 		try {
 			EntityManager manager = emf.createEntityManager();
 			manager.getTransaction().begin();
-			Query cons = manager.createQuery("from GrupoResolucion");
+			Query cons = manager.createQuery("from GrupoResolucion g order by g.nombre");
 			grupos = cons.getResultList();
 			manager.getTransaction().commit();
 			manager.close();

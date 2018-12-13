@@ -1,12 +1,9 @@
 package logicaDeNegocios.enumeraciones;
 
-public enum Motivos {
-	
-	
-	
+public enum Motivos{	
+	INTERVENCION_INCORRECTA("Intervencion Incorrecta"),
 	PARCIALMENTE_TERMINADA("Parcialmente Terminada"),
-	TRABAJO_TERMINADO("Trabajo Terminado"), 
-	INTERVENCION_INCORRECTA("Intervencion Incorrecta");
+	TRABAJO_TERMINADO("Trabajo Terminado");
 	
 	private String name;
 	

@@ -1,10 +1,11 @@
 package logicaDeNegocios.enumeraciones;
 
 public enum EstadoTicket {
-	EN_MESA_DE_AYUDA("En mesa de ayuda"),
 	CERRADO("Cerrado"),
-	ESPERA_OK("Espera ok"),
-	DERIVADO("Derivado");
+	DERIVADO("Derivado"),
+	EN_MESA_DE_AYUDA("En mesa de ayuda"),
+	ESPERA_OK("Espera ok");
+	
 	
 	private String name;
 	

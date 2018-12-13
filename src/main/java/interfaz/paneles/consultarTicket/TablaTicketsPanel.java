@@ -194,7 +194,7 @@ public class TablaTicketsPanel extends JPanel {
 				ventanaDerivar.cambiarPanel(new DerivarTicketPanel(ventanaDerivar,tableModel.getTickets().get(tabla.getSelectedRow()), ventana, consultarTicketPanel));
 			}
 			else {
-				JOptionPane.showConfirmDialog(ventana, "Solo se pueden derivar tickets en estado Abierto o en Espera Ok.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "Solo se pueden derivar tickets en estado En mesa de ayuda o en Espera ok.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		else {

@@ -1,12 +1,13 @@
 package logicaDeNegocios.enumeraciones;
 
 public enum EstadoIntervencion {
-	TERMINADO("Terminado"),
+	ASIGNADO("Asignado"),
+	EN_ESPERA("En espera"),
 	INCORRECTO("Incorrecto"),
 	PARCIALMENTE_TERMINADO("Parcialmente terminado"),
-	EN_ESPERA("En espera"),
-	TRABAJANDO("Trabajando"), 
-	ASIGNADO("Asignado");
+	TERMINADO("Terminado"),
+	TRABAJANDO("Trabajando");
+	
 	
 	private String name;
 	
