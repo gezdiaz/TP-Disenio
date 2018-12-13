@@ -142,6 +142,15 @@ public class ActualizarEstadoIntervencionPanel extends PanelCancelable{
 		cons.insets = new Insets(30, 60, 15, 5);
 		cons.anchor = GridBagConstraints.WEST;
 		add(labelAux, cons);
+		
+		labelAux = new JLabel("N° Ticket: "+intervencionDTO.getNumTicket());
+		cons.gridx = 2;
+		cons.gridy = 0;
+		cons.gridheight = 1;
+		cons.gridwidth = 1;
+		cons.insets = new Insets(30, 60, 15, 5);
+		cons.anchor = GridBagConstraints.WEST;
+		add(labelAux, cons);
 
 		labelAux = new JLabel("Estado actual");
 		cons.gridx = 0;
@@ -298,7 +307,7 @@ public class ActualizarEstadoIntervencionPanel extends PanelCancelable{
 		cons.weightx = 1;
 		cons.insets = new Insets(20, 40, 40, 10);
 		cons.fill = GridBagConstraints.NONE;
-		cons.anchor = GridBagConstraints.EAST;
+		cons.anchor = GridBagConstraints.WEST;
 		btnAceptar.addActionListener(a -> {
 			apretoAceptar();		
 		});
@@ -350,7 +359,7 @@ public class ActualizarEstadoIntervencionPanel extends PanelCancelable{
 		cons.weightx = 1;
 		cons.insets = new Insets(20, 10, 40, 25);
 		cons.fill = GridBagConstraints.NONE;
-		cons.anchor = GridBagConstraints.WEST;
+		cons.anchor = GridBagConstraints.EAST;
 		add(btnCancelar, cons);
 	}
 

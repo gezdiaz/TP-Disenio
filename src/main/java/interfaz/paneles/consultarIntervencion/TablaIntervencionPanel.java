@@ -187,15 +187,15 @@ public class TablaIntervencionPanel extends JPanel{
 					ventanaModificar.cambiarPanel(new ActualizarEstadoIntervencionPanel(ventanaModificar, tableModel.getIntervenciones().get(tabla.getSelectedRow()), ventana, consultarIntervencionPanel));
 				}
 				else {
-					JOptionPane.showConfirmDialog(ventana, "No se puede modificar el estado de una intervencion en espera.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showConfirmDialog(ventana, "No se puede modificar el estado de una intervención en espera.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			else {
-				JOptionPane.showConfirmDialog(ventana, "No se puede modificar el estado de una intervencion terminada.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showConfirmDialog(ventana, "No se puede modificar el estado de una intervención terminada.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		else {
-			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervencion.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showConfirmDialog(ventana, "Debe seleccionar una intervención.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 
 	}

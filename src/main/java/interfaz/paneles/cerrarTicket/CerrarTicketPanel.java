@@ -169,7 +169,7 @@ public class CerrarTicketPanel extends PanelCancelable{
 		cons.weightx = 1;
 		cons.insets = new Insets(20, 40, 40, 10);
 		cons.fill = GridBagConstraints.NONE;
-		cons.anchor = GridBagConstraints.EAST;
+		cons.anchor = GridBagConstraints.WEST;
 		btnAceptar.addActionListener(a -> {
 			apretoAceptar(txtObservaciones.getText());		
 		});
@@ -201,7 +201,7 @@ public class CerrarTicketPanel extends PanelCancelable{
 		cons.weightx = 1;
 		cons.insets = new Insets(20, 10, 40, 25);
 		cons.fill = GridBagConstraints.NONE;
-		cons.anchor = GridBagConstraints.WEST;
+		cons.anchor = GridBagConstraints.EAST;
 		btnCancelar.addActionListener(a -> {
 			apretoCancelar(false);
 		});
@@ -246,27 +246,30 @@ public class CerrarTicketPanel extends PanelCancelable{
 			JOptionPane.showConfirmDialog(ventanaActual, "Debe ingresar observaciones.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 		}
 		else {
-			switch(GestorTickets.cerrarTicket(ticketDTO, observaciones)) {
-			case -2:{
-				JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-				break;
-			}
-			case -1:{
-				JOptionPane.showConfirmDialog(ventanaActual, "Error conectándose a la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-				break;
-			}
-			case 0:{
-				JOptionPane.showConfirmDialog(ventanaActual, "Ticket no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-				break;
-			}
-			case 1:{JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido cerrado exitosamente.", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			int res = JOptionPane.showConfirmDialog(ventanaActual, "¿Está seguro que desea cerrar el ticket?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+			if(res == JOptionPane.YES_OPTION) {
+				switch(GestorTickets.cerrarTicket(ticketDTO, observaciones)) {
+				case -2:{
+					JOptionPane.showConfirmDialog(ventanaActual, "No se ha podido actualizar el ticket en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					break;
+				}
+				case -1:{
+					JOptionPane.showConfirmDialog(ventanaActual, "Error conectándose a la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					break;
+				}
+				case 0:{
+					JOptionPane.showConfirmDialog(ventanaActual, "Ticket no encontrado en la base de datos.", "¡Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+					break;
+				}
+				case 1:{JOptionPane.showConfirmDialog(ventanaActual, "El ticket ha sido cerrado exitosamente.", "¡Exito!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 				ventanaActual.dispose();
 				ventanaAnterior.setVisible(true);
 				consultarTicketPanel.buscar();
-			break;
+				break;
+				}
+				default:{}
+				}	
 			}
-			default:{}
-			}	
 		}
 	}
 
